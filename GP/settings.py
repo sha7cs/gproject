@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'GP_app',
     'crispy_forms',
     'crispy_bootstrap5',
+    'users_app',
+    'chatbot',
 ]
 
 MIDDLEWARE = [
