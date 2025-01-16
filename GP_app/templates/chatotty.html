@@ -1,214 +1,229 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chatbot UI</title>
+  <title>Chat Assistant</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      background-color: #f4f4f9;
     }
     .chat-container {
-      width: 400px;
-      max-height: 600px;
-      background-color: #fff;
+      width: 50%;
+      margin: auto;
+      border: 1px solid #ddd;
+      padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
+      background-color: #f9f9f9;
     }
     .messages {
-      flex: 1;
-      padding: 15px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      height: 300px;
+      overflow-y: scroll;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 15px;
     }
     .message {
-      padding: 10px;
-      border-radius: 8px;
-      max-width: 70%;
+      margin: 5px 0;
     }
     .message.user {
-      align-self: flex-end;
-      background-color: #0078d7;
-      color: white;
+      text-align: right;
+      color: blue;
     }
     .message.bot {
-      align-self: flex-start;
-      background-color: #e0e0e0;
-      color: black;
+      text-align: left;
+      color: green;
     }
     .input-bar {
       display: flex;
-      border-top: 1px solid #ddd;
-      padding: 10px;
     }
     .input-bar input {
       flex: 1;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
-      outline: none;
-      font-size: 16px;
     }
     .input-bar button {
-      padding: 10px 15px;
       margin-left: 10px;
+      padding: 10px;
       border: none;
-      background-color: #0078d7;
-      color: white;
       border-radius: 5px;
+      background-color: #007bff;
+      color: white;
       cursor: pointer;
-      font-size: 16px;
     }
     .input-bar button:hover {
-      background-color: #005bb5;
+      background-color: #0056b3;
+    }
+    .category-buttons button, .subcategory-buttons button {
+      margin-right: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+    .category-buttons button:hover, .subcategory-buttons button:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
 <body>
   <div class="chat-container">
     <div class="category-buttons">
-      <button id="category1" onclick="selectCategory('Marketing advice')">Marketing Advice</button>
-      <button id="category2" onclick="selectCategory('Analysis')">Analysis</button>
+      <button onclick="selectCategory('Marketing Advice')">Marketing Advice</button>
+      <button onclick="selectCategory('Analysis')">Analysis</button>
     </div>
     <div class="subcategory-buttons" id="subcategory-buttons" style="display: none;">
-      <!-- Subcategory buttons will be dynamically inserted here -->
+      <!-- Subcategory buttons will be dynamically added here -->
     </div>
     <div class="messages" id="messages">
-      <!-- Messages will appear here -->
-      <div class="message bot">Hello! Please choose a category to begin.</div>
+      <div class="message bot">Hello! Please select a category to start.</div>
     </div>
     <div class="input-bar" id="input-bar" style="display: none;">
       <form id="messageForm">
         {% csrf_token %}
-        <input name="message" type="text" id="messageInput" placeholder="Type your response..." />
+        <input type="text" id="messageInput" placeholder="Type your response...">
         <button type="submit">Send</button>
       </form>
     </div>
   </div>
 
-  <script>
-    const questions = {
-      "Marketing advice": {
-        "Add a new item": [
-          "What type of item are you thinking of adding (e.g., beverage, dessert)?",
-          "Do you want suggestions based on current trends or your sales data?"
-        ],
-        "Suggest promotion": [
-          "How long do you want the promotion to run (e.g., one week, one month)?",
-          "Do you have a specific type of offer in mind (e.g., seasonal, cultural, general)?"
-        ],
-        "Let's chat about marketing": [
-          "What specific aspect of marketing would you like to discuss?",
-          "Are you looking for ideas to increase sales or customer engagement?"
-        ]
-      },
-      "Analysis": {
-        "Failing item": [
-          "What item is currently underperforming?",
-          "Do you have any insights into why this item might not be selling well?"
-        ],
-        "Best time to promote": [
-          "Do you want to focus on a specific time of day (e.g., morning, evening)?",
-          "Would you like suggestions based on current sales patterns?"
-        ],
-        "Overall analysis": [
-          "Do you want a report for a specific time frame (e.g., last week, last month)?",
-          "Are you looking for insights into sales, customer preferences, or both?"
-        ]
-      }
-    };
 
-    function selectCategory(category) {
-      const subcategoryButtons = document.getElementById("subcategory-buttons");
-      subcategoryButtons.innerHTML = ""; // Clear previous buttons
-      subcategoryButtons.style.display = "block";
-
-      const subcategories = questions[category];
-      for (const subcategory in subcategories) {
-        const button = document.createElement("button");
-        button.textContent = subcategory;
-        button.onclick = () => selectSubcategory(category, subcategory);
-        subcategoryButtons.appendChild(button);
-      }
-    }
-
-    function selectSubcategory(category, subcategory) {
-      const messages = document.getElementById("messages");
-      const inputBar = document.getElementById("input-bar");
-
-      const followUpQuestions = questions[category][subcategory];
-      followUpQuestions.forEach(question => {
-        const botMessage = document.createElement("div");
-        botMessage.className = "message bot";
-        botMessage.textContent = question;
-        messages.appendChild(botMessage);
-      });
-
-      inputBar.style.display = "block"; // Enable user input
-      messages.scrollTop = messages.scrollHeight;
-    }
+  <script type="application/json" id="questions-data">
+    {{ questions|json_script }}
   </script>
-
   <script>
-    document.getElementById("messageForm").addEventListener("submit", function(event) {
-      event.preventDefault(); // Prevent default form submission
-
-      const input = document.getElementById("messageInput");
-      const messages = document.getElementById("messages");
-      const message = input.value.trim();
-
-      if (message !== "") {
-        // Add user message
-        const userMessage = document.createElement("div");
-        userMessage.className = "message user";
-        userMessage.textContent = message;
-        messages.appendChild(userMessage);
-
-        // Scroll to the bottom
-        messages.scrollTop = messages.scrollHeight;
-
-        // Clear input field
-        input.value = "";
-
-        // Send message to backend via fetch
-        fetch('/chatbot', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-            'message': message
-          })
-        })
-        .then(response => response.json())
-        .then(data => {
-          const response = data.response;
-          const botMessage = document.createElement("div");
-          botMessage.className = "message bot";
-          botMessage.textContent = response;
-          messages.appendChild(botMessage);
-
-          // Scroll to the bottom
-          messages.scrollTop = messages.scrollHeight;
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
+    function extractJSONFromScript(scriptId) {
+      const scriptElement = document.getElementById(scriptId);
+      if (scriptElement) {
+          // Get the raw content inside the script tag (without the <script> tags)
+          const jsonString = scriptElement.textContent.trim();
+          
+          // Now parse the JSON string
+          try {
+              return JSON.parse(jsonString);
+          } catch (error) {
+              console.error("Error parsing JSON:", error);
+              return null;
+          }
       }
+      return null;
+  }
+  </script>
+<script>
+  let category = null;
+  let subcategory = null;
+  let questionIndex = 0;
+
+  // Function to handle category selection
+  function selectCategory(selectedCategory) {
+    category = selectedCategory;
+    const messages = document.getElementById("messages");
+    messages.innerHTML += `<div class="message bot">You selected: ${category}. Please choose a subcategory below.</div>`;
+    
+    // Dynamically show subcategory buttons
+    const subcategoryButtons = document.getElementById("subcategory-buttons");
+    subcategoryButtons.innerHTML = ''; // Clear previous buttons
+    
+    if (category === 'Marketing Advice') {
+      subcategoryButtons.innerHTML += `<button onclick="selectSubcategory('Marketing Advice','Social Media Strategy')">SEO</button>`;
+      subcategoryButtons.innerHTML += `<button onclick="selectSubcategory('Marketing Advice','Content Marketing')">Content Marketing</button>`;
+    } else if (category === 'Analysis') {
+      subcategoryButtons.innerHTML += `<button onclick="selectSubcategory('Analysis','Sales Performance')">Market Analysis</button>`;
+      subcategoryButtons.innerHTML += `<button onclick="selectSubcategory('Analysis','Customer Feedback')">Competitor Analysis</button>`;
+    }
+
+    subcategoryButtons.style.display = "block"; // Show the subcategory buttons
+  }
+
+  // Function to handle subcategory selection
+  function selectSubcategory(category, selectedSubcategory) {
+    subcategory = selectedSubcategory;
+    questionIndex = 0; // Reset question index to ask the first question
+    const messages = document.getElementById("messages");
+    messages.innerHTML += `<div class="message bot">You selected: ${subcategory}. Let's begin with the questions!</div>`;
+    
+    document.getElementById("input-bar").style.display = "flex";
+    document.getElementById("subcategory-buttons").style.display = "none"; // Hide subcategories after selection
+
+    // Trigger the first question immediately
+    askNextQuestion(category, subcategory);
+  }
+
+  // Function to display the next question
+  function askNextQuestion(category, subcategory) {
+    const messages = document.getElementById("messages");
+    const questionsData = document.getElementById('questions-data').textContent;
+    const cleanedData = questionsData.replace('<script type="application/json">', '').replace('/script>', '').trim();
+    const questions = JSON.parse(cleanedData);
+    const subcategoryQuestions = questions[category][subcategory];
+
+    // Check if all questions have been asked
+    if (questionIndex < subcategoryQuestions.length) {
+      const currentQuestion = subcategoryQuestions[questionIndex];
+      messages.innerHTML += `<div class="message bot">${questionIndex + 1}. ${currentQuestion}?</div>`;
+    } else {
+      // All questions answered, request assistant's response
+      messages.innerHTML += `<div class="message bot">Thanks for your responses! Let me fetch some insights for you...</div>`;
+      getAssistantResponse();
+    }
+  }
+
+  // Function to fetch the assistant's response
+  function getAssistantResponse() {
+    const messages = document.getElementById("messages");
+
+    // Collect answers (you need to track them for each question)
+    const userResponses = document.querySelectorAll('.message.user');
+    const responses = [];
+    userResponses.forEach((userMessage) => {
+      responses.push(userMessage.textContent);  // Collect each user response
     });
-  </script>
+     // Send a request to the backend with all the data (category, subcategory, responses, questionIndex)
+     fetch('/chatbot', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+      'category': category,
+      'subcategory': subcategory,
+      'responses': JSON.stringify(responses),  // Send user responses as a stringified JSON array
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // Display the assistant's response
+      messages.innerHTML += `<div class="message bot">${data.response}</div>`;
+      messages.scrollTop = messages.scrollHeight;  // Scroll to the latest message
+    })
+    .catch((error) => console.error('Error:', error));
+}
+
+  // Event listener for submitting user input
+  document.getElementById("messageForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+    
+    const input = document.getElementById("messageInput");
+    const message = input.value.trim();
+    if (message === "") return;
+
+    const messages = document.getElementById("messages");
+    messages.innerHTML += `<div class="message user">${message}</div>`;
+    
+    input.value = "";
+
+    // Proceed to next question after user response
+    questionIndex++;
+    askNextQuestion(category, subcategory);
+  });
+</script>
+
 
 </body>
 </html>
