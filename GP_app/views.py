@@ -91,7 +91,7 @@ def run_assistant(thread_id, assistant_id, instructions):
                 assistant_response = "".join(
                     block.text.value for block in msg.content if block.type == "text"
                 )
-                return messages
+                return assistant_response
 
     # Return a default message if no assistant response is found
     return "No response from the assistant."
@@ -127,7 +127,9 @@ SUBCATEGORY_QUESTIONS = {
     },
 }
 
-# Chatbot view
+
+
+
 def chatbot(request):
     if request.method == 'GET':
         return render(request, 'chatotty.html', {'questions': SUBCATEGORY_QUESTIONS})
@@ -135,14 +137,20 @@ def chatbot(request):
     if request.method == 'POST':
         category = request.POST.get('category', '').strip()
         subcategory = request.POST.get('subcategory', '').strip()
-        responses = request.POST.get('responses')
+        question = request.POST.get('question', '').strip()
+        user_response = request.POST.get('response', '').strip()
         question_index = int(request.POST.get('questionIndex', 0))
 
-        session = request.session
-        session['category'] = category
-        session['subcategory'] = subcategory
-        session['question_index'] = question_index
-        session.modified = True
+        user = UsersModel.objects.get(id=1)  # Replace with appropriate user logic
+        thread_id = get_or_create_thread(user)
+
+        # Log the assistant's question
+        if question:
+            add_assistant_message_to_thread(thread_id, question)
+
+        # Log the user's response
+        if user_response:
+            add_message_to_thread(thread_id, user_response)
 
         inst =f"""You are a marketing expert giving advice to a café manager in Saudi Arabia. They want help with promotions and marketing advice.
                     Based on this, you asked 3 or 2 follow-up questions to gather information from the user and provide actionable suggestions after the last question is answered.
@@ -150,39 +158,23 @@ def chatbot(request):
                     - Start by asking one specific follow-up question.
                     - After gathering all required information, give a clear, concise recommendation."""
 
-        user = UsersModel.objects.get(id=1)
-        thread_id = get_or_create_thread(user)
-         # Add the initial user message to the thread
-        user_message = f"""I want advice on {category}, specifically {subcategory}."""
-        add_message_to_thread(thread_id, user_message)
-
-        # Ask the first follow-up question based on subcategory
+        # Get the next question or generate a final response
         questions = SUBCATEGORY_QUESTIONS.get(category, {}).get(subcategory, [])
         if question_index < len(questions):
-            current_question = questions[question_index]
-            current_answer = responses[question_index]
-            add_assistant_message_to_thread(thread_id, current_question)
-            add_message_to_thread(thread_id, current_answer)
-            
-            # Prepare the next question for the user
-            question_index += 1
-            session['question_index'] = question_index
-            session.modified = True
+            next_question = questions[question_index]
             return JsonResponse({
-                "response": current_question,
-                "questionIndex": question_index
+                "response": next_question,  # Send the next question
+                "questionIndex": question_index + 1,  # Increment index for the next interaction
             })
         else:
-            # If all questions are answered, ask for the final response
-            final_message = f"""Thanks for your responses! Please provide me with a clear response that follows the context."""
-            add_assistant_message_to_thread(thread_id, final_message)
-
-            # You may want to run an assistant function to analyze responses
-            final_response = run_assistant(thread_id,assistant_id,inst) 
-
-            return JsonResponse({"response": str(final_response)})
+            final_message = "Thank you for your responses! Here’s my advice based on your inputs."
+            final_response = run_assistant(thread_id, assistant_id, inst)
+            return JsonResponse({"response": final_response})
 
     return JsonResponse({"response": "Invalid request."})
+
+
+# Chatbot view
 
 
 #   instruction = f"""

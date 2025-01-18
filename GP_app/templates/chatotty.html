@@ -154,25 +154,6 @@
     askNextQuestion(category, subcategory);
   }
 
-  // Function to display the next question
-  function askNextQuestion(category, subcategory) {
-    const messages = document.getElementById("messages");
-    const questionsData = document.getElementById('questions-data').textContent;
-    const cleanedData = questionsData.replace('<script type="application/json">', '').replace('/script>', '').trim();
-    const questions = JSON.parse(cleanedData);
-    const subcategoryQuestions = questions[category][subcategory];
-
-    // Check if all questions have been asked
-    if (questionIndex < subcategoryQuestions.length) {
-      const currentQuestion = subcategoryQuestions[questionIndex];
-      messages.innerHTML += `<div class="message bot">${questionIndex + 1}. ${currentQuestion}?</div>`;
-    } else {
-      // All questions answered, request assistant's response
-      messages.innerHTML += `<div class="message bot">Thanks for your responses! Let me fetch some insights for you...</div>`;
-      getAssistantResponse();
-    }
-  }
-
   // Function to fetch the assistant's response
   function getAssistantResponse() {
     const messages = document.getElementById("messages");
@@ -207,21 +188,48 @@
 
   // Event listener for submitting user input
   document.getElementById("messageForm").addEventListener("submit", function (event) {
-    event.preventDefault();
-    
-    const input = document.getElementById("messageInput");
-    const message = input.value.trim();
-    if (message === "") return;
+  event.preventDefault();
 
-    const messages = document.getElementById("messages");
-    messages.innerHTML += `<div class="message user">${message}</div>`;
-    
-    input.value = "";
+  const input = document.getElementById("messageInput");
+  const userResponse = input.value.trim();
+  if (userResponse === "") return;
 
-    // Proceed to next question after user response
-    questionIndex++;
-    askNextQuestion(category, subcategory);
-  });
+  const messages = document.getElementById("messages");
+  const currentQuestionElement = messages.querySelector(".message.bot:last-child");
+  const currentQuestion = currentQuestionElement ? currentQuestionElement.textContent : "";
+
+  messages.innerHTML += `<div class="message user">${userResponse}</div>`;
+  input.value = "";
+
+  // Send the current question and user response to the backend
+  fetch('/chatbot', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+      'category': category,
+      'subcategory': subcategory,
+      'question': currentQuestion, // Include the assistant's question
+      'response': userResponse,   // Include the user's response
+      'questionIndex': questionIndex, // Current question index
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // Display the assistant's response (next question or final recommendation)
+      if (data.response) {
+        messages.innerHTML += `<div class="message bot">${data.response}</div>`;
+      }
+      messages.scrollTop = messages.scrollHeight; // Scroll to the latest message
+
+      // Update questionIndex based on backend response if needed
+      questionIndex = data.questionIndex || questionIndex;
+    })
+    .catch((error) => console.error("Error:", error));
+});
+
 </script>
 
 
