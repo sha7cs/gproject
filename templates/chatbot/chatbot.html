@@ -5,75 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chat Assistant</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    .chat-container {
-      width: 50%;
-      margin: auto;
-      border: 1px solid #ddd;
-      padding: 20px;
-      border-radius: 10px;
-      background-color: #f9f9f9;
-    }
-    .messages {
-      height: 300px;
-      overflow-y: scroll;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 10px;
-      margin-bottom: 15px;
-    }
-    .message {
-      margin: 5px 0;
-    }
-    .message.user {
-      text-align: right;
-      color: blue;
-    }
-    .message.bot {
-      text-align: left;
-      color: green;
-    }
-    .input-bar {
-      display: flex;
-    }
-    .input-bar input {
-      flex: 1;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .input-bar button {
-      margin-left: 10px;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      background-color: #007bff;
-      color: white;
-      cursor: pointer;
-    }
-    .input-bar button:hover {
-      background-color: #0056b3;
-    }
-    .category-buttons button, .subcategory-buttons button {
-      margin-right: 10px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      background-color: #007bff;
-      color: white;
-      cursor: pointer;
-    }
-    .category-buttons button:hover, .subcategory-buttons button:hover {
-      background-color: #0056b3;
-    }
-  </style>
+  <link rel="stylesheet" href="{% static 'chat/chat.css' %}">
 </head>
 <body>
   <div class="chat-container">
-    <div class="category-buttons">
+    <div class="category-buttons" id="category-buttons">
       {% for category in categories %}
         <button onclick="selectCategory('{{ category.id }}')">{{ category.name }}</button>
       {% endfor %}
@@ -81,172 +17,27 @@
     <div class="subcategory-buttons" id="subcategory-buttons" style="display: none;">
       <!-- Subcategory buttons will be dynamically added here -->
     </div>
-    <div class="messages" id="messages">
-      <div class="message bot">Hello! Please select a category to start.</div>
+
+    <div class="chat-section" id="chat-section" >
+      <div class="messages" id="messages">
+        <div class="message bot">Hello! i'm your marketing adviser, please feel free to ask me anything.</div>
+      </div>
+      <div class="input-bar" id="input-bar" style="display: flex;">
+        <form id="messageForm">
+          {% csrf_token %}
+          <input type="text" id="messageInput" placeholder="Type your answer..." />
+          <button type="submit">Send</button>
+        </form>
+      </div>
     </div>
-    <div class="input-bar" id="input-bar" style="display: none;">
-      <form id="messageForm">
-        {% csrf_token %}
-        <input type="text" id="messageInput" placeholder="Type your answer..."  />        
-        <button type="submit">Send</button>
-      </form>
-    </div>
-  </div>
+   </div>
 
-<script>
-  let category = null;
-  let subcategory = null;
-  let questionIndex = 0;
-  const categories = JSON.parse('{{ categories_json|escapejs }}');
-  const subcategories = JSON.parse('{{ subcategories_json|escapejs }}');
-  const allquestions = JSON.parse('{{ allquestions_json|escapejs }}');
- 
-  function getSubcategoriesForCategory(categoryId) {
-    return subcategories.filter(subcategory => subcategory.fields.category == categoryId);
-  }
-  function getQuestionsForSubcategory(subcategoryId) {
-      return allquestions.filter(question => question.fields.subcategory == subcategoryId);
-  }
-  function selectCategory(categoryId) {
-    const messages = document.getElementById("messages");
-    messages.innerHTML += `<div class="message bot">Please choose a subcategory now.</div>`;
-
-    const subcategoryButtons = document.getElementById("subcategory-buttons");
-    subcategoryButtons.innerHTML = ''; // Clear previous buttons
-
-    const filteredSubcategories = getSubcategoriesForCategory(categoryId);
-
-    if (filteredSubcategories.length > 0) {
-        filteredSubcategories.forEach(subcategory => {
-            subcategoryButtons.innerHTML += `
-                <button onclick="selectSubcategory('${subcategory.pk}')">
-                    ${subcategory.fields.name}
-                </button>`;
-        });
-    } else {
-        messages.innerHTML += `<div class="message bot">No subcategories found for this category.</div>`;
-    }
-
-    subcategoryButtons.style.display = "block"; // Show the subcategory buttons
-}
-
-function selectSubcategory(subcategoryId) {
-    const messages = document.getElementById("messages");
-    const input = document.getElementById("messageInput");
-    const form = document.getElementById("messageForm"); // Form containing the input field
-    const inputBar = document.getElementById("input-bar");
-    subcategory = subcategories.find(subcategory => subcategory.pk == subcategoryId).fields.name;
-
-    // Display a message indicating the start of the Q&A
-    messages.innerHTML += `<div class="message bot">You selected: ${subcategory}. Please answer these questions:</div>`;
-
-    // Enable the input field and focus it
-    inputBar.style.display = "flex"; // Show the input bar
-    // Reset the question index
-    questionIndex = 0;
-
-    // Trigger the backend interaction by submitting the first request
-    fetch('/chatbot/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-            'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-            'subcategory': subcategory,
-            'category': category, 
-            'question': '', 
-            'response': '', 
-            'questionIndex': questionIndex, 
-        }),
-    })
-        .then(response => response.json())
-        .then(data => {
-            // Display the first question from the backend
-            if (data.response) {
-                messages.innerHTML += `<div class="message bot">${data.response}</div>`;
-            }
-            questionIndex = data.questionIndex || 0; // Update the question index
-            messages.scrollTop = messages.scrollHeight; // Scroll to the latest message
-        })
-        .catch(error => console.error("Error:", error));
-}
-
-  // Event listener for submitting user input
-  document.getElementById("messageForm").addEventListener("submit", function (event) {
-  event.preventDefault(); //يمنع رفرش الصفحة
-
-  const input = document.getElementById("messageInput");
-  const userResponse = input.value.trim();
-  if (userResponse === "") return;
-
-  const messages = document.getElementById("messages");
-  const currentQuestionElement = messages.querySelector(".message.bot:last-child");
-  const currentQuestion = currentQuestionElement ? currentQuestionElement.textContent : "";
-
-  messages.innerHTML += `<div class="message user">${userResponse}</div>`;
-  input.value = "";
-
-  // Send the current question and user response to the backend
-  fetch('/chatbot/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams({
-      'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-      'category': category,
-      'subcategory': subcategory,
-      'question': currentQuestion, // Include the assistant's question
-      'response': userResponse,   // Include the user's response
-      'questionIndex': questionIndex, // Current question index
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.response) {
-        messages.innerHTML += `<div class="message bot">${data.response}</div>`;
-      }
-      messages.scrollTop = messages.scrollHeight; // Scroll to the latest message
-
-      questionIndex = data.questionIndex || questionIndex;
-    })
-    .catch((error) => console.error("Error:", error));
-});
-</script>
+   <script>
+    const categoriesjs = JSON.parse('{{ categories_json|escapejs }}');
+    const subcategoriesjs = JSON.parse('{{ subcategories_json|escapejs }}');
+  </script>
+  <script src="{% static 'chat/chat.js' %}"></script>
+  
 </body>
+
 </html>
-
-<script>
-   // Function to fetch the assistant's response
-//   function getAssistantResponse() {
-//     const messages = document.getElementById("messages");
-
-//     // Collect answers (you need to track them for each question)
-//     const userResponses = document.querySelectorAll('.message.user');
-//     const responses = [];
-//     userResponses.forEach((userMessage) => {
-//       responses.push(userMessage.textContent);  // Collect each user response
-//     });
-//      // Send a request to the backend with all the data (category, subcategory, responses, questionIndex)
-//      fetch('/chatbot', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/x-www-form-urlencoded',
-//     },
-//     body: new URLSearchParams({
-//       'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-//       'category': category,
-//       'subcategory': subcategory,
-//       'responses': JSON.stringify(responses),  // Send user responses as a stringified JSON array
-//     }),
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       // Display the assistant's response
-//       messages.innerHTML += `<div class="message bot">${data.response}</div>`;
-//       messages.scrollTop = messages.scrollHeight;  // Scroll to the latest message
-//     })
-//     .catch((error) => console.error('Error:', error));
-// }
-</script>
