@@ -16,9 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.i18n import i18n_patterns
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
-    path('' , include('GP_app.urls')),
-    path('chatbot/' , include('chatbot.urls')),
-]
+    path('', include('GP_app.urls')),
+    path('chatbot/', include('chatbot.urls')),
+    path('rosetta/' , include("rosetta.urls")),
+)
