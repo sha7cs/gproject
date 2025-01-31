@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-01 01:45+0300\n"
-"PO-Revision-Date: 2025-01-31 14:32+0000\n"
+"POT-Creation-Date: 2025-02-01 02:17+0300\n"
+"PO-Revision-Date: 2025-01-31 23:19+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -27,18 +27,50 @@ msgstr "english"
 msgid "Arabic"
 msgstr "arabic"
 
-#: chatbot/models.py:8
+#: chatbot/models.py:9
 msgid "category"
 msgstr "category"
 
-#: chatbot/models.py:9 chatbot/models.py:17
+#: chatbot/models.py:10 chatbot/models.py:25
 msgid "description"
 msgstr "description"
 
-#: chatbot/models.py:16
+#: chatbot/models.py:14
+msgid "Category"
+msgstr "category"
+
+#: chatbot/models.py:15
+msgid "Categories"
+msgstr "categories"
+
+#: chatbot/models.py:24
 msgid "subcategory"
 msgstr "subcategory"
 
-#: chatbot/models.py:25
+#: chatbot/models.py:30
+msgid "Subcategory"
+msgstr "Subcategory"
+
+#: chatbot/models.py:31
+msgid "Subcategories"
+msgstr "subcategories"
+
+#: chatbot/models.py:40
 msgid "question"
 msgstr "question"
+
+#: chatbot/models.py:45
+msgid "Question"
+msgstr "Question"
+
+#: chatbot/models.py:46
+msgid "Questions"
+msgstr "Questions"
+
+#: templates/welcome.html:4
+msgid "dir"
+msgstr "ltr"
+
+#: templates/welcome.html:513
+msgid "welcomeTitle"
+msgstr "Welcome to our website!"

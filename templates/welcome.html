@@ -1,6 +1,7 @@
 {% load static %}
+{% load i18n %}
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="{% trans 'dir' %}">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -509,7 +510,7 @@
             <div class="col-12">
               <div class="row align-items-center mb-2">
                 <div class="col text-center justify-content-center">
-                  <h1 class="page-title mb-0 mt-2">أهلًا وسهلًا!</h1>
+                  <h1 class="page-title mb-0 mt-2">{% trans 'welcomeTitle' %}</h1>
                   <p class="lead text-muted mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                 </div>
                 <div class="col-auto">
