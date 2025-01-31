@@ -6,20 +6,26 @@ import json
 import openai
 from openai import OpenAI
 from django.core import serializers
+from django.utils. translation import gettext_lazy as _
+from django. utils. translation import get_language, activate, gettext
+
+def set_language(request):
+    activate('es')  # Change to Spanish
+    
+    
+def translate(language):
+    cur_language = get_language()
+    try:
+        activate(language)
+    finally:
+        activate(cur_language)
+        
+        
+
 
 # Initialize OpenAI client
 api_key="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"
 client = openai.Client(api_key=api_key)
-
-# Step 1: Create the Assistant
-def create_assistant():
-    assistant = client.beta.assistants.create(
-        name="Cafe Marketing Assistant",
-        instructions="You are a marketing expert helping a café manager grow their business. Ask follow-up questions to gather details and provide actionable suggestions.",
-        tools=[], 
-        model="gpt-4o"
-    )
-    return assistant.id 
 
 # Step 2: Create a Thread
 def get_or_create_thread(user):
@@ -47,10 +53,10 @@ def add_assistant_message_to_thread(thread_id, assistant_message):
         content=assistant_message
     )
 
-def run_assistant(thread_id, assistant_id, instructions):
+def run_assistant(thread_id, instructions):
     run = client.beta.threads.runs.create_and_poll(
         thread_id=thread_id,
-        assistant_id=assistant_id,
+        assistant_id="asst_2vl0GWgN3eO4zit970iZln8m",
         instructions=instructions
     )
 
@@ -64,11 +70,11 @@ def run_assistant(thread_id, assistant_id, instructions):
                 assistant_response = "".join(
                     block.text.value for block in msg.content if block.type == "text"
                 )
-                return assistant_response
+                return messages
     return "No response from the assistant."
 
-# Global Assistant ID (create once and reuse)
-assistant_id = create_assistant()
+# # Global Assistant ID (create once and reuse)
+# assistant_id = create_assistant()
 
 def chatbot(request):
     if request.method == 'GET':
@@ -128,7 +134,7 @@ def chatbot(request):
         else:
             # Generate the final response
             final_message = "Thank you for your responses! Here’s my advice based on your inputs."
-            final_response = run_assistant(thread_id, assistant_id, inst)
+            final_response = run_assistant(thread_id, inst)
             return JsonResponse({"response": str(final_response)})
 
     return JsonResponse({"response": "Invalid request."})

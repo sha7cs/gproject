@@ -45,11 +45,14 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'users_app',
     'chatbot',
+    'rosetta',
+    'parler',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -62,7 +65,7 @@ ROOT_URLCONF = 'GP.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ os.path.join(BASE_DIR, 'templates'),],
+        'DIRS': [ BASE_DIR /'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -114,11 +117,29 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+from django.utils.translation import gettext_lazy as _
 
+LANGUAGE_CODE = 'ar'
+LANGUAGES = [
+    ('en', _('English')),
+    ('ar', _('Arabic')),
+]
+
+PARLER_LANGUAGES = {
+    None :(
+        {'code': 'en'},
+        {'code' : 'ar'},
+    ),
+    'default':{
+        'fallback':'en' ,
+        'hide_untranslated':False,          
+    }
+}
 TIME_ZONE = 'UTC'
 
-USE_I18N = True
+USE_I18N = True # for developers
+
+# USE_L10N = True # for translators
 
 USE_TZ = True
 
@@ -127,6 +148,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+LOCALE_PATHS = [BASE_DIR / 'locale']
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
