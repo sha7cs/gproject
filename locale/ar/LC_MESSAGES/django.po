@@ -8,15 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-01 02:17+0300\n"
-"PO-Revision-Date: 2025-01-31 23:19+0000\n"
+"POT-Creation-Date: 2025-02-01 22:01+0300\n"
+"PO-Revision-Date: 2025-02-01 18:56+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 "X-Translated-Using: django-rosetta 0.10.1\n"
 
 #: GP/settings.py:124
@@ -66,6 +67,18 @@ msgstr "سؤال"
 #: chatbot/models.py:46
 msgid "Questions"
 msgstr "أسئلة"
+
+#: templates/chatbot/chatbot.html:20
+msgid "botwelcome"
+msgstr "مرحبا، أنا مساعدك التسويقي اسألني اللي تبي!"
+
+#: templates/chatbot/chatbot.html:25
+msgid "typeanswer"
+msgstr "اكتب رسالتك هنا ..."
+
+#: templates/chatbot/chatbot.html:26
+msgid "send"
+msgstr "إرسال"
 
 #: templates/welcome.html:4
 msgid "dir"
