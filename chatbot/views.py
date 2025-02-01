@@ -9,19 +9,15 @@ from django.core import serializers
 from django.utils. translation import gettext_lazy as _
 from django. utils. translation import get_language, activate, gettext
 
-def set_language(request):
-    activate('es')  # Change to Spanish
-    
-    
-def translate(language):
-    cur_language = get_language()
-    try:
-        activate(language)
-    finally:
-        activate(cur_language)
-        
-        
+from django.utils.translation import activate
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
+def set_language(request):
+    language = request.GET.get('language')
+    if language:
+        activate(language)
+    return HttpResponseRedirect(reverse('chatbot'))  # Or whichever URL you want to redirect to
 
 # Initialize OpenAI client
 api_key="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"
@@ -75,17 +71,30 @@ def run_assistant(thread_id, instructions):
 
 # # Global Assistant ID (create once and reuse)
 # assistant_id = create_assistant()
+         
+import traceback
+from django.views.decorators.csrf import csrf_exempt
+import json
 
+@csrf_exempt
 def chatbot(request):
     if request.method == 'GET':
-         # for html
          categories= Category.objects.all()
          subcategories = Subcategory.objects.all()
          allquestions = Question.objects.all()
-         #for script
-         categories_json = serializers.serialize('json', categories, use_natural_primary_keys=True)
-         subcategories_json = serializers.serialize('json', subcategories, use_natural_primary_keys=True)
-         allquestions_json = serializers.serialize('json', allquestions, use_natural_primary_keys=True)
+         categories_json = json.dumps([
+        {'id': category.pk, 'category': category.safe_translation_getter('category', any_language=True)}
+        for category in categories
+        ])
+         subcategories_json = json.dumps([
+            {'id': subcategory.pk, 'subcategory': subcategory.safe_translation_getter('subcategory', any_language=True), 'category': subcategory.category_id}
+            for subcategory in subcategories
+        ])
+         allquestions_json = json.dumps([
+            {'id': question.pk, 'question': question.safe_translation_getter('question', any_language=True), 'subcategory': question.subcategory_id}
+            for question in allquestions
+        ])
+
 
          return render(request, 'chatbot/chatbot.html',{
             'categories': categories,
@@ -95,47 +104,45 @@ def chatbot(request):
             'subcategories_json': subcategories_json,
             'allquestions_json': allquestions_json,
         })
+    try:
+        if request.method == 'POST':
+            subcategory = request.POST.get('subcategory', '').strip()
+            question = request.POST.get('question', '').strip()
+            user_response = request.POST.get('response', '').strip()
+            question_index = int(request.POST.get('questionIndex', 0))
 
-    if request.method == 'POST':
-        subcategory = request.POST.get('subcategory', '').strip()
-        question = request.POST.get('question', '').strip()
-        user_response = request.POST.get('response', '').strip()
-        question_index = int(request.POST.get('questionIndex', 0))
+            user = UsersModel.objects.get(id=1)  # Replace with actual user logic
+            thread_id = get_or_create_thread(user)
 
-        user = UsersModel.objects.get(id=1)  # Replace with appropriate user logic
-        thread_id = get_or_create_thread(user)
+            if question:
+                add_assistant_message_to_thread(thread_id, question)
+            if user_response:
+                add_message_to_thread(thread_id, user_response)
 
-        # Log the assistant's question
-        if question:
-            add_assistant_message_to_thread(thread_id, question)
+            inst = """You are a marketing expert helping a café manager in Saudi Arabia.
+                      Ask 2-3 follow-up questions before providing concise marketing advice."""
 
-        # Log the user's response
-        if user_response:
-            add_message_to_thread(thread_id, user_response)
+            try:
+                subcategory = Subcategory.objects.get(subcategory=subcategory)
+                questions = subcategory.questions.all()
+            except Subcategory.DoesNotExist:
+                return JsonResponse({"error": "Invalid subcategory selected."}, status=400)
 
-        inst =f"""You are a marketing expert helping a café manager in Saudi Arabia. They want friendly and practical advice to improve their marketing.
-                After asking 3 or 2 follow-up questions to understand their goals, provide a short and conversational response with key actionable suggestions.
-                Keep it concise and avoid formal or structured lists.""" # مره افضل خلت الرد قصير وفكرته واضحة 
+            if question_index < questions.count():
+                next_question = questions[question_index].question
+                return JsonResponse({
+                    "response": next_question,
+                    "questionIndex": question_index + 1,
+                })
+            else:
+                final_response = run_assistant(thread_id, inst)
+                return JsonResponse({"response": str(final_response)})
 
-         # Fetch subcategory and related questions
-        try:
-            subcategory = Subcategory.objects.get(name=subcategory)
-            questions = subcategory.questions.all()
-        except Subcategory.DoesNotExist:
-            return JsonResponse({"response": "Invalid subcategory selected."})
+        return JsonResponse({"error": "Invalid request method."}, status=405)
+    
+    except Exception as e:
+        error_message = traceback.format_exc()  # Get full error details
+        print("Backend Error:", error_message)  # Log error in Django console
+        return JsonResponse({"error": "Server error. Check Django logs for details."}, status=500)
 
-        # Determine the next question or generate a final response
-        if question_index < questions.count():
-            next_question = questions[question_index].text
-            return JsonResponse({
-                "response": next_question,  # Send the next question
-                "questionIndex": question_index + 1,  # Increment index for the next interaction
-            })
-        else:
-            # Generate the final response
-            final_message = "Thank you for your responses! Here’s my advice based on your inputs."
-            final_response = run_assistant(thread_id, inst)
-            return JsonResponse({"response": str(final_response)})
-
-    return JsonResponse({"response": "Invalid request."})
-
+  

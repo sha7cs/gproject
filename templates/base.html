@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -19,6 +20,8 @@
     <!-- App CSS -->
     <link rel="stylesheet" href="{% static 'css/app-light.css' %}" id="lightTheme">
     <link rel="stylesheet" href="{% static 'css/app-dark.css' %}" id="darkTheme" disabled>
+    {%block css%} {%endblock%}
+
     <style>
         .hr.solid {
         border-top: 2px solid #999;
@@ -35,6 +38,21 @@
           <input class="form-control mr-sm-2 bg-transparent border-0 pl-4 text-muted" type="search" placeholder="Type something..." aria-label="Search">
         </form>
         <ul class="nav">
+          <li class="nav-item dropdown mt-2">
+            {% get_current_language as CURRENT_LANGUAGE %}
+            {% get_available_languages as AVAILABLE_LANGUAGES %}
+            {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+            
+            <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             languages
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+              {% for language in languages%}
+                <a class="dropdown-item" href="{% url 'set_language' %}?language={{ language.code }}">{{language.name_local }}</a>
+              {% endfor %}
+            </div>
+          </li>
+
           <li class="nav-item">
             <a class="nav-link text-muted my-2" href="#" id="modeSwitcher" data-mode="light">
               <i class="fe fe-sun fe-16"></i>
@@ -119,11 +137,12 @@
           </ul>
         </nav>
       </aside>
-
       {% block content %}
       {% endblock %}
 
+
     </div> <!-- .wrapper -->
+    
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/moment.min.js' %}"></script>
@@ -161,5 +180,6 @@
       gtag('js', new Date());
       gtag('config', 'UA-56159088-1');
     </script>
+     {%block jss%} {%endblock%}
   </body>
 </html>
