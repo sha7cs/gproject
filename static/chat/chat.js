@@ -50,7 +50,7 @@ function selectSubcategory(subcategoryId,category) {
 
     questionIndex = 0;
     // Trigger the backend interaction by submitting the first request
-    fetch('/chatbot/', {
+    fetch('/'+lang+'/chatbot/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -64,13 +64,14 @@ function selectSubcategory(subcategoryId,category) {
             'questionIndex': questionIndex, 
         }),
     })
-    .then(response => response.json().catch(() => { throw new Error("Invalid JSON response"); }))
+    .then(response => response.json())
     .then(data => {
-        if (data.error) {
-            console.error("Error:", data.error);
-            return;
+        // Display the first question from the backend
+        if (data.response) {
+            messages.innerHTML += `<div class="message bot">${data.response}</div>`;
         }
-        console.log("Parsed JSON:", data);
+        questionIndex = data.questionIndex || 0; // Update the question index
+        messages.scrollTop = messages.scrollHeight; // Scroll to the latest message
     })
     .catch(error => console.error("Fetch Error:", error));
     }
@@ -91,7 +92,7 @@ function selectSubcategory(subcategoryId,category) {
     input.value = "";
 
     // Send the current question and user response to the backend
-    fetch('/chatbot/', {
+    fetch('/'+lang+'/chatbot/', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
