@@ -44,9 +44,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'users_app',
-    'chatbot',
     'rosetta',
     'parler',
+    'promotions'
 ]
 
 MIDDLEWARE = [
@@ -155,6 +155,8 @@ STATICFILES_DIRS = [
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+
+X_FRAME_OPTIONS = 'ALLOW-FROM http://127.0.0.1:8000'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'

@@ -10,9 +10,6 @@ def home(request):
 def analytics_view(request):
     return render(request, 'layout/analytics.html' )
 
-def promotions_view(request):
-    return render(request, 'layout/promotions.html' )
-
 def reports_view(request):
     return render(request, 'layout/reports.html' )
 
