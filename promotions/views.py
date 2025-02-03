@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from users_app.models import UsersModel
-from chatbot.models import Category,Subcategory,Question
+from promotions.models import Category,Subcategory,Question
 from django.http import JsonResponse
 import json
 import openai
-from openai import OpenAI
-from django.core import serializers
+# from openai import OpenAI
+# from django.core import serializers
 from django.utils. translation import gettext_lazy as _
 from django. utils. translation import get_language, activate, gettext
 
@@ -17,7 +17,7 @@ def set_language(request):
     language = request.GET.get('language')
     if language:
         activate(language)
-    return HttpResponseRedirect(reverse('chatbot'))  # Or whichever URL you want to redirect to
+    return HttpResponseRedirect(reverse('promotions'))  # Or whichever URL you want to redirect to
 
 # Initialize OpenAI client
 api_key="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"
@@ -73,13 +73,10 @@ def run_assistant(thread_id, instructions):
 # assistant_id = create_assistant()
          
 import traceback
-from django.views.decorators.csrf import csrf_exempt
 import json
 from django.utils.translation import get_language
-from parler.models import TranslatableModel
 from parler.utils import get_active_language_choices
 
-@csrf_exempt
 def chatbot(request):
     if request.method == 'GET':
          categories= Category.objects.all()
@@ -101,7 +98,7 @@ def chatbot(request):
         ])
 
 
-         return render(request, 'chatbot/chatbot.html',{
+         return render(request, 'layout/promotions.html',{
             'categories': categories,
             'subcategories': subcategories,
             'allquestions': allquestions,
@@ -155,5 +152,7 @@ def chatbot(request):
         error_message = traceback.format_exc()  # Get full error details
         print("Backend Error:", error_message)  # Log error in Django console
         return JsonResponse({"error": "Server error. Check Django logs for details."}, status=500)
-
-  
+from django.template.loader import render_to_string
+def promotions_view(request):
+    chat_content = render_to_string('chatbot/chatbot.html', {})
+    return render(request , 'layout/promotions.html')

@@ -50,7 +50,7 @@ function selectSubcategory(subcategoryId,category) {
 
     questionIndex = 0;
     // Trigger the backend interaction by submitting the first request
-    fetch('/'+lang+'/chatbot/', {
+    fetch('/'+lang+'/promotions/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -92,7 +92,7 @@ function selectSubcategory(subcategoryId,category) {
     input.value = "";
 
     // Send the current question and user response to the backend
-    fetch('/'+lang+'/chatbot/', {
+    fetch('/'+lang+'/promotions/', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
