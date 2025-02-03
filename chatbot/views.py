@@ -66,7 +66,7 @@ def run_assistant(thread_id, instructions):
                 assistant_response = "".join(
                     block.text.value for block in msg.content if block.type == "text"
                 )
-                return messages
+                return assistant_response
     return "No response from the assistant."
 
 # # Global Assistant ID (create once and reuse)
@@ -75,6 +75,9 @@ def run_assistant(thread_id, instructions):
 import traceback
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.utils.translation import get_language
+from parler.models import TranslatableModel
+from parler.utils import get_active_language_choices
 
 @csrf_exempt
 def chatbot(request):
@@ -82,6 +85,8 @@ def chatbot(request):
          categories= Category.objects.all()
          subcategories = Subcategory.objects.all()
          allquestions = Question.objects.all()
+         language = get_language()
+
          categories_json = json.dumps([
         {'id': category.pk, 'category': category.safe_translation_getter('category', any_language=True)}
         for category in categories
@@ -103,6 +108,7 @@ def chatbot(request):
             'categories_json': categories_json,
             'subcategories_json': subcategories_json,
             'allquestions_json': allquestions_json,
+            'language': language,
         })
     try:
         if request.method == 'POST':
@@ -121,10 +127,15 @@ def chatbot(request):
 
             inst = """You are a marketing expert helping a café manager in Saudi Arabia.
                       Ask 2-3 follow-up questions before providing concise marketing advice."""
-
+           
             try:
-                subcategory = Subcategory.objects.get(subcategory=subcategory)
-                questions = subcategory.questions.all()
+               subcategory = Subcategory.objects.filter(
+                        translations__language_code__in=get_active_language_choices(),
+                        translations__subcategory=subcategory
+                    ).first()
+               questions = subcategory.questions.filter(
+                    translations__language_code__in=get_active_language_choices()
+                )
             except Subcategory.DoesNotExist:
                 return JsonResponse({"error": "Invalid subcategory selected."}, status=400)
 

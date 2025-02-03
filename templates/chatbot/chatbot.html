@@ -32,6 +32,7 @@
    <script>
     const categoriesjs = JSON.parse('{{ categories_json|escapejs }}');
     const subcategoriesjs = JSON.parse('{{ subcategories_json|escapejs }}');
+    const lang = '{{ language|escapejs }}'
   </script> 
 
   <script src="{% static 'chat/chat.js' %}"></script>
