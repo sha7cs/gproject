@@ -5,6 +5,9 @@ let questionIndex = 0;
 const messages = document.getElementById("messages");
 const chatSection = document.getElementById("chat-section");
 const subcategoryButtons = document.getElementById("subcategory-buttons");
+const categoryTitle = document.getElementById('categoryTitle')
+const subcategoryTitle = document.getElementById('subcategoryTitle')
+
 
 function getSubcategoriesForCategory(categoryId) {
     return subcategoriesjs.filter(subcategory => subcategory.category == categoryId);
@@ -23,12 +26,14 @@ function selectCategory(categoryId) {
     if (filteredSubcategories.length > 0) {
         filteredSubcategories.forEach(subcategory => {
             subcategoryButtons.innerHTML += `
-                <button onclick="selectSubcategory('${subcategory.id}','${category}')">
+                <button class="custom-card-button mx-1" onclick="selectSubcategory('${subcategory.id}','${category}')">
                     ${subcategory.subcategory}
                 </button>`;
         });
     mainCatgoriesButtons.style.display = "none"; // hide the category buttons
     subcategoryButtons.style.display = "flex"; // Show the subcategory buttons
+    categoryTitle.style.display = "none";
+    subcategoryTitle.style.display = "flex";
     } //else {
     //     messages.innerHTML += `<div class="message bot">No subcategries found</div>`;
     //     // messages.innerHTML += `<div class="message bot">${trans('NoSubcategories')}</div>`;
