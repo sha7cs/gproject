@@ -17,10 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
+from analysis import views
+
 
 urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path('', include('GP_app.urls')),
     path('rosetta/' , include("rosetta.urls")),
     path('promotions/' , include("promotions.urls")),
+    path('analysis/', views.analysis_view, name='analysis'), 
 )
