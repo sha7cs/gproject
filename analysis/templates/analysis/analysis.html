@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sales Analysis</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Sales Analysis Dashboard</h2>
+
+       
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-header">Total Sales</div>
+                    <div class="card-body">
+                        <h5>{{ total_sales }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-header">Transactions</div>
+                    <div class="card-body">
+                        <h5>{{ total_transactions }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-header">Best Seller</div>
+                    <div class="card-body">
+                        <h5>{{ best_seller }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h4>Sales by Month</h4>
+                <img src="data:image/png;base64,{{ monthly_chart }}" class="img-fluid" alt="Monthly Sales Chart">
+            </div>
+            <div class="col-md-6">
+                <h4>Category Sales Percentage</h4>
+                <img src="data:image/png;base64,{{ category_chart }}" class="img-fluid" alt="Category Sales Chart">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
