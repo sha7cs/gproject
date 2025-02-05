@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-01 22:01+0300\n"
-"PO-Revision-Date: 2025-02-02 13:06+0000\n"
+"POT-Creation-Date: 2025-02-05 16:25+0300\n"
+"PO-Revision-Date: 2025-02-05 13:29+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -27,58 +27,84 @@ msgstr "english"
 msgid "Arabic"
 msgstr "arabic"
 
-#: chatbot/models.py:9
+#: promotions/models.py:9
 msgid "category"
 msgstr "category"
 
-#: chatbot/models.py:10 chatbot/models.py:25
+#: promotions/models.py:10 promotions/models.py:25
 msgid "description"
 msgstr "description"
 
-#: chatbot/models.py:14
+#: promotions/models.py:14
 msgid "Category"
 msgstr "category"
 
-#: chatbot/models.py:15
+#: promotions/models.py:15
 msgid "Categories"
 msgstr "categories"
 
-#: chatbot/models.py:24
+#: promotions/models.py:24
 msgid "subcategory"
 msgstr "subcategory"
 
-#: chatbot/models.py:30
+#: promotions/models.py:30
 msgid "Subcategory"
 msgstr "Subcategory"
 
-#: chatbot/models.py:31
+#: promotions/models.py:31
 msgid "Subcategories"
 msgstr "subcategories"
 
-#: chatbot/models.py:40
+#: promotions/models.py:40
 msgid "question"
 msgstr "question"
 
-#: chatbot/models.py:45
+#: promotions/models.py:45
 msgid "Question"
 msgstr "Question"
 
-#: chatbot/models.py:46
+#: promotions/models.py:46
 msgid "Questions"
 msgstr "Questions"
 
-#: templates/chatbot/chatbot.html:20
+#: templates/chatbot/chatbot.html:17 templates/layout/promotions.html:99
 msgid "botwelcome"
 msgstr ""
 "Hello! i'm your marketing adviser, please feel free to ask me anything."
 
-#: templates/chatbot/chatbot.html:25
+#: templates/chatbot/chatbot.html:22 templates/layout/promotions.html:104
 msgid "typeanswer"
 msgstr "Type your answer here..."
 
-#: templates/chatbot/chatbot.html:26
+#: templates/chatbot/chatbot.html:23 templates/layout/promotions.html:105
 msgid "send"
 msgstr "Send"
+
+#: templates/layout/promotions.html:12
+msgid "promotions page"
+msgstr "Promotions page"
+
+#: templates/layout/promotions.html:77
+msgid "Welcome to the Chat"
+msgstr "Welcome to the Marketing chat"
+
+#: templates/layout/promotions.html:78
+msgid "Click below to start"
+msgstr ""
+"you can say i'm your marketing expert, i'm here to help you either with "
+"marketing or analysis."
+
+#: templates/layout/promotions.html:79
+msgid "start chat"
+msgstr "click here to start chatting"
+
+#: templates/layout/promotions.html:85
+msgid "select category"
+msgstr "Select a category"
+
+#: templates/layout/promotions.html:93
+msgid "Select a Subcategory"
+msgstr "Select a Subcategory"
 
 #: templates/welcome.html:4
 msgid "dir"
