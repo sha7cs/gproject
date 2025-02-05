@@ -51,6 +51,7 @@ function selectSubcategory(subcategoryId,category) {
     //
 
     subcategoryButtons.style.display = "none";
+    subcategoryTitle.style.display = "none";
     chatSection.classList.add("active"); // Add the 'active' class to make it visible
 
     questionIndex = 0;

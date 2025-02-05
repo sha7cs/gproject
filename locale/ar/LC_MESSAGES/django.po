@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-01 22:01+0300\n"
-"PO-Revision-Date: 2025-02-02 13:06+0000\n"
+"POT-Creation-Date: 2025-02-05 16:25+0300\n"
+"PO-Revision-Date: 2025-02-05 13:44+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -27,57 +27,81 @@ msgstr "الإنجليزية"
 msgid "Arabic"
 msgstr "العربية"
 
-#: chatbot/models.py:9
+#: promotions/models.py:9
 msgid "category"
 msgstr "التصنيف"
 
-#: chatbot/models.py:10 chatbot/models.py:25
+#: promotions/models.py:10 promotions/models.py:25
 msgid "description"
 msgstr "الوصف"
 
-#: chatbot/models.py:14
+#: promotions/models.py:14
 msgid "Category"
 msgstr "التصنيف"
 
-#: chatbot/models.py:15
+#: promotions/models.py:15
 msgid "Categories"
 msgstr "التصنيفات"
 
-#: chatbot/models.py:24
+#: promotions/models.py:24
 msgid "subcategory"
 msgstr "التصنيف الفرعي"
 
-#: chatbot/models.py:30
+#: promotions/models.py:30
 msgid "Subcategory"
 msgstr "التصنيف الفرعي"
 
-#: chatbot/models.py:31
+#: promotions/models.py:31
 msgid "Subcategories"
 msgstr "التصنيفات الفرعية"
 
-#: chatbot/models.py:40
+#: promotions/models.py:40
 msgid "question"
 msgstr "سؤال"
 
-#: chatbot/models.py:45
+#: promotions/models.py:45
 msgid "Question"
 msgstr "سؤال"
 
-#: chatbot/models.py:46
+#: promotions/models.py:46
 msgid "Questions"
 msgstr "أسئلة"
 
-#: templates/chatbot/chatbot.html:20
+#: templates/chatbot/chatbot.html:17 templates/layout/promotions.html:99
 msgid "botwelcome"
 msgstr "مرحبا، أنا مساعدك التسويقي اسألني اللي تبي!"
 
-#: templates/chatbot/chatbot.html:25
+#: templates/chatbot/chatbot.html:22 templates/layout/promotions.html:104
 msgid "typeanswer"
 msgstr "اكتب رسالتك هنا ..."
 
-#: templates/chatbot/chatbot.html:26
+#: templates/chatbot/chatbot.html:23 templates/layout/promotions.html:105
 msgid "send"
 msgstr "إرسال"
+
+#: templates/layout/promotions.html:12
+msgid "promotions page"
+msgstr "صفحة الترويجات"
+
+#: templates/layout/promotions.html:77
+msgid "Welcome to the Chat"
+msgstr "أهلًا انا مساعدك التسويقي!"
+
+#: templates/layout/promotions.html:78
+msgid "Click below to start"
+msgstr "انا شات تقدر تسأله عن أي شيء ممكن تحتاجه بالتسويق، والتحليل "
+
+#: templates/layout/promotions.html:79
+msgid "start chat"
+msgstr "اضغط هنا لبدأ الدردشة"
+
+#: templates/layout/promotions.html:85
+msgid "select category"
+msgstr "اختر التصنيف المرغوب"
+
+#: templates/layout/promotions.html:93
+msgid "Select a Subcategory"
+msgstr "اختر الفئة التي تريد السؤال عنها"
 
 #: templates/welcome.html:4
 msgid "dir"
