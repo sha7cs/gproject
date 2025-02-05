@@ -1,0 +1,112 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-05 16:25+0300\n"
+"PO-Revision-Date: 2025-02-05 13:44+0000\n"
+"Last-Translator:   <admin@example.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Translated-Using: django-rosetta 0.10.1\n"
+
+#: GP/settings.py:124
+msgid "English"
+msgstr "الإنجليزية"
+
+#: GP/settings.py:125
+msgid "Arabic"
+msgstr "العربية"
+
+#: promotions/models.py:9
+msgid "category"
+msgstr "التصنيف"
+
+#: promotions/models.py:10 promotions/models.py:25
+msgid "description"
+msgstr "الوصف"
+
+#: promotions/models.py:14
+msgid "Category"
+msgstr "التصنيف"
+
+#: promotions/models.py:15
+msgid "Categories"
+msgstr "التصنيفات"
+
+#: promotions/models.py:24
+msgid "subcategory"
+msgstr "التصنيف الفرعي"
+
+#: promotions/models.py:30
+msgid "Subcategory"
+msgstr "التصنيف الفرعي"
+
+#: promotions/models.py:31
+msgid "Subcategories"
+msgstr "التصنيفات الفرعية"
+
+#: promotions/models.py:40
+msgid "question"
+msgstr "سؤال"
+
+#: promotions/models.py:45
+msgid "Question"
+msgstr "سؤال"
+
+#: promotions/models.py:46
+msgid "Questions"
+msgstr "أسئلة"
+
+#: templates/chatbot/chatbot.html:17 templates/layout/promotions.html:99
+msgid "botwelcome"
+msgstr "مرحبا، أنا مساعدك التسويقي اسألني اللي تبي!"
+
+#: templates/chatbot/chatbot.html:22 templates/layout/promotions.html:104
+msgid "typeanswer"
+msgstr "اكتب رسالتك هنا ..."
+
+#: templates/chatbot/chatbot.html:23 templates/layout/promotions.html:105
+msgid "send"
+msgstr "إرسال"
+
+#: templates/layout/promotions.html:12
+msgid "promotions page"
+msgstr "صفحة الترويجات"
+
+#: templates/layout/promotions.html:77
+msgid "Welcome to the Chat"
+msgstr "أهلًا انا مساعدك التسويقي!"
+
+#: templates/layout/promotions.html:78
+msgid "Click below to start"
+msgstr "انا شات تقدر تسأله عن أي شيء ممكن تحتاجه بالتسويق، والتحليل "
+
+#: templates/layout/promotions.html:79
+msgid "start chat"
+msgstr "اضغط هنا لبدأ الدردشة"
+
+#: templates/layout/promotions.html:85
+msgid "select category"
+msgstr "اختر التصنيف المرغوب"
+
+#: templates/layout/promotions.html:93
+msgid "Select a Subcategory"
+msgstr "اختر الفئة التي تريد السؤال عنها"
+
+#: templates/welcome.html:4
+msgid "dir"
+msgstr "rtl"
+
+#: templates/welcome.html:513
+msgid "welcomeTitle"
+msgstr "أهلًا وسهلًا!"
