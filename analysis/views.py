@@ -6,13 +6,14 @@ import matplotlib.pyplot as plt
 import io
 import base64
 import ast
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
+
 
 
 file_path = "Data/filtered_data.csv"     
 df = pd.read_csv(file_path)
 
-df['business_date'] = pd.to_datetime(df['business_date'], errors='coerce')
+df['business_date'] = pd.to_datetime(df['business_date'], dayfirst=True, errors='coerce')
 df = df.dropna(subset=['business_date', 'total_price'])
 
 def analysis_view(request):
@@ -68,6 +69,7 @@ def analysis_view(request):
             'monthly_chart': monthly_chart,
             'category_chart': category_chart,
         }
+        #print("Context Data:", context)
 
         return render(request, 'analysis/analysis.html', context)
     except Exception as e:
