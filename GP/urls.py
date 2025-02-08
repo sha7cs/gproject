@@ -25,5 +25,6 @@ urlpatterns = i18n_patterns(
     path('', include('GP_app.urls')),
     path('rosetta/' , include("rosetta.urls")),
     path('promotions/' , include("promotions.urls")),
-    path('analysis/', views.analysis_view, name='analysis'), 
+    path('analysis/', include('analysis.urls')),
+   # path('analysis/', views.analysis_view, name='analysis'), 
 )

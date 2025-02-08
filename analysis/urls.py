@@ -1,7 +1,9 @@
 from django.urls import path
-from .views import analysis_view,filter_data 
+from . import views
 
 urlpatterns = [
-    path('', analysis_view, name='analysis_view'),  
-    path('filter-data/', filter_data, name='filter_data'),
+    path('filter-data/', views.filter_data, name='filter_data'),
+    path('', views.analysis_view, name='analysis'),
+    #path('/analysis/', views.analysis_view, name='analysis'),
 ]
+

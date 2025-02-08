@@ -1,89 +1,66 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 import pandas as pd
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-import io
-import base64
 import ast
-from django.http import HttpResponse, JsonResponse
 
 
-
-file_path = "Data/filtered_data.csv"     
+file_path = "Data/Sales_ARS.csv"
 df = pd.read_csv(file_path)
-
 df['business_date'] = pd.to_datetime(df['business_date'], dayfirst=True, errors='coerce')
 df = df.dropna(subset=['business_date', 'total_price'])
 
 def analysis_view(request):
     try:
-       
         total_sales = df['total_price'].sum()
         total_transactions = len(df)
 
-       
         detailed_orders = df['detailed_orders'].dropna().apply(ast.literal_eval)
         all_items = [item['item'] for order in detailed_orders for item in order]
         best_seller = pd.Series(all_items).value_counts().idxmax()
 
-       
-        monthly_sales = df.groupby(df['business_date'].dt.month)['total_price'].sum()
-        
-        plt.figure(figsize=(6, 4))
-        if not monthly_sales.empty:
-            monthly_sales.plot(kind='bar', color='skyblue')
-        plt.title('Monthly Sales')
-        plt.xlabel('Month')
-        plt.ylabel('Total Sales')
-        buffer = io.BytesIO()
-        plt.savefig(buffer, format='png')
-        buffer.seek(0)
-        monthly_chart = base64.b64encode(buffer.getvalue()).decode('utf-8')
-        buffer.close()
+        monthly_sales = df.groupby(df['business_date'].dt.month)['total_price'].sum().to_dict()
 
-        
+     
+        if len(monthly_sales) >= 2:
+            months = sorted(monthly_sales.keys())
+            current_month = months[-1]
+            previous_month = months[-2]
+            current_sales = monthly_sales[current_month]
+            previous_sales = monthly_sales[previous_month]
+            sales_growth_rate = ((current_sales - previous_sales) / previous_sales) * 100
+        else:
+            sales_growth_rate = 0
+
         category_sales = {}
         for order in detailed_orders:
             for item in order:
                 category = item['category']
                 category_sales[category] = category_sales.get(category, 0) + item['quantity']
-        
-        
-        plt.figure(figsize=(6, 4))
-        category_df = pd.DataFrame.from_dict(category_sales, orient='index', columns=['quantity'])
-        category_df['percentage'] = (category_df['quantity'] / category_df['quantity'].sum()) * 100
-        category_df['percentage'].plot(kind='pie', autopct='%1.1f%%')
-        plt.title('Category Sales Percentage')
-        buffer = io.BytesIO()
-        plt.savefig(buffer, format='png')
-        buffer.seek(0)
-        category_chart = base64.b64encode(buffer.getvalue()).decode('utf-8')
-        buffer.close()
 
-        
         context = {
             'total_sales': total_sales,
             'total_transactions': total_transactions,
             'best_seller': best_seller,
-            'monthly_chart': monthly_chart,
-            'category_chart': category_chart,
+            'sales_growth_rate': round(sales_growth_rate, 2),
+            'monthly_sales': monthly_sales,
+            'category_labels': list(category_sales.keys()),
+            'category_data': list(category_sales.values()),
         }
-        #print("Context Data:", context)
-
         return render(request, 'analysis/analysis.html', context)
     except Exception as e:
-        return HttpResponse(f"Error: {e}")
+        return render(request, 'analysis/error.html', {'error': str(e)})
 
 def filter_data(request):
-    filter_type = request.GET.get('filter', 'month')  
+    filter_type = request.GET.get('filter', 'month')
+    selected_month = request.GET.get('month', None)
 
-    if filter_type == 'day':
-        sales_data = df.groupby(df['business_date'].dt.day)['total_price'].sum()
-    elif filter_type == 'year':
-        sales_data = df.groupby(df['business_date'].dt.year)['total_price'].sum()
-    else: 
-        sales_data = df.groupby(df['business_date'].dt.month)['total_price'].sum()
+    if filter_type == 'day' and selected_month:
+        month_number = int(selected_month)
+        filtered_df = df[df['business_date'].dt.month == month_number]
+        sales_data = filtered_df.groupby(filtered_df['business_date'].dt.day)['total_price'].sum().to_dict()
+    elif filter_type == 'month':
+        sales_data = df.groupby(df['business_date'].dt.month)['total_price'].sum().to_dict()
+    else:
+        sales_data = {}
 
-    sales_chart = sales_data.to_dict()
-    return JsonResponse({'sales_chart': sales_chart})
+    return JsonResponse({'sales': sales_data})
