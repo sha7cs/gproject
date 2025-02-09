@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from users_app.models import UsersModel
-from promotions.models import Category,Subcategory,Question
+from promotions.models import Category,Subcategory,Question, DailyAdvice
 from django.http import JsonResponse
 import json
 import openai
+import pyrebase
 # from openai import OpenAI
 # from django.core import serializers
 from django.utils. translation import gettext_lazy as _
@@ -76,6 +77,24 @@ import traceback
 import json
 from django.utils.translation import get_language
 from parler.utils import get_active_language_choices
+import datetime
+
+
+
+# ####### firebase data integration: 
+# firebaseConfig = {
+#     'apiKey': "AIzaSyDM_4QRe0nk1grjMGXlkiy8zHmuSJXDCdw",
+#     'authDomain': "cafe-data-project-106c5.firebaseapp.com",
+#     'databaseURL': "https://cafe-data-project-106c5-default-rtdb.firebaseio.com",
+#     'projectId': "cafe-data-project-106c5",
+#     'storageBucket': "cafe-data-project-106c5.firebasestorage.app",
+#     'messagingSenderId': "693566101460",
+#     'appId': "1:693566101460:web:b7844759b6275898ab6841",
+#     'measurementId': "G-B1GWW1BPYB"
+# };
+
+# firebase = pyrebase.initialize_app(firebaseConfig)
+# firebase_db = firebase.database()
 
 def chatbot(request):
     if request.method == 'GET':
@@ -96,7 +115,19 @@ def chatbot(request):
             {'id': question.pk, 'question': question.safe_translation_getter('question', any_language=True), 'subcategory': question.subcategory_id}
             for question in allquestions
         ])
+         
+         ####heres the card content stuff 
+         today = datetime.date.today()
+         total_advice = DailyAdvice.objects.count()
 
+         if total_advice == 0:
+             advice_entry = None
+         else:
+            advice_index = today.timetuple().tm_yday % total_advice
+            advice_entry = DailyAdvice.objects.all().order_by('id')[advice_index]
+            advice_entry.set_current_language('en')
+            
+         advice= advice_entry if advice_entry else 'No advice available'
 
          return render(request, 'layout/promotions.html',{
             'categories': categories,
@@ -106,6 +137,7 @@ def chatbot(request):
             'subcategories_json': subcategories_json,
             'allquestions_json': allquestions_json,
             'language': language,
+            'advice':advice,
         })
     try:
         if request.method == 'POST':

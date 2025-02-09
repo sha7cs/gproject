@@ -48,3 +48,18 @@ class Question(TranslatableModel):
 
     def __str__(self):
         return self.question
+
+
+class DailyAdvice(TranslatableModel):
+    translations = TranslatedFields(
+        title=models.CharField(_('title'), max_length=255),
+        advice=models.TextField(_('advice')),
+    )
+    
+    class Meta:
+        verbose_name = _('Daily Advice')
+        verbose_name_plural = _('Daily Advices')
+        ordering = ['id']
+
+    def __str__(self):
+        return self.title

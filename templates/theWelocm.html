@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Road</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: #333;
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px 20px;
+            background-color: #566172;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav a {
+            margin-left: 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 200px 20px;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            margin: 0;
+            color: #5c3f71;
+            animation: fade-in 2s ease-in-out;
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin: 30px 0 60px;
+            color: #566172;
+            animation: fade-in 2.5s ease-in-out;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            animation: fade-in 3s ease-in-out;
+        }
+
+        .hero-buttons a {
+            padding: 20px 40px;
+            border-radius: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .hero-buttons .sign-up {
+            border: 2px solid #c25091;
+            color: #c25091;
+        }
+
+        .hero-buttons .sign-up:hover {
+            background-color: #c25091;
+            color: white;
+        }
+
+        .hero-buttons .log-in {
+            background-color: #c25091;
+            color: white;
+        }
+
+        .hero-buttons .log-in:hover {
+            background-color: #e377b3;  /* Lighter color on hover */
+        }
+
+        /* Animations */
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Circular Animation Section */
+        .slider-container {
+            overflow: hidden;
+            padding: 60px 0;
+            max-width: 100%;
+            position: relative;
+            height: 500px;
+            display: flex;
+            text-align: center;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        .squares-row {
+            width: 200%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .square {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 280px;
+            height: 280px;
+            border-radius: 60px;
+            animation: rotate 6s infinite ease-in-out;
+        }
+        
+        .square h1 {
+            color: white;
+            font-size: 30px;
+            margin: 0 0 10px 0; /* Add margin to create space between h1 and p */
+        }
+        
+        .square p {
+            color: white;
+            font-size: 26px;
+            margin: 0;
+        }
+
+        /* Color Classes */
+        .square.pink { background-color: #c25091; }
+        .square.purple { background-color: #5c3f71; }
+        .square.blue { background-color: #566172; }
+        .square.brown { background-color: #a08e8e; }
+        .square.green { background-color: #88a39b; }
+
+        /* Row Animations */
+        .row-1 {
+            animation: slide-left 18s ease-in-out infinite;
+        }
+
+        .row-2 {
+            animation: slide-right 20s ease-in-out infinite;
+        }
+
+        @keyframes slide-left {
+            0% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(-30%);
+            }
+            100% {
+                transform: translateX(-60%);
+            }
+        }
+        
+        @keyframes slide-right {
+            0% {
+                transform: translateX(-60%);
+            }
+            50% {
+                transform: translateX(-30%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+        
+
+        @keyframes rotate {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(10deg);
+            }
+        }
+
+        /* About and Contact Sections */
+        .section-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section#about {
+            background-color: #a08e8e;
+            color: white;
+        }
+
+        .section#contact {
+            background-color: #c25091;
+            color: white;
+        }
+
+        .section#services {
+            background-color: #88a39b;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #566172;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <div class="nav">
+        <a href="#services">Our Services</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact </a>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Welcome to Road,</h1>
+        <p>Your way to dive deep in the data</p>
+        <div class="hero-buttons">
+            <a href="#" class="sign-up">Sign Up</a>
+            <a href="{% url 'home' %}" class="log-in">Log In</a>
+        </div>
+    </div>
+
+    <!-- Circular Animation Section -->
+    <div class="slider-container">
+        <!-- First Row -->
+        <div class="squares-row row-1">
+            <div class="square pink">
+                <h1>Host a Workshpo</h1><p> to make customer learn something new</p>
+            </div>
+            <div class="square green">
+                <h1>Host a Workshpo</h1><p> to make customer learn something new</p>
+            </div>
+            <div class="square purple"></div>
+            <div class="square blue">
+                <h1>Host a Workshpo</h1><p> to make customer learn something new</p>
+            </div>
+            <div class="square brown"></div>
+        </div>
+
+        <!-- Second Row -->
+        <div class="squares-row row-2">
+            <div class="square blue">
+                <h1>Host a Workshpo</h1><p> to make customer learn something new</p>
+            </div>
+            <div class="square pink"></div>
+            <div class="square brown">
+                <h1>Host a Workshpo</h1><p> to make customer learn something new</p>
+            </div>
+            <div class="square green">
+                <h1>Host a Workshpo</h1><p> to make customer learn something new</p>
+            </div>
+            <div class="square purple"></div>
+        </div>
+    </div>
+
+    <!-- our services Section -->
+    <div class="section-container section" id="services">
+        <h2>Our Services</h2>
+        <p>we will provide you with best ...... </p>
+    </div>
+
+    <!-- About Us Section -->
+    <div class="section-container section" id="about">
+        <h2>About Us</h2>
+        <p>Here is some information about us.</p>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="section-container section" id="contact">
+        <h2>Contact</h2>
+        <p>Get in touch with us through this section.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Team Yummy</p>
+    </footer>
+
+</body>
+</html>
