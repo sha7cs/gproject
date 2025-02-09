@@ -2,12 +2,25 @@ from django.shortcuts import render
 from django.http import JsonResponse
 import pandas as pd
 import ast
+from django. utils.translation import get_language, activate 
+from django.utils.translation import gettext_lazy as _
+from django. utils.translation import get_language, activate
+from django.urls import reverse
 
-
+from django.utils.translation import activate
 file_path = "Data/Sales_ARS.csv"
 df = pd.read_csv(file_path)
 df['business_date'] = pd.to_datetime(df['business_date'], dayfirst=True, errors='coerce')
 df = df.dropna(subset=['business_date', 'total_price'])
+
+
+def set_language(request):
+    language = request.GET['language']
+    if language:
+        activate(language)
+        request.session['django_language'] = language 
+    next_url = request.META.get('HTTP_REFERER', '/')
+    return redirect(next_url) 
 
 def analysis_view(request):
     try:
