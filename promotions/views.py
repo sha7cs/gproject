@@ -5,21 +5,18 @@ from django.http import JsonResponse
 import json
 import openai
 from django.http import HttpResponseRedirect 
-# from openai import OpenAItext
-# from django.core import serializers
 from django.utils.translation import gettext_lazy as _
-from django. utils.translation import get_language, activate
-from django.utils.translation import activate
+from django.utils.translation import get_language, activate
 from django.urls import reverse
-from django.shortcuts import redirect
-def set_language(request):
-    language = request.GET['language']
+
+def set_language(request, urlname):
+    language = request.GET.get('language')
     if language:
         activate(language)
-        request.session['django_language'] = language 
-    next_url = request.META.get('HTTP_REFERER', '/')
-    return redirect(next_url)  # Or whichever URL you want to redirect to
-
+        request.session['django_language'] = language
+    # Redirect to the given URL name
+    return HttpResponseRedirect(reverse(urlname))
+ 
 # Initialize OpenAI client
 api_key="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"
 client = openai.Client(api_key=api_key)
