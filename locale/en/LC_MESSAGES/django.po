@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-05 16:25+0300\n"
-"PO-Revision-Date: 2025-02-05 13:29+0000\n"
+"POT-Creation-Date: 2025-02-09 17:46+0300\n"
+"PO-Revision-Date: 2025-02-09 14:48+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -67,16 +67,33 @@ msgstr "Question"
 msgid "Questions"
 msgstr "Questions"
 
-#: templates/chatbot/chatbot.html:17 templates/layout/promotions.html:99
+#: templates/base.html:88
+msgid "dashboard"
+msgstr "Dashboard"
+
+#: templates/base.html:97
+msgid "analysis"
+msgstr "Analysis"
+
+#: templates/base.html:106
+#| msgid "promotions page"
+msgid "promotions"
+msgstr "Promotions"
+
+#: templates/base.html:115
+msgid "reports"
+msgstr "Reports"
+
+#: templates/chatbot/chatbot.html:17 templates/layout/promotions.html:100
 msgid "botwelcome"
 msgstr ""
 "Hello! i'm your marketing adviser, please feel free to ask me anything."
 
-#: templates/chatbot/chatbot.html:22 templates/layout/promotions.html:104
+#: templates/chatbot/chatbot.html:22 templates/layout/promotions.html:105
 msgid "typeanswer"
 msgstr "Type your answer here..."
 
-#: templates/chatbot/chatbot.html:23 templates/layout/promotions.html:105
+#: templates/chatbot/chatbot.html:23 templates/layout/promotions.html:106
 msgid "send"
 msgstr "Send"
 
@@ -94,15 +111,15 @@ msgstr ""
 "you can say i'm your marketing expert, i'm here to help you either with "
 "marketing or analysis."
 
-#: templates/layout/promotions.html:79
+#: templates/layout/promotions.html:80
 msgid "start chat"
 msgstr "click here to start chatting"
 
-#: templates/layout/promotions.html:85
+#: templates/layout/promotions.html:86
 msgid "select category"
 msgstr "Select a category"
 
-#: templates/layout/promotions.html:93
+#: templates/layout/promotions.html:94
 msgid "Select a Subcategory"
 msgstr "Select a Subcategory"
 

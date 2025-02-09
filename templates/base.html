@@ -85,16 +85,16 @@
             <li class="nav-item w-100">
                 <a class="nav-link" href="{% url 'home' %}">
                     <i class="fe fe-home fe-16"></i>
-                    <span class="ml-3 item-text">لوحة التحكم</span><span class="sr-only">(current)</span>
+                    <span class="ml-3 item-text">{% trans 'dashboard' %}</span><span class="sr-only">(current)</span>
                 </a>
               </li>
           </ul>
           <hr class="my-1 w-50 mx-auto">
           <ul class="navbar-nav flex-fill w-100 mb-2">
             <li class="nav-item w-100">
-                <a class="nav-link" href="{% url 'analytics' %}">
+                <a class="nav-link" href="{% url 'analysis' %}">
                     <i class="fe fe-bar-chart-2 fe-16"></i>
-                    <span class="ml-3 item-text">تحليل المبيعات</span><span class="sr-only">(current)</span>
+                    <span class="ml-3 item-text">{% trans 'analysis' %}</span><span class="sr-only">(current)</span>
                 </a>
               </li>
           </ul>
@@ -103,7 +103,7 @@
             <li class="nav-item w-100">
                 <a class="nav-link" href="{% url 'promotions' %}">
                     <i class="fe fe-trending-up fe-16"></i>
-                    <span class="ml-3 item-text">اقتراحات الترويج</span><span class="sr-only">(current)</span>
+                    <span class="ml-3 item-text">{% trans 'promotions' %}</span><span class="sr-only">(current)</span>
                 </a>
               </li>
           </ul>
@@ -112,7 +112,7 @@
             <li class="nav-item w-100">
                 <a class="nav-link" href="{% url 'reports' %}">
                     <i class="fe fe-file fe-16"></i>
-                    <span class="ml-3 item-text">تقارير</span><span class="sr-only">(current)</span>
+                    <span class="ml-3 item-text">{% trans 'reports' %}</span><span class="sr-only">(current)</span>
                 </a>
               </li>
           </ul>

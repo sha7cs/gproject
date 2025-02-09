@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-05 16:25+0300\n"
-"PO-Revision-Date: 2025-02-05 13:44+0000\n"
+"POT-Creation-Date: 2025-02-09 17:46+0300\n"
+"PO-Revision-Date: 2025-02-09 14:49+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -67,15 +67,32 @@ msgstr "سؤال"
 msgid "Questions"
 msgstr "أسئلة"
 
-#: templates/chatbot/chatbot.html:17 templates/layout/promotions.html:99
+#: templates/base.html:88
+msgid "dashboard"
+msgstr "لوحة التحكم"
+
+#: templates/base.html:97
+msgid "analysis"
+msgstr "تحليل البيانات"
+
+#: templates/base.html:106
+#| msgid "promotions page"
+msgid "promotions"
+msgstr "التسويق"
+
+#: templates/base.html:115
+msgid "reports"
+msgstr "التقارير"
+
+#: templates/chatbot/chatbot.html:17 templates/layout/promotions.html:100
 msgid "botwelcome"
 msgstr "مرحبا، أنا مساعدك التسويقي اسألني اللي تبي!"
 
-#: templates/chatbot/chatbot.html:22 templates/layout/promotions.html:104
+#: templates/chatbot/chatbot.html:22 templates/layout/promotions.html:105
 msgid "typeanswer"
 msgstr "اكتب رسالتك هنا ..."
 
-#: templates/chatbot/chatbot.html:23 templates/layout/promotions.html:105
+#: templates/chatbot/chatbot.html:23 templates/layout/promotions.html:106
 msgid "send"
 msgstr "إرسال"
 
@@ -91,15 +108,15 @@ msgstr "أهلًا انا مساعدك التسويقي!"
 msgid "Click below to start"
 msgstr "انا شات تقدر تسأله عن أي شيء ممكن تحتاجه بالتسويق، والتحليل "
 
-#: templates/layout/promotions.html:79
+#: templates/layout/promotions.html:80
 msgid "start chat"
 msgstr "اضغط هنا لبدأ الدردشة"
 
-#: templates/layout/promotions.html:85
+#: templates/layout/promotions.html:86
 msgid "select category"
 msgstr "اختر التصنيف المرغوب"
 
-#: templates/layout/promotions.html:93
+#: templates/layout/promotions.html:94
 msgid "Select a Subcategory"
 msgstr "اختر الفئة التي تريد السؤال عنها"
 
