@@ -4,20 +4,21 @@ from promotions.models import Category,Subcategory,Question
 from django.http import JsonResponse
 import json
 import openai
-# from openai import OpenAI
+from django.http import HttpResponseRedirect 
+# from openai import OpenAItext
 # from django.core import serializers
-from django.utils. translation import gettext_lazy as _
-from django. utils. translation import get_language, activate, gettext
-
+from django.utils.translation import gettext_lazy as _
+from django. utils.translation import get_language, activate
 from django.utils.translation import activate
-from django.http import HttpResponseRedirect
 from django.urls import reverse
-
+from django.shortcuts import redirect
 def set_language(request):
-    language = request.GET.get('language')
+    language = request.GET['language']
     if language:
         activate(language)
-    return HttpResponseRedirect(reverse('promotions'))  # Or whichever URL you want to redirect to
+        request.session['django_language'] = language 
+    next_url = request.META.get('HTTP_REFERER', '/')
+    return redirect(next_url)  # Or whichever URL you want to redirect to
 
 # Initialize OpenAI client
 api_key="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"

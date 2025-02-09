@@ -1,7 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Sales Analysis</title>
+{% extends "base.html" %}
+{% load static %}
+{% block title%} Sales Analysis {% endblock %}
+
+{% block content %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -35,8 +36,6 @@
             color: rgb(160, 142, 142) !important; /* Gray-Brown */
         }
     </style>
-</head>
-<body>
     <div class="container mt-5">
         <h2 class="text-center">Sales Analysis Dashboard</h2>
 
@@ -157,10 +156,4 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-
-
-
-
-
+{% endblock %}
