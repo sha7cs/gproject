@@ -51,6 +51,8 @@ def analysis_view(request):
             for item in order:
                 category = item['category']
                 category_sales[category] = category_sales.get(category, 0) + item['quantity']
+        
+        
 
         context = {
             'total_sales': total_sales,
@@ -61,6 +63,8 @@ def analysis_view(request):
             'category_labels': list(category_sales.keys()),
             'category_data': list(category_sales.values()),
         }
+        
+                    
         return render(request, 'analysis/analysis.html', context)
     except Exception as e:
         return render(request, 'analysis/error.html', {'error': str(e)})
