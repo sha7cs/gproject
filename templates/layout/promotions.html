@@ -4,6 +4,9 @@
 {% block title%} promotins {% endblock %}
 
 {% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Della+Respira&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'chat/chat.css' %}">
 <main role="main" class="main-content">
   <div class="container-fluid">
@@ -18,11 +21,16 @@
               <div class="col-12 mb-3">
                 <div class="card-big-shadow">
                   <div class="card card-just-text" data-background="color" data-color="green" data-radius="none">
-                    <div class="content">
-                      <h6 class="category">Best cards</h6>
-                      <h4 class="title">Column 2 Card {{ i|add:1 }}</h4>
-                      <p class="description">Information for card {{ i|add:1 }} in column 2.</p>
-                    </div>
+                    <div class="content" style="padding: 10; height: 100%; display: flex; flex-direction: column; text-align: center;">
+                      <h6 class="category della-respira-regular" style="margin-bottom: 20px;">Your Daily Marketing Advice</h6>
+                  
+                      <!-- Centered advice content -->
+                      <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                          <span style="font-weight: bold; margin-bottom: 10px; font-size: 24px;">{{ advice.title }}{{ i|add:1 }}</span>
+                          <span>{{ advice.advice }}{{ i|add:1 }}</span>
+                      </div>
+                  </div>
+                                  
                   </div>
                 </div>
               </div>
@@ -30,7 +38,7 @@
                 <div class="card-big-shadow">
                   <div class="card card-just-text" data-background="color" data-color="pink" data-radius="none">
                     <div class="content">
-                      <h6 class="category">Best cards</h6>
+                      <h6 class="category">Upcoming Season Ideas</h6>
                       <h4 class="title">Column 2 Card {{ i|add:1 }}</h4>
                       <p class="description">Information for card {{ i|add:1 }} in column 2.</p>
                     </div>
@@ -47,7 +55,7 @@
                 <div class="card-big-shadow">
                   <div class="card card-just-text" data-background="color" data-color="bluesh" data-radius="none">
                     <div class="content">
-                      <h6 class="category">Best cards</h6>
+                      <h6 class="category">A catch form your Insights</h6>
                       <h4 class="title">Column 3 Card {{ i|add:1 }}</h4>
                       <p class="description">Information for card {{ i|add:1 }} in column 3.</p>
                     </div>

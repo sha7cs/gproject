@@ -6,9 +6,10 @@ h4, .h4 {
 }
 
 h6, .h6 {
-  font-size: 0.9em;
-  font-weight: 600;
-  text-transform: uppercase;
+
+    font-family: "Della Respira", serif;
+    font-weight: 400;
+
 }
 
 a:hover, a:focus {
@@ -262,4 +263,9 @@ button:hover {
   to {
     opacity: 1;
   }
+}
+.della-respira-regular {
+  font-family: "Della Respira", serif;
+  font-weight: 400;
+  font-style: normal;
 }

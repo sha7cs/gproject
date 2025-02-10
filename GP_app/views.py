@@ -15,3 +15,6 @@ def reports_view(request):
 
 def welcome_view(request):
     return render(request, 'welcome.html' )
+
+def the_welcome(request):
+    return render(request, 'theWelocm.html')
