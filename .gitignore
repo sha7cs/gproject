@@ -1,5 +1,14 @@
 # Virtual Environment
 venv/
 .venv/
+# Ignore macOS system files
+.DS_Store
+
+# Ignore Python bytecode files
+*.pyc
+__pycache__/
+
+# Ignore compiled migration cache files
+migrations/__pycache__/
 
 tempCodeRunnerFile.py
