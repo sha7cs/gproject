@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'users_app',
     'rosetta',
     'parler',
-    'promotions'
+    'promotions',
+    'authentication_app'
 ]
 
 MIDDLEWARE = [

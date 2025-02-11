@@ -12,7 +12,7 @@ from django. utils. translation import get_language, activate, gettext
 from django.utils.translation import activate
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-import pyrebase
+# import pyrebase
 def set_language(request, urlname):
     language = request.GET.get('language')
     if language:
