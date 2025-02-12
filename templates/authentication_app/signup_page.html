@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In</title>
+    <title>Sign Up</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,13 +29,33 @@
             margin-bottom: 20px;
         }
 
+        .message {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
         form {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
 
-        input[type="text"], input[type="password"], input[type="submit"] {
+        input[type="text"], input[type="email"], input[type="password"], input[type="submit"] {
             padding: 10px;
             border-radius: 8px;
             border: 1px solid #a08e8e;
@@ -56,18 +76,18 @@
             background-color: #5c3f71;
         }
 
-        .signup-link {
+        .login-link {
             margin-top: 20px;
             font-size: 14px;
         }
 
-        .signup-link a {
+        .login-link a {
             color: #566172;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .signup-link a:hover {
+        .login-link a:hover {
             text-decoration: underline;
         }
     </style>
@@ -75,16 +95,23 @@
 <body>
 
     <div class="container">
-        <h2>Log In</h2>
-        <form method="POST" action="">
-            {% csrf_token %}
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="submit" value="Log In">
-        </form>
+        <h2>Sign Up</h2>
 
-        <div class="signup-link">
-            <p>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
+        <!-- Display messages (success or error) -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Create Account">
+        </form>        
+
+        <div class="login-link">
+            <p>Already have an account? <a href="{% url 'login_page' %}">Log in</a></p>
         </div>
     </div>
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Log In</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -35,7 +35,7 @@
             gap: 15px;
         }
 
-        input[type="text"], input[type="email"], input[type="password"], input[type="submit"] {
+        input[type="text"], input[type="password"], input[type="submit"] {
             padding: 10px;
             border-radius: 8px;
             border: 1px solid #a08e8e;
@@ -56,38 +56,57 @@
             background-color: #5c3f71;
         }
 
-        .login-link {
+        .signup-link {
             margin-top: 20px;
             font-size: 14px;
         }
 
-        .login-link a {
+        .signup-link a {
             color: #566172;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .login-link a:hover {
+        .signup-link a:hover {
             text-decoration: underline;
         }
-        .helptext {
-            display: none;
+
+        .message {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
         }
-        
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h2>Sign Up</h2>
+        <h2>Log In</h2>
+
+        <!-- Display error messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message error">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
         <form method="POST" action="">
             {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Create Account">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" value="Log In">
         </form>
 
-        <div class="login-link">
-            <p>Already have an account? <a href="{% url 'login_page' %}">Log in</a></p>
+        <div class="signup-link">
+            <p>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
         </div>
     </div>
 
