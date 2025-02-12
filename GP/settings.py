@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'GP_app',
     'crispy_forms',
     'crispy_bootstrap5',
-    'users_app',
     'rosetta',
     'parler',
     'promotions',
@@ -161,3 +160,4 @@ X_FRAME_OPTIONS = 'ALLOW-FROM http://127.0.0.1:8000'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+

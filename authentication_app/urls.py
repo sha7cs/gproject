@@ -1,8 +1,14 @@
 from . import views
 from django.urls import path, include
+from .views import CustomLoginView, SignUpView
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     # path('set-lang/<str:urlname>/', views.set_language, name='set_language'),
-    path('signup' , views.signup , name='signup'),
-    path('login' , views.login_page , name='login_page'),
+    path('signup', SignUpView.as_view(), name='signup'),
+    path('login' , CustomLoginView.as_view() , name='login_page'),
+    path('logout/', LogoutView.as_view(next_page='theWelcome'), name='logout'),
+    path('settings', views.settings, name = "user_settings"),
+    path('update-settings/', views.update_settings, name='update_settings'),
+    path('admindashboard', views.admindashboard, name = "admindashboard")
 ]  

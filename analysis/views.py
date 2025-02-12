@@ -7,7 +7,9 @@ from django.utils.translation import gettext_lazy as _
 from django. utils.translation import get_language, activate
 from django.urls import reverse
 from django.shortcuts import redirect
-
+from authentication_app.decorators import allowed_users, admin_only, unauthenticated_user
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 file_path = "Data/Sales_ARS.csv"
 df = pd.read_csv(file_path)
@@ -22,8 +24,8 @@ def set_language(request):
         request.session['django_language'] = language 
     next_url = request.META.get('HTTP_REFERER', '/')
     return redirect(next_url) 
-
-
+@LoginView
+@allowed_users(allowed_roles=['normal_user'])
 def analysis_view(request):
     try:
         total_sales = df['total_price'].sum()
@@ -68,6 +70,7 @@ def analysis_view(request):
         return render(request, 'analysis/analysis.html', context)
     except Exception as e:
         return render(request, 'analysis/error.html', {'error': str(e)})
+
 
 def filter_data(request):
     filter_type = request.GET.get('filter', 'month')
