@@ -13,6 +13,8 @@ def allowed_users(allowed_roles=[]):
                 if user_group in allowed_roles:
                     return view_func(request, *args, **kwargs)
                 else:
+                    if request.user.is_staff or request.user.is_superuser:
+                            return redirect('admindashboard')
                     return redirect('home')  # Redirect unauthorized users to home
             return redirect('login_page')  # Redirect non-logged-in users to login
         return wrapper_func

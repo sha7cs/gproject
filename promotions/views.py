@@ -100,7 +100,7 @@ import datetime
 
 # firebase = pyrebase.initialize_app(firebaseConfig)
 # firebase_db = firebase.database()
-@LoginView
+@login_required
 @allowed_users(allowed_roles=['normal_user'])
 def chatbot(request):
     if request.method == 'GET':
