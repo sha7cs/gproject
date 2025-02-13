@@ -24,7 +24,7 @@ def set_language(request):
         request.session['django_language'] = language 
     next_url = request.META.get('HTTP_REFERER', '/')
     return redirect(next_url) 
-@LoginView
+@login_required
 @allowed_users(allowed_roles=['normal_user'])
 def analysis_view(request):
     try:

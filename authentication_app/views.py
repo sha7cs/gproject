@@ -68,17 +68,17 @@ class CustomLoginView(LoginView):
  
  
 ##هنا كل هذولي سويتهم بش عشان اضبط الزيدايركت والا يبيلهم شغل واشياء 
-@LoginView
+@login_required
 @allowed_users(allowed_roles=['normal_user'])
 def settings(request):
     return render(request, 'authentication_app/settings.html')
-@LoginView
+@login_required
 @admin_only
 def admindashboard(request):
     return render(request, 'authentication_app/admin_dashboard.html')
 
 #هذي كتبه لي جبت يبي له تعديل مسميات وتعتمد على المودل الي بنسويه بس فمرته تعديل البيانات عادي
-@LoginView
+@login_required
 @allowed_users(allowed_roles=['normal_user'])
 def update_settings(request):
     user_profile = request.user.userprofile  
