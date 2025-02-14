@@ -15,6 +15,51 @@ from django.urls import reverse
 from authentication_app.decorators import allowed_users, admin_only, unauthenticated_user
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+import os
+from django.utils.translation import gettext as _
+import pandas as pd
+from django.conf import settings
+import ast
+
+def analyze_sales_data():
+    csv_path = 'Data/Sales_ARS.csv'
+    df = pd.read_csv(csv_path)
+    print("✅ CSV loaded successfully from:", csv_path)
+
+    df['business_date'] = pd.to_datetime(df['business_date'], format='%d/%m/%Y')
+    df['day_of_month'] = df['business_date'].dt.day
+
+    best_days = df.groupby('day_of_month')['total_price'].sum()
+    best_days_range = best_days.sort_values(ascending=False).head(5).index.tolist()
+    best_days_range = sorted([int(day) for day in best_days_range])
+
+
+    best_time_range = f"{best_days_range[0]}-{best_days_range[-1]} " + _("of the month") if len(best_days_range) > 1 else f"{best_days_range[0]} " + _("of the month")
+
+    df['detailed_orders'] = df['detailed_orders'].apply(lambda x: ast.literal_eval(x) if isinstance(x, str) else x)
+
+    products = []
+    for order_list in df['detailed_orders']:
+        if isinstance(order_list, list):
+            for item in order_list:
+                products.append(item['item'])
+
+    products_df = pd.DataFrame(products, columns=['product'])
+    best_product = products_df['product'].value_counts().idxmin()  
+
+    print(" Best Days to Promote:", best_time_range)
+    print(" Best Product to Discount:", best_product)
+
+    return {"best_time": best_time_range, "best_product": best_product}
+
+def promotions_page(request):
+
+    analysis_results = analyze_sales_data()
+    
+    return render(request, 'layout/promotions.html', {
+        'best_time': analysis_results['best_time'],
+        'best_product': analysis_results['best_product']
+    })
 
 
 def set_language(request, urlname):

@@ -8,27 +8,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2025-02-10 11:15+0300\n"
+"POT-Creation-Date: 2025-02-14 21:29+0000\n"
 "PO-Revision-Date: 2025-02-09 14:48+0000\n"
-=======
-"POT-Creation-Date: 2025-02-10 19:14+0300\n"
-"PO-Revision-Date: 2025-02-10 16:23+0000\n"
->>>>>>> fe37034 ( translate analysis page)
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.10.1\n"
 
-#: GP/settings.py:124
+#: GP/settings.py:134
 msgid "English"
 msgstr "english"
 
-#: GP/settings.py:125
+#: GP/settings.py:135
 msgid "Arabic"
 msgstr "arabic"
 
@@ -72,11 +67,31 @@ msgstr "Question"
 msgid "Questions"
 msgstr "Questions"
 
-#: templates/analysis/analysis.html:4 templates/analysis/analysis.html:42
+#: promotions/models.py:55
+msgid "title"
+msgstr ""
+
+#: promotions/models.py:56
+msgid "advice"
+msgstr ""
+
+#: promotions/models.py:60
+msgid "Daily Advice"
+msgstr ""
+
+#: promotions/models.py:61
+msgid "Daily Advices"
+msgstr ""
+
+#: promotions/views.py:37
+msgid "of the month"
+msgstr ""
+
+#: templates/analysis/analysis.html:5 templates/analysis/analysis.html:43
 msgid "Sales Analysis"
 msgstr "Sales Analysis"
 
-#: templates/analysis/analysis.html:47 templates/analysis/analysis.html:121
+#: templates/analysis/analysis.html:47 templates/analysis/analysis.html:124
 msgid "Total Sales"
 msgstr "Total Sales"
 
@@ -85,129 +100,141 @@ msgid "Transactions"
 msgstr "Transactions"
 
 #: templates/analysis/analysis.html:63
-#| msgid "Best Seller "
 msgid "Best Seller"
 msgstr "Best Seller"
 
 #: templates/analysis/analysis.html:71
+#, fuzzy
 #| msgid "Sales Growth Rate "
-msgid "Sales Growth Rate "
+msgid "Sales Growth Rate"
 msgstr "Sales Growth Rate"
 
-#: templates/analysis/analysis.html:82
+#: templates/analysis/analysis.html:83
 msgid "Filter Data"
 msgstr ""
 
-#: templates/analysis/analysis.html:84
+#: templates/analysis/analysis.html:85
 msgid "By Month"
 msgstr "By Months"
 
-#: templates/analysis/analysis.html:85
+#: templates/analysis/analysis.html:86
 msgid "By Day (Select Month)"
 msgstr "By Days (Select Month)"
 
-#: templates/analysis/analysis.html:88
+#: templates/analysis/analysis.html:89
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:29
 msgid "May"
 msgstr "May"
 
-#: templates/analysis/analysis.html:89
+#: templates/analysis/analysis.html:90
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:30
 msgid "June"
 msgstr "June"
 
-#: templates/analysis/analysis.html:90
+#: templates/analysis/analysis.html:91
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:31
 msgid "July"
 msgstr "July"
 
-#: templates/analysis/analysis.html:91
+#: templates/analysis/analysis.html:92
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:32
 msgid "August"
 msgstr "August"
 
-#: templates/analysis/analysis.html:92
+#: templates/analysis/analysis.html:93
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:33
 msgid "September"
 msgstr "September"
 
-#: templates/analysis/analysis.html:93
+#: templates/analysis/analysis.html:94
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:34
 msgid "October"
 msgstr "October"
 
-#: templates/analysis/analysis.html:94
+#: templates/analysis/analysis.html:95
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:35
 msgid "November"
 msgstr "November"
 
-#: templates/analysis/analysis.html:95
+#: templates/analysis/analysis.html:96
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:36
 msgid "December"
 msgstr "December"
 
-#: templates/analysis/analysis.html:103
+#: templates/analysis/analysis.html:104
 msgid "Sales by Period"
 msgstr ""
 
-#: templates/analysis/analysis.html:107
+#: templates/analysis/analysis.html:109
 msgid "Category Sales Percentage"
 msgstr ""
 
-#: templates/base.html:88
+#: templates/base.html:108
 msgid "dashboard"
 msgstr "Dashboard"
 
-#: templates/base.html:97
+#: templates/base.html:117
 msgid "analysis"
 msgstr "Analysis"
 
-#: templates/base.html:106
+#: templates/base.html:126
 msgid "promotions"
 msgstr "Promotions"
 
-#: templates/base.html:115
+#: templates/base.html:135
 msgid "reports"
 msgstr "Reports"
 
-#: templates/chatbot/chatbot.html:17 templates/layout/promotions.html:100
+#: templates/chatbot/chatbot.html:17
 msgid "botwelcome"
 msgstr ""
 "Hello! i'm your marketing adviser, please feel free to ask me anything."
 
-#: templates/chatbot/chatbot.html:22 templates/layout/promotions.html:105
+#: templates/chatbot/chatbot.html:22
 msgid "typeanswer"
 msgstr "Type your answer here..."
 
-#: templates/chatbot/chatbot.html:23 templates/layout/promotions.html:106
+#: templates/chatbot/chatbot.html:23
 msgid "send"
 msgstr "Send"
 
-#: templates/layout/promotions.html:12
-msgid "promotions page"
+#: templates/layout/promotions.html:15
+#, fuzzy
+#| msgid "promotions page"
+msgid "Promotions Page"
 msgstr "Promotions page"
 
-#: templates/layout/promotions.html:77
+#: templates/layout/promotions.html:40
+msgid "Best Days to Promote"
+msgstr ""
+
+#: templates/layout/promotions.html:42
+msgid "The best days for promotions based on sales trends."
+msgstr ""
+
+#: templates/layout/promotions.html:70
+msgid "Which Product to Discount"
+msgstr ""
+
+#: templates/layout/promotions.html:72
+msgid "This product has the lowest sales and could benefit from a discount."
+msgstr ""
+
+#: templates/layout/promotions.html:85
 msgid "Welcome to the Chat"
 msgstr "Welcome to the Marketing chat"
 
-#: templates/layout/promotions.html:78
+#: templates/layout/promotions.html:86
 msgid "Click below to start"
 msgstr ""
 "you can say i'm your marketing expert, i'm here to help you either with "
 "marketing or analysis."
 
-#: templates/layout/promotions.html:80
-msgid "start chat"
+#: templates/layout/promotions.html:88
+#, fuzzy
+#| msgid "start chat"
+msgid "Start Chat"
 msgstr "click here to start chatting"
-
-#: templates/layout/promotions.html:86
-msgid "select category"
-msgstr "Select a category"
-
-#: templates/layout/promotions.html:94
-msgid "Select a Subcategory"
-msgstr "Select a Subcategory"
 
 #: templates/welcome.html:4
 msgid "dir"
@@ -280,8 +307,8 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:315
 msgid ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
-" hyphens."
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:327
@@ -500,8 +527,8 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1564
 #, python-format
 msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1569
@@ -680,8 +707,7 @@ msgid "Many-to-many relationship"
 msgstr ""
 
 #. Translators: If found as last label character, these punctuation
-#. characters will prevent the default label_suffix to be appended to the
-#. label
+#. characters will prevent the default label_suffix to be appended to the label
 #: venv/lib/python3.12/site-packages/django/forms/boundfield.py:185
 msgid ":?.!"
 msgstr ""
@@ -731,8 +757,7 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:637
 #, python-format
-msgid ""
-"Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
 msgstr[0] ""
@@ -839,8 +864,7 @@ msgid "The inline value did not match the parent instance."
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1450
-msgid ""
-"Select a valid choice. That choice is not one of the available choices."
+msgid "Select a valid choice. That choice is not one of the available choices."
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1594
@@ -1268,10 +1292,10 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:45
 msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or"
-" including the “Referrer-Policy: no-referrer” header, please remove them. "
-"The CSRF protection requires the “Referer” header to do strict referer "
-"checking. If you’re concerned about privacy, use alternatives like <a "
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
 "rel=\"noreferrer\" …> for links to third-party sites."
 msgstr ""
 
@@ -1382,10 +1406,10 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:208
 #, python-format
 msgid ""
-"You are seeing this page because <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
-"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
-"and you have not configured any URLs."
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:217
@@ -1440,6 +1464,12 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/httplib2/__init__.py:1468
 msgid "Redirected but the response is missing a Location: header."
 msgstr ""
+
+#~ msgid "select category"
+#~ msgstr "Select a category"
+
+#~ msgid "Select a Subcategory"
+#~ msgstr "Select a Subcategory"
 
 #, fuzzy
 #~ msgid "total_sales"
