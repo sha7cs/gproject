@@ -8,6 +8,7 @@ class UserProfile(models.Model):
     cafe_name = models.CharField(max_length=255, blank=True, null=True)  # Cafe name
     data_file = models.FileField(upload_to='uploads/', blank=True, null=True)  # Upload CSV or any file
     firebase_config = models.URLField(blank=True, null=True)  # Firebase Config link
-
+    thread_id = models.CharField(max_length=255, blank=True, null=True)  
+    
     def __str__(self):
         return self.user.username  # Display username in admin
