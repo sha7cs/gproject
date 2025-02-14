@@ -78,19 +78,49 @@
           </div>
 
           <!-- Third column: Marketing Chat -->
-          <div class="col-md-4">
-            <div class="chat-container">
-              <div class="cover-container" id="cover-container">
-                <div class="custom-cover">
-                  <h2>{% trans 'Welcome to the Chat' %}</h2>
-                  <p>{% trans 'Click below to start' %}</p>
-                  <img src="{% static 'chat/images/robot.png'%}" alt="Robot" class="robot-image" />
-                  <button class="custom-card-button cover" onclick="startChat()">{% trans 'Start Chat' %}</button>
-                </div>
-              </div>
-            </div>
-          </div>
+<!-- third column -->
+<div class="col-md-4">
+  <div class="chat-container">
+    <!-- Cover Section -->
+    <div class="cover-container" id="cover-container">
+      <div class="custom-cover">
+        <h2>{% trans 'Welcome to the Chat' %}</h2>
+        <p>{% trans 'Click below to start' %}</p>
+        <img src="{% static 'chat/images/robot.png'%}" alt="Robot" class="robot-image" />
+        <button class="custom-card-button cover" onclick="startChat()">{% trans 'start chat' %}</button>
+      </div>
+    </div>
 
+    <!-- Chat Content -->
+    <div class='my-auto flex-column text-center' id="chat-content" style="display: none;">
+      <h2 class="text-center" id="categoryTitle">{% trans 'select category' %}</h2>
+      <div class="d-flex flex-column align-items-center">
+        <div class="category-buttons mx-4" id="category-buttons">
+          {% for category in categories %}
+          <button class="custom-card-button my-2" onclick="selectCategory('{{ category.id }}')">{{ category.category }}</button>
+          {% endfor %}
+        </div>
+      </div>
+      <h2 class="text-center" id="subcategoryTitle" style="display: none;">{% trans 'Select a Subcategory' %}</h2>
+        <div class="subcategory-buttons" id="subcategory-buttons" style="display: none;flex-direction: column; gap: 10px;">
+          <!-- Subcategory buttons dynamically added here -->
+        </div>
+      <div class="chat-section p-1" id="chat-section">
+        <div class="messages" id="messages">
+          <div class="message bot">{% trans 'botwelcome' %}</div>
+        </div>
+        <div class="input-bar" id="input-bar">
+          <form id="messageForm">
+            {% csrf_token %}
+
+            <input type="text" id="messageInput" placeholder="{% trans 'typeanswer' %}" />
+            <button class="custom-card-button" type="submit">{% trans 'send' %}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
         </div> <!-- .row -->
       </div> <!-- .col-12 -->
     </div> <!-- .row -->
@@ -98,10 +128,14 @@
 </main> <!-- main -->
 
 <script>
+  const categoriesjs = JSON.parse('{{ categories_json|escapejs }}');
+  const subcategoriesjs = JSON.parse('{{ subcategories_json|escapejs }}');
+  const lang = '{{ language|escapejs }}'
   function startChat() {
-    document.getElementById('cover-container').style.display = 'none';
-    document.getElementById('chat-content').style.display = 'block';
-  }
+  document.getElementById('cover-container').style.display = 'none';
+  document.getElementById('chat-content').style.display = 'block';
+}
+
 </script>
 
 <script src="{% static 'chat/chat.js' %}"></script>

@@ -1,25 +1,24 @@
 from django.shortcuts import render
-# from users_app.models import UsersModel
+from authentication_app.models import UserProfile
 from promotions.models import Category,Subcategory,Question, DailyAdvice
 from django.http import JsonResponse
 import json
 import openai
 # from openai import OpenAI
 # from django.core import serializers
-from django.utils. translation import gettext_lazy as _
-from django. utils. translation import get_language, activate, gettext
-
-from django.utils.translation import activate
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import get_language, activate
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from authentication_app.decorators import allowed_users, admin_only, unauthenticated_user
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-import os
 from django.utils.translation import gettext as _
 import pandas as pd
 from django.conf import settings
 import ast
+import traceback
+from parler.utils import get_active_language_choices
+import datetime
 
 def analyze_sales_data():
     csv_path = 'Data/Sales_ARS.csv'
@@ -51,16 +50,6 @@ def analyze_sales_data():
     print(" Best Product to Discount:", best_product)
 
     return {"best_time": best_time_range, "best_product": best_product}
-
-def promotions_page(request):
-
-    analysis_results = analyze_sales_data()
-    
-    return render(request, 'layout/promotions.html', {
-        'best_time': analysis_results['best_time'],
-        'best_product': analysis_results['best_product']
-    })
-
 
 def set_language(request, urlname):
     language = request.GET.get('language')
@@ -119,15 +108,7 @@ def run_assistant(thread_id, instructions):
                 )
                 return assistant_response
     return "No response from the assistant."
-
-# # Global Assistant ID (create once and reuse)
-# assistant_id = create_assistant()
-         
-import traceback
-import json
-from django.utils.translation import get_language
-from parler.utils import get_active_language_choices
-import datetime
+  
 
 
 
@@ -145,6 +126,7 @@ import datetime
 
 # firebase = pyrebase.initialize_app(firebaseConfig)
 # firebase_db = firebase.database()
+
 @login_required
 @allowed_users(allowed_roles=['normal_user'])
 def chatbot(request):
@@ -180,6 +162,9 @@ def chatbot(request):
             
          advice= advice_entry if advice_entry else 'No advice available'
 
+         #analysis cards data  
+         analysis_results = analyze_sales_data()
+         
          return render(request, 'layout/promotions.html',{
             'categories': categories,
             'subcategories': subcategories,
@@ -189,6 +174,8 @@ def chatbot(request):
             'allquestions_json': allquestions_json,
             'language': language,
             'advice':advice,
+            'best_time': analysis_results['best_time'],
+            'best_product': analysis_results['best_product']
         })
     try:
         if request.method == 'POST':
@@ -196,9 +183,8 @@ def chatbot(request):
             question = request.POST.get('question', '').strip()
             user_response = request.POST.get('response', '').strip()
             question_index = int(request.POST.get('questionIndex', 0))
-
-            user = UsersModel.objects.get(id=1)  # Replace with actual user logic
-            thread_id = get_or_create_thread(user)
+            user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+            thread_id = get_or_create_thread(user_profile)
 
             if question:
                 add_assistant_message_to_thread(thread_id, question)
@@ -236,6 +222,7 @@ def chatbot(request):
         print("Backend Error:", error_message)  # Log error in Django console
         return JsonResponse({"error": "Server error. Check Django logs for details."}, status=500)
 from django.template.loader import render_to_string
+
 @allowed_users(allowed_roles=['normal_user'])
 def promotions_view(request):
     chat_content = render_to_string('chatbot/chatbot.html', {})
