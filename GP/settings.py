@@ -13,6 +13,16 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+cred = credentials.Certificate("GP/firebase_config/cafe-data-project-106c5-firebase-adminsdk-fbsvc-ffab31fb27.json")
+firebase_admin.initialize_app(cred)
+
+db = firestore.client()
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -43,10 +53,10 @@ INSTALLED_APPS = [
     'GP_app',
     'crispy_forms',
     'crispy_bootstrap5',
-    'users_app',
     'rosetta',
     'parler',
-    'promotions'
+    'promotions',
+    'authentication_app'
 ]
 
 MIDDLEWARE = [
@@ -160,3 +170,4 @@ X_FRAME_OPTIONS = 'ALLOW-FROM http://127.0.0.1:8000'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+

@@ -1,0 +1,93 @@
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm 
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.views import LoginView
+import logging
+from .forms import CreateUser, UserProfileForm #هذولي الفورمز الي بنستخدمهم تلقونهم بفايل فورمز
+from django.contrib import messages
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView
+from django.contrib.auth.models import Group 
+from .decorators import allowed_users, admin_only, unauthenticated_user #هذولي الديكوريترز الي حنا مسوينهم نقدر نسوي الي نحتاج براحتنا
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
+
+##واضح هذا حق الساين ان هههههههههه
+@method_decorator(unauthenticated_user, name='dispatch')
+class SignUpView(CreateView):
+    template_name = 'authentication_app/signup_page.html'
+    form_class = CreateUser # هذي الفروم الي يسويه ياخذه من الفرومز روحوا للملف فيه الشرح 
+    success_url = reverse_lazy('user_settings')  # Redirect to home after signup او ممكن نخليه يروح للوق ان او السيتنقز بكيفنا
+
+    def form_valid(self, form):
+        user = form.save()
+        ## هنا اي يوزر جديد يحطه بقروب النورمال يوزر 
+        NormalUser_group, created = Group.objects.get_or_create(name='normal_user')  
+        user.groups.add(NormalUser_group)
+        
+        #هذا البارت هو الي عليه اختلاف يا يسجله دخول على طول يا يقول له انت سجل من جديد 
+        login(self.request, user) 
+        # messages.success(self.request, 'Account created successfully! You are now logged in.') يمكن نحتاجه بعدين اذا نبي نحط اشعارات
+        return redirect(self.success_url)
+
+    def form_invalid(self, form):
+        for field, errors in form.errors.items():
+            for error in errors:
+                messages.error(self.request, f"{field.capitalize()}: {error}")
+        return super().form_invalid(form)
+
+
+logger = logging.getLogger(__name__) ## هذا اتوقع يسجل اللقوز عشان نراقب الوضع ههههههههه
+@method_decorator(unauthenticated_user, name='dispatch')
+class CustomLoginView(LoginView):
+    template_name = 'authentication_app/login_page.html'
+
+    def get_success_url(self):
+        user = self.request.user
+        if user.is_staff:
+            return reverse_lazy('admindashboard') # اذا ستاف او سوبريوزر يوديه للادمن داشبورد
+        return reverse_lazy('home') # اذا مستخدم عادي يوديه صفحة الهوم
+
+    def form_valid(self, form):
+        logger.info(f"User {form.get_user().username} logged in.")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+ 
+        for field, errors in form.errors.items():
+            for error in errors:
+                messages.error(self.request, f"{field.capitalize()}: {error}")
+
+        return super().form_invalid(form)
+    # هذي لاي شيء نبغى نضيفه زياده ينرسل 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['custom_message'] = 'Log in to access your dashboard.'
+        return context
+ 
+ 
+##هنا كل هذولي سويتهم بش عشان اضبط الزيدايركت والا يبيلهم شغل واشياء 
+@login_required
+@allowed_users(allowed_roles=['normal_user'])
+def settings(request):
+    return render(request, 'authentication_app/settings.html')
+@login_required
+@admin_only
+def admindashboard(request):
+    return render(request, 'authentication_app/admin_dashboard.html')
+
+#هذي كتبه لي جبت يبي له تعديل مسميات وتعتمد على المودل الي بنسويه بس فمرته تعديل البيانات عادي
+@login_required
+@allowed_users(allowed_roles=['normal_user'])
+def update_settings(request):
+    user_profile = request.user.userprofile  
+    form = UserProfileForm(instance=user_profile)
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            return redirect('user_settings')
+
+    return render(request, 'settings_update.html', {'form': form})
