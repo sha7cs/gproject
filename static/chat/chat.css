@@ -201,7 +201,7 @@ button:hover {
 
 .chat-container .message.bot {
   align-self: flex-start;
-  background-color: #e6e0ed;
+  background-color: #faf6ff;
   color: #333;
 }
 
