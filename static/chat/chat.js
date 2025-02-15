@@ -1,21 +1,19 @@
 let category = null;
 let subcategory = null;
 let questionIndex = 0;
-
+let isWaitingForResponse = false; 
 const messages = document.getElementById("messages");
 const chatSection = document.getElementById("chat-section");
 const subcategoryButtons = document.getElementById("subcategory-buttons");
 const categoryTitle = document.getElementById('categoryTitle')
 const subcategoryTitle = document.getElementById('subcategoryTitle')
 
-
 function getSubcategoriesForCategory(categoryId) {
     return subcategoriesjs.filter(subcategory => subcategory.category == categoryId);
 }
 
 function selectCategory(categoryId) {
-    
-    const category = categoriesjs.find(category => category.id == categoryId).category
+    const category = categoriesjs.find(category => category.id == categoryId).category;
         // messages.innerHTML += `<div class="message bot">Please choose a subcategory.</div>`;
     const mainCatgoriesButtons = document.getElementById("category-buttons");
     const subcategoryButtons = document.getElementById("subcategory-buttons");
@@ -47,8 +45,8 @@ function selectSubcategory(subcategoryId,category) {
 
     messages.innerHTML += `<div class="message bot">'You chose ${category} to chat about ${subcategory}. Please answer any given questions sincerly, so i can give you a good advice.</div>`;
    
-
-    //
+    if (isWaitingForResponse) return; // Prevent sending multiple requests
+    isWaitingForResponse = true; // Block further requests
 
     subcategoryButtons.style.display = "none";
     subcategoryTitle.style.display = "none";
@@ -67,7 +65,7 @@ function selectSubcategory(subcategoryId,category) {
             'category': category, 
             'question': '', 
             'response': '', 
-            'questionIndex': questionIndex, 
+            'questionIndex': 0, 
         }),
     })
     .then(response => response.json())
@@ -75,51 +73,56 @@ function selectSubcategory(subcategoryId,category) {
         // Display the first question from the backend
         if (data.response) {
             messages.innerHTML += `<div class="message bot">${data.response}</div>`;
+            questionIndex = data.questionIndex; // Ensure correct index update
         }
         questionIndex = data.questionIndex || 0; // Update the question index
         messages.scrollTop = messages.scrollHeight; // Scroll to the latest message
     })
-    .catch(error => console.error("Fetch Error:", error));
+    .catch(error => console.error("Fetch Error:", error)).finally(() => {
+        isWaitingForResponse = false; // Re-enable sending after response is received
+    });
     }
 
     // Event listener for submitting user input
     document.getElementById("messageForm").addEventListener("submit", function (event) {
-    event.preventDefault(); //يمنع رفرش الصفحة
-
-    const input = document.getElementById("messageInput");
-    const userResponse = input.value.trim();
-    if (userResponse === "") return;
-
-    const messages = document.getElementById("messages");
-    const currentQuestionElement = messages.querySelector(".message.bot:last-child");
-    const currentQuestion = currentQuestionElement ? currentQuestionElement.textContent : "";
-
-    messages.innerHTML += `<div class="message user">${userResponse}</div>`;
-    input.value = "";
-
-    // Send the current question and user response to the backend
-    fetch('/'+lang+'/promotions/', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams({
-        'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-        'category': category,
-        'subcategory': subcategory,
-        'question': currentQuestion, 
-        'response': userResponse,  
-        'questionIndex': questionIndex, 
-    }),
-    })
-    .then((response) => response.json())
-    .then((data) => {
-        if (data.response) {
-        messages.innerHTML += `<div class="message bot">${data.response}</div>`;
-        }
-        messages.scrollTop = messages.scrollHeight; // Scroll to the latest message
-
-        questionIndex = data.questionIndex || questionIndex;
-    })
-    .catch((error) => console.error("Error:", error));
-});
+        event.preventDefault();
+    
+        const input = document.getElementById("messageInput");
+        const userResponse = input.value.trim();
+        if (userResponse === "") return;
+    
+        const messages = document.getElementById("messages");
+        const currentQuestionElement = messages.querySelector(".message.bot:last-child");
+        const currentQuestion = currentQuestionElement ? currentQuestionElement.textContent.trim() : "";
+    
+        messages.innerHTML += `<div class="message user">${userResponse}</div>`;
+        input.value = "";
+    
+        // Send user response to backend
+        fetch('/'+lang+'/promotions/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'category': category,
+                'subcategory': subcategory,
+                'question': currentQuestion, 
+                'response': userResponse,  
+                'questionIndex': questionIndex, 
+            }),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.response) {
+                // Ensure the new question is different from the last one
+                if (data.response !== currentQuestion) {
+                    messages.innerHTML += `<div class="message bot">${data.response}</div>`;
+                }
+            }
+            questionIndex = (data.questionIndex !== undefined) ? data.questionIndex : questionIndex + 1;
+            messages.scrollTop = messages.scrollHeight;
+        })
+        .catch((error) => console.error("Error:", error));
+    });

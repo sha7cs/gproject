@@ -4,8 +4,6 @@ from promotions.models import Category,Subcategory,Question, DailyAdvice
 from django.http import JsonResponse
 import json
 import openai
-# from openai import OpenAI
-# from django.core import serializers
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import get_language, activate
 from django.http import HttpResponseRedirect
@@ -19,6 +17,7 @@ import ast
 import traceback
 from parler.utils import get_active_language_choices
 import datetime
+import markdown
 
 def analyze_sales_data():
     csv_path = 'Data/Sales_ARS.csv'
@@ -88,27 +87,39 @@ def add_assistant_message_to_thread(thread_id, assistant_message):
         role="assistant",
         content=assistant_message
     )
+import time
 
 def run_assistant(thread_id, instructions):
-    run = client.beta.threads.runs.create_and_poll(
-        thread_id=thread_id,
-        assistant_id="asst_2vl0GWgN3eO4zit970iZln8m",
-        instructions=instructions
-    )
+    try:
+        run = client.beta.threads.runs.create_and_poll(
+            thread_id=thread_id,
+            assistant_id="asst_2vl0GWgN3eO4zit970iZln8m",
+            instructions=instructions
+        )
+        retries = 0
+        max_retries=3
+        while run.status != "completed" and retries < max_retries:
+            retries += 1
+            print(f"Run status is {run.status}. Waiting for completion...")
+            time.sleep(20)  # Wait for the specified delay (in seconds)
+            run = client.beta.threads.runs.get(run_id=run.id)
 
-    if run.status == "completed":
-        # Retrieve the assistant's response messages
+        if run.status != "completed":
+            return f"Run status is {run.status}. Assistant hasn't finished processing after {max_retries} retries."
+
         messages = client.beta.threads.messages.list(thread_id=thread_id)
+        if not messages:
+            return "No messages found in the thread."
 
-        # Extract assistant's response from the messages
         for msg in messages:
             if msg.role == "assistant":
                 assistant_response = "".join(
                     block.text.value for block in msg.content if block.type == "text"
                 )
-                return assistant_response
-    return "No response from the assistant."
-  
+                return assistant_response  # Only return the assistant's response text
+        return "No response from the assistant."
+    except Exception as e:
+            return f"An error occurred: {str(e)}"  
 
 
 
@@ -126,6 +137,7 @@ def run_assistant(thread_id, instructions):
 
 # firebase = pyrebase.initialize_app(firebaseConfig)
 # firebase_db = firebase.database()
+
 
 @login_required
 @allowed_users(allowed_roles=['normal_user'])
@@ -179,10 +191,12 @@ def chatbot(request):
         })
     try:
         if request.method == 'POST':
+            print("Received POST request with data:", request.POST)
             subcategory = request.POST.get('subcategory', '').strip()
             question = request.POST.get('question', '').strip()
             user_response = request.POST.get('response', '').strip()
-            question_index = int(request.POST.get('questionIndex', 0))
+            question_index = int(request.POST.get('questionIndex'))
+            
             user_profile, created = UserProfile.objects.get_or_create(user=request.user)
             thread_id = get_or_create_thread(user_profile)
 
@@ -206,15 +220,24 @@ def chatbot(request):
                 return JsonResponse({"error": "Invalid subcategory selected."}, status=400)
 
             if question_index < questions.count():
+                print(f'this is the question index: {question_index }')
+                print(f'this is the number of questions: {questions.count()}')
                 next_question = questions[question_index].question
                 return JsonResponse({
                     "response": next_question,
-                    "questionIndex": question_index + 1,
+                    "questionIndex": question_index + 2,  # Increment correctly
                 })
-            else:
+              
+            elif question_index == questions.count():
+                print(f'this is the question index: {question_index }')
+                print(f'this is the number of questions: {questions.count()}')
+                # Only generate assistant response once all questions are answered
                 final_response = run_assistant(thread_id, inst)
-                return JsonResponse({"response": str(final_response)})
-
+                return JsonResponse({"response": markdown.markdown(str(final_response))})
+            else:
+                # No more questions
+                return JsonResponse({"response": "Thank you! The process is complete."})
+            
         return JsonResponse({"error": "Invalid request method."}, status=405)
     
     except Exception as e:
@@ -223,7 +246,3 @@ def chatbot(request):
         return JsonResponse({"error": "Server error. Check Django logs for details."}, status=500)
 from django.template.loader import render_to_string
 
-@allowed_users(allowed_roles=['normal_user'])
-def promotions_view(request):
-    chat_content = render_to_string('chatbot/chatbot.html', {})
-    return render(request , 'layout/promotions.html')
