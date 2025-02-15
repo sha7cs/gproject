@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-14 21:29+0000\n"
-"PO-Revision-Date: 2025-02-14 21:31+0000\n"
+"PO-Revision-Date: 2025-02-15 02:51+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ar\n"
@@ -69,7 +69,7 @@ msgstr "أسئلة"
 
 #: promotions/models.py:55
 msgid "title"
-msgstr ""
+msgstr "العنوان"
 
 #: promotions/models.py:56
 msgid "advice"
@@ -196,7 +196,6 @@ msgid "send"
 msgstr "إرسال"
 
 #: templates/layout/promotions.html:15
-#, fuzzy
 #| msgid "promotions page"
 msgid "Promotions Page"
 msgstr "صفحة الترويجات"
@@ -226,7 +225,6 @@ msgid "Click below to start"
 msgstr "انا شات تقدر تسأله عن أي شيء ممكن تحتاجه بالتسويق، والتحليل "
 
 #: templates/layout/promotions.html:88
-#, fuzzy
 #| msgid "start chat"
 msgid "Start Chat"
 msgstr "اضغط هنا لبدأ الدردشة"
@@ -275,7 +273,7 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:22
 msgid "Enter a valid value."
-msgstr ""
+msgstr "ادخل قيمة صحيحة"
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:70
 msgid "Enter a valid domain name."
@@ -284,15 +282,15 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/core/validators.py:152
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:768
 msgid "Enter a valid URL."
-msgstr ""
+msgstr "ادخل رابط صحيح"
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:213
 msgid "Enter a valid integer."
-msgstr ""
+msgstr "ادخل رقم صحيح"
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:224
 msgid "Enter a valid email address."
-msgstr ""
+msgstr "ادخل ايميل بالصيغة الصحيحة "
 
 #. Translators: "letters" means latin letters: a-z and A-Z.
 #: venv/lib/python3.12/site-packages/django/core/validators.py:307
@@ -392,7 +390,7 @@ msgstr[5] ""
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:359
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:398
 msgid "Enter a number."
-msgstr ""
+msgstr "ادخل رقم"
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:534
 #, python-format
@@ -438,12 +436,12 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:677
 msgid "Null characters are not allowed."
-msgstr ""
+msgstr "القيم الفارغة غير مسموح بها "
 
 #: venv/lib/python3.12/site-packages/django/db/models/base.py:1571
 #: venv/lib/python3.12/site-packages/django/forms/models.py:908
 msgid "and"
-msgstr ""
+msgstr "و"
 
 #: venv/lib/python3.12/site-packages/django/db/models/base.py:1573
 #, python-format
@@ -462,7 +460,7 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:135
 msgid "This field cannot be null."
-msgstr ""
+msgstr "هذا المدخل لا يمكن ان يكون فارغ"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:136
 msgid "This field cannot be blank."
@@ -567,14 +565,13 @@ msgid ""
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1863
-#, fuzzy
 #| msgid "question"
 msgid "Duration"
-msgstr "سؤال"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1915
 msgid "Email address"
-msgstr ""
+msgstr "البريد الإلكتروني"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1940
 msgid "File path"
@@ -596,7 +593,7 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2062
 msgid "Integer"
-msgstr ""
+msgstr "عدد صحيح"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2158
 msgid "Big (8 byte) integer"
@@ -630,7 +627,7 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2374
 msgid "Positive integer"
-msgstr ""
+msgstr "عدد موجب"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2389
 msgid "Positive small integer"
@@ -643,7 +640,7 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2441
 msgid "Text"
-msgstr ""
+msgstr "نص"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2521
 #, python-format
@@ -661,11 +658,11 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2529
 msgid "Time"
-msgstr ""
+msgstr "وقت"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2637
 msgid "URL"
-msgstr ""
+msgstr "رابط"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2661
 msgid "Raw binary data"
@@ -682,11 +679,11 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/files.py:244
 msgid "File"
-msgstr ""
+msgstr "ملف"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/files.py:420
 msgid "Image"
-msgstr ""
+msgstr "صورة"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/json.py:24
 msgid "A JSON object"
@@ -741,12 +738,12 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:479
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1260
 msgid "Enter a valid date."
-msgstr ""
+msgstr "ادخل تاريخ صحيح"
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:502
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1261
 msgid "Enter a valid time."
-msgstr ""
+msgstr "ادخل وقت صحيح"
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:529
 msgid "Enter a valid date/time."
@@ -867,7 +864,7 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/formsets.py:499
 msgid "Delete"
-msgstr ""
+msgstr "حذف"
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:901
 #, python-format
@@ -929,11 +926,11 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/widgets.py:801
 msgid "Yes"
-msgstr ""
+msgstr "نعم"
 
 #: venv/lib/python3.12/site-packages/django/forms/widgets.py:802
 msgid "No"
-msgstr ""
+msgstr "لا"
 
 #. Translators: Please do not add spaces around commas.
 #: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:873
@@ -1276,8 +1273,8 @@ msgstr[5] ""
 #, python-format
 msgid "%(num)d month"
 msgid_plural "%(num)d months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(num)d شهر"
+msgstr[1] "%(num)d أشهر"
 msgstr[2] ""
 msgstr[3] ""
 msgstr[4] ""

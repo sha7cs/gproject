@@ -9,7 +9,8 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
     <title> {% block title %} index {% endblock %}</title>
-    <!-- Simple bar CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- Simple bar CSS -->
     <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
     <!-- Fonts CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -68,12 +69,16 @@
           </li> {% endcomment %}
           <li class="nav-item dropdown mt-2 mx-1">
             <a class="nav-link dropdown-toggle text-muted pr-0 " href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              profile
+              <i style="font-size:18px" class="fa">&#xf007;</i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Profile</a>
-              <a class="dropdown-item" href="#">Settings</a>
-              <a class="dropdown-item" href="#">Activities</a>
+              <a class="dropdown-item" href="#">Settings</a>             
+              <a class="dropdown-item " href="{% url 'logout' %}">
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="dropdown-item" style="padding:0px;">Logout</button>
+                </form>
+            </a>
             </div>
           </li>
           <li class="nav-item">
