@@ -139,7 +139,7 @@ def run_assistant(thread_id, instructions):
 
 
 @login_required
-@allowed_users(allowed_roles=['normal_user'])
+@allowed_users(allowed_roles=['normal_user','admins'])
 def chatbot(request):
     if request.method == 'GET':
          categories= Category.objects.all()

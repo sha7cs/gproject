@@ -33,14 +33,14 @@ def get_sales_data():
 
     return df
 
-def set_language(request):
+# def set_language(request):
     
-    language = request.GET.get('language')
-    if language:
-        activate(language)
-        request.session['django_language'] = language 
-    next_url = request.META.get('HTTP_REFERER', '/')
-    return redirect(next_url) 
+#     language = request.GET.get('language')
+#     if language:
+#         activate(language)
+#         request.session['django_language'] = language 
+#     next_url = request.META.get('HTTP_REFERER', '/')
+#     return redirect(next_url) 
 
 def analysis_view(request):
     """تحليل بيانات المبيعات وعرضها في الصفحة"""
