@@ -59,8 +59,7 @@ def set_language(request, urlname):
     return HttpResponseRedirect(reverse(urlname))
  
 # Initialize OpenAI client
-api_key="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"
-client = openai.Client(api_key=api_key)
+client = openai.Client(api_key = settings.OPENAI_API_KEY)
 
 # Step 2: Create a Thread
 def get_or_create_thread(user):
@@ -191,7 +190,6 @@ def chatbot(request):
         })
     try:
         if request.method == 'POST':
-            print("Received POST request with data:", request.POST)
             subcategory = request.POST.get('subcategory', '').strip()
             question = request.POST.get('question', '').strip()
             user_response = request.POST.get('response', '').strip()
@@ -220,8 +218,6 @@ def chatbot(request):
                 return JsonResponse({"error": "Invalid subcategory selected."}, status=400)
 
             if question_index < questions.count():
-                print(f'this is the question index: {question_index }')
-                print(f'this is the number of questions: {questions.count()}')
                 next_question = questions[question_index].question
                 return JsonResponse({
                     "response": next_question,
@@ -229,8 +225,6 @@ def chatbot(request):
                 })
               
             elif question_index == questions.count():
-                print(f'this is the question index: {question_index }')
-                print(f'this is the number of questions: {questions.count()}')
                 # Only generate assistant response once all questions are answered
                 final_response = run_assistant(thread_id, inst)
                 return JsonResponse({"response": markdown.markdown(str(final_response))})
