@@ -27,5 +27,7 @@ urlpatterns = i18n_patterns(
     path('promotions/' , include("promotions.urls")),
     path('analysis/', include('analysis.urls')),
    # path('analysis/', views.analysis_view, name='analysis'), 
-   path('auth/', include('authentication_app.urls')),
+    path('auth/', include('authentication_app.urls')),
+    path('admins/', include('administrators.urls')),
+
 )
