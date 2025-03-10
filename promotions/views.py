@@ -18,24 +18,30 @@ import traceback
 from parler.utils import get_active_language_choices
 import datetime
 import markdown
+import sqlite3
+
+
+DB_PATH = "sales_data.db"
 
 def analyze_sales_data():
-    csv_path = 'Data/Sales_ARS.csv'
-    df = pd.read_csv(csv_path)
-    print("✅ CSV loaded successfully from:", csv_path)
-
-    df['business_date'] = pd.to_datetime(df['business_date'], format='%d/%m/%Y')
+    conn = sqlite3.connect(DB_PATH)
+    df = pd.read_sql("SELECT business_date, total_price, detailed_orders FROM sales", conn)
+    conn.close()
+    
+    df['business_date'] = pd.to_datetime(df['business_date'], errors='coerce')
+    df = df.dropna(subset=['business_date', 'total_price'])
     df['day_of_month'] = df['business_date'].dt.day
-
+    
+#best days to promote
     best_days = df.groupby('day_of_month')['total_price'].sum()
     best_days_range = best_days.sort_values(ascending=False).head(5).index.tolist()
     best_days_range = sorted([int(day) for day in best_days_range])
 
-
     best_time_range = f"{best_days_range[0]}-{best_days_range[-1]} " + _("of the month") if len(best_days_range) > 1 else f"{best_days_range[0]} " + _("of the month")
 
-    df['detailed_orders'] = df['detailed_orders'].apply(lambda x: ast.literal_eval(x) if isinstance(x, str) else x)
-
+# Extract the least selling products
+    df['detailed_orders'] = df['detailed_orders'].apply(lambda x: json.loads(x) if x else [])
+    
     products = []
     for order_list in df['detailed_orders']:
         if isinstance(order_list, list):
@@ -43,12 +49,14 @@ def analyze_sales_data():
                 products.append(item['item'])
 
     products_df = pd.DataFrame(products, columns=['product'])
-    best_product = products_df['product'].value_counts().idxmin()  
-
-    print(" Best Days to Promote:", best_time_range)
-    print(" Best Product to Discount:", best_product)
+    
+    if not products_df.empty:
+        best_product = products_df['product'].value_counts().idxmin()
+    else:
+        best_product = "No data available"
 
     return {"best_time": best_time_range, "best_product": best_product}
+
 
 def set_language(request, urlname):
     language = request.GET.get('language')
