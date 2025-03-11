@@ -4,18 +4,18 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 @login_required
-@allowed_users(allowed_roles=['normal_user'])
+@allowed_users(allowed_roles=['admins','normal_user'])
 def index(request):
     return render(request, 'base.html' )
 @login_required
-@allowed_users(allowed_roles=['normal_user'])
+@allowed_users(allowed_roles=['admins','normal_user'])
 def home(request):
     return render(request, 'layout/dashboard.html' )
 
 # def analytics_view(request):
 #     return render(request, 'layout/analytics.html' )
 @login_required
-@allowed_users(allowed_roles=['normal_user'])
+@allowed_users(allowed_roles=['admins','normal_user'])
 def reports_view(request):
     return render(request, 'layout/reports.html' )
 @unauthenticated_user

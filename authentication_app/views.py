@@ -71,11 +71,11 @@ class CustomLoginView(LoginView):
 @login_required
 @allowed_users(allowed_roles=['normal_user'])
 def settings(request):
-    return render(request, 'authentication_app/settings.html')
+    return render(request, 'profile/profile-settings.html')
 @login_required
 @admin_only
 def admindashboard(request):
-    return render(request, 'authentication_app/admin_dashboard.html')
+    return redirect('admins.users')
 
 #هذي كتبه لي جبت يبي له تعديل مسميات وتعتمد على المودل الي بنسويه بس فمرته تعديل البيانات عادي
 @login_required
