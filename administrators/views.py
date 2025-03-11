@@ -1,12 +1,15 @@
 from django.shortcuts import render
 from authentication_app.models import UserProfile 
+from django.core.paginator import Paginator
+from django.db.models import Q
+from datetime import datetime
 
 def index(request):
     return render(request, 'admins/base.html')
 
 
 def users(request):
-    profiles = UserProfile.objects.select_related('user').all()
+    profiles_list = UserProfile.objects.select_related('user').all().order_by('-user__date_joined')
 
     # Define status classes and Arabic translation
     status_data = {
@@ -23,8 +26,29 @@ def users(request):
             "text": "مرفوض",
         }
     }
+    # 🌟 Filtering by Status
+    status_filter = request.GET.get('status')  # Get status from URL
+    if status_filter:
+        profiles_list = profiles_list.filter(status=status_filter)
 
-    # Assign Arabic translation and class
+    # 🌟 Filtering by Date Range
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+
+    if start_date and end_date:
+        try:
+            start_date = datetime.strptime(start_date, "%Y-%m-%d")
+            end_date = datetime.strptime(end_date, "%Y-%m-%d")
+            profiles_list = profiles_list.filter(user__date_joined__range=[start_date, end_date])
+        except ValueError:
+            pass  # Ignore invalid dates
+
+    # Pagination setup
+    page = request.GET.get('page', 1)  # Get the current page number from the request
+    paginator = Paginator(profiles_list, 10)  # 10 profiles per page
+    profiles = paginator.get_page(page)  # Get the requested page
+
+    # Assign status class and text
     for profile in profiles:
         profile.status_class = status_data[profile.status]["class"]
         profile.status_text = status_data[profile.status]["text"]
@@ -42,7 +66,11 @@ def users(request):
         'denied_count': denied_count,
         'total_count': total_count
     })
-    
+# what is left: 
+# search by user name 
+# show or filter by status 
+# make the admin can see the details of the user request   
+      
 from django.contrib import messages
 from django.shortcuts import redirect, get_object_or_404
 

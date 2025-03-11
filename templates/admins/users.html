@@ -9,134 +9,79 @@
           <div class="col-md">
             <ul class="nav nav-pills justify-content-start">
               <li class="nav-item">
-                <a class="nav-link active bg-transparent pr-2 pl-0 text-primary" href="#">
-                  الكل <span class="badge badge-pill bg-primary text-white ml-2">{{ total_count }}</span>
+                <a class="nav-link {% if not request.GET.status %}active text-primary{% else %}text-muted{% endif %}  bg-transparent pr-2 pl-0 " href="{% url 'admins.users' %}?status=&start_date=">
+                  الكل <span class="badge badge-pill  {% if not request.GET.status %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %} ml-2">{{ total_count }}</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-muted px-2" href="#">
-                  قيد الانتظار <span class="badge badge-pill bg-white border text-muted ml-2">{{ pending_count }}</span>
+                <a class="nav-link {% if request.GET.status == '0' %}active text-primary{% else %}text-muted{% endif %} bg-transparent pr-2 pl-0"href="{% url 'admins.users' %}?status=0">
+                  قيد الانتظار <span class="badge badge-pill {% if request.GET.status == '0' %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %}  ml-2">{{ pending_count }}</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-muted px-2" href="#">
-                  المقبولين <span class="badge badge-pill bg-white border text-muted ml-2">{{ accepted_count }}</span>
+                <a class="nav-link {% if request.GET.status == '1' %}active text-primary{% else %}text-muted{% endif %}  bg-transparent pr-2 pl-0" href="{% url 'admins.users' %}?status=1">
+                  المقبولين <span class="badge badge-pill {% if request.GET.status == '1' %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %} ml-2">{{ accepted_count }}</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-muted px-2" href="#">
-                  المرفوضين <span class="badge badge-pill bg-white border text-muted ml-2">{{ denied_count }}</span>
+                <a class="nav-link {% if request.GET.status == '2' %}active text-primary{% else %}text-muted{% endif %}  bg-transparent pr-2 pl-0" href="{% url 'admins.users' %}?status=2">
+                  المرفوضين <span class="badge badge-pill {% if request.GET.status == '2' %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %} ml-2">{{ denied_count }}</span>
                 </a>
               </li>
             </ul>
           </div>
           <div class="col-md-auto ml-auto text-right">
-            <span class="small bg-white border py-1 px-2 rounded mr-2 d-none d-lg-inline">
+            {% comment %} <span class="small bg-white border py-1 px-2 rounded mr-2 d-none d-lg-inline">
               <a href="#" class="text-muted"><i class="fe fe-x mx-1"></i></a>
               <span class="text-muted">Status : <strong>Pending</strong></span>
             </span>
             <span class="small bg-white border py-1 px-2 rounded mr-2 d-none d-lg-inline">
               <a href="#" class="text-muted"><i class="fe fe-x mx-1"></i></a>
               <span class="text-muted">April 14, 2020 - May 13, 2020</span>
-            </span>
+            </span> {% endcomment %}
             <button type="button" class="btn" data-toggle="modal" data-target=".modal-slide"><span class="fe fe-filter fe-16 text-muted"></span></button>
-            <button type="button" class="btn"><span class="fe fe-refresh-ccw fe-16 text-muted"></span></button>
+            <button type="button" class="btn" id="resetFilters2"><span class="fe fe-refresh-ccw fe-16 text-muted"></span></button>
           </div>
         </div>
-        <!-- Slide Modal -->
-        <div class="modal fade modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="defaultModalLabel">Filters</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <i class="fe fe-x fe-12"></i>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="p-2">
-                  <div class="form-group my-4">
-                    <p class="mb-2"><strong>Regions</strong></p>
-                    <label for="multi-select2" class="sr-only"></label>
-                    <select class="form-control select2-multi" id="multi-select2">
-                      <optgroup label="Mountain Time Zone">
-                        <option value="AZ">Arizona</option>
-                        <option value="CO">Colorado</option>
-                        <option value="ID">Idaho</option>
-                        <option value="MT">Montana</option>
-                        <option value="NE">Nebraska</option>
-                        <option value="NM">New Mexico</option>
-                        <option value="ND">North Dakota</option>
-                        <option value="UT">Utah</option>
-                        <option value="WY">Wyoming</option>
-                      </optgroup>
-                      <optgroup label="Central Time Zone">
-                        <option value="AL">Alabama</option>
-                        <option value="AR">Arkansas</option>
-                        <option value="IL">Illinois</option>
-                        <option value="IA">Iowa</option>
-                        <option value="KS">Kansas</option>
-                        <option value="KY">Kentucky</option>
-                        <option value="LA">Louisiana</option>
-                        <option value="MN">Minnesota</option>
-                        <option value="MS">Mississippi</option>
-                        <option value="MO">Missouri</option>
-                        <option value="OK">Oklahoma</option>
-                        <option value="SD">South Dakota</option>
-                        <option value="TX">Texas</option>
-                        <option value="TN">Tennessee</option>
-                        <option value="WI">Wisconsin</option>
-                      </optgroup>
-                    </select>
-                  </div> <!-- form-group -->
-                  <div class="form-group my-4">
-                    <p class="mb-2">
-                      <strong>Payment</strong>
-                    </p>
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="customCheck1">
-                      <label class="custom-control-label" for="customCheck1">Paypal</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="customCheck2">
-                      <label class="custom-control-label" for="customCheck2">Credit Card</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="customCheck1-1" checked>
-                      <label class="custom-control-label" for="customCheck1">Wire Transfer</label>
-                    </div>
-                  </div> <!-- form-group -->
-                  <div class="form-group my-4">
-                    <p class="mb-2">
-                      <strong>Types</strong>
-                    </p>
-                    <div class="custom-control custom-radio">
-                      <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                      <label class="custom-control-label" for="customRadio1">End users</label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                      <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" checked>
-                      <label class="custom-control-label" for="customRadio2">Whole Sales</label>
-                    </div>
-                  </div> <!-- form-group -->
-                  <div class="form-group my-4">
-                    <p class="mb-2">
-                      <strong>Completed</strong>
-                    </p>
-                    <div class="custom-control custom-switch">
-                      <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                      <label class="custom-control-label" for="customSwitch1">Include</label>
-                    </div>
-                  </div> <!-- form-group -->
+       <!-- Filter Modal -->
+      <div class="modal fade modal-slide" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="filterModalLabel">Filters</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <i class="fe fe-x fe-12"></i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="p-2">
+                <!-- Date Filter -->
+                <div class="form-group my-4">
+                  <p class="mb-2"><strong>Filter by Date</strong></p>
+                  <input type="date" class="form-control" id="filterDate" name="start_date">
+                </div> 
+
+                <!-- Status Filter -->
+                <div class="form-group my-4">
+                  <p class="mb-2"><strong>Filter by Status</strong></p>
+                  <select class="form-control" id="filterStatus" name="status">
+                    <option value="">All</option>
+                    <option value="0">Pending</option>
+                    <option value="1">Accepted</option>
+                    <option value="2">Denied</option>
+                  </select>
                 </div>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn mb-2 btn-primary btn-block">Apply</button>
-                <button type="button" class="btn mb-2 btn-secondary btn-block">Reset</button>
-              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn mb-2 btn-primary btn-block" id="applyFilters">Apply</button>
+              <button type="button" class="btn mb-2 btn-secondary btn-block" id="resetFilters">Reset</button>
             </div>
           </div>
         </div>
+      </div>
+
         <table class="table border table-hover bg-white">
           <thead>
             <tr role="row">
@@ -168,7 +113,7 @@
                 </div>
               </td>
               <td>{{ forloop.counter }}</td>  <!-- Auto-incrementing row number -->
-              <td>{{ profile.user.date_joined }}</td>  <!-- Registration Date -->
+              <td>{{ profile.user.date_joined|date:"Y-m-d" }}</td>  <!-- Registration Date -->
               <td>{{ profile.user.get_full_name|default:"N/A" }}</td>  <!-- Full Name -->
               <td>{{ profile.user.username }}</td>  <!-- Username -->
               <td>{{ profile.user.email }}</td>  <!-- Email -->
@@ -203,23 +148,47 @@
 
                     {% if profile.status == 0 %}  <!-- 0 = Pending -->
                     <a class="dropdown-item text-success" href="{% url 'accept_user' profile.id %}">Accept</a>
-                  {% endif %}
+                    {% endif %}
                   </div>
                 </div>
               </td>
             </tr>
           {% endfor %}
-          {% comment %} <td><span class="dot dot-lg bg-warning mr-2"></span></td> {% endcomment %}
-          {% comment %} <td><span class="dot dot-lg bg-primary mr-2"></span></td> {% endcomment %}
           </tbody>
         </table>
         <nav aria-label="Table Paging" class="my-3">
           <ul class="pagination justify-content-end mb-0">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            {% if profiles.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ profiles.previous_page_number }}">السابق</a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <span class="page-link">السابق</span>
+              </li>
+            {% endif %}
+        
+            {% for num in profiles.paginator.page_range %}
+              {% if profiles.number == num %}
+                <li class="page-item active">
+                  <span class="page-link">{{ num }}</span>
+                </li>
+              {% else %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+        
+            {% if profiles.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ profiles.next_page_number }}">التالي</a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <span class="page-link">التالي</span>
+              </li>
+            {% endif %}
           </ul>
         </nav>
       </div>
@@ -349,4 +318,64 @@
     </div>
   </div>
 </main> <!-- main -->
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const applyBtn = document.getElementById("applyFilters");
+      const resetBtn = document.getElementById("resetFilters");
+      const resetBtn2 = document.getElementById("resetFilters2");
+      
+      applyBtn.addEventListener("click", function () {
+          let selectedDate = document.getElementById("filterDate").value;
+          let selectedStatus = document.getElementById("filterStatus").value;
+  
+          let rows = document.querySelectorAll("tbody tr");
+  
+          rows.forEach(row => {
+              let rowDate = row.children[2].innerText.trim();  // Adjust index if needed
+              let rowStatus = row.querySelector("td span").innerText.trim();
+  
+              let showRow = true;
+  
+              // Filter by Date
+              if (selectedDate && !rowDate.includes(selectedDate)) {
+                  showRow = false;
+              }
+  
+              // Filter by Status
+              if (selectedStatus) {
+                  let statusText = {
+                      "0": "قيد الانتظار",
+                      "1": "مقبول",
+                      "2": "مرفوض"
+                  }[selectedStatus];
+  
+                  if (rowStatus !== statusText) {
+                      showRow = false;
+                  }
+              }
+  
+              row.style.display = showRow ? "" : "none";
+          });
+  
+          $("#filterModalLabel").modal("hide"); // Close modal
+      });
+  
+      resetBtn.addEventListener("click", function () {
+          document.getElementById("filterDate").value = "";
+          document.getElementById("filterStatus").value = "";
+          
+          let rows = document.querySelectorAll("tbody tr");
+          rows.forEach(row => row.style.display = "");
+      });
+      resetBtn2.addEventListener("click", function () {
+        document.getElementById("filterDate").value = "";
+        document.getElementById("filterStatus").value = "";
+        
+        let rows = document.querySelectorAll("tbody tr");
+        rows.forEach(row => row.style.display = "");
+    });
+  });
+  </script>
+  
 {% endblock %}
