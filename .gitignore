@@ -14,3 +14,6 @@ __pycache__/
 migrations/__pycache__/
 
 tempCodeRunnerFile.py
+
+db.sqlite3
+
