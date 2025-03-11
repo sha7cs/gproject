@@ -11,7 +11,7 @@ def index(request):
 def users(request):
     profiles_list = UserProfile.objects.select_related('user').all().order_by('-user__date_joined')
 
-    # Define status classes and Arabic translation
+    # for the UI
     status_data = {
         UserProfile.PENDING: {
             "class": "badge badge-warning fas fa-clock",
@@ -26,12 +26,12 @@ def users(request):
             "text": "مرفوض",
         }
     }
-    # 🌟 Filtering by Status
+    # filter by status
     status_filter = request.GET.get('status')  # Get status from URL
     if status_filter:
         profiles_list = profiles_list.filter(status=status_filter)
 
-    # 🌟 Filtering by Date Range
+    # filter by date
     start_date = request.GET.get('start_date')
     end_date = request.GET.get('end_date')
 
@@ -70,6 +70,8 @@ def users(request):
 # search by user name 
 # show or filter by status 
 # make the admin can see the details of the user request   
+# اخليه ينرسل ايميل اذا قبلهم الادمن 
+# ممكن نخلي المرفوضين بعد ما يمر عليهم عشر ايام نحذفهم من الداتا بيس
       
 from django.contrib import messages
 from django.shortcuts import redirect, get_object_or_404
