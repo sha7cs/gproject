@@ -64,7 +64,7 @@ def users(request):
     accepted_count = UserProfile.objects.filter(status=UserProfile.ACCEPTED).count()
     denied_count = UserProfile.objects.filter(status=UserProfile.DENIED).count()
     total_count = UserProfile.objects.count()
-
+    
     return render(request, 'admins/users.html', {
         'profiles': profiles,
         'pending_count': pending_count,

@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
+       <!-- flash library-->
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+   
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -99,10 +104,12 @@
 
         <!-- Display messages (success or error) -->
         {% if messages %}
-            {% for message in messages %}
-                <div class="message {{ message.tags }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
+        <script>
+          {% for message in messages %}
+            toastr["{{ message.tags }}"]("{{ message|escapejs }}");
+          {% endfor %}
+        </script>
+      {% endif %}
 
         <form method="POST">
             {% csrf_token %}
@@ -115,5 +122,15 @@
         </div>
     </div>
 
+        <!--flash messages script-->
+        <script>
+            toastr.options = {
+              "closeButton": true,
+              "progressBar": true,
+              "timeOut": "3000",
+              "extendedTimeOut": "1000",
+              "positionClass": "toast-top-right"
+            };
+          </script>
 </body>
 </html>

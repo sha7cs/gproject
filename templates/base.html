@@ -22,6 +22,10 @@
     <link rel="stylesheet" href="{% static 'css/app-light.css' %}" id="lightTheme">
     <link rel="stylesheet" href="{% static 'css/app-dark.css' %}" id="darkTheme" disabled>
     {%block css%} {%endblock%}
+    <!-- flash library-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <style>
         .hr.solid {
@@ -32,6 +36,13 @@
   <body class="vertical  light rtl ">
     <div class="wrapper">
 
+      {% if messages %}
+      <script>
+        {% for message in messages %}
+          toastr["{{ message.tags }}"]("{{ message|escapejs }}");
+        {% endfor %}
+      </script>
+    {% endif %}
 
       {% include "navbar.html" %}
 
@@ -80,6 +91,17 @@
       gtag('js', new Date());
       gtag('config', 'UA-56159088-1');
     </script>
+
+        <!--flash messages script-->
+        <script>
+          toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "timeOut": "3000",
+            "extendedTimeOut": "1000",
+            "positionClass": "toast-top-right"
+          };
+        </script>
      {%block jss%} {%endblock%}
   </body>
 </html>
