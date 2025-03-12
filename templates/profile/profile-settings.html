@@ -21,7 +21,10 @@
     <!-- App CSS -->
     <link rel="stylesheet" href="{% static 'css/app-light.css' %}" id="lightTheme">
     <link rel="stylesheet" href="{% static 'css/app-dark.css' %}" id="darkTheme" disabled>
-    {%block css%} {%endblock%}
+    <!-- flash library-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <style>
         .hr.solid {
@@ -35,9 +38,6 @@
         <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
           <i></i> <!--بخليه زر باك بعدين -->
         </button>
-        {% comment %} <form class="form-inline mr-auto searchform text-muted">
-          <input class="form-control mr-sm-2 bg-transparent border-0 pl-4 text-muted" type="search" placeholder="Type something..." aria-label="Search">
-        </form> {% endcomment %}
         <ul class="nav">
           <li class="nav-item dropdown mt-2 mx-2">
             {% get_current_language as CURRENT_LANGUAGE %}
@@ -87,78 +87,90 @@
                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">{%trans 'profile'%}</a>
                   </li>
                 </ul>
-                <form method>
+                {% if messages %}
+                  <script>
+                    {% for message in messages %}
+                      toastr["{{ message.tags }}"]("{{ message|escapejs }}");
+                    {% endfor %}
+                  </script>
+                {% endif %}
+                
+
+                
+                <form method="POST" enctype="multipart/form-data">
+                  {%csrf_token%}
                     <div class="form-group">
                       <label for="firstname">اسم المقهى</label>
-                      <input type="text" name="cafe_name" id="firstname" class="form-control" placeholder="ادخل اسم مقهاك" required>
+                      {{ form.cafe_name }}
                     </div>
                   <div class="form-group">
-                    <label for="inputEmail4">البريد الإلكتروني</label>
-                    <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="ادخل البريد الاإلكتروني هنا" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputAddress5">الموقع</label>
-                    <input type="text" name="location" class="form-control" id="inputAddress5" placeholder="P.O. Box 464, 5975 Eget Avenue" required>
+                    <label for="location">الموقع</label>
+                    {{ form.location }}
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                      <label for="inputState5">المنطقة</label> <!--do we put a table with the city names?-->
-                      <select id="inputState5" class="form-control" name="area" required>
-                        <option selected="" disabled >اختر</option>
-                        <option selected="">الرياض</option>
-                        <option selected="">القصيم</option>
-                        <option selected="">الشرقية</option>
-                        <option selected="">مدري</option>
-                      </select>
+                      <label for="inputState5">المنطقة</label>
+                        {{ form.area }}
+                        {% if form.area.errors %}
+                          <div class="text-danger">
+                            {% for error in form.area.errors %}
+                              <p>{{ error }}</p>
+                            {% endfor %}
+                          </div>
+                        {% endif %}
                     </div>
-                    <div class="form-group col-md-4"> <!--i want to link them with the list of area-->
-                      <label for="inputState5">المدينة</label>
-                      <select id="inputState5" class="form-control" name="city" required>
-                        <option selected="" disabled>اختر</option>
-                        <option selected="رياض-الخبراء">رياض الخبراء</option>
-                        <option selected="بريدة">بريدة</option>
-                        <option selected="">...</option>
-                      </select>
+                    <div class="form-group col-md-4">
+                      <label for="inputCity">المدينة</label>
+                      {{ form.city }}
                     </div>
                   </div>
                   <div class="form-group mb-3">
                     <div class="form-group mb-3">
                       <label for="example-fileinput">ارفع ملف بيانات مقهاك هنا </label>
-                      <input type="file" id="example-fileinput" class="form-control-file" name="data-file" required>
+                      {{ form.data_file }}
+                      {% comment %} <input type="file" id="example-fileinput" class="form-control-file" name="data-file" required> {% endcomment %}
                     </div>
                   </div>
                   <div class="form-group"> <!--optional-->
                     <label for="inputZip5">روابط مواقع التواصل الاجتماعي</label> <!--ابي اخلي فيه ربط على طول مع انستا وغيره بس هذا مؤقت يعني -->
-                    <input type="link" class="form-control" id="inputZip5" placeholder="ff" >
-                  </div>
+                    {{ form.social_media_link }}
+                   </div>
                   <div class="form-group mb-3"> <!--optional-->
                     <label for="validationTextarea">تحدث عن مقهاك قليلًا</label>
-                    <textarea class="form-control" id="validationTextarea" placeholder="fff" ></textarea>
-                    <div class="invalid-feedback"> Please enter a message in the textarea. </div>
+                    {{ form.cafe_description }}
                   </div>
+                  <div class="form-group">
+                    <label for="cafe_logo">شعار المقهى</label>
+                    {{ form.cafe_logo }}
+                </div>
                   <hr class="my-4">
                   <div class="form-group mb-3">
                   <label for="validationTextarea">بالضغط على زر "ارفع طلبك" فأنت توافق على رفع بياناتك الى هذا الموقع ، وتقر بأنها معلومات صحيحة.</label><br>
-                  <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#defaultModal">ارفع طلبك</button> 
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#defaultModal">ارفع طلبك</button>
                   </div>
                   
                   <!--modal to cofirm that the user wants to submit-->
+    
+                  <!-- Modal -->
                   <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="defaultModalLabel">تأكيد</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">بضغطك على متأكد فأنت تؤكد رغبتك برفع طلب دخولك للموقع. <br> نطلب منك الانتظار حتى يصلك بريدك الكتروني ينص على قبول دخول للموقع.</div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">اغلق</button>
-                          <button type="button" class="btn mb-2 btn-primary">متأكد</button>
-                        </div>
+                      <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="defaultModalLabel">تأكيد</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <div class="modal-body">
+                                  بضغطك على متأكد فأنت تؤكد رغبتك برفع طلب دخولك للموقع. <br> نطلب منك الانتظار حتى يصلك بريدك الكتروني ينص على قبول دخول للموقع.
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">اغلق</button>
+                                  <!-- Add form submission on confirmation -->
+                                  <button type="submit" class="btn mb-2 btn-primary">متأكد</button>
+                              </div>
+                          </div>
                       </div>
-                    </div>
                   </div>
 
                 </form>
@@ -208,5 +220,40 @@
       gtag('js', new Date());
       gtag('config', 'UA-56159088-1');
     </script>
+    <!--flash messages script-->
+    <script>
+      toastr.options = {
+        "closeButton": true,
+        "progressBar": true,
+        "timeOut": "3000",
+        "extendedTimeOut": "1000",
+        "positionClass": "toast-top-right"
+      };
+    </script>
+    <script>
+      document.getElementById('inputState5').addEventListener('change', function() {
+        const selectedAreaId = this.value;
+        
+        // Enable the city dropdown
+        const cityDropdown = document.getElementById('inputCity');
+        cityDropdown.disabled = false;
+        
+        // Clear existing cities in the dropdown
+        cityDropdown.innerHTML = '<option selected disabled>اختر</option>';
+    
+        // Fetch cities based on the selected area (AJAX request or templating)
+        {% for city in cities %}
+            if ('{{ city.area.id }}' == selectedAreaId) {
+                const option = document.createElement('option');
+                option.value = '{{ city.id }}';
+                option.textContent = '{{ city.name }}';
+                cityDropdown.appendChild(option);
+            }
+        {% endfor %}
+    });
+    
+    </script>
+    
+    
   </body>
   </html>
