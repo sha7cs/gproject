@@ -3,11 +3,17 @@ from authentication_app.models import UserProfile
 from django.core.paginator import Paginator
 from django.db.models import Q
 from datetime import datetime
+from authentication_app.decorators import allowed_users, admin_only, unauthenticated_user #هذولي الديكوريترز الي حنا مسوينهم نقدر نسوي الي نحتاج براحتنا
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.shortcuts import redirect, get_object_or_404
+
 
 def index(request):
     return render(request, 'admins/base.html')
 
-
+@login_required
+@allowed_users(allowed_roles=['admins'])
 def users(request):
     profiles_list = UserProfile.objects.select_related('user').all().order_by('-user__date_joined')
 
@@ -73,9 +79,8 @@ def users(request):
 # اخليه ينرسل ايميل اذا قبلهم الادمن 
 # ممكن نخلي المرفوضين بعد ما يمر عليهم عشر ايام نحذفهم من الداتا بيس
       
-from django.contrib import messages
-from django.shortcuts import redirect, get_object_or_404
-
+@login_required
+@allowed_users(allowed_roles=['admins'])
 def accept_user(request, user_id):
     profile = get_object_or_404(UserProfile, id=user_id)
     

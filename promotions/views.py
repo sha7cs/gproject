@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import get_language, activate
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from authentication_app.decorators import allowed_users, admin_only, unauthenticated_user
+from authentication_app.decorators import allowed_users, admin_only, unauthenticated_user,approved_user_required
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
 import pandas as pd
@@ -148,6 +148,7 @@ def run_assistant(thread_id, instructions):
 
 @login_required
 @allowed_users(allowed_roles=['normal_user','admins'])
+@approved_user_required
 def chatbot(request):
     if request.method == 'GET':
          categories= Category.objects.all()
@@ -246,5 +247,5 @@ def chatbot(request):
         error_message = traceback.format_exc()  # Get full error details
         print("Backend Error:", error_message)  # Log error in Django console
         return JsonResponse({"error": "Server error. Check Django logs for details."}, status=500)
-from django.template.loader import render_to_string
+    
 

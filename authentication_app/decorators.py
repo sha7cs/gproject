@@ -1,9 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from django.contrib import messages
+
 ## هذا ملف الديكوريترز الي هي تحدد صلاحيات الوصول للاشياء او الفيوز، كل الموجود باختيارنا يعني حنا نقرر لو نبي جديده بشروط معينه كبفنا
 ## لو تمرون على الفيوز بتلقون فوق كل فيو اللي يحتاجه 
 
-
+# admins , normal_user
 
 def allowed_users(allowed_roles=[]):
     def decorator(view_func):
@@ -37,3 +39,17 @@ def unauthenticated_user(view_func):
         return view_func(request, *args, **kwargs)
     return wrapper_func
 
+
+from functools import wraps
+def approved_user_required(view_func):
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
+        user_profile = getattr(request.user, 'userprofile', None)  # Get UserProfile safely
+
+        if not user_profile or user_profile.status != 1:  # Not approved
+            messages.warning(request, "Your account is awaiting approval.")
+            return redirect('user_settings')  # Redirect to settings page
+        
+        return view_func(request, *args, **kwargs)
+    
+    return _wrapped_view

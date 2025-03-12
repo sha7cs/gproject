@@ -45,10 +45,24 @@ class CustomLoginView(LoginView):
 
     def get_success_url(self):
         user = self.request.user
+        user_profile = getattr(user, 'userprofile', None)
+        
         if user.is_staff:
-            return reverse_lazy('admindashboard') # اذا ستاف او سوبريوزر يوديه للادمن داشبورد
-        return reverse_lazy('home') # اذا مستخدم عادي يوديه صفحة الهوم
+            return reverse_lazy('admindashboard')
 
+        if user_profile:  
+            if user_profile.status == 0:
+                return reverse_lazy('user_settings')  # Force settings page
+            elif user_profile.status == 2:
+                messages.error(self.request, "Your account has been denied. Contact support.")
+                return reverse_lazy('login')  # Redirect back to login
+            return reverse_lazy('home')  # Approved users go to home
+        
+        # If for some reason the user has no UserProfile, log them out
+        messages.error(self.request, "No profile associated with this account.")
+        return reverse_lazy('login')
+    
+    
     def form_valid(self, form):
         logger.info(f"User {form.get_user().username} logged in.")
         return super().form_valid(form)
