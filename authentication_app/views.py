@@ -85,15 +85,20 @@ class CustomLoginView(LoginView):
         context['custom_message'] = 'Log in to access your dashboard.'
         return context
  
- 
-##هنا كل هذولي سويتهم بش عشان اضبط الزيدايركت والا يبيلهم شغل واشياء 
 @login_required
 @allowed_users(allowed_roles=['admins','normal_user'])
 def settings(request):
-    user_profile = UserProfile.objects.get(user=request.user)
-    if user_profile.cafe_name and user_profile.area:  # نشوف لو هم الريدي عبوا السيتينقز قبل وللحين ماقبلناهم ما يدخلهم
+    try:
+        # اذا كان ما عبى السيتينقز بيطلع هنا ايرور عشان كذا فيه تراي وكاتش
+        user_profile = UserProfile.objects.get(user=request.user)
+
+        # اذا كد عبوا السيتينقز ما يسمح لهم يدخلونها ويوديهم صفحة الانتظار
+        if user_profile.cafe_name and user_profile.area:
             messages.info(request, "You have already submitted your profile. You cannot access the settings page.")
-            return redirect('wait')  
+            return redirect('wait')
+
+    except UserProfile.DoesNotExist:
+        user_profile = None
 
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES)

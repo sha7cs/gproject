@@ -6,7 +6,7 @@ from django.contrib.auth.views import LogoutView
 urlpatterns = [
     # path('set-lang/<str:urlname>/', views.set_language, name='set_language'),
     path('signup', SignUpView.as_view(), name='signup'),
-    path('login' , CustomLoginView.as_view() , name='login_page'),
+    path('login' , CustomLoginView.as_view() , name='login'),
     path('logout/', LogoutView.as_view(next_page='theWelcome'), name='logout'),
     path('settings', views.settings, name = "user_settings"),
     path('update-settings/', views.update_settings, name='update_settings'),
