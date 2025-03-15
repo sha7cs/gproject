@@ -57,6 +57,36 @@ def analyze_sales_data():
 
     return {"best_time": best_time_range, "best_product": best_product}
 
+def get_next_event():
+    file_path = "Data/event data.xlsx"
+    xls = pd.ExcelFile(file_path)
+    df = pd.read_excel(xls, sheet_name='events_data')
+
+   
+    df['gregorian_date'] = pd.to_datetime(df['gregorian_date'])
+    today = pd.to_datetime(datetime.date.today())
+
+
+    upcoming_events = df[df['gregorian_date'] >= today].sort_values('gregorian_date')
+
+    if not upcoming_events.empty:
+        next_event = upcoming_events.iloc[0]
+        days_remaining = (next_event['gregorian_date'].date() - today.date()).days  
+
+        
+        current_lang = get_language()  
+        event_name = next_event['event_ar'] if current_lang == 'ar' else next_event['event_en']
+
+        return {
+            "event_name": event_name,
+            "event_date": next_event['gregorian_date'].strftime('%Y-%m-%d'),
+            "days_remaining": days_remaining
+        }
+    
+    return None
+
+
+
 
 def set_language(request, urlname):
     language = request.GET.get('language')
@@ -184,7 +214,7 @@ def chatbot(request):
 
          #analysis cards data  
          analysis_results = analyze_sales_data()
-         
+         next_event = get_next_event()
          return render(request, 'layout/promotions.html',{
             'categories': categories,
             'subcategories': subcategories,
@@ -195,7 +225,8 @@ def chatbot(request):
             'language': language,
             'advice':advice,
             'best_time': analysis_results['best_time'],
-            'best_product': analysis_results['best_product']
+            'best_product': analysis_results['best_product'],
+            'next_event': next_event  
         })
     try:
         if request.method == 'POST':
