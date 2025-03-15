@@ -52,8 +52,11 @@ class CustomLoginView(LoginView):
             return reverse_lazy('admindashboard')
 
         if user_profile:  
-            if user_profile.status == 0:
+            if user_profile.status == 0 and not user_profile.cafe_name or not user_profile.area:  # If either field is missing
                 return reverse_lazy('user_settings')  # Force settings page
+            elif user_profile.status == 0 and user_profile.cafe_name:
+                # messages.warning()
+                return reverse_lazy('wait')
             elif user_profile.status == 2:
                 messages.error(self.request, "Your account has been denied. Contact support.")
                 return reverse_lazy('login')  # Redirect back to login
@@ -87,6 +90,11 @@ class CustomLoginView(LoginView):
 @login_required
 @allowed_users(allowed_roles=['admins','normal_user'])
 def settings(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+    if user_profile.cafe_name and user_profile.area:  # نشوف لو هم الريدي عبوا السيتينقز قبل وللحين ماقبلناهم ما يدخلهم
+            messages.info(request, "You have already submitted your profile. You cannot access the settings page.")
+            return redirect('wait')  
+
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -109,6 +117,7 @@ def settings(request):
         cities = City.objects.all()
         form = UserProfileForm()
         return render(request, 'profile/profile-settings.html', {'form': form, 'areas': areas, 'cities': cities})
+    
 @login_required
 @admin_only
 def admindashboard(request):
