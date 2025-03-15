@@ -90,3 +90,24 @@ def accept_user(request, user_id):
 
     messages.success(request, f"{profile.user.username} has been accepted.")
     return redirect('admins.users')  
+
+@login_required
+@allowed_users(allowed_roles=['admins'])
+def remove_user(request, user_id):
+    profile = get_object_or_404(UserProfile, id=user_id)
+    
+    # Update the status to Accepted
+    profile.status = UserProfile.DENIED
+    profile.save()
+
+    messages.success(request, f"{profile.user.username} has been Denied.")
+    return redirect('admins.users')  
+
+
+@login_required
+@allowed_users(allowed_roles=['admins'])
+def user_details(request, user_id):
+    # Retrieve the user profile by ID
+    user_profile = get_object_or_404(UserProfile, id=user_id)
+    
+    return render(request, 'admins/user_details.html', {'user_profile': user_profile})
