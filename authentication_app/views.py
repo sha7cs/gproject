@@ -11,6 +11,7 @@ from django.contrib.auth.models import Group
 from .decorators import allowed_users, admin_only, unauthenticated_user #هذولي الديكوريترز الي حنا مسوينهم نقدر نسوي الي نحتاج براحتنا
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from authentication_app.models import UserProfile ,City,Area
 
 
 ##واضح هذا حق الساين ان هههههههههه
@@ -28,7 +29,7 @@ class SignUpView(CreateView):
         
         #هذا البارت هو الي عليه اختلاف يا يسجله دخول على طول يا يقول له انت سجل من جديد 
         login(self.request, user) 
-        # messages.success(self.request, 'Account created successfully! You are now logged in.') يمكن نحتاجه بعدين اذا نبي نحط اشعارات
+        messages.success(self.request, 'Account created successfully! You are now logged in.') 
         return redirect(self.success_url)
 
     def form_invalid(self, form):
@@ -45,12 +46,27 @@ class CustomLoginView(LoginView):
 
     def get_success_url(self):
         user = self.request.user
+        user_profile = getattr(user, 'userprofile', None)
+        
         if user.is_staff:
-            return reverse_lazy('admindashboard') # اذا ستاف او سوبريوزر يوديه للادمن داشبورد
-        return reverse_lazy('home') # اذا مستخدم عادي يوديه صفحة الهوم
+            return reverse_lazy('admindashboard')
 
+        if user_profile:  
+            if user_profile.status == 0:
+                return reverse_lazy('user_settings')  # Force settings page
+            elif user_profile.status == 2:
+                messages.error(self.request, "Your account has been denied. Contact support.")
+                return reverse_lazy('login')  # Redirect back to login
+            return reverse_lazy('home')  # Approved users go to home
+        
+        # If for some reason the user has no UserProfile, log them out
+        messages.error(self.request, "No profile associated with this account.")
+        return reverse_lazy('login')
+    
+    
     def form_valid(self, form):
         logger.info(f"User {form.get_user().username} logged in.")
+        messages.success(self.request,f"مرحبًا بك يا {form.get_user().username}")
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -69,13 +85,34 @@ class CustomLoginView(LoginView):
  
 ##هنا كل هذولي سويتهم بش عشان اضبط الزيدايركت والا يبيلهم شغل واشياء 
 @login_required
-@allowed_users(allowed_roles=['normal_user'])
+@allowed_users(allowed_roles=['admins','normal_user'])
 def settings(request):
-    return render(request, 'authentication_app/settings.html')
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            user_profile = form.save(commit=False)
+            user_profile.user = request.user 
+            user_profile.save()
+
+            messages.success(request,'submitted')
+            return redirect("wait") 
+        else:
+            # If form is invalid, we still want to render the form with error messages
+            areas = Area.objects.all()
+            cities = City.objects.all()  
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field.capitalize()}: {error}")
+            return render(request, 'profile/profile-settings.html', {'form': form, 'areas': areas, 'cities': cities})
+    else:
+        areas = Area.objects.all()
+        cities = City.objects.all()
+        form = UserProfileForm()
+        return render(request, 'profile/profile-settings.html', {'form': form, 'areas': areas, 'cities': cities})
 @login_required
 @admin_only
 def admindashboard(request):
-    return render(request, 'authentication_app/admin_dashboard.html')
+    return redirect('admins.users')
 
 #هذي كتبه لي جبت يبي له تعديل مسميات وتعتمد على المودل الي بنسويه بس فمرته تعديل البيانات عادي
 @login_required
@@ -91,3 +128,7 @@ def update_settings(request):
             return redirect('user_settings')
 
     return render(request, 'settings_update.html', {'form': form})
+
+
+def waiting(request):
+    return render(request, 'profile/waiting.html')

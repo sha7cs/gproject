@@ -6,6 +6,8 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.utils.translation import activate
 from firebase_admin import firestore
+from authentication_app.decorators import allowed_users, admin_only, unauthenticated_user,approved_user_required
+from django.contrib.auth.decorators import login_required
 
 db = firestore.client()
 
@@ -93,6 +95,9 @@ def set_language(request):
         request.session['django_language'] = language 
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+@login_required
+@allowed_users(allowed_roles=['normal_user','admins'])
+@approved_user_required
 def analysis_view(request):
     try:
         df = get_sales_data()
