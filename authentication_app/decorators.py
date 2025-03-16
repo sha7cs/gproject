@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.utils.translation import gettext_lazy as _  
 
 ## هذا ملف الديكوريترز الي هي تحدد صلاحيات الوصول للاشياء او الفيوز، كل الموجود باختيارنا يعني حنا نقرر لو نبي جديده بشروط معينه كبفنا
 ## لو تمرون على الفيوز بتلقون فوق كل فيو اللي يحتاجه 
@@ -19,7 +20,7 @@ def allowed_users(allowed_roles=[]):
                     if request.user.is_staff or request.user.is_superuser:
                             return redirect('admindashboard')
                     elif not user_profile or user_profile.status != 1:
-                        messages.error(request, "حسابك لا زال قيد الانتظار، لا يمكنك دخول هذه الصفحة.")
+                        messages.error(request, _("Your account is still pending, you can't access this page"))
                         return redirect('user_settings')  # Redirect to settings page
                     return redirect('home')  # Redirect unauthorized users to home
             return redirect('login_page')  # Redirect non-logged-in users to login
@@ -32,7 +33,7 @@ def admin_only(view_func):
         if request.user.is_superuser:  # Check if user is a superuser (admin)
             return view_func(request, *args, **kwargs)
         elif not user_profile or user_profile.status != 1:
-            messages.error(request, "حسابك لا زال غير مصرح له الدخول.")
+            messages.error(request, _("Your account is still pending, you can't access this page"))
             return redirect('user_settings')  # Redirect to settings page
         return redirect('home')  # Redirect normal users to home
     return wrapper_func
@@ -55,7 +56,7 @@ def approved_user_required(view_func):
         user_profile = getattr(request.user, 'userprofile', None)  # Get UserProfile safely
 
         if not user_profile or user_profile.status != 1:  # Not approved
-            messages.error(request, "حسابك لا زال قيد الانتظار، لا يمكنك دخول هذه الصفحة.")
+            messages.error(request, _("Your account is still pending, you can't access this page"))
             return redirect('user_settings')  # Redirect to settings page
         
         return view_func(request, *args, **kwargs)

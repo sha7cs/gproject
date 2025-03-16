@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import UserProfile,City,Area
+from django.utils.translation import gettext_lazy as _ 
 
 
 #مثل ماتلاحظون هذي فورم جديد انهرت من الاصليه حقت جانقو ليه سوينا كذا؟ عشان نقدر نحكم بالاتربيوت الي نبيهم زي مثلا هنا زدت الايميل! 
@@ -26,8 +27,8 @@ class UserProfileForm(forms.ModelForm):
     area = forms.ModelChoiceField(queryset=Area.objects.all(), empty_label="اختر", widget=forms.Select(attrs={'id': 'inputState5' ,'class':"form-control"}))
     city = forms.ModelChoiceField(queryset=City.objects.all(), empty_label="اختر", widget=forms.Select(attrs={'id': 'inputCity', 'class':"form-control"}))
  
-    cafe_name = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'form-control','placeholder': 'ادخل اسم مقهاك'}))
-    location = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    cafe_name = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'form-control','placeholder': _('Enter your cafe name')}))
+    location = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'example locatin'}))
     social_media_link = forms.URLField(required=False, widget=forms.URLInput(attrs={'class': 'form-control'}))
     cafe_description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}), required=False)
     cafe_logo = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'class': 'form-control-file'}))
