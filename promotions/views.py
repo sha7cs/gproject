@@ -19,6 +19,8 @@ from parler.utils import get_active_language_choices
 import datetime
 import markdown
 import sqlite3
+import requests
+
 
 
 DB_PATH = "sales_data.db"
@@ -57,25 +59,64 @@ def analyze_sales_data():
 
     return {"best_time": best_time_range, "best_product": best_product}
 
+import requests
+import datetime
+import pandas as pd
+
+API_KEY = 'AjYi7mqOuumRPwEbkpEG9A7SjTZIczMz'
+YEAR = datetime.datetime.today().year
+event_translations = {
+    "International Coffee Day": "اليوم العالمي للقهوة",
+    "International Day of Happiness": "اليوم العالمي للسعادة",
+    "International Mother's Day": "اليوم العالمي للأم",
+    "International Father's Day": "اليوم العالمي للأب",
+    "International Friendship Day": "اليوم العالمي للصداقة",
+    "World Smile Day": "اليوم العالمي للابتسامة",
+    "Saudi National Day": "اليوم الوطني السعودي",
+    "Saudi Founding Day": "يوم التأسيس",
+    "Eid al-Fitr": "عيد الفطر",
+    "Eid al-Adha": "عيد الأضحى",
+    "Saudi Flag Day": "يوم العلم السعودي"
+}
+
+def get_events_from_api():
+    url = f"https://calendarific.com/api/v2/holidays?&api_key={API_KEY}&country=SA&year={YEAR}"
+    response = requests.get(url)
+    data = response.json()
+
+    events = []
+    important_days = list(event_translations.keys())  
+    current_lang = get_language()
+
+    for holiday in data['response']['holidays']:
+        name_en = holiday['name']
+        if name_en in important_days:
+            if current_lang == 'ar':
+                name_display = event_translations.get(name_en, name_en)
+            else:
+                name_display = name_en
+
+            date_miladi = holiday['date']['iso']
+            events.append({
+                'event_name': name_display,
+                'gregorian_date': pd.to_datetime(date_miladi, utc=True)
+            })
+    return pd.DataFrame(events)
+
+
 def get_next_event():
-    file_path = "Data/event data.xlsx"
-    xls = pd.ExcelFile(file_path)
-    df = pd.read_excel(xls, sheet_name='events_data')
+    df = get_events_from_api()
 
-   
-    df['gregorian_date'] = pd.to_datetime(df['gregorian_date'])
-    today = pd.to_datetime(datetime.date.today())
-
-
+    today = pd.to_datetime(datetime.datetime.utcnow()).tz_localize('UTC')
+    df['gregorian_date'] = pd.to_datetime(df['gregorian_date'], utc=True)
     upcoming_events = df[df['gregorian_date'] >= today].sort_values('gregorian_date')
 
     if not upcoming_events.empty:
         next_event = upcoming_events.iloc[0]
         days_remaining = (next_event['gregorian_date'].date() - today.date()).days  
 
-        
-        current_lang = get_language()  
-        event_name = next_event['event_ar'] if current_lang == 'ar' else next_event['event_en']
+        current_lang = get_language()
+        event_name = next_event['event_name']
 
         return {
             "event_name": event_name,
@@ -84,9 +125,6 @@ def get_next_event():
         }
     
     return None
-
-
-
 
 def set_language(request, urlname):
     language = request.GET.get('language')
