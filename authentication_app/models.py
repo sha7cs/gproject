@@ -30,8 +30,8 @@ class UserProfile(models.Model):
     ]
     
     user = models.OneToOneField(User, on_delete=models.CASCADE)  # Links to User model
-    cafe_name = models.CharField(max_length=255, blank=True, null=True)  # Cafe name
-    data_file = models.FileField(upload_to='static/uploads/', blank=True, null=True)  # Upload CSV or any file
+    cafe_name = models.CharField(max_length=255)  # Cafe name
+    data_file = models.FileField(upload_to='static/uploads/' )  # Upload CSV or any file
     firebase_config = models.URLField(blank=True, null=True)  # Firebase Config link
     thread_id = models.CharField(max_length=255, blank=True, null=True)  
     status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING)  # Default to pending

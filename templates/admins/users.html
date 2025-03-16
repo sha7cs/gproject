@@ -1,31 +1,42 @@
 {% extends "admins/base.html" %}
+{%load static%}
+{% load i18n %}
+{%block title %} {%trans 'users settings'%} {% endblock %}
+{% block search %}
+<form method="GET" action="{% url 'admins.users' %}" class="form-inline mr-auto searchform text-muted">
+  <input class="form-control mr-sm-4 bg-transparent border-0 pl-4 text-muted w-100"
+         type="search" name="q" placeholder="{% trans 'search for user...' %}" aria-label="Search"
+         value="{{ request.GET.q }}" > <!--خليته يصير يا يوزرنيم يا اي دي يا اسم الكوفي -->
+</form>
+{% endblock %}
+
 {% block content %}
 <main role="main" class="main-content">
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-12">
-        <h2 class="h3 mb-3 page-title">المستخدمين</h2>
+        <h2 class="h3 mb-3 page-title">{%trans 'Users'%}</h2>
         <div class="row mb-4 items-align-center">
           <div class="col-md">
             <ul class="nav nav-pills justify-content-start">
               <li class="nav-item">
                 <a class="nav-link {% if not request.GET.status %}active text-primary{% else %}text-muted{% endif %}  bg-transparent pr-2 pl-0 " href="{% url 'admins.users' %}?status=&start_date=">
-                  الكل <span class="badge badge-pill  {% if not request.GET.status %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %} ml-2">{{ total_count }}</span>
+                  {%trans 'All'%} <span class="badge badge-pill  {% if not request.GET.status %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %} ml-2">{{ total_count }}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link {% if request.GET.status == '0' %}active text-primary{% else %}text-muted{% endif %} bg-transparent pr-2 pl-0"href="{% url 'admins.users' %}?status=0">
-                  قيد الانتظار <span class="badge badge-pill {% if request.GET.status == '0' %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %}  ml-2">{{ pending_count }}</span>
+                  {% trans 'Pending'%} <span class="badge badge-pill {% if request.GET.status == '0' %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %}  ml-2">{{ pending_count }}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link {% if request.GET.status == '1' %}active text-primary{% else %}text-muted{% endif %}  bg-transparent pr-2 pl-0" href="{% url 'admins.users' %}?status=1">
-                  المقبولين <span class="badge badge-pill {% if request.GET.status == '1' %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %} ml-2">{{ accepted_count }}</span>
+                  {% trans 'Accepted'%} <span class="badge badge-pill {% if request.GET.status == '1' %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %} ml-2">{{ accepted_count }}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link {% if request.GET.status == '2' %}active text-primary{% else %}text-muted{% endif %}  bg-transparent pr-2 pl-0" href="{% url 'admins.users' %}?status=2">
-                  المرفوضين <span class="badge badge-pill {% if request.GET.status == '2' %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %} ml-2">{{ denied_count }}</span>
+                  {% trans 'Denied'%} <span class="badge badge-pill {% if request.GET.status == '2' %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %} ml-2">{{ denied_count }}</span>
                 </a>
               </li>
             </ul>
@@ -48,7 +59,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="filterModalLabel">Filters</h5>
+              <h5 class="modal-title" id="filterModalLabel">{% trans 'Filters'%}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <i class="fe fe-x fe-12"></i>
               </button>
@@ -57,26 +68,26 @@
               <div class="p-2">
                 <!-- Date Filter -->
                 <div class="form-group my-4">
-                  <p class="mb-2"><strong>Filter by Date</strong></p>
+                  <p class="mb-2"><strong>{% trans 'Filter by Date'%}</strong></p>
                   <input type="date" class="form-control" id="filterDate" name="start_date">
                 </div> 
 
                 <!-- Status Filter -->
                 <div class="form-group my-4">
-                  <p class="mb-2"><strong>Filter by Status</strong></p>
+                  <p class="mb-2"><strong>{% trans 'Filter by Status'%}</strong></p>
                   <select class="form-control" id="filterStatus" name="status">
-                    <option value="">All</option>
-                    <option value="0">Pending</option>
-                    <option value="1">Accepted</option>
-                    <option value="2">Denied</option>
+                    <option value="">{% trans 'All'%}</option>
+                    <option value="0">{% trans 'Pending'%}</option>
+                    <option value="1">{% trans 'Accepted'%}</option>
+                    <option value="2">{% trans 'Denied'%}</option>
                   </select>
                 </div>
               </div>
             </div>
 
             <div class="modal-footer">
-              <button type="button" class="btn mb-2 btn-primary btn-block" id="applyFilters">Apply</button>
-              <button type="button" class="btn mb-2 btn-secondary btn-block" id="resetFilters">Reset</button>
+              <button type="button" class="btn mb-2 btn-primary btn-block" id="applyFilters">{% trans 'Apply'%}</button>
+              <button type="button" class="btn mb-2 btn-secondary btn-block" id="resetFilters">{% trans 'Reset'%}</button>
             </div>
           </div>
         </div>
@@ -91,16 +102,17 @@
                   <label class="custom-control-label" for="all"></label>
                 </div>
               </th>
-              <th>ID</th>
-              <th>Registration Date</th>  <!-- From Django User Model -->
-              <th>Full Name</th>  <!-- First & Last Name from User Model -->
-              <th>Username</th>  <!-- From User Model -->
-              <th>Email</th>  <!-- From User Model -->
-              <th>Cafe Name</th>  <!-- From UserProfile -->
-              <th>Uploaded File</th>  <!-- From UserProfile -->
-              <th>Firebase Config</th>  <!-- From UserProfile -->
-              <th>Status</th>
-              <th>Action</th>
+              <th>{% trans 'ID' %}</th>
+              <th>{% trans 'Logo' %}</th>
+              <th>{% trans 'Registration Date' %}</th> 
+              <th>{% trans 'Full Name' %}</th> 
+              <th>{% trans 'Username' %}</th>  
+              <th>{% trans 'Email' %}</th>  
+              <th>{% trans 'Cafe Name' %}</th>  <!-- From UserProfile -->
+              <th>{% trans 'Uploaded File' %}</th>  <!-- From UserProfile -->
+              <th>{% trans 'Firebase Config' %}</th>  <!-- From UserProfile -->
+              <th>{% trans 'Status' %}</th>
+              <th>{% trans 'Action' %}</th>
             </tr>
           </thead>
           <tbody>
@@ -108,11 +120,18 @@
             <tr>
               <td class="align-center">
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input">
+                  <input type="checkbox" class="custom-control-input"> <!--اخليه والا احذفه؟ احس مفيد-->
                   <label class="custom-control-label"></label>
                 </div>
               </td>
-              <td>{{ forloop.counter }}</td>  <!-- Auto-incrementing row number -->
+              <td>{{ profile.id }}</td>  <!-- Auto-incrementing row number -->
+              <td>
+                {% if profile.cafe_logo %}
+                    <img src="{{ profile.cafe_logo.url }}" alt="Cafe Logo" style="width: 50px;">
+                {% else %}
+                    {% trans 'No Logo Uploaded'%}
+                {% endif %}
+              </td>
               <td>{{ profile.user.date_joined|date:"Y-m-d" }}</td>  <!-- Registration Date -->
               <td>{{ profile.user.get_full_name|default:"N/A" }}</td>  <!-- Full Name -->
               <td>{{ profile.user.username }}</td>  <!-- Username -->
@@ -120,16 +139,16 @@
               <td>{{ profile.cafe_name|default:"N/A" }}</td>  <!-- Cafe Name -->
               <td>
                 {% if profile.data_file %}
-                  <a href="{{ profile.data_file.url }}" target="_blank">View File</a>
+                  <a href="{{ profile.data_file.url }}" target="_blank">{% trans 'View File'%}</a>
                 {% else %}
-                  No File
+                  {% trans 'No File'%}
                 {% endif %}
               </td>
               <td>
                 {% if profile.firebase_config %}
-                  <a href="{{ profile.firebase_config }}" target="_blank">Firebase Link</a>
+                  <a href="{{ profile.firebase_config }}" target="_blank">{% trans 'Firebase Link'%}</a>
                 {% else %}
-                  No Firebase Config
+                  {% trans 'No Firebase Config'%}
                 {% endif %}
               </td>
               <td>
@@ -138,16 +157,16 @@
               <td>
                 <div class="dropdown">
                   <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
+                    <span class="text-muted sr-only">{% trans 'Action'%}</span>
                   </button>
                   <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <a class="dropdown-item" href="#">Assign</a>
-
-
+                    <a class="dropdown-item" href="{% url 'user_details' profile.id %}">{% trans 'More'%}</a>
+                    {% comment %} <a class="dropdown-item" href="#">{% trans 'Deny'%}</a> {% endcomment %}
                     {% if profile.status == 0 %}  <!-- 0 = Pending -->
-                    <a class="dropdown-item text-success" href="{% url 'accept_user' profile.id %}">Accept</a>
+                       <a class="dropdown-item text-success" href="{% url 'accept_user' profile.id %}">{% trans 'Accept'%}</a>
+                    {% endif %} 
+                    {% if profile.status != 2 %} <!--اللي الريدي انقبلوا احس مفروض نخلي الادمن ما يقدر يرفضهم والا؟ -->
+                       <a class="dropdown-item text-danger" href="{% url 'remove_user' profile.id %}">{% trans 'Remove'%}</a> <!--ابي اضيف بوب اب يقول متأكد تبي ترفض طلب هذا المستخدم وبعد محتارة اخلي اسمها ريموف او ديناي-->
                     {% endif %}
                   </div>
                 </div>
@@ -160,11 +179,11 @@
           <ul class="pagination justify-content-end mb-0">
             {% if profiles.has_previous %}
               <li class="page-item">
-                <a class="page-link" href="?page={{ profiles.previous_page_number }}">السابق</a>
+                <a class="page-link" href="?page={{ profiles.previous_page_number }}">{% trans 'Previous'%}</a>
               </li>
             {% else %}
               <li class="page-item disabled">
-                <span class="page-link">السابق</span>
+                <span class="page-link">{% trans 'Previous'%}</span>
               </li>
             {% endif %}
         
@@ -182,11 +201,11 @@
         
             {% if profiles.has_next %}
               <li class="page-item">
-                <a class="page-link" href="?page={{ profiles.next_page_number }}">التالي</a>
+                <a class="page-link" href="?page={{ profiles.next_page_number }}">{% trans 'Next'%}</a>
               </li>
             {% else %}
               <li class="page-item disabled">
-                <span class="page-link">التالي</span>
+                <span class="page-link">{% trans 'Next'%}</span>
               </li>
             {% endif %}
           </ul>
@@ -261,62 +280,7 @@
       </div>
     </div>
   </div>
-  <div class="modal fade modal-shortcut modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="defaultModalLabel">Shortcuts</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body px-5">
-          <div class="row align-items-center">
-            <div class="col-6 text-center">
-              <div class="squircle bg-success justify-content-center">
-                <i class="fe fe-cpu fe-32 align-self-center text-white"></i>
-              </div>
-              <p>Control area</p>
-            </div>
-            <div class="col-6 text-center">
-              <div class="squircle bg-primary justify-content-center">
-                <i class="fe fe-activity fe-32 align-self-center text-white"></i>
-              </div>
-              <p>Activity</p>
-            </div>
-          </div>
-          <div class="row align-items-center">
-            <div class="col-6 text-center">
-              <div class="squircle bg-primary justify-content-center">
-                <i class="fe fe-droplet fe-32 align-self-center text-white"></i>
-              </div>
-              <p>Droplet</p>
-            </div>
-            <div class="col-6 text-center">
-              <div class="squircle bg-primary justify-content-center">
-                <i class="fe fe-upload-cloud fe-32 align-self-center text-white"></i>
-              </div>
-              <p>Upload</p>
-            </div>
-          </div>
-          <div class="row align-items-center">
-            <div class="col-6 text-center">
-              <div class="squircle bg-primary justify-content-center">
-                <i class="fe fe-users fe-32 align-self-center text-white"></i>
-              </div>
-              <p>Users</p>
-            </div>
-            <div class="col-6 text-center">
-              <div class="squircle bg-primary justify-content-center">
-                <i class="fe fe-settings fe-32 align-self-center text-white"></i>
-              </div>
-              <p>Settings</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
 </main> <!-- main -->
 
 <script>

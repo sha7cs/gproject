@@ -1,0 +1,104 @@
+<!-- user_details_full_page.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user_profile.cafe_name }} - User Profile</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 900px;
+            margin-top: 20px;
+        }
+        .user-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .user-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .user-header p {
+            font-size: 1.1rem;
+            color: #777;
+        }
+        .content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .content img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .content h2 {
+            font-size: 1.75rem;
+            margin-top: 20px;
+        }
+        .content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+        .content .badge {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class='row'>
+    <!-- Back Button -->
+    <a href="javascript:window.history.back();" class="mt-5 ml-5">
+        <i class="fas fa-arrow-left" style="font-size:30px; color:gray;"></i>
+    </a>
+
+    <div class="container">
+
+
+        <!-- User Header -->
+        <div class="user-header">
+            <h1>{{ user_profile.cafe_name }}</h1>
+            <p>{{ user_profile.location }} - {{ user_profile.area.name }}, {{ user_profile.city.name }}</p>
+        </div>
+
+        <!-- User Content Section -->
+        <div class="content">
+            {% if user_profile.cafe_logo %}
+            <img src="{{ user_profile.cafe_logo.url }}" alt="Cafe Logo">
+            {% endif %}
+            
+            <h2>About the Cafe</h2>
+            <p>{{ user_profile.cafe_description|default:"No description available." }}</p>
+
+            <h2>Contact & Social Media</h2>
+            <p><strong>Social Media:</strong> <a href="{{ user_profile.social_media_link }}" target="_blank">{{ user_profile.social_media_link|default:"No social media link provided." }}</a></p>
+            
+            <h2>Firebase Configuration</h2>
+            <p><strong>Firebase Config Link:</strong> {{ user_profile.firebase_config|default:"Not provided." }}</p>
+
+            <h2>Status</h2>
+            <p><span class="badge badge-info">{{ user_profile.get_status_display }}</span></p>
+
+            <h2>Additional Information</h2>
+            <p><strong>Thread ID:</strong> {{ user_profile.thread_id|default:"Not available." }}</p>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

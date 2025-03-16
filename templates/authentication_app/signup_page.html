@@ -1,9 +1,11 @@
+{%load static%}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>{% trans 'Sign Up'%}</title>
        <!-- flash library-->
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -100,7 +102,7 @@
 <body>
 
     <div class="container">
-        <h2>Sign Up</h2>
+        <h2>{%trans 'Sign Up'%}</h2>
 
         <!-- Display messages (success or error) -->
         {% if messages %}
@@ -114,11 +116,11 @@
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <input type="submit" value="Create Account">
+            <input type="submit" value="{%trans 'Create Account'%}">
         </form>        
 
         <div class="login-link">
-            <p>Already have an account? <a href="{% url 'login_page' %}">Log in</a></p>
+            <p>{% trans 'Already have an account?'%} <a href="{% url 'login' %}">{% trans 'Log in'%}</a></p>
         </div>
     </div>
 

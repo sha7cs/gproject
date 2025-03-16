@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
-    <title> {% block title %}{% endblock %}</title>
+    <title>{% trans 'Waiting for approval'%}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- Simple bar CSS -->
     <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
@@ -21,7 +21,8 @@
     <!-- App CSS -->
     <link rel="stylesheet" href="{% static 'css/app-light.css' %}" id="lightTheme">
     <link rel="stylesheet" href="{% static 'css/app-dark.css' %}" id="darkTheme" disabled>
-    {%block css%} {%endblock%}
+     <!-- flash library-->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <!-- flash library-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -34,26 +35,76 @@
     </style>
   </head>
   <body class="vertical  light {% trans 'dir'%} ">
-    <div class="wrapper">
-
-      {% if messages %}
-      <script>
+        <nav class="topnav navbar navbar-light">
+          <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
+            <i></i> <!--بخليه زر باك بعدين -->
+          </button>
+          <ul class="nav">
+            <li class="nav-item dropdown mt-2 mx-2">
+            {% get_current_language as CURRENT_LANGUAGE %}
+            {% get_available_languages as AVAILABLE_LANGUAGES %}
+            {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+            <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {%trans 'languages'%}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                {% for language in languages%}
+                <a class="dropdown-item" href="{% url 'set_language' urlname=request.resolver_match.view_name %}?language={{ language.code }}">
+                    {{ language.name_local }}
+                </a>              
+                {% endfor %}
+            </div>
+            </li>
+            <li class="nav-item dropdown mt-2 mx-1">
+                <a class="nav-link dropdown-toggle text-muted pr-0 " href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i style="font-size:18px" class="fa">&#xf007;</i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="#">{%trans 'Settings'%}</a>             
+                  <a class="dropdown-item " href="{% url 'logout' %}">
+                    <form method="POST" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="dropdown-item" style="padding:0px;">{%trans 'Logout'%}</button>
+                    </form>
+                </a>
+                </div>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link text-muted my-2" href="#" id="modeSwitcher" data-mode="light">
+                <i class="fe fe-sun fe-16"></i>
+                </a>
+            </li>
+        </ul>  
+    </nav>
+    {% if messages %}
+        <script>
         {% for message in messages %}
-          toastr["{{ message.tags }}"]("{{ message|escapejs }}");
+            toastr["{{ message.tags }}"]("{{ message|escapejs }}");
         {% endfor %}
-      </script>
+        </script>
     {% endif %}
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="text-center p-5">
+            <img src="{% static 'images/wait.png' %}" alt="Waiting Image" class="img-fluid my-3" height='200' width='200'>
+            <h2 class='my-2'>
+              {%trans 'Your request has been submitted ✅'%}
+          </h2>
+            <p class='my-2'>{% trans 'Please wait while your request is reviewed. You will be notified via email when your request is accepted or rejected.' %}</p>
+            <!--الرجاء الانتظار حتى يتم مراجعة طلبك، وسيتم إعلامك عن طريق البريد الإلكتروني عند قبول أو رفض طلبك.-->
+        </div>
+    </div>
 
-      {% include "navbar.html" %}
 
-      {% include "sidebar.html" %}
-
-      {% block content %}
-      {% endblock %}
-
-
-    </div> <!-- .wrapper -->
-    
+    <!--flash messages script-->
+    <script>
+        toastr.options = {
+        "closeButton": true,
+        "progressBar": true,
+        "timeOut": "3000",
+        "extendedTimeOut": "1000",
+        "positionClass": "toast-top-right"
+        };
+    </script>
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/moment.min.js' %}"></script>
@@ -102,6 +153,5 @@
             "positionClass": "toast-top-right"
           };
         </script>
-     {%block jss%} {%endblock%}
   </body>
-</html>
+  </html>
