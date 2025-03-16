@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
-    <title> {% block title %} index {% endblock %}</title>
+    <title> {% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- Simple bar CSS -->
     <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
@@ -33,7 +33,7 @@
         }
     </style>
   </head>
-  <body class="vertical  light rtl ">
+  <body class="vertical  light {% trans 'dir'%} ">
     <div class="wrapper">
 
       {% if messages %}

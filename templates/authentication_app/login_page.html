@@ -1,9 +1,11 @@
+{%load static%}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In</title>
+    <title>{%trans 'Log In'%}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -89,7 +91,7 @@
 <body>
 
     <div class="container">
-        <h2>Log In</h2>
+        <h2>{%trans 'Log In'%}</h2>
 
         <!-- Display error messages -->
         {% if messages %}
@@ -100,13 +102,13 @@
 
         <form method="POST" action="">
             {% csrf_token %}
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="submit" value="Log In">
+            <input type="text" name="username" placeholder="{%trans 'Username'%}" required>
+            <input type="password" name="password" placeholder="{%trans "Password"%}" required>
+            <input type="submit" value="{%trans 'Log In'%}">
         </form>
 
         <div class="signup-link">
-            <p>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
+            <p>{%trans "Don't have an account?"%} <a href="{% url 'signup' %}">{% trans 'Sign Up'%}</a></p>
         </div>
     </div>
 

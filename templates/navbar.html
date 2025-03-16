@@ -13,7 +13,7 @@
         {% get_available_languages as AVAILABLE_LANGUAGES %}
         {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
         <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         languages
+         {%trans 'languages'%}
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
           {% for language in languages%}
@@ -41,11 +41,11 @@
           <i style="font-size:18px" class="fa">&#xf007;</i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Settings</a>             
+          <a class="dropdown-item" href="#">{%trans 'Settings'%}</a>             
           <a class="dropdown-item " href="{% url 'logout' %}">
             <form method="POST" action="{% url 'logout' %}">
                 {% csrf_token %}
-                <button type="submit" class="dropdown-item" style="padding:0px;">Logout</button>
+                <button type="submit" class="dropdown-item" style="padding:0px;">{%trans 'Logout'%}</button>
             </form>
         </a>
         </div>

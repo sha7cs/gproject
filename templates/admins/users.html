@@ -1,33 +1,42 @@
 {% extends "admins/base.html" %}
 {%load static%}
 {% load i18n %}
+{%block title %} {%trans 'users settings'%} {% endblock %}
+{% block search %}
+<form method="GET" action="{% url 'admins.users' %}" class="form-inline mr-auto searchform text-muted">
+  <input class="form-control mr-sm-4 bg-transparent border-0 pl-4 text-muted w-100"
+         type="search" name="q" placeholder="{% trans 'search for user...' %}" aria-label="Search"
+         value="{{ request.GET.q }}" > <!--خليته يصير يا يوزرنيم يا اي دي يا اسم الكوفي -->
+</form>
+{% endblock %}
+
 {% block content %}
 <main role="main" class="main-content">
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-12">
-        <h2 class="h3 mb-3 page-title">المستخدمين</h2>
+        <h2 class="h3 mb-3 page-title">{%trans 'Users'%}</h2>
         <div class="row mb-4 items-align-center">
           <div class="col-md">
             <ul class="nav nav-pills justify-content-start">
               <li class="nav-item">
                 <a class="nav-link {% if not request.GET.status %}active text-primary{% else %}text-muted{% endif %}  bg-transparent pr-2 pl-0 " href="{% url 'admins.users' %}?status=&start_date=">
-                  الكل <span class="badge badge-pill  {% if not request.GET.status %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %} ml-2">{{ total_count }}</span>
+                  {%trans 'All'%} <span class="badge badge-pill  {% if not request.GET.status %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %} ml-2">{{ total_count }}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link {% if request.GET.status == '0' %}active text-primary{% else %}text-muted{% endif %} bg-transparent pr-2 pl-0"href="{% url 'admins.users' %}?status=0">
-                  قيد الانتظار <span class="badge badge-pill {% if request.GET.status == '0' %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %}  ml-2">{{ pending_count }}</span>
+                  {% trans 'Pending'%} <span class="badge badge-pill {% if request.GET.status == '0' %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %}  ml-2">{{ pending_count }}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link {% if request.GET.status == '1' %}active text-primary{% else %}text-muted{% endif %}  bg-transparent pr-2 pl-0" href="{% url 'admins.users' %}?status=1">
-                  المقبولين <span class="badge badge-pill {% if request.GET.status == '1' %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %} ml-2">{{ accepted_count }}</span>
+                  {% trans 'Accepted'%} <span class="badge badge-pill {% if request.GET.status == '1' %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %} ml-2">{{ accepted_count }}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link {% if request.GET.status == '2' %}active text-primary{% else %}text-muted{% endif %}  bg-transparent pr-2 pl-0" href="{% url 'admins.users' %}?status=2">
-                  المرفوضين <span class="badge badge-pill {% if request.GET.status == '2' %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %} ml-2">{{ denied_count }}</span>
+                  {% trans 'Denied'%} <span class="badge badge-pill {% if request.GET.status == '2' %} bg-primary  text-white{% else %} bg-white border text-muted{% endif %} ml-2">{{ denied_count }}</span>
                 </a>
               </li>
             </ul>
@@ -77,8 +86,8 @@
             </div>
 
             <div class="modal-footer">
-              <button type="button" class="btn mb-2 btn-primary btn-block" id="applyFilters">Apply</button>
-              <button type="button" class="btn mb-2 btn-secondary btn-block" id="resetFilters">Reset</button>
+              <button type="button" class="btn mb-2 btn-primary btn-block" id="applyFilters">{% trans 'Apply'%}</button>
+              <button type="button" class="btn mb-2 btn-secondary btn-block" id="resetFilters">{% trans 'Reset'%}</button>
             </div>
           </div>
         </div>
@@ -115,7 +124,7 @@
                   <label class="custom-control-label"></label>
                 </div>
               </td>
-              <td>{{ forloop.counter }}</td>  <!-- Auto-incrementing row number -->
+              <td>{{ profile.id }}</td>  <!-- Auto-incrementing row number -->
               <td>
                 {% if profile.cafe_logo %}
                     <img src="{{ profile.cafe_logo.url }}" alt="Cafe Logo" style="width: 50px;">
@@ -170,11 +179,11 @@
           <ul class="pagination justify-content-end mb-0">
             {% if profiles.has_previous %}
               <li class="page-item">
-                <a class="page-link" href="?page={{ profiles.previous_page_number }}">السابق</a>
+                <a class="page-link" href="?page={{ profiles.previous_page_number }}">{% trans 'Previous'%}</a>
               </li>
             {% else %}
               <li class="page-item disabled">
-                <span class="page-link">السابق</span>
+                <span class="page-link">{% trans 'Previous'%}</span>
               </li>
             {% endif %}
         
@@ -192,11 +201,11 @@
         
             {% if profiles.has_next %}
               <li class="page-item">
-                <a class="page-link" href="?page={{ profiles.next_page_number }}">التالي</a>
+                <a class="page-link" href="?page={{ profiles.next_page_number }}">{% trans 'Next'%}</a>
               </li>
             {% else %}
               <li class="page-item disabled">
-                <span class="page-link">التالي</span>
+                <span class="page-link">{% trans 'Next'%}</span>
               </li>
             {% endif %}
           </ul>

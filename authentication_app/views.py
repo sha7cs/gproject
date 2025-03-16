@@ -12,6 +12,7 @@ from .decorators import allowed_users, admin_only, unauthenticated_user #هذو�
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from authentication_app.models import UserProfile ,City,Area
+from django.utils.translation import gettext_lazy as _ 
 
 
 ##واضح هذا حق الساين ان هههههههههه
@@ -29,13 +30,13 @@ class SignUpView(CreateView):
         
         #هذا البارت هو الي عليه اختلاف يا يسجله دخول على طول يا يقول له انت سجل من جديد 
         login(self.request, user) 
-        messages.success(self.request, 'Account created successfully! You are now logged in.') 
+        messages.success(self.request, _('Account created successfully! You are now logged in.')) 
         return redirect(self.success_url)
 
     def form_invalid(self, form):
         for field, errors in form.errors.items():
             for error in errors:
-                messages.error(self.request, f"{field.capitalize()}: {error}")
+                messages.error(self.request, _(f"{field.capitalize()}: {error}"))
         return super().form_invalid(form)
 
 
@@ -58,18 +59,18 @@ class CustomLoginView(LoginView):
                 # messages.warning()
                 return reverse_lazy('wait')
             elif user_profile.status == 2:
-                messages.error(self.request, "Your account has been denied. Contact support.")
+                messages.error(self.request, _("Your account has been denied. Contact support."))
                 return reverse_lazy('login')  # Redirect back to login
             return reverse_lazy('home')  # Approved users go to home
         
         # If for some reason the user has no UserProfile, log them out
-        messages.error(self.request, "No profile associated with this account.")
+        messages.error(self.request, _("No profile associated with this account."))
         return reverse_lazy('login')
     
     
     def form_valid(self, form):
         logger.info(f"User {form.get_user().username} logged in.")
-        messages.success(self.request,f"مرحبًا بك يا {form.get_user().username}")
+        messages.success(self.request,_(f"Welcome back, {form.get_user().username}"))
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -94,7 +95,7 @@ def settings(request):
 
         # اذا كد عبوا السيتينقز ما يسمح لهم يدخلونها ويوديهم صفحة الانتظار
         if user_profile.cafe_name and user_profile.area:
-            messages.info(request, "You have already submitted your profile. You cannot access the settings page.")
+            messages.info(request, _("You have already submitted your profile. You cannot access the settings page."))
             return redirect('wait')
 
     except UserProfile.DoesNotExist:
@@ -107,7 +108,7 @@ def settings(request):
             user_profile.user = request.user 
             user_profile.save()
 
-            messages.success(request,'submitted')
+            messages.success(request, _('Your request has been submitted.'))
             return redirect("wait") 
         else:
             # If form is invalid, we still want to render the form with error messages
@@ -115,7 +116,7 @@ def settings(request):
             cities = City.objects.all()  
             for field, errors in form.errors.items():
                 for error in errors:
-                    messages.error(request, f"{field.capitalize()}: {error}")
+                    messages.error(request, _(f"{field.capitalize()}: {error}"))
             return render(request, 'profile/profile-settings.html', {'form': form, 'areas': areas, 'cities': cities})
     else:
         areas = Area.objects.all()

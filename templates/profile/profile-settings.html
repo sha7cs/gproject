@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
-    <title> index </title>
+    <title> {% trans 'Settings'%} </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- Simple bar CSS -->
     <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
     <style>
         .hr.solid {
@@ -32,12 +33,12 @@
         }
     </style>
   </head>
-  <body class="vertical  light rtl ">
+  <body class="vertical  light {% trans 'dir' %} ">
     <div class="wrapper">
       <nav class="topnav navbar navbar-light">
-        <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
-          <i></i> <!--بخليه زر باك بعدين -->
-        </button>
+        <a href="javascript:window.history.back();" class="mr-5 ">
+          <i class="fas fa-arrow-right" style="font-size:30px; color:gray;"></i> <!--بغير مكانه بعدين-->
+        </a>
         <ul class="nav">
           <li class="nav-item dropdown mt-2 mx-2">
             {% get_current_language as CURRENT_LANGUAGE %}
@@ -59,11 +60,11 @@
               <i style="font-size:18px" class="fa">&#xf007;</i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Settings</a>             
+              <a class="dropdown-item" href="#">{%trans 'Settings'%}</a>             
               <a class="dropdown-item " href="{% url 'logout' %}">
                 <form method="POST" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <button type="submit" class="dropdown-item" style="padding:0px;">Logout</button>
+                    <button type="submit" class="dropdown-item" style="padding:0px;">{% trans 'Logout'%}</button>
                 </form>
             </a>
             </div>
@@ -74,7 +75,6 @@
             </a>
           </li>
         </ul>
-        
       </nav>
       <main role="main" class="main-content ml-0 mb-4">
         <div class="container-fluid">
@@ -100,16 +100,16 @@
                 <form method="POST" enctype="multipart/form-data">
                   {%csrf_token%}
                     <div class="form-group">
-                      <label for="firstname">اسم المقهى</label>
+                      <label for="firstname">{%trans 'Cafe Name'%}</label>
                       {{ form.cafe_name }}
                     </div>
                   <div class="form-group">
-                    <label for="location">الموقع</label>
+                    <label for="location">{%trans 'Location'%}</label>
                     {{ form.location }}
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                      <label for="inputState5">المنطقة</label>
+                      <label for="inputState5">{% trans 'Area' %}</label> <!--احس ترجمتي غلط مفروض كاونتي او شيء ثاني-->
                         {{ form.area }}
                         {% if form.area.errors %}
                           <div class="text-danger">
@@ -120,33 +120,33 @@
                         {% endif %}
                     </div>
                     <div class="form-group col-md-4">
-                      <label for="inputCity">المدينة</label>
+                      <label for="inputCity">{% trans 'City'%}</label>
                       {{ form.city }}
                     </div>
                   </div>
                   <div class="form-group mb-3">
                     <div class="form-group mb-3">
-                      <label for="example-fileinput">ارفع ملف بيانات مقهاك هنا </label>
+                      <label for="example-fileinput">{% trans 'Upload you data here'%}</label>
                       {{ form.data_file }}
                       {% comment %} <input type="file" id="example-fileinput" class="form-control-file" name="data-file" required> {% endcomment %}
                     </div>
                   </div>
                   <div class="form-group"> <!--optional-->
-                    <label for="inputZip5">روابط مواقع التواصل الاجتماعي</label> <!--ابي اخلي فيه ربط على طول مع انستا وغيره بس هذا مؤقت يعني -->
+                    <label for="inputZip5">{%trans  'Link to social media accounts if any'%}</label> <!--ابي اخلي فيه ربط على طول مع انستا وغيره بس هذا مؤقت يعني -->
                     {{ form.social_media_link }}
                    </div>
                   <div class="form-group mb-3"> <!--optional-->
-                    <label for="validationTextarea">تحدث عن مقهاك قليلًا</label>
+                    <label for="validationTextarea">{%trans 'Talk about you cafe briefly'%}</label>
                     {{ form.cafe_description }}
                   </div>
                   <div class="form-group">
-                    <label for="cafe_logo">شعار المقهى</label>
+                    <label for="cafe_logo">{% trans 'Cafe Logo'%}</label>
                     {{ form.cafe_logo }}
                 </div>
                   <hr class="my-4">
-                  <div class="form-group mb-3">
-                  <label for="validationTextarea">بالضغط على زر "ارفع طلبك" فأنت توافق على رفع بياناتك الى هذا الموقع ، وتقر بأنها معلومات صحيحة.</label><br>
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#defaultModal">ارفع طلبك</button>
+                  <div class="form-group mb-3"><!--الضغط على زر "ارفع طلبك" فأنت توافق على رفع بياناتك الى هذا الموقع ، وتقر بأنها معلومات صحيحة.-->
+                  <label for="validationTextarea">{%trans 'By clicking the "Submit Your Request" button, you agree to upload your data to this website and confirm that the information is accurate.'%}</label><br>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#defaultModal">{%trans 'Submit Your Request' %}</button>
                   </div>
                   
                   <!--modal to cofirm that the user wants to submit-->
@@ -156,18 +156,17 @@
                       <div class="modal-dialog" role="document">
                           <div class="modal-content">
                               <div class="modal-header">
-                                  <h5 class="modal-title" id="defaultModalLabel">تأكيد</h5>
+                                  <h5 class="modal-title" id="defaultModalLabel">{%trans "Confirm"%}</h5>                                  
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                       <span aria-hidden="true">&times;</span>
                                   </button>
                               </div>
-                              <div class="modal-body">
-                                  بضغطك على متأكد فأنت تؤكد رغبتك برفع طلب دخولك للموقع. <br> نطلب منك الانتظار حتى يصلك بريدك الكتروني ينص على قبول دخول للموقع.
+                              <div class="modal-body">{% trans 'By clicking "Confirm," you confirm your desire to submit your access request to the website. <br>We ask you to wait until you receive an email confirming your access approval.' %}
                               </div>
                               <div class="modal-footer">
-                                  <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">اغلق</button>
+                                  <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">{%trans 'Close'%}</button>
                                   <!-- Add form submission on confirmation -->
-                                  <button type="submit" class="btn mb-2 btn-primary">متأكد</button>
+                                  <button type="submit" class="btn mb-2 btn-primary">{% trans 'Confirm'%}</button>
                               </div>
                           </div>
                       </div>
