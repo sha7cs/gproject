@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-17 07:22+0000\n"
+"POT-Creation-Date: 2025-03-17 08:22+0000\n"
 "PO-Revision-Date: 2025-03-16 03:18+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,6 +44,18 @@ msgstr "Denied"
 
 #: administrators/views.py:155
 msgid "Questions updated successfully!"
+msgstr ""
+
+#: administrators/views.py:176
+msgid "New question created successfully!"
+msgstr ""
+
+#: administrators/views.py:179
+msgid "There was an error creating the question."
+msgstr ""
+
+#: administrators/views.py:190
+msgid "Question deleted successfully!"
 msgstr ""
 
 #: authentication_app/decorators.py:23 authentication_app/decorators.py:36
@@ -204,7 +216,7 @@ msgstr ""
 msgid "Add a Subcategory"
 msgstr "Subcategory"
 
-#: templates/admins/chat_control.html:49 templates/admins/chat_control.html:81
+#: templates/admins/chat_control.html:49 templates/admins/chat_control.html:83
 msgid "Modify"
 msgstr ""
 
@@ -212,25 +224,50 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: templates/admins/chat_control.html:60
+#: templates/admins/chat_control.html:61
 #, fuzzy
 #| msgid "Question"
 msgid "Modify Question:"
 msgstr "Question"
 
-#: templates/admins/chat_control.html:71
+#: templates/admins/chat_control.html:73 templates/admins/chat_control.html:105
 msgid "The question in Arabic:"
 msgstr ""
 
-#: templates/admins/chat_control.html:75
+#: templates/admins/chat_control.html:77 templates/admins/chat_control.html:109
 msgid "The question in English:"
 msgstr ""
 
-#: templates/admins/chat_control.html:80
+#: templates/admins/chat_control.html:82 templates/admins/chat_control.html:114
+#: templates/admins/chat_control.html:141
 #: templates/profile/profile-settings.html:168
 #: templates/profile/settings_update.html:168
 #: templates/profile/settings_view.html:168
 msgid "Close"
+msgstr ""
+
+#: templates/admins/chat_control.html:94
+#, fuzzy
+#| msgid "Question"
+msgid "Add Question:"
+msgstr "Question"
+
+#: templates/admins/chat_control.html:115
+msgid "Create"
+msgstr ""
+
+#: templates/admins/chat_control.html:128
+#, fuzzy
+#| msgid "Question"
+msgid "Delete a Question:"
+msgstr "Question"
+
+#: templates/admins/chat_control.html:137
+msgid "Are you sure?"
+msgstr ""
+
+#: templates/admins/chat_control.html:142
+msgid "Sure"
 msgstr ""
 
 #: templates/admins/users.html:4

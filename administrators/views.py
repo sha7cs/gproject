@@ -154,9 +154,38 @@ def chat_control(request):
 
         messages.success(request, _("Questions updated successfully!"))
         return redirect("admins.chatbot")  
-
+    form = QuestionForm()
     return render(request, "admins/chat_control.html", {
         "categories": categories,
         "subcategories": subcategories,
         "questions": allquestions,
+        'form': form
     })
+from .forms import QuestionForm 
+
+
+def create_question(request, subcategory_id):
+    subcategory = get_object_or_404(Subcategory, id=subcategory_id)
+    
+    if request.method == 'POST':
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            new_question = form.save(commit=False)
+            new_question.subcategory = subcategory 
+            new_question.save()
+            messages.success(request, _("New question created successfully!"))
+            return redirect('admins.chatbot') 
+        else:
+            messages.error(request, _("There was an error creating the question."))
+            return redirect('admins.chatbot') 
+            
+
+def delete_question(request, question_id):
+    question = get_object_or_404(Question, id=question_id)
+
+    # Delete the question
+    question.delete()
+
+    # Show a success message and redirect back to the chat control page
+    messages.success(request, _("Question deleted successfully!"))
+    return redirect('admins.chatbot')
