@@ -191,10 +191,8 @@ def create_question(request, subcategory_id):
 def delete_question(request, question_id):
     question = get_object_or_404(Question, id=question_id)
 
-    # Delete the question
     question.delete()
 
-    # Show a success message and redirect back to the chat control page
     messages.success(request, _("Question deleted successfully!"))
     return redirect('admins.chatbot')
 
@@ -214,4 +212,12 @@ def create_subcategory(request,category_id):
         else:
             messages.error(request, _("There was an error creating the Subcategory."))
             return redirect('admins.chatbot') 
-    
+
+@login_required
+@allowed_users(allowed_roles=['admins'])
+def delete_subcategory(request, subcategory_id):
+    subcategory = get_object_or_404(Subcategory, id=subcategory_id)
+    subcategory.delete()
+
+    messages.success(request, _("Subcategory deleted successfully!"))
+    return redirect('admins.chatbot')
