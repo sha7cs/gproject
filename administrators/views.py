@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from authentication_app.models import UserProfile 
+from promotions.models import Category,Subcategory,Question
 from django.core.paginator import Paginator
 from django.db.models import Q
 from datetime import datetime
@@ -124,14 +125,38 @@ def user_details(request, user_id):
     
     return render(request, 'admins/user_details.html', {'user_profile': user_profile})
 
-# @login_required
-# @allowed_users(allowed_roles=['admins'])
-# def search_user(request):
-#     query = request.GET.get('q', '')  # Get the search query
-#     profiles_list = UserProfile.objects.select_related('user').all().order_by('-user__date_joined')
-#     users = User.objects.none()  # Default empty queryset
 
-#     if query:
-#         users = User.objects.filter(username__icontains=query)  # Adjust filtering as needed
+@login_required
+@allowed_users(allowed_roles=['admins'])
+def chat_control(request):
+    categories = Category.objects.all()
+    subcategories = Subcategory.objects.all()
+    allquestions = Question.objects.all()
 
-#     return render(request, 'users.html', {'profiles': users, 'query': query})
+    if request.method == "POST":
+        for question in allquestions:
+            question_id = request.POST.get(f"question_id_{question.id}") 
+            
+            if question_id:
+                question = get_object_or_404(Question, id=question_id)
+                question_ar = request.POST.get(f"question_ar_{question.id}")
+                question_en = request.POST.get(f"question_en_{question.id}")
+
+                if question_ar:
+                    question.set_current_language('ar') 
+                    question.question = question_ar  # Update the Arabic translation
+                    question.save()
+
+                if question_en:
+                    question.set_current_language('en') 
+                    question.question = question_en  # Update the English translation
+                    question.save()
+
+        messages.success(request, _("Questions updated successfully!"))
+        return redirect("admins.chatbot")  
+
+    return render(request, "admins/chat_control.html", {
+        "categories": categories,
+        "subcategories": subcategories,
+        "questions": allquestions,
+    })

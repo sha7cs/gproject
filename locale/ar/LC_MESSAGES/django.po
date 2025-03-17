@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-16 04:35+0000\n"
-"PO-Revision-Date: 2025-03-16 04:55+0000\n"
+"POT-Creation-Date: 2025-03-17 07:22+0000\n"
+"PO-Revision-Date: 2025-03-17 07:24+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ar\n"
@@ -27,20 +27,24 @@ msgstr "الإنجليزية"
 msgid "Arabic"
 msgstr "العربية"
 
-#: administrators/views.py:25 templates/admins/users.html:29
-#: templates/admins/users.html:81
+#: administrators/views.py:26 templates/admins/users.html:29
+#: templates/admins/users.html:85 templates/admins/users.html:352
 msgid "Pending"
 msgstr "قيد الانتظار"
 
-#: administrators/views.py:29 templates/admins/users.html:34
-#: templates/admins/users.html:82
+#: administrators/views.py:30 templates/admins/users.html:34
+#: templates/admins/users.html:86 templates/admins/users.html:353
 msgid "Accepted"
 msgstr "مقبول"
 
-#: administrators/views.py:33 templates/admins/users.html:39
-#: templates/admins/users.html:83
+#: administrators/views.py:34 templates/admins/users.html:39
+#: templates/admins/users.html:87 templates/admins/users.html:354
 msgid "Denied"
 msgstr "مرفوض"
+
+#: administrators/views.py:155
+msgid "Questions updated successfully!"
+msgstr "تم تعديل السؤال بنجاح!"
 
 #: authentication_app/decorators.py:23 authentication_app/decorators.py:36
 #: authentication_app/decorators.py:59
@@ -129,33 +133,42 @@ msgstr "النصيحة اليومية"
 msgid "Daily Advices"
 msgstr "النصيحة اليومية"
 
-#: promotions/views.py:40
+#: promotions/views.py:41
 msgid "of the month"
 msgstr "من الشهر"
 
 #: templates/admins/base.html:36 templates/base.html:36
-#: templates/profile/profile-settings.html:35
-#: templates/profile/waiting.html:37 templates/welcome.html:4
+#: templates/profile/profile-settings.html:36
+#: templates/profile/settings_update.html:36
+#: templates/profile/settings_view.html:36 templates/profile/waiting.html:37
+#: templates/welcome.html:4
 msgid "dir"
 msgstr "rtl"
 
 #: templates/admins/base.html:55 templates/navbar.html:17
-#: templates/profile/profile-settings.html:47
-#: templates/profile/waiting.html:48
+#: templates/profile/profile-settings.html:48
+#: templates/profile/settings_update.html:48
+#: templates/profile/settings_view.html:48 templates/profile/waiting.html:48
 msgid "languages"
 msgstr "اللغة"
 
 #: templates/admins/base.html:71 templates/navbar.html:47
 #: templates/profile/profile-settings.html:11
-#: templates/profile/profile-settings.html:62
+#: templates/profile/profile-settings.html:63
 #: templates/profile/profile-settings.html:83
-#: templates/profile/waiting.html:63
+#: templates/profile/settings_update.html:11
+#: templates/profile/settings_update.html:63
+#: templates/profile/settings_update.html:83
+#: templates/profile/settings_view.html:11
+#: templates/profile/settings_view.html:63
+#: templates/profile/settings_view.html:83 templates/profile/waiting.html:63
 msgid "Settings"
 msgstr "الإعدادات"
 
 #: templates/admins/base.html:75 templates/navbar.html:51
-#: templates/profile/profile-settings.html:66
-#: templates/profile/waiting.html:67
+#: templates/profile/profile-settings.html:67
+#: templates/profile/settings_update.html:67
+#: templates/profile/settings_view.html:67 templates/profile/waiting.html:67
 msgid "Logout"
 msgstr "تسجيل خروج"
 
@@ -175,8 +188,55 @@ msgstr "التحليل"
 msgid "Holidays"
 msgstr "الإجازات"
 
+#: templates/admins/chat_control.html:4
+msgid "chat control"
+msgstr "التحكم بالشات"
+
+#: templates/admins/chat_control.html:12
+msgid ""
+"What is displayed under it are all the subcategories associated with this "
+"category along with their questions, and you can manage them, including "
+"deleting and adding."
+msgstr ""
+"ما يعرض تحتها هو كل التصنيفات الفرعية المرتبطة بهذا التصنيف مع اسئلتها، "
+"ويمكنك التحكم بها بما فيه الحذف والإضافة"
+
+#: templates/admins/chat_control.html:19
+#, fuzzy
+#| msgid "Subcategory"
+msgid "Add a Subcategory"
+msgstr "التصنيف الفرعي"
+
+#: templates/admins/chat_control.html:49 templates/admins/chat_control.html:81
+msgid "Modify"
+msgstr "تعديل"
+
+#: templates/admins/chat_control.html:50
+msgid "Delete"
+msgstr "حذف"
+
+#: templates/admins/chat_control.html:60
+#, fuzzy
+#| msgid "Question"
+msgid "Modify Question:"
+msgstr "سؤال"
+
+#: templates/admins/chat_control.html:71
+msgid "The question in Arabic:"
+msgstr "السؤال بالعربية:"
+
+#: templates/admins/chat_control.html:75
+msgid "The question in English:"
+msgstr "السؤال بالإنجليزية:"
+
+#: templates/admins/chat_control.html:80
+#: templates/profile/profile-settings.html:168
+#: templates/profile/settings_update.html:168
+#: templates/profile/settings_view.html:168
+msgid "Close"
+msgstr "إغلاق"
+
 #: templates/admins/users.html:4
-#| msgid "Settings"
 msgid "users settings"
 msgstr "إعدادات المستخدم"
 
@@ -184,7 +244,7 @@ msgstr "إعدادات المستخدم"
 msgid "search for user..."
 msgstr "البحث عن مستخدم..."
 
-#: templates/admins/users.html:24 templates/admins/users.html:80
+#: templates/admins/users.html:24 templates/admins/users.html:84
 msgid "All"
 msgstr "الكل"
 
@@ -196,100 +256,102 @@ msgstr "التصفية حسب"
 msgid "Filter by Date"
 msgstr "التصفية حسب التاريخ"
 
-#: templates/admins/users.html:78
+#: templates/admins/users.html:82
 msgid "Filter by Status"
 msgstr "التصفية حسب الحالة"
 
-#: templates/admins/users.html:90
+#: templates/admins/users.html:94
 msgid "Apply"
 msgstr "تطبيق"
 
-#: templates/admins/users.html:91
+#: templates/admins/users.html:95
 msgid "Reset"
 msgstr "إعادة تعيين"
 
-#: templates/admins/users.html:106
+#: templates/admins/users.html:110
 msgid "ID"
 msgstr ""
 
-#: templates/admins/users.html:107
+#: templates/admins/users.html:111
 msgid "Logo"
 msgstr "الشعار"
 
-#: templates/admins/users.html:108
+#: templates/admins/users.html:112
 msgid "Registration Date"
 msgstr "تاريخ التسجيل"
 
-#: templates/admins/users.html:109
+#: templates/admins/users.html:113
 msgid "Full Name"
 msgstr "الاسم كامل "
 
-#: templates/admins/users.html:110
+#: templates/admins/users.html:114
 #: templates/authentication_app/login_page.html:105
 msgid "Username"
 msgstr "اسم المستخدم"
 
-#: templates/admins/users.html:111
+#: templates/admins/users.html:115
 msgid "Email"
 msgstr "البريد الإلكتروني"
 
-#: templates/admins/users.html:112 templates/profile/profile-settings.html:103
+#: templates/admins/users.html:116 templates/profile/profile-settings.html:103
+#: templates/profile/settings_update.html:103
+#: templates/profile/settings_view.html:103
 msgid "Cafe Name"
 msgstr "اسم المقهى"
 
-#: templates/admins/users.html:113
+#: templates/admins/users.html:117
 msgid "Uploaded File"
 msgstr "ملف البيانات"
 
-#: templates/admins/users.html:114
+#: templates/admins/users.html:118
 msgid "Firebase Config"
 msgstr "رابط الفايربيس"
 
-#: templates/admins/users.html:115
+#: templates/admins/users.html:119
 msgid "Status"
 msgstr "الحالة"
 
-#: templates/admins/users.html:116 templates/admins/users.html:161
+#: templates/admins/users.html:120 templates/admins/users.html:165
 msgid "Action"
 msgstr "خيارات"
 
-#: templates/admins/users.html:133
+#: templates/admins/users.html:137
 msgid "No Logo Uploaded"
 msgstr "لم يتم رفع الشعار"
 
-#: templates/admins/users.html:143
+#: templates/admins/users.html:147
 msgid "View File"
 msgstr "افتح الملف "
 
-#: templates/admins/users.html:145
+#: templates/admins/users.html:149
 msgid "No File"
 msgstr "لم يتم رفع ملف"
 
-#: templates/admins/users.html:150
+#: templates/admins/users.html:154
 msgid "Firebase Link"
 msgstr "رابط الفايربيس"
 
-#: templates/admins/users.html:152
+#: templates/admins/users.html:156
 msgid "No Firebase Config"
 msgstr "لا يوجد رابط فايربيس"
 
-#: templates/admins/users.html:164
+#: templates/admins/users.html:168
 msgid "More"
 msgstr "المزيد"
 
-#: templates/admins/users.html:168
+#: templates/admins/users.html:172
 msgid "Accept"
 msgstr "قبول"
 
-#: templates/admins/users.html:171
+#: templates/admins/users.html:175
 msgid "Remove"
 msgstr "رفض"
 
-#: templates/admins/users.html:184 templates/admins/users.html:188
+#: templates/admins/users.html:188 templates/admins/users.html:192
 msgid "Previous"
 msgstr "السابق"
 
-#: templates/admins/users.html:206 templates/admins/users.html:210
+#: templates/admins/users.html:210 templates/admins/users.html:214
 msgid "Next"
 msgstr "التالي"
 
@@ -397,15 +459,15 @@ msgstr "لديك حساب بالفعل؟"
 msgid "Log in"
 msgstr "تسجيل الدخول"
 
-#: templates/chatbot/chatbot.html:17 templates/layout/promotions.html:116
+#: templates/chatbot/chatbot.html:17 templates/layout/promotions.html:117
 msgid "botwelcome"
 msgstr "مرحبا، أنا مساعدك التسويقي اسألني اللي تبي!"
 
-#: templates/chatbot/chatbot.html:22 templates/layout/promotions.html:121
+#: templates/chatbot/chatbot.html:22 templates/layout/promotions.html:122
 msgid "typeanswer"
 msgstr "اكتب رسالتك هنا ..."
 
-#: templates/chatbot/chatbot.html:23 templates/layout/promotions.html:122
+#: templates/chatbot/chatbot.html:23 templates/layout/promotions.html:123
 msgid "send"
 msgstr "إرسال"
 
@@ -421,8 +483,12 @@ msgstr " أفضل الأيام للعروض الترويجية"
 msgid "The best days for promotions based on sales trends."
 msgstr " أفضل الأيام للعروض الترويجية بناءً على اتجاهات المبيعات."
 
-#: templates/layout/promotions.html:58
+#: templates/layout/promotions.html:57
 msgid "Upcoming Event"
+msgstr ""
+
+#: templates/layout/promotions.html:61
+msgid "Date:"
 msgstr ""
 
 #: templates/layout/promotions.html:62
@@ -433,67 +499,85 @@ msgstr ""
 msgid "No upcoming events."
 msgstr ""
 
-#: templates/layout/promotions.html:77
+#: templates/layout/promotions.html:78
 msgid "Which Product to Discount"
 msgstr " أي منتج يجب تخفيض سعره"
 
-#: templates/layout/promotions.html:79
+#: templates/layout/promotions.html:80
 msgid "This product has the lowest sales and could benefit from a discount."
 msgstr "هذا المنتج لديه أقل المبيعات وقد يستفيد من تخفيض السعر."
 
-#: templates/layout/promotions.html:93
+#: templates/layout/promotions.html:94
 msgid "Welcome to the Chat"
 msgstr "أهلًا انا مساعدك التسويقي!"
 
-#: templates/layout/promotions.html:94
+#: templates/layout/promotions.html:95
 msgid "Click below to start"
 msgstr "انا شات تقدر تسأله عن أي شيء ممكن تحتاجه بالتسويق، والتحليل "
 
-#: templates/layout/promotions.html:96
+#: templates/layout/promotions.html:97
 msgid "start chat"
 msgstr "اضغط هنا لبدأ الدردشة"
 
-#: templates/layout/promotions.html:102
+#: templates/layout/promotions.html:103
 msgid "select category"
 msgstr "اختر التصنيف المرغوب"
 
-#: templates/layout/promotions.html:110
+#: templates/layout/promotions.html:111
 msgid "Select a Subcategory"
 msgstr "اختر الفئة التي تريد السؤال عنها"
 
 #: templates/profile/profile-settings.html:87
+#: templates/profile/settings_update.html:87
+#: templates/profile/settings_view.html:87
 msgid "profile"
 msgstr "بيانات المستخدم"
 
 #: templates/profile/profile-settings.html:107
+#: templates/profile/settings_update.html:107
+#: templates/profile/settings_view.html:107
 msgid "Location"
 msgstr "الموقع"
 
 #: templates/profile/profile-settings.html:112
+#: templates/profile/settings_update.html:112
+#: templates/profile/settings_view.html:112
 msgid "Area"
 msgstr "المنطقة"
 
 #: templates/profile/profile-settings.html:123
+#: templates/profile/settings_update.html:123
+#: templates/profile/settings_view.html:123
 msgid "City"
 msgstr "المدينة"
 
 #: templates/profile/profile-settings.html:129
+#: templates/profile/settings_update.html:129
+#: templates/profile/settings_view.html:129
 msgid "Upload you data here"
 msgstr "ارفع بياناتك هنا "
 
 #: templates/profile/profile-settings.html:136
+#: templates/profile/settings_update.html:136
+#: templates/profile/settings_view.html:136
 msgid "Link to social media accounts if any"
 msgstr "رابط مواقع التواصل الاجتماعي إن وجد"
 
 #: templates/profile/profile-settings.html:140
+#: templates/profile/settings_update.html:140
+#: templates/profile/settings_view.html:140
 msgid "Talk about you cafe briefly"
 msgstr "تحدث قليًا عن مقهاك"
 
 #: templates/profile/profile-settings.html:144
+#: templates/profile/settings_update.html:144
+#: templates/profile/settings_view.html:144
 msgid "Cafe Logo"
 msgstr "شعار المقهى"
 
 #: templates/profile/profile-settings.html:149
+#: templates/profile/settings_update.html:149
+#: templates/profile/settings_view.html:149
 msgid ""
 "By clicking the \"Submit Your Request\" button, you agree to upload your "
 "data to this website and confirm that the information is accurate."
@@ -502,15 +586,23 @@ msgstr ""
 "وتقر بأنها معلومات صحيحة."
 
 #: templates/profile/profile-settings.html:150
+#: templates/profile/settings_update.html:150
+#: templates/profile/settings_view.html:150
 msgid "Submit Your Request"
 msgstr "ارفع طلبك"
 
 #: templates/profile/profile-settings.html:160
 #: templates/profile/profile-settings.html:170
+#: templates/profile/settings_update.html:160
+#: templates/profile/settings_update.html:170
+#: templates/profile/settings_view.html:160
+#: templates/profile/settings_view.html:170
 msgid "Confirm"
 msgstr "تأكيد"
 
 #: templates/profile/profile-settings.html:165
+#: templates/profile/settings_update.html:165
+#: templates/profile/settings_view.html:165
 msgid ""
 "By clicking \"Confirm,\" you confirm your desire to submit your access "
 "request to the website. <br>We ask you to wait until you receive an email "
@@ -518,10 +610,6 @@ msgid ""
 msgstr ""
 "بضغطك على متأكد فأنت تؤكد رغبتك برفع طلب دخولك للموقع. <br> نطلب منك "
 "الانتظار حتى يصلك بريدك الكتروني ينص على قبولك أو رفضك."
-
-#: templates/profile/profile-settings.html:168
-msgid "Close"
-msgstr "إغلاق"
 
 #: templates/profile/waiting.html:11
 msgid "Waiting for approval"
@@ -609,9 +697,6 @@ msgstr "أهلًا وسهلًا!"
 
 #~ msgid "Enter a valid time."
 #~ msgstr "ادخل وقت صحيح"
-
-#~ msgid "Delete"
-#~ msgstr "حذف"
 
 #~ msgid "Yes"
 #~ msgstr "نعم"

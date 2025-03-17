@@ -1,0 +1,96 @@
+{% extends "admins/base.html" %}
+{%load static%}
+{% load i18n %}
+{%block title %} {%trans 'chat control'%} {% endblock %}
+{% block content %}
+<main role="main" class="main-content">
+    <div class="container-fluid">
+        {% for category in categories %} <!--يعرض التصنيفات  -->
+            <div class="row mb-5">
+                <div class="col-md-10 mb-4">
+                    <h1>{{category}}</h1>
+                    <p>{%trans 'What is displayed under it are all the subcategories associated with this category along with their questions, and you can manage them, including deleting and adding.' %}</p>
+                    <hr>
+                    <div>
+                        {{ form.errors }}
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                     <button type="button" class="btn btn btn-primary"><span class="fe fe-plus fe-14"></span>{% trans 'Add a Subcategory' %}</button>
+                 </div>
+                
+
+                {% for subcategory in category.subcategories.all %} <!--يعرض التصنيف الفرعي  -->
+                <!-- Files List -->
+                <div class="col-md-4 mb-4">
+                <div class="card shadow">
+                    <div class="card-header">
+                    <strong class="card-title">{{subcategory}}</strong>
+                    <a class="float-right small text-muted" href="#!"><span class="fe fe-plus fe-16"></span></a>
+                    </div>
+                    <div class="card-body">
+                    <div class="list-group list-group-flush my-n3 pl-0">
+                        {% for question in subcategory.questions.all%} <!--يعرض الاسئلة -->
+                            <div class="list-group-item">
+                            <div class="row align-items-center">
+                                {% comment %} <div class="col-auto">
+                                <span class="fe fe-image fe-24 text-muted"></span>
+                                </div> {% endcomment %}
+                                <div class="col">
+                                <small><strong>{{question}}</strong></small>
+                                <div class="my-0 text-muted small"><span class="badge badge-light text-muted mr-2">1.2M</span><span class="badge badge-pill badge-light text-muted">SVG</span></div>
+                                </div>
+                                <div class="col-auto pr-0">
+                                    <div class="dropdown">
+                                        <a class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#varyModal{{ question.id }}">{% trans 'Modify'%}</a>
+                                          <a class="dropdown-item text-danger" href="#">{% trans 'Delete'%}</a>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="modal fade" id="varyModal{{ question.id }}" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="varyModalLabel">{% trans 'Modify Question:'%}</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST">
+                                            {% load custom_filters %}
+                                            {% csrf_token %}   
+                                            <input type="hidden" name="question_id_{{ question.id }}" value="{{ question.id }}">
+                                            <div class="form-group">
+                                                <label  for="question_ar_{{ question.id }}">{%trans 'The question in Arabic:'%}</label>
+                                                <input type="text" class="form-control" id="question_ar_{{ question.id }}" name="question_ar_{{ question.id }}" value="{{ question|translate_question:'ar' }}">
+                                              </div>
+                                              <div class="form-group">
+                                                <labelfor="question_en_{{ question.id }}">{%trans 'The question in English:'%}</label>
+                                                <textarea class="form-control" id="question_en_{{ question.id }}" name="question_en_{{ question.id }}">{{ question|translate_question:'en' }}</textarea>
+                                              </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">{%trans 'Close'%}</button>
+                                            <button type="submit" class="btn mb-2 btn-primary">{%trans 'Modify'%}</button>
+                                            </div>
+                                        </form>
+                                  </div>
+                                </div>
+                              </div>
+                        {%endfor %}
+                    </div> <!-- / .list-group -->
+                    </div> <!-- / .card-body -->
+                </div> <!-- / .card -->
+                </div> <!-- / .col-md-3 -->
+            {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</main>
+  {% endblock %}
