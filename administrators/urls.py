@@ -11,4 +11,5 @@ urlpatterns = [
     path('create-question/<int:subcategory_id>/', views.create_question, name='create_question'),
     path('delete-question/<int:question_id>/', views.delete_question, name='delete_question'),
     path('create-subcategory/<int:category_id>/', views.create_subcategory, name='create_subcategory'),
+    path('delete-subcategory/<int:subcategory_id>/', views.delete_subcategory, name='delete_subcategory'),
 ]

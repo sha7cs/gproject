@@ -16,7 +16,7 @@
                     </div>
                 </div>
                  <div class="col-md-2 mb-4">
-                     <button type="button" class="btn btn btn-primary" data-toggle="modal" data-target="#newSubCategoryModal{{ category.id }}"><span class="fe fe-plus fe-14"></span>{% trans 'Add a Subcategory' %}</button>
+                     <button type="button" class="btn btn btn-primary" data-toggle="modal" data-target="#newSubCategoryModal{{ category.id }}"><span class="fe fe-plus fe-14"></span>{% trans 'Add a Subcategory' %}</button> <!-- اذا ما كان للسب كاتقوري اسئلة ما اقدر اضغط هذا الزر-->
                  </div>
                 
 
@@ -26,7 +26,8 @@
                 <div class="card shadow">
                     <div class="card-header">
                     <strong class="card-title">{{subcategory}}</strong>
-                      <a class="float-right small text-muted" href="#!"  data-toggle="modal" data-target="#newQuestionModal{{ subcategory.id }}" title="{% trans 'Add a new question' %}"><span class="fe fe-plus fe-16"></span></a>
+                      <a class="float-right small text-muted mx-1"  data-toggle="modal" data-target="#newQuestionModal{{ subcategory.id }}" title="{% trans 'Add a new question' %}" style="curser:pointer;"><span class="fe fe-plus fe-16"></span></a>
+                      <a class="float-right small text-muted mx-1"  data-toggle="modal" data-target="#delSubcategoryModal{{ subcategory.id }}" title="{% trans 'Add a new question' %}" style="curser:pointer;"><span class="fe fe-minus fe-16 text-danger"></span></a>
                     </div>
                     <div class="card-body">
                     <div class="list-group list-group-flush my-n3 pl-0">
@@ -38,7 +39,7 @@
                                 </div> {% endcomment %}
                                 <div class="col">
                                 <small><strong>{{question}}</strong></small>
-                                <div class="my-0 text-muted small"><span class="badge badge-light text-muted mr-2">1.2M</span><span class="badge badge-pill badge-light text-muted">SVG</span></div>
+                                {% comment %} <div class="my-0 text-muted small"><span class="badge badge-light text-muted mr-2">1.2M</span><span class="badge badge-pill badge-light text-muted">SVG</span></div> {% endcomment %}
                                 </div>
                                 <div class="col-auto pr-0">
                                     <div class="dropdown">
@@ -177,6 +178,33 @@
                                   </div>
                                 </div>
                               </div>
+
+                              <!--delete a subcategory -->
+                              <div class="modal fade" id="delSubcategoryModal{{ subcategory.id }}" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="varyModalLabel">{% trans 'Delete a Question:'%}</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body" >
+                                        <form method="POST" action="{% url 'delete_subcategory' subcategory.id %}">
+                                            {% csrf_token %}   
+                                            <div class="form-group">
+                                                <label>{%trans 'Are you sure?'%}</label>
+                                              </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">{%trans 'Close'%}</button>
+                                            <button type="submit" class="btn mb-2 btn-primary">{%trans 'Sure'%}</button>
+                                            </div>
+                                        </form>
+                                  </div>
+                                </div>
+                              </div>
+
 
                         {%endfor %}
                     </div> <!-- / .list-group -->
