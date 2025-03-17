@@ -22,7 +22,6 @@ import sqlite3
 import requests
 
 
-
 DB_PATH = "sales_data.db"
 
 def analyze_sales_data():
@@ -30,7 +29,7 @@ def analyze_sales_data():
     df = pd.read_sql("SELECT business_date, total_price, detailed_orders FROM sales", conn)
     conn.close()
     
-    df['business_date'] = pd.to_datetime(df['business_date'], errors='coerce')
+    df['business_date'] = pd.to_datetime(df['business_date'], dayfirst=True, errors='coerce')
     df = df.dropna(subset=['business_date', 'total_price'])
     df['day_of_month'] = df['business_date'].dt.day
     
@@ -59,25 +58,52 @@ def analyze_sales_data():
 
     return {"best_time": best_time_range, "best_product": best_product}
 
-import requests
-import datetime
-import pandas as pd
-
 API_KEY = 'AjYi7mqOuumRPwEbkpEG9A7SjTZIczMz'
 YEAR = datetime.datetime.today().year
-event_translations = {
-    "International Coffee Day": "اليوم العالمي للقهوة",
-    "International Day of Happiness": "اليوم العالمي للسعادة",
-    "International Mother's Day": "اليوم العالمي للأم",
-    "International Father's Day": "اليوم العالمي للأب",
-    "International Friendship Day": "اليوم العالمي للصداقة",
-    "World Smile Day": "اليوم العالمي للابتسامة",
-    "Saudi National Day": "اليوم الوطني السعودي",
-    "Saudi Founding Day": "يوم التأسيس",
-    "Eid al-Fitr": "عيد الفطر",
-    "Eid al-Adha": "عيد الأضحى",
-    "Saudi Flag Day": "يوم العلم السعودي"
+
+events_data = {
+    "Founding Day": {
+        "key": "Saudi Founding Day",
+        "ar": "يوم التأسيس"
+    },
+    "Flag Day": {
+        "key": "Saudi Flag Day",
+        "ar": "يوم العلم السعودي"
+    },
+    "Eid al-Fitr": {
+        "key": "Eid al-Fitr",
+        "ar": "عيد الفطر"
+    },
+    "Eid al-Adha": {
+        "key": "Eid al-Adha",
+        "ar": "عيد الأضحى"
+    },
+    "Saudi National Day": {
+        "key": "Saudi National Day",
+        "ar": "اليوم الوطني السعودي"
+    },
+    "International Coffee Day": {
+        "key": "International Coffee Day",
+        "ar": "اليوم العالمي للقهوة"
+    },
+    "International Mother's Day": {
+        "key": "International Mother's Day",
+        "ar": "اليوم العالمي للأم"
+    },
+    "International Father's Day": {
+        "key": "International Father's Day",
+        "ar": "اليوم العالمي للأب"
+    },
+    "International Friendship Day": {
+        "key": "International Friendship Day",
+        "ar": "اليوم العالمي للصداقة"
+    },
+    "World Smile Day": {
+        "key": "World Smile Day",
+        "ar": "اليوم العالمي للابتسامة"
+    }
 }
+
 
 def get_events_from_api():
     url = f"https://calendarific.com/api/v2/holidays?&api_key={API_KEY}&country=SA&year={YEAR}"
@@ -85,24 +111,40 @@ def get_events_from_api():
     data = response.json()
 
     events = []
-    important_days = list(event_translations.keys())  
-    current_lang = get_language()
+    current_lang = get_language()  # 'ar' or 'en'
 
-    for holiday in data['response']['holidays']:
-        name_en = holiday['name']
-        if name_en in important_days:
-            if current_lang == 'ar':
-                name_display = event_translations.get(name_en, name_en)
-            else:
-                name_display = name_en
+    if 'response' in data and 'holidays' in data['response']:
+        for holiday in data['response']['holidays']:
+            api_name = holiday['name']
+            if api_name in events_data:
+                details = events_data[api_name]
+                name_display = details['ar'] if current_lang == 'ar' else details['key']
 
-            date_miladi = holiday['date']['iso']
+                date_miladi = holiday['date']['iso']
+                events.append({
+                    'event_name': name_display,
+                    'gregorian_date': pd.to_datetime(date_miladi, utc=True)
+                })
+
+   
+    manual_events = [
+        {"name": "International Coffee Day", "date": f"{YEAR}-10-01"},
+        {"name": "International Mother's Day", "date": f"{YEAR}-03-21"},
+        {"name": "International Father's Day", "date": f"{YEAR}-06-21"},
+        {"name": "International Friendship Day", "date": f"{YEAR}-07-30"},
+        {"name": "World Smile Day", "date": f"{YEAR}-10-04"},  
+    ]
+
+    for event in manual_events:
+        if event["name"] not in [e['event_name'] for e in events]:  
+            details = events_data.get(event["name"])
+            name_display = details['ar'] if current_lang == 'ar' else details['key']
             events.append({
                 'event_name': name_display,
-                'gregorian_date': pd.to_datetime(date_miladi, utc=True)
+                'gregorian_date': pd.to_datetime(event["date"], utc=True)
             })
-    return pd.DataFrame(events)
 
+    return pd.DataFrame(events)
 
 def get_next_event():
     df = get_events_from_api()
