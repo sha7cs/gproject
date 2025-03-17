@@ -15,8 +15,8 @@
                         {{ form.errors }}
                     </div>
                 </div>
-                <div class="col-md-2 mb-4">
-                     <button type="button" class="btn btn btn-primary"><span class="fe fe-plus fe-14"></span>{% trans 'Add a Subcategory' %}</button>
+                 <div class="col-md-2 mb-4">
+                     <button type="button" class="btn btn btn-primary" data-toggle="modal" data-target="#newSubCategoryModal{{ category.id }}"><span class="fe fe-plus fe-14"></span>{% trans 'Add a Subcategory' %}</button>
                  </div>
                 
 
@@ -102,11 +102,11 @@
 
                                             <div class="form-group">
                                                 <label  for="question_ar_{{ question.id }}">{%trans 'The question in Arabic:'%}</label>
-                                                {{ form.question_ar }}
+                                                {{ formQ.question_ar }}
                                               </div>
                                               <div class="form-group">
                                                 <labelfor="question_en_{{ question.id }}">{%trans 'The question in English:'%}</label>
-                                                {{ form.question_en }}
+                                                {{ formQ.question_en }}
                                               </div>
                                             </div>
                                             <div class="modal-footer">
@@ -144,6 +144,40 @@
                                   </div>
                                 </div>
                               </div>
+
+
+                               <!--create a subcategory -->
+                               <div class="modal fade" id="newSubCategoryModal{{ category.id }}" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="varyModalLabel">{% trans 'Add a Category:'%}</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body" >
+                                        <form method="POST" action="{% url 'create_subcategory' category.id %}">
+                                            {% csrf_token %}   
+
+                                            <div class="form-group">
+                                                <label  for="subcategory_ar_{{ category.id }}">{%trans 'The Subcategory in Arabic:'%}</label>
+                                                {{ form_subcategory.subcategory_ar }}
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="subcategory_en_{{ category.id }}"> {%trans 'The Subcategory in English:'%}</label>
+                                                {{ form_subcategory.subcategory_en }}
+                                              </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">{%trans 'Close'%}</button>
+                                            <button type="submit" class="btn mb-2 btn-primary">{%trans 'Create'%}</button>
+                                            </div>
+                                        </form>
+                                  </div>
+                                </div>
+                              </div>
+
                         {%endfor %}
                     </div> <!-- / .list-group -->
                     </div> <!-- / .card-body -->
