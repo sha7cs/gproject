@@ -69,8 +69,12 @@
                 <!-- Date Filter -->
                 <div class="form-group my-4">
                   <p class="mb-2"><strong>{% trans 'Filter by Date'%}</strong></p>
-                  <input type="date" class="form-control" id="filterDate" name="start_date">
-                </div> 
+                  <p>Start</p>
+                  <input type="date" class="form-control" id="filterDateStart" name="start_date">
+                  <p>End</p>
+                  <input type="date" class="form-control" id="filterDateEnd" name="end_date">
+                </div>
+              
 
                 <!-- Status Filter -->
                 <div class="form-group my-4">
@@ -282,58 +286,96 @@
   </div>
 
 </main> <!-- main -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-      const applyBtn = document.getElementById("applyFilters");
-      const resetBtn = document.getElementById("resetFilters");
-      const resetBtn2 = document.getElementById("resetFilters2");
+    flatpickr("#filterDateStart", { dateFormat: "Y-m-d" });
+    flatpickr("#filterDateEnd", { dateFormat: "Y-m-d" });
+</script>
+
+
+<script>
+  document.getElementById("filterDateStart").addEventListener("change", function () {
+    let dateParts = this.value.split("-");
+    if (dateParts.length === 3) {
+        let formattedDate = `${dateParts[0]}-${dateParts[1]}-${dateParts[2]}`;
+        this.value = formattedDate;
+        }
+    });
+
+    document.getElementById("filterDateEnd").addEventListener("change", function () {
+        let dateParts = this.value.split("-");
+        if (dateParts.length === 3) {
+            let formattedDate = `${dateParts[0]}-${dateParts[1]}-${dateParts[2]}`;
+            this.value = formattedDate;
+        }
+    });
+        function parseDatabaseDate(dateStr) {
+          let parts = dateStr.split("-");
+          if (parts.length === 3) {
+              return `${parts[2]}-${parts[1]}-${parts[0]}`; // Convert DD-MM-YYYY to YYYY-MM-DD
+          }
+          return null;
+      }
       
-      applyBtn.addEventListener("click", function () {
-          let selectedDate = document.getElementById("filterDate").value;
-          let selectedStatus = document.getElementById("filterStatus").value;
-  
-          let rows = document.querySelectorAll("tbody tr");
-  
-          rows.forEach(row => {
-              let rowDate = row.children[2].innerText.trim();  // Adjust index if needed
-              let rowStatus = row.querySelector("td span").innerText.trim();
-  
-              let showRow = true;
-  
-              // Filter by Date
-              if (selectedDate && !rowDate.includes(selectedDate)) {
-                  showRow = false;
-              }
-  
-              // Filter by Status
-              if (selectedStatus) {
-                  let statusText = {
-                      "0": "قيد الانتظار",
-                      "1": "مقبول",
-                      "2": "مرفوض"
-                  }[selectedStatus];
-  
-                  if (rowStatus !== statusText) {
-                      showRow = false;
+      document.addEventListener("DOMContentLoaded", function () {
+            const applyBtn = document.getElementById("applyFilters");
+            const resetBtn = document.getElementById("resetFilters");
+            const resetBtn2 = document.getElementById("resetFilters2"); 
+
+            document.getElementById("applyFilters").addEventListener("click", function () {
+              let selectedStartDate = document.getElementById("filterDateStart").value;
+              let selectedEndDate = document.getElementById("filterDateEnd").value;
+              let selectedStatus = document.getElementById("filterStatus").value;
+          
+              let rows = document.querySelectorAll("tbody tr");
+          
+              rows.forEach(row => {
+                  let rowDateText = row.children[3].innerText.trim(); // the row of date_joined
+                  let rowStatus = row.querySelector("td span").innerText.trim();
+          
+                  let showRow = true;
+          
+                  let rowDate = rowDateText; // Django already formats it as YYYY-MM-DD
+                  console.log(rowDate)
+
+                  // Filter by Date Range
+                  if (selectedStartDate && selectedEndDate) {
+                      if (!(rowDate >= selectedStartDate && rowDate <= selectedEndDate)) {
+                          showRow = false;
+                      }
                   }
-              }
-  
-              row.style.display = showRow ? "" : "none";
+                  let statusData = {
+                    "0": "{% trans 'Pending' %}",
+                    "1": "{% trans 'Accepted' %}",
+                    "2": "{% trans 'Denied' %}"
+                   };
+                  // Filter by Status
+                  if (selectedStatus) {
+                    let statusText = statusData[selectedStatus];
+                  
+                    if (rowStatus !== statusText) {
+                        showRow = false;
+                    }
+                }
+          
+                  // for visibility
+                  row.style.display = showRow ? "" : "none";
+              });
           });
   
-          $("#filterModalLabel").modal("hide"); // Close modal
-      });
-  
       resetBtn.addEventListener("click", function () {
-          document.getElementById("filterDate").value = "";
+          document.getElementById("filterDateStart").value = "";
+          document.getElementById("filterDateEnd").value = "";
           document.getElementById("filterStatus").value = "";
           
           let rows = document.querySelectorAll("tbody tr");
           rows.forEach(row => row.style.display = "");
       });
       resetBtn2.addEventListener("click", function () {
-        document.getElementById("filterDate").value = "";
+        document.getElementById("filterDateStart").value = "";
+        document.getElementById("filterDateEnd").value = "";
         document.getElementById("filterStatus").value = "";
         
         let rows = document.querySelectorAll("tbody tr");
