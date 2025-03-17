@@ -126,6 +126,9 @@ def user_details(request, user_id):
     return render(request, 'admins/user_details.html', {'user_profile': user_profile})
 
 
+
+from .forms import QuestionForm , SubcategoryForm
+
 @login_required
 @allowed_users(allowed_roles=['admins'])
 def chat_control(request):
@@ -154,16 +157,19 @@ def chat_control(request):
 
         messages.success(request, _("Questions updated successfully!"))
         return redirect("admins.chatbot")  
-    form = QuestionForm()
+    formQ = QuestionForm()
+    form_subcategory = SubcategoryForm()
     return render(request, "admins/chat_control.html", {
         "categories": categories,
         "subcategories": subcategories,
         "questions": allquestions,
-        'form': form
+        'formQ': formQ,
+        'form_subcategory':form_subcategory,
     })
-from .forms import QuestionForm 
 
 
+@login_required
+@allowed_users(allowed_roles=['admins'])
 def create_question(request, subcategory_id):
     subcategory = get_object_or_404(Subcategory, id=subcategory_id)
     
@@ -180,6 +186,8 @@ def create_question(request, subcategory_id):
             return redirect('admins.chatbot') 
             
 
+@login_required
+@allowed_users(allowed_roles=['admins'])
 def delete_question(request, question_id):
     question = get_object_or_404(Question, id=question_id)
 
@@ -189,3 +197,21 @@ def delete_question(request, question_id):
     # Show a success message and redirect back to the chat control page
     messages.success(request, _("Question deleted successfully!"))
     return redirect('admins.chatbot')
+
+@login_required
+@allowed_users(allowed_roles=['admins'])
+def create_subcategory(request,category_id):
+    category = get_object_or_404(Category, id=category_id)
+    print(category)
+    if request.method == 'POST':
+        form = SubcategoryForm(request.POST)
+        if form.is_valid():
+            new_category = form.save(commit=False)
+            new_category.category = category 
+            new_category.save()
+            messages.success(request, _("New Subcategory created successfully!"))
+            return redirect('admins.chatbot') 
+        else:
+            messages.error(request, _("There was an error creating the Subcategory."))
+            return redirect('admins.chatbot') 
+    
