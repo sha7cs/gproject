@@ -1,258 +1,244 @@
+{% extends "base.html" %}
 {% load static %}
 {% load i18n %}
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
-    <title> {% trans 'Settings'%} </title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <!-- Simple bar CSS -->
-    <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
-    <!-- Fonts CSS -->
-    <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <!-- Icons CSS -->
-    <link rel="stylesheet" href="{% static 'css/feather.css' %}">
-    <!-- Date Range Picker CSS -->
-    <link rel="stylesheet" href="{% static 'css/daterangepicker.css' %}">
-    <!-- App CSS -->
-    <link rel="stylesheet" href="{% static 'css/app-light.css' %}" id="lightTheme">
-    <link rel="stylesheet" href="{% static 'css/app-dark.css' %}" id="darkTheme" disabled>
-    <!-- flash library-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+{% block title%} Settings {% endblock %}
 
-    <style>
-        .hr.solid {
-        border-top: 2px solid #999;
-        }
-    </style>
-  </head>
-  <body class="vertical  light {% trans 'dir' %} ">
-    <div class="wrapper">
-      <nav class="topnav navbar navbar-light">
-        <a href="javascript:window.history.back();" class="mr-5 ">
-          <i class="fas fa-arrow-right" style="font-size:30px; color:gray;"></i> <!--بغير مكانه بعدين-->
-        </a>
-        <ul class="nav">
-          <li class="nav-item dropdown mt-2 mx-2">
-            {% get_current_language as CURRENT_LANGUAGE %}
-            {% get_available_languages as AVAILABLE_LANGUAGES %}
-            {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
-            <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {% trans 'languages' %}
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-              {% for language in languages%}
-                <a class="dropdown-item" href="{% url 'set_language' urlname=request.resolver_match.view_name %}?language={{ language.code }}">
-                  {{ language.name_local }}
-                </a>              
-              {% endfor %}
-            </div>
-          </li>
-          <li class="nav-item dropdown mt-2 mx-1">
-            <a class="nav-link dropdown-toggle text-muted pr-0 " href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i style="font-size:18px" class="fa">&#xf007;</i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">{%trans 'Settings'%}</a>             
-              <a class="dropdown-item " href="{% url 'logout' %}">
-                <form method="POST" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    <button type="submit" class="dropdown-item" style="padding:0px;">{% trans 'Logout'%}</button>
-                </form>
-            </a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-muted my-2" href="#" id="modeSwitcher" data-mode="light">
-              <i class="fe fe-sun fe-16"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <main role="main" class="main-content ml-0 mb-4">
-        <div class="container-fluid">
-          <div class="row justify-content-center">
-            <div class="col-12 col-lg-10 col-xl-8">
-              <h2 class="h3 mb-4 page-title">{% trans 'Settings'  %}</h2>
-              <div class="my-4">
-                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
-                  <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">{%trans 'profile'%}</a>
-                  </li>
-                </ul>
-                {% if messages %}
-                  <script>
-                    {% for message in messages %}
-                      toastr["{{ message.tags }}"]("{{ message|escapejs }}");
-                    {% endfor %}
-                  </script>
-                {% endif %}
-                
-
-                
-                <form method="POST" enctype="multipart/form-data">
-                  {%csrf_token%}
-                    <div class="form-group">
-                      <label for="firstname">{%trans 'Cafe Name'%}</label>
-                      {{ form.cafe_name }}
-                    </div>
-                  <div class="form-group">
-                    <label for="location">{%trans 'Location'%}</label>
-                    {{ form.location }}
+{% block content %}
+<main role="main" class="main-content">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8">
+          <h2 class="h3 mb-4 page-title">Settings</h2>
+          <div class="my-4">
+            <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Security</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Notifications</a>
+              </li>
+            </ul>
+            <form>
+              <div class="row mt-5 align-items-center">
+                <div class="col-md-3 text-center mb-5">
+                  <div class="avatar avatar-xl">
+                    <img src="./assets/avatars/face-1.jpg" alt="..." class="avatar-img rounded-circle">
                   </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="inputState5">{% trans 'Area' %}</label> <!--احس ترجمتي غلط مفروض كاونتي او شيء ثاني-->
-                        {{ form.area }}
-                        {% if form.area.errors %}
-                          <div class="text-danger">
-                            {% for error in form.area.errors %}
-                              <p>{{ error }}</p>
-                            {% endfor %}
-                          </div>
-                        {% endif %}
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label for="inputCity">{% trans 'City'%}</label>
-                      {{ form.city }}
-                    </div>
-                  </div>
-                  <div class="form-group mb-3">
-                    <div class="form-group mb-3">
-                      <label for="example-fileinput">{% trans 'Upload you data here'%}</label>
-                      {{ form.data_file }}
-                      {% comment %} <input type="file" id="example-fileinput" class="form-control-file" name="data-file" required> {% endcomment %}
-                    </div>
-                  </div>
-                  <div class="form-group"> <!--optional-->
-                    <label for="inputZip5">{%trans  'Link to social media accounts if any'%}</label> <!--ابي اخلي فيه ربط على طول مع انستا وغيره بس هذا مؤقت يعني -->
-                    {{ form.social_media_link }}
-                   </div>
-                  <div class="form-group mb-3"> <!--optional-->
-                    <label for="validationTextarea">{%trans 'Talk about you cafe briefly'%}</label>
-                    {{ form.cafe_description }}
-                  </div>
-                  <div class="form-group">
-                    <label for="cafe_logo">{% trans 'Cafe Logo'%}</label>
-                    {{ form.cafe_logo }}
                 </div>
-                  <hr class="my-4">
-                  <div class="form-group mb-3"><!--الضغط على زر "ارفع طلبك" فأنت توافق على رفع بياناتك الى هذا الموقع ، وتقر بأنها معلومات صحيحة.-->
-                  <label for="validationTextarea">{%trans 'By clicking the "Submit Your Request" button, you agree to upload your data to this website and confirm that the information is accurate.'%}</label><br>
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#defaultModal">{%trans 'Submit Your Request' %}</button>
+                <div class="col">
+                  <div class="row align-items-center">
+                    <div class="col-md-7">
+                      <h4 class="mb-1">Brown, Asher</h4>
+                      <p class="small mb-3"><span class="badge badge-dark">New York, USA</span></p>
+                    </div>
                   </div>
-                  
-                  <!--modal to cofirm that the user wants to submit-->
-    
-                  <!-- Modal -->
-                  <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                              <div class="modal-header">
-                                  <h5 class="modal-title" id="defaultModalLabel">{%trans "Confirm"%}</h5>                                  
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                  </button>
-                              </div>
-                              <div class="modal-body">{% trans 'By clicking "Confirm," you confirm your desire to submit your access request to the website. <br>We ask you to wait until you receive an email confirming your access approval.' %}
-                              </div>
-                              <div class="modal-footer">
-                                  <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">{%trans 'Close'%}</button>
-                                  <!-- Add form submission on confirmation -->
-                                  <button type="submit" class="btn mb-2 btn-primary">{% trans 'Confirm'%}</button>
-                              </div>
-                          </div>
-                      </div>
+                  <div class="row mb-4">
+                    <div class="col-md-7">
+                      <p class="text-muted"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit nisl ullamcorper, rutrum metus in, congue lectus. In hac habitasse platea dictumst. Cras urna quam, malesuada vitae risus at, pretium blandit sapien. </p>
+                    </div>
+                    <div class="col">
+                      <p class="small mb-0 text-muted">Nec Urna Suscipit Ltd</p>
+                      <p class="small mb-0 text-muted">P.O. Box 464, 5975 Eget Avenue</p>
+                      <p class="small mb-0 text-muted">(537) 315-1481</p>
+                    </div>
                   </div>
+                </div>
+              </div>
+              <hr class="my-4">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="firstname">Firstname</label>
+                  <input type="text" id="firstname" class="form-control" placeholder="Brown">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="lastname">Lastname</label>
+                  <input type="text" id="lastname" class="form-control" placeholder="Asher">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail4">Email</label>
+                <input type="email" class="form-control" id="inputEmail4" placeholder="brown@asher.me">
+              </div>
+              <div class="form-group">
+                <label for="inputAddress5">Address</label>
+                <input type="text" class="form-control" id="inputAddress5" placeholder="P.O. Box 464, 5975 Eget Avenue">
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputCompany5">Company</label>
+                  <input type="text" class="form-control" id="inputCompany5" placeholder="Nec Urna Suscipit Ltd">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputState5">State</label>
+                  <select id="inputState5" class="form-control">
+                    <option selected="">Choose...</option>
+                    <option>...</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="inputZip5">Zip</label>
+                  <input type="text" class="form-control" id="inputZip5" placeholder="98232">
+                </div>
+              </div>
+              <hr class="my-4">
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="inputPassword4">Old Password</label>
+                    <input type="password" class="form-control" id="inputPassword5">
+                  </div>
+                  <div class="form-group">
+                    <label for="inputPassword5">New Password</label>
+                    <input type="password" class="form-control" id="inputPassword5">
+                  </div>
+                  <div class="form-group">
+                    <label for="inputPassword6">Confirm Password</label>
+                    <input type="password" class="form-control" id="inputPassword6">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <p class="mb-2">Password requirements</p>
+                  <p class="small text-muted mb-2"> To create a new password, you have to meet all of the following requirements: </p>
+                  <ul class="small text-muted pl-4 mb-0">
+                    <li> Minimum 8 character </li>
+                    <li>At least one special character</li>
+                    <li>At least one number</li>
+                    <li>Can’t be the same as a previous password </li>
+                  </ul>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">Save Change</button>
+            </form>
+          </div> <!-- /.card-body -->
+        </div> <!-- /.col-12 -->
+      </div> <!-- .row -->
+    </div> <!-- .container-fluid -->
+    <div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="defaultModalLabel">Notifications</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="list-group list-group-flush my-n3">
+              <div class="list-group-item bg-transparent">
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <span class="fe fe-box fe-24"></span>
+                  </div>
+                  <div class="col">
+                    <small><strong>Package has uploaded successfull</strong></small>
+                    <div class="my-0 text-muted small">Package is zipped and uploaded</div>
+                    <small class="badge badge-pill badge-light text-muted">1m ago</small>
+                  </div>
+                </div>
+              </div>
+              <div class="list-group-item bg-transparent">
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <span class="fe fe-download fe-24"></span>
+                  </div>
+                  <div class="col">
+                    <small><strong>Widgets are updated successfull</strong></small>
+                    <div class="my-0 text-muted small">Just create new layout Index, form, table</div>
+                    <small class="badge badge-pill badge-light text-muted">2m ago</small>
+                  </div>
+                </div>
+              </div>
+              <div class="list-group-item bg-transparent">
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <span class="fe fe-inbox fe-24"></span>
+                  </div>
+                  <div class="col">
+                    <small><strong>Notifications have been sent</strong></small>
+                    <div class="my-0 text-muted small">Fusce dapibus, tellus ac cursus commodo</div>
+                    <small class="badge badge-pill badge-light text-muted">30m ago</small>
+                  </div>
+                </div> <!-- / .row -->
+              </div>
+              <div class="list-group-item bg-transparent">
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <span class="fe fe-link fe-24"></span>
+                  </div>
+                  <div class="col">
+                    <small><strong>Link was attached to menu</strong></small>
+                    <div class="my-0 text-muted small">New layout has been attached to the menu</div>
+                    <small class="badge badge-pill badge-light text-muted">1h ago</small>
+                  </div>
+                </div>
+              </div> <!-- / .row -->
+            </div> <!-- / .list-group -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Clear All</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade modal-shortcut modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="defaultModalLabel">Shortcuts</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body px-5">
+            <div class="row align-items-center">
+              <div class="col-6 text-center">
+                <div class="squircle bg-success justify-content-center">
+                  <i class="fe fe-cpu fe-32 align-self-center text-white"></i>
+                </div>
+                <p>Control area</p>
+              </div>
+              <div class="col-6 text-center">
+                <div class="squircle bg-primary justify-content-center">
+                  <i class="fe fe-activity fe-32 align-self-center text-white"></i>
+                </div>
+                <p>Activity</p>
+              </div>
+            </div>
+            <div class="row align-items-center">
+              <div class="col-6 text-center">
+                <div class="squircle bg-primary justify-content-center">
+                  <i class="fe fe-droplet fe-32 align-self-center text-white"></i>
+                </div>
+                <p>Droplet</p>
+              </div>
+              <div class="col-6 text-center">
+                <div class="squircle bg-primary justify-content-center">
+                  <i class="fe fe-upload-cloud fe-32 align-self-center text-white"></i>
+                </div>
+                <p>Upload</p>
+              </div>
+            </div>
+            <div class="row align-items-center">
+              <div class="col-6 text-center">
+                <div class="squircle bg-primary justify-content-center">
+                  <i class="fe fe-users fe-32 align-self-center text-white"></i>
+                </div>
+                <p>Users</p>
+              </div>
+              <div class="col-6 text-center">
+                <div class="squircle bg-primary justify-content-center">
+                  <i class="fe fe-settings fe-32 align-self-center text-white"></i>
+                </div>
+                <p>Settings</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main> <!-- main -->
 
-                </form>
-              </div> <!-- /.card-body -->
-            </div> <!-- /.col-12 -->
-          </div> <!-- .row -->
-        </div> <!-- .container-fluid -->
-
-        
-    
-      </main> <!-- main -->
-      
-    <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'js/popper.min.js' %}"></script>
-    <script src="{% static 'js/moment.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/simplebar.min.js' %}"></script>
-    <script src="{% static 'js/daterangepicker.js' %}"></script>
-    <script src="{% static 'js/jquery.stickOnScroll.js' %}"></script>
-    <script src="{% static 'js/tinycolor-min.js' %}"></script>
-    <script src="{% static 'js/config.js' %}"></script>
-    <script src="{% static 'js/d3.min.js' %}"></script>
-    <script src="{% static 'js/topojson.min.js' %}"></script>
-    <script src="{% static 'js/datamaps.all.min.js' %}"></script>
-    <script src="{% static 'js/datamaps-zoomto.js' %}"></script>
-    <script src="{% static 'js/datamaps.custom.js' %}"></script>
-    <script src="{% static 'js/Chart.min.js' %}"></script>
-    <script>
-      /* defind global options */
-      Chart.defaults.global.defaultFontFamily = base.defaultFontFamily;
-      Chart.defaults.global.defaultFontColor = colors.mutedColor;
-    </script>
-    <script src="{% static 'js/gauge.min.js' %}"></script>
-    <script src="{% static 'js/jquery.sparkline.min.js' %}"></script>
-    <script src="{% static 'js/apexcharts.min.js' %}"></script>
-    <script src="{% static 'js/apexcharts.custom.js' %}"></script>
-    <script src="{% static 'js/apps.js' %}"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-
-      function gtag()
-      {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'UA-56159088-1');
-    </script>
-    <!--flash messages script-->
-    <script>
-      toastr.options = {
-        "closeButton": true,
-        "progressBar": true,
-        "timeOut": "3000",
-        "extendedTimeOut": "1000",
-        "positionClass": "toast-top-right"
-      };
-    </script>
-    <script>
-      document.getElementById('inputState5').addEventListener('change', function() {
-        const selectedAreaId = this.value;
-        
-        // Enable the city dropdown
-        const cityDropdown = document.getElementById('inputCity');
-        cityDropdown.disabled = false;
-        
-        // Clear existing cities in the dropdown
-        cityDropdown.innerHTML = '<option selected disabled>اختر</option>';
-    
-        // Fetch cities based on the selected area (AJAX request or templating)
-        {% for city in cities %}
-            if ('{{ city.area.id }}' == selectedAreaId) {
-                const option = document.createElement('option');
-                option.value = '{{ city.id }}';
-                option.textContent = '{{ city.name }}';
-                cityDropdown.appendChild(option);
-            }
-        {% endfor %}
-    });
-    
-    </script>
-    
-    
-  </body>
-  </html>
+{% endblock%}
