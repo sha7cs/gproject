@@ -151,7 +151,7 @@ def waiting(request):
 from django.shortcuts import get_object_or_404
 
 @login_required
-@allowed_users(allowed_roles=['normal_user'])
+@allowed_users(allowed_roles=['admins','normal_user'])
 def settings_view(request):
     user_profile = get_object_or_404(UserProfile, user=request.user)
     areas = Area.objects.all()
@@ -161,7 +161,7 @@ def settings_view(request):
     return render(request, 'profile/settings_view.html',{'user':user_profile , 'areas':areas, 'cities':cities,'form':form,'user_form':user_form})
 
 @login_required
-@allowed_users(allowed_roles=['normal_user'])
+@allowed_users(allowed_roles=['admins','normal_user'])
 def settings_update(request):
     user_profile = get_object_or_404(UserProfile, user=request.user)
     if request.method == 'POST':

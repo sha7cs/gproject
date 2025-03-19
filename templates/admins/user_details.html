@@ -1,4 +1,5 @@
-<!-- user_details_full_page.html -->
+{% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,20 +79,20 @@
             <img src="{{ user_profile.cafe_logo.url }}" alt="Cafe Logo">
             {% endif %}
             
-            <h2>About the Cafe</h2>
+            <h2>{%trans 'About the Cafe'%}</h2>
             <p>{{ user_profile.cafe_description|default:"No description available." }}</p>
 
-            <h2>Contact & Social Media</h2>
-            <p><strong>Social Media:</strong> <a href="{{ user_profile.social_media_link }}" target="_blank">{{ user_profile.social_media_link|default:"No social media link provided." }}</a></p>
+            <h2>{%trans 'Contact & Social Media'%}</h2>
+            <p><strong>{%trans 'Social Media:'%}</strong> <a href="{{ user_profile.social_media_link }}" target="_blank">{{ user_profile.social_media_link|default:"No social media link provided." }}</a></p>
             
-            <h2>Firebase Configuration</h2>
-            <p><strong>Firebase Config Link:</strong> {{ user_profile.firebase_config|default:"Not provided." }}</p>
+            <h2>{%trans 'Firebase Configuration'%}</h2>
+            <p><strong>{%trans 'Firebase Config Link:'%}</strong> {{ user_profile.firebase_config|default:"Not provided." }}</p>
 
-            <h2>Status</h2>
+            <h2>{%trans 'Status'%}</h2>
             <p><span class="badge badge-info">{{ user_profile.get_status_display }}</span></p>
 
-            <h2>Additional Information</h2>
-            <p><strong>Thread ID:</strong> {{ user_profile.thread_id|default:"Not available." }}</p>
+            <h2>{%trans 'Additional Information'%}</h2>
+            <p><strong>{%trans 'Thread ID:'%}</strong> {{ user_profile.thread_id|default:"Not available." }}</p>
         </div>
     </div>
 </div>

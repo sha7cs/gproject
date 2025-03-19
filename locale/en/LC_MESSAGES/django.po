@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-17 08:22+0000\n"
+"POT-Creation-Date: 2025-03-19 09:27+0000\n"
 "PO-Revision-Date: 2025-03-16 03:18+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,28 +42,45 @@ msgstr "Accepted"
 msgid "Denied"
 msgstr "Denied"
 
-#: administrators/views.py:155
+#: administrators/views.py:158
 msgid "Questions updated successfully!"
 msgstr ""
 
-#: administrators/views.py:176
+#: administrators/views.py:182
 msgid "New question created successfully!"
 msgstr ""
 
-#: administrators/views.py:179
+#: administrators/views.py:185
 msgid "There was an error creating the question."
 msgstr ""
 
-#: administrators/views.py:190
+#: administrators/views.py:196
 msgid "Question deleted successfully!"
 msgstr ""
 
-#: authentication_app/decorators.py:23 authentication_app/decorators.py:36
-#: authentication_app/decorators.py:59
-msgid "Your account is still pending, you can't access this page"
+#: administrators/views.py:210
+msgid "New Subcategory created successfully!"
 msgstr ""
 
-#: authentication_app/forms.py:30
+#: administrators/views.py:213
+msgid "There was an error creating the Subcategory."
+msgstr ""
+
+#: administrators/views.py:222
+msgid "Subcategory deleted successfully!"
+msgstr ""
+
+#: authentication_app/decorators.py:23 authentication_app/decorators.py:36
+#: authentication_app/decorators.py:62
+msgid "Your account is still pending"
+msgstr ""
+
+#: authentication_app/forms.py:25 authentication_app/forms.py:26
+#: templates/profile/settings_view.html:132
+msgid "choose"
+msgstr ""
+
+#: authentication_app/forms.py:28
 msgid "Enter your cafe name"
 msgstr ""
 
@@ -86,6 +103,10 @@ msgstr ""
 
 #: authentication_app/views.py:111
 msgid "Your request has been submitted."
+msgstr ""
+
+#: authentication_app/views.py:173
+msgid "Profile updated successfully!"
 msgstr ""
 
 #: promotions/models.py:9
@@ -149,37 +170,26 @@ msgid "of the month"
 msgstr "of the month"
 
 #: templates/admins/base.html:36 templates/base.html:36
-#: templates/profile/profile-settings.html:36
-#: templates/profile/settings_update.html:36
-#: templates/profile/settings_view.html:36 templates/profile/waiting.html:37
+#: templates/profile/signup-settings.html:37 templates/profile/waiting.html:37
 #: templates/welcome.html:4
 msgid "dir"
 msgstr ""
 
 #: templates/admins/base.html:55 templates/navbar.html:17
-#: templates/profile/profile-settings.html:48
-#: templates/profile/settings_update.html:48
-#: templates/profile/settings_view.html:48 templates/profile/waiting.html:48
+#: templates/profile/signup-settings.html:46 templates/profile/waiting.html:48
 msgid "languages"
 msgstr ""
 
 #: templates/admins/base.html:71 templates/navbar.html:47
-#: templates/profile/profile-settings.html:11
-#: templates/profile/profile-settings.html:63
-#: templates/profile/profile-settings.html:83
-#: templates/profile/settings_update.html:11
-#: templates/profile/settings_update.html:63
-#: templates/profile/settings_update.html:83
-#: templates/profile/settings_view.html:11
-#: templates/profile/settings_view.html:63
-#: templates/profile/settings_view.html:83 templates/profile/waiting.html:63
+#: templates/profile/settings_view.html:19
+#: templates/profile/signup-settings.html:12
+#: templates/profile/signup-settings.html:61
+#: templates/profile/signup-settings.html:81 templates/profile/waiting.html:63
 msgid "Settings"
 msgstr ""
 
 #: templates/admins/base.html:75 templates/navbar.html:51
-#: templates/profile/profile-settings.html:67
-#: templates/profile/settings_update.html:67
-#: templates/profile/settings_view.html:67 templates/profile/waiting.html:67
+#: templates/profile/signup-settings.html:65 templates/profile/waiting.html:67
 msgid "Logout"
 msgstr ""
 
@@ -194,10 +204,6 @@ msgstr "Chatbot"
 #: templates/admins/base.html:121
 msgid "Analysis"
 msgstr "Analysis"
-
-#: templates/admins/base.html:130
-msgid "Holidays"
-msgstr "Holidays"
 
 #: templates/admins/chat_control.html:4
 msgid "chat control"
@@ -216,58 +222,127 @@ msgstr ""
 msgid "Add a Subcategory"
 msgstr "Subcategory"
 
-#: templates/admins/chat_control.html:49 templates/admins/chat_control.html:83
+#: templates/admins/chat_control.html:28
+#, fuzzy
+#| msgid "Select a Subcategory"
+msgid "Delete the subcategory"
+msgstr "Select a Subcategory"
+
+#: templates/admins/chat_control.html:29
+#, fuzzy
+#| msgid "Question"
+msgid "Add a new question"
+msgstr "Question"
+
+#: templates/admins/chat_control.html:45 templates/admins/chat_control.html:81
 msgid "Modify"
 msgstr ""
 
-#: templates/admins/chat_control.html:50
+#: templates/admins/chat_control.html:46 templates/admins/chat_control.html:108
+#: templates/admins/chat_control.html:205
 msgid "Delete"
 msgstr ""
 
-#: templates/admins/chat_control.html:61
+#: templates/admins/chat_control.html:59
 #, fuzzy
 #| msgid "Question"
 msgid "Modify Question:"
 msgstr "Question"
 
-#: templates/admins/chat_control.html:73 templates/admins/chat_control.html:105
+#: templates/admins/chat_control.html:71 templates/admins/chat_control.html:168
 msgid "The question in Arabic:"
 msgstr ""
 
-#: templates/admins/chat_control.html:77 templates/admins/chat_control.html:109
+#: templates/admins/chat_control.html:75 templates/admins/chat_control.html:172
 msgid "The question in English:"
 msgstr ""
 
-#: templates/admins/chat_control.html:82 templates/admins/chat_control.html:114
-#: templates/admins/chat_control.html:141
-#: templates/profile/profile-settings.html:168
-#: templates/profile/settings_update.html:168
-#: templates/profile/settings_view.html:168
+#: templates/admins/chat_control.html:80 templates/admins/chat_control.html:107
+#: templates/admins/chat_control.html:140
+#: templates/admins/chat_control.html:177
+#: templates/admins/chat_control.html:204
+#: templates/profile/signup-settings.html:166
 msgid "Close"
 msgstr ""
 
 #: templates/admins/chat_control.html:94
 #, fuzzy
 #| msgid "Question"
-msgid "Add Question:"
-msgstr "Question"
-
-#: templates/admins/chat_control.html:115
-msgid "Create"
-msgstr ""
-
-#: templates/admins/chat_control.html:128
-#, fuzzy
-#| msgid "Question"
 msgid "Delete a Question:"
 msgstr "Question"
 
-#: templates/admins/chat_control.html:137
+#: templates/admins/chat_control.html:103
+#: templates/admins/chat_control.html:200
 msgid "Are you sure?"
 msgstr ""
 
-#: templates/admins/chat_control.html:142
-msgid "Sure"
+#: templates/admins/chat_control.html:121
+#, fuzzy
+#| msgid "Subcategory"
+msgid "Add a Category:"
+msgstr "Subcategory"
+
+#: templates/admins/chat_control.html:131
+msgid "The Subcategory in Arabic:"
+msgstr ""
+
+#: templates/admins/chat_control.html:135
+#, fuzzy
+#| msgid "Subcategories"
+msgid "The Subcategory in English:"
+msgstr "subcategories"
+
+#: templates/admins/chat_control.html:141
+#: templates/admins/chat_control.html:178
+msgid "Create"
+msgstr ""
+
+#: templates/admins/chat_control.html:150
+msgid "No questions available"
+msgstr ""
+
+#: templates/admins/chat_control.html:157
+#, fuzzy
+#| msgid "Question"
+msgid "Add Question:"
+msgstr "Question"
+
+#: templates/admins/chat_control.html:191
+#, fuzzy
+#| msgid "Select a Subcategory"
+msgid "Delete a Subcategory:"
+msgstr "Select a Subcategory"
+
+#: templates/admins/user_details.html:82
+msgid "About the Cafe"
+msgstr ""
+
+#: templates/admins/user_details.html:85
+msgid "Contact & Social Media"
+msgstr ""
+
+#: templates/admins/user_details.html:86
+msgid "Social Media:"
+msgstr ""
+
+#: templates/admins/user_details.html:88
+msgid "Firebase Configuration"
+msgstr ""
+
+#: templates/admins/user_details.html:89
+msgid "Firebase Config Link:"
+msgstr ""
+
+#: templates/admins/user_details.html:91 templates/admins/users.html:119
+msgid "Status"
+msgstr ""
+
+#: templates/admins/user_details.html:94
+msgid "Additional Information"
+msgstr ""
+
+#: templates/admins/user_details.html:95
+msgid "Thread ID:"
 msgstr ""
 
 #: templates/admins/users.html:4
@@ -320,16 +395,15 @@ msgstr ""
 
 #: templates/admins/users.html:114
 #: templates/authentication_app/login_page.html:105
+#: templates/profile/settings_view.html:65
 msgid "Username"
 msgstr ""
 
-#: templates/admins/users.html:115
+#: templates/admins/users.html:115 templates/profile/settings_view.html:70
 msgid "Email"
 msgstr ""
 
-#: templates/admins/users.html:116 templates/profile/profile-settings.html:103
-#: templates/profile/settings_update.html:103
-#: templates/profile/settings_view.html:103
+#: templates/admins/users.html:116 templates/profile/signup-settings.html:101
 msgid "Cafe Name"
 msgstr ""
 
@@ -339,10 +413,6 @@ msgstr ""
 
 #: templates/admins/users.html:118
 msgid "Firebase Config"
-msgstr ""
-
-#: templates/admins/users.html:119
-msgid "Status"
 msgstr ""
 
 #: templates/admins/users.html:120 templates/admins/users.html:165
@@ -361,7 +431,7 @@ msgstr ""
 msgid "No File"
 msgstr ""
 
-#: templates/admins/users.html:154
+#: templates/admins/users.html:154 templates/profile/settings_view.html:92
 msgid "Firebase Link"
 msgstr ""
 
@@ -570,82 +640,106 @@ msgstr "Select a category"
 msgid "Select a Subcategory"
 msgstr "Select a Subcategory"
 
-#: templates/profile/profile-settings.html:87
-#: templates/profile/settings_update.html:87
-#: templates/profile/settings_view.html:87
+#: templates/profile/settings_view.html:6
+msgid "Settings "
+msgstr ""
+
+#: templates/profile/settings_view.html:23
+msgid "Profile"
+msgstr ""
+
+#: templates/profile/settings_view.html:26
+#, fuzzy
+#| msgid "Duration"
+msgid "Notifications"
+msgstr "Duration"
+
+#: templates/profile/settings_view.html:34
+msgid "No cafe logo available."
+msgstr ""
+
+#: templates/profile/settings_view.html:48
+msgid "No cafe description available."
+msgstr ""
+
+#: templates/profile/settings_view.html:61
+msgid "Your cafe name"
+msgstr ""
+
+#: templates/profile/settings_view.html:74
+#, fuzzy
+#| msgid "Email address"
+msgid "Address"
+msgstr "Email address"
+
+#: templates/profile/settings_view.html:79
+msgid "Data file"
+msgstr ""
+
+#: templates/profile/settings_view.html:84
+msgid "View current file"
+msgstr ""
+
+#: templates/profile/settings_view.html:93
+msgid "No firbase link available."
+msgstr ""
+
+#: templates/profile/settings_view.html:97
+#: templates/profile/signup-settings.html:110
+msgid "Area"
+msgstr ""
+
+#: templates/profile/settings_view.html:102
+#: templates/profile/signup-settings.html:121
+msgid "City"
+msgstr ""
+
+#: templates/profile/settings_view.html:107
+msgid "update"
+msgstr ""
+
+#: templates/profile/signup-settings.html:85
 msgid "profile"
 msgstr ""
 
-#: templates/profile/profile-settings.html:107
-#: templates/profile/settings_update.html:107
-#: templates/profile/settings_view.html:107
+#: templates/profile/signup-settings.html:105
 #, fuzzy
 #| msgid "Duration"
 msgid "Location"
 msgstr "Duration"
 
-#: templates/profile/profile-settings.html:112
-#: templates/profile/settings_update.html:112
-#: templates/profile/settings_view.html:112
-msgid "Area"
-msgstr ""
-
-#: templates/profile/profile-settings.html:123
-#: templates/profile/settings_update.html:123
-#: templates/profile/settings_view.html:123
-msgid "City"
-msgstr ""
-
-#: templates/profile/profile-settings.html:129
-#: templates/profile/settings_update.html:129
-#: templates/profile/settings_view.html:129
+#: templates/profile/signup-settings.html:127
 msgid "Upload you data here"
 msgstr ""
 
-#: templates/profile/profile-settings.html:136
-#: templates/profile/settings_update.html:136
-#: templates/profile/settings_view.html:136
+#: templates/profile/signup-settings.html:134
 msgid "Link to social media accounts if any"
 msgstr ""
 
-#: templates/profile/profile-settings.html:140
-#: templates/profile/settings_update.html:140
-#: templates/profile/settings_view.html:140
+#: templates/profile/signup-settings.html:138
 msgid "Talk about you cafe briefly"
 msgstr ""
 
-#: templates/profile/profile-settings.html:144
-#: templates/profile/settings_update.html:144
-#: templates/profile/settings_view.html:144
+#: templates/profile/signup-settings.html:142
 msgid "Cafe Logo"
 msgstr ""
 
-#: templates/profile/profile-settings.html:149
-#: templates/profile/settings_update.html:149
-#: templates/profile/settings_view.html:149
+#: templates/profile/signup-settings.html:147
 msgid ""
 "By clicking the \"Submit Your Request\" button, you agree to upload your "
 "data to this website and confirm that the information is accurate."
 msgstr ""
 
-#: templates/profile/profile-settings.html:150
-#: templates/profile/settings_update.html:150
-#: templates/profile/settings_view.html:150
+#: templates/profile/signup-settings.html:148
 msgid "Submit Your Request"
 msgstr ""
 
-#: templates/profile/profile-settings.html:160
-#: templates/profile/profile-settings.html:170
-#: templates/profile/settings_update.html:160
-#: templates/profile/settings_update.html:170
-#: templates/profile/settings_view.html:160
-#: templates/profile/settings_view.html:170
+#: templates/profile/signup-settings.html:158
+#: templates/profile/signup-settings.html:168
 msgid "Confirm"
 msgstr ""
 
-#: templates/profile/profile-settings.html:165
-#: templates/profile/settings_update.html:165
-#: templates/profile/settings_view.html:165
+#: templates/profile/signup-settings.html:163
 msgid ""
 "By clicking \"Confirm,\" you confirm your desire to submit your access "
 "request to the website. <br>We ask you to wait until you receive an email "
@@ -686,8 +780,8 @@ msgstr "Reports"
 msgid "welcomeTitle"
 msgstr "Welcome to our website!"
 
-#~ msgid "Email address"
-#~ msgstr "Email address"
+#~ msgid "Holidays"
+#~ msgstr "Holidays"
 
 #~ msgid "File path"
 #~ msgstr "File path"
