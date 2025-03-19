@@ -3,7 +3,7 @@
 {% load i18n %}
 {% load auth_filters%} 
 
-{% block title%} Settings {% endblock %}
+{% block title%} {%trans 'Settings '%}{% endblock %}
 
 {% block content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -31,7 +31,8 @@
               <div class="row mt-5 align-items-center">
                 <div class="col-md-3 text-center mb-5">
                   <div class="avatar avatar-xl">
-                    <img src="{{ user.cafe_logo.url }}" alt="..." class="avatar-img rounded-circle mb-2">
+                    {% trans 'No cafe logo available.' as logo_default_text %} <!--maybe i will put a default image if user doesnt have-->
+                    <img src="{{ user.cafe_logo.url|default:logo_default_text }}" alt="..." class="avatar-img rounded-circle mb-2">
                     <input type="file" name="cafe_logo" id="cafe_logo" class="form-control-file" accept="image/*">
                   </div>
                 </div>
@@ -44,7 +45,8 @@
                   </div>
                   <div class="row mb-4">
                     <div class="col-md-7">
-                      <p class="text-muted">{{user.cafe_description}}</p>
+                      {% trans "No cafe description available." as description_default_text %}
+                      <p class="text-muted">{{user.cafe_description|default:description_default_text}}</p>
                     </div>
                     <div class="col">
                       <p class="small mb-0 text-muted">P.O. Box 464, 5975 Eget Avenue</p>
@@ -88,7 +90,8 @@
                 </div>
                 <div class="form-group">
                   <label for="firebase_link">{% trans 'Firebase Link'%}</label>
-                  <input type="link" class="form-control" id="firebase_link" name="firebase_link" value="{{user.firebase_config}}">
+                  {% trans "No firbase link available." as firebase_default_text %}
+                  <input type="link" class="form-control" id="firebase_link" name="firebase_link" value="{{user.firebase_config|default:firebase_default_text}}">
                 </div>
                 <div class="form-group col-md-3">
                   <label for="inputState5">{% trans 'Area' %}</label>
@@ -126,7 +129,7 @@
 
             // Enable the city dropdown
             cityDropdown.disabled = false;
-            cityDropdown.innerHTML = '<option selected disabled>اختر</option>'; // Reset city options
+            cityDropdown.innerHTML = '<option selected disabled>{%trans 'choose'%}</option>'; // Reset city options
 
             // Filter and add matching cities
             cities.forEach(city => {

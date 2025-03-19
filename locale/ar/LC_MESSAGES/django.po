@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-17 08:22+0000\n"
-"PO-Revision-Date: 2025-03-18 00:32+0000\n"
+"POT-Creation-Date: 2025-03-19 09:27+0000\n"
+"PO-Revision-Date: 2025-03-19 09:29+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ar\n"
@@ -42,30 +42,45 @@ msgstr "مقبول"
 msgid "Denied"
 msgstr "مرفوض"
 
-#: administrators/views.py:155
+#: administrators/views.py:158
 msgid "Questions updated successfully!"
 msgstr "تم تعديل السؤال بنجاح!"
 
-#: administrators/views.py:176
-#| msgid "Questions updated successfully!"
+#: administrators/views.py:182
 msgid "New question created successfully!"
 msgstr "تم إنشاء السؤال بنجاح!"
 
-#: administrators/views.py:179
+#: administrators/views.py:185
 msgid "There was an error creating the question."
 msgstr "كان هناك مشكلة في إنشاء السؤال"
 
-#: administrators/views.py:190
-#| msgid "Questions updated successfully!"
+#: administrators/views.py:196
 msgid "Question deleted successfully!"
 msgstr "تم حذف السؤال بنجاح!"
 
-#: authentication_app/decorators.py:23 authentication_app/decorators.py:36
-#: authentication_app/decorators.py:59
-msgid "Your account is still pending, you can't access this page"
-msgstr "حسابك لا زال قيد الانتظار، لا يمكنك الدخول على هذه الصفحة."
+#: administrators/views.py:210
+msgid "New Subcategory created successfully!"
+msgstr "تم إنشاء تصنيف فرعي بنجاح!"
 
-#: authentication_app/forms.py:30
+#: administrators/views.py:213
+msgid "There was an error creating the Subcategory."
+msgstr "كان هناك مشكلة في إنشاء التصنيف فرعي"
+
+#: administrators/views.py:222
+msgid "Subcategory deleted successfully!"
+msgstr "تم حذف التصنيف الفرعي بنجاح!"
+
+#: authentication_app/decorators.py:23 authentication_app/decorators.py:36
+#: authentication_app/decorators.py:62
+msgid "Your account is still pending"
+msgstr "حسابك لا زال قيد الانتظار"
+
+#: authentication_app/forms.py:25 authentication_app/forms.py:26
+#: templates/profile/settings_view.html:132
+msgid "choose"
+msgstr "اختر"
+
+#: authentication_app/forms.py:28
 msgid "Enter your cafe name"
 msgstr "ادخل اسم مقهاك"
 
@@ -90,6 +105,10 @@ msgstr "لقد رفعت بياناتك سابقًا، الرجاء الانتظ�
 #: authentication_app/views.py:111
 msgid "Your request has been submitted."
 msgstr "لقد تم رفع طلبك."
+
+#: authentication_app/views.py:173
+msgid "Profile updated successfully!"
+msgstr "تم تعديل بياناتك بنجاح!"
 
 #: promotions/models.py:9
 msgid "category"
@@ -152,37 +171,26 @@ msgid "of the month"
 msgstr "من الشهر"
 
 #: templates/admins/base.html:36 templates/base.html:36
-#: templates/profile/profile-settings.html:36
-#: templates/profile/settings_update.html:36
-#: templates/profile/settings_view.html:36 templates/profile/waiting.html:37
+#: templates/profile/signup-settings.html:37 templates/profile/waiting.html:37
 #: templates/welcome.html:4
 msgid "dir"
 msgstr "rtl"
 
 #: templates/admins/base.html:55 templates/navbar.html:17
-#: templates/profile/profile-settings.html:48
-#: templates/profile/settings_update.html:48
-#: templates/profile/settings_view.html:48 templates/profile/waiting.html:48
+#: templates/profile/signup-settings.html:46 templates/profile/waiting.html:48
 msgid "languages"
 msgstr "اللغة"
 
 #: templates/admins/base.html:71 templates/navbar.html:47
-#: templates/profile/profile-settings.html:11
-#: templates/profile/profile-settings.html:63
-#: templates/profile/profile-settings.html:83
-#: templates/profile/settings_update.html:11
-#: templates/profile/settings_update.html:63
-#: templates/profile/settings_update.html:83
-#: templates/profile/settings_view.html:11
-#: templates/profile/settings_view.html:63
-#: templates/profile/settings_view.html:83 templates/profile/waiting.html:63
+#: templates/profile/settings_view.html:19
+#: templates/profile/signup-settings.html:12
+#: templates/profile/signup-settings.html:61
+#: templates/profile/signup-settings.html:81 templates/profile/waiting.html:63
 msgid "Settings"
 msgstr "الإعدادات"
 
 #: templates/admins/base.html:75 templates/navbar.html:51
-#: templates/profile/profile-settings.html:67
-#: templates/profile/settings_update.html:67
-#: templates/profile/settings_view.html:67 templates/profile/waiting.html:67
+#: templates/profile/signup-settings.html:65 templates/profile/waiting.html:67
 msgid "Logout"
 msgstr "تسجيل خروج"
 
@@ -198,10 +206,6 @@ msgstr "الشات بوت"
 msgid "Analysis"
 msgstr "التحليل"
 
-#: templates/admins/base.html:130
-msgid "Holidays"
-msgstr "الإجازات"
-
 #: templates/admins/chat_control.html:4
 msgid "chat control"
 msgstr "التحكم بالشات"
@@ -216,64 +220,121 @@ msgstr ""
 "ويمكنك التحكم بها بما فيه الحذف والإضافة"
 
 #: templates/admins/chat_control.html:19
-#| msgid "Subcategory"
 msgid "Add a Subcategory"
 msgstr "أضف تصنيف فرعي"
 
-#: templates/admins/chat_control.html:49 templates/admins/chat_control.html:83
+#: templates/admins/chat_control.html:28
+msgid "Delete the subcategory"
+msgstr "احذف التصنيف الفرعي"
+
+#: templates/admins/chat_control.html:29
+msgid "Add a new question"
+msgstr "إضافة سؤال جديد"
+
+#: templates/admins/chat_control.html:45 templates/admins/chat_control.html:81
 msgid "Modify"
 msgstr "تعديل"
 
-#: templates/admins/chat_control.html:50
+#: templates/admins/chat_control.html:46
+#: templates/admins/chat_control.html:108
+#: templates/admins/chat_control.html:205
 msgid "Delete"
 msgstr "حذف"
 
-#: templates/admins/chat_control.html:61
-#| msgid "Question"
+#: templates/admins/chat_control.html:59
 msgid "Modify Question:"
 msgstr "تعديل السؤال"
 
-#: templates/admins/chat_control.html:73
-#: templates/admins/chat_control.html:105
+#: templates/admins/chat_control.html:71
+#: templates/admins/chat_control.html:168
 msgid "The question in Arabic:"
 msgstr "السؤال بالعربية:"
 
-#: templates/admins/chat_control.html:77
-#: templates/admins/chat_control.html:109
+#: templates/admins/chat_control.html:75
+#: templates/admins/chat_control.html:172
 msgid "The question in English:"
 msgstr "السؤال بالإنجليزية:"
 
-#: templates/admins/chat_control.html:82
-#: templates/admins/chat_control.html:114
-#: templates/admins/chat_control.html:141
-#: templates/profile/profile-settings.html:168
-#: templates/profile/settings_update.html:168
-#: templates/profile/settings_view.html:168
+#: templates/admins/chat_control.html:80
+#: templates/admins/chat_control.html:107
+#: templates/admins/chat_control.html:140
+#: templates/admins/chat_control.html:177
+#: templates/admins/chat_control.html:204
+#: templates/profile/signup-settings.html:166
 msgid "Close"
 msgstr "إغلاق"
 
 #: templates/admins/chat_control.html:94
-#| msgid "Question"
-msgid "Add Question:"
-msgstr "إضافة سؤال"
-
-#: templates/admins/chat_control.html:115
-#| msgid "Create Account"
-msgid "Create"
-msgstr "إنشاء"
-
-#: templates/admins/chat_control.html:128
-#| msgid "Question"
 msgid "Delete a Question:"
 msgstr "حذف سؤال"
 
-#: templates/admins/chat_control.html:137
+#: templates/admins/chat_control.html:103
+#: templates/admins/chat_control.html:200
 msgid "Are you sure?"
 msgstr "هل أنت متأكد؟"
 
-#: templates/admins/chat_control.html:142
-msgid "Sure"
-msgstr "متأكد"
+#: templates/admins/chat_control.html:121
+msgid "Add a Category:"
+msgstr "أضف تصنيف "
+
+#: templates/admins/chat_control.html:131
+msgid "The Subcategory in Arabic:"
+msgstr "التصنيف الفرعي بالعربية:"
+
+#: templates/admins/chat_control.html:135
+msgid "The Subcategory in English:"
+msgstr "التصنيف الفرعي بالإنجليزية:"
+
+#: templates/admins/chat_control.html:141
+#: templates/admins/chat_control.html:178
+msgid "Create"
+msgstr "إنشاء"
+
+#: templates/admins/chat_control.html:150
+msgid "No questions available"
+msgstr "لا يوجد اسئلة"
+
+#: templates/admins/chat_control.html:157
+msgid "Add Question:"
+msgstr "إضافة سؤال"
+
+#: templates/admins/chat_control.html:191
+msgid "Delete a Subcategory:"
+msgstr "حذف تصنيف فرعي"
+
+#: templates/admins/user_details.html:82
+msgid "About the Cafe"
+msgstr "عن المقهى"
+
+#: templates/admins/user_details.html:85
+msgid "Contact & Social Media"
+msgstr "وسائل التواصل الاجتماعي"
+
+#: templates/admins/user_details.html:86
+msgid "Social Media:"
+msgstr "وسائل التواصل الاجتماعي"
+
+#: templates/admins/user_details.html:88
+#| msgid "Firebase Config"
+msgid "Firebase Configuration"
+msgstr "رابط الفايربيس"
+
+#: templates/admins/user_details.html:89
+#| msgid "Firebase Config"
+msgid "Firebase Config Link:"
+msgstr "رابط الفايربيس"
+
+#: templates/admins/user_details.html:91 templates/admins/users.html:119
+msgid "Status"
+msgstr "الحالة"
+
+#: templates/admins/user_details.html:94
+msgid "Additional Information"
+msgstr "معلومات إضافية"
+
+#: templates/admins/user_details.html:95
+msgid "Thread ID:"
+msgstr ""
 
 #: templates/admins/users.html:4
 msgid "users settings"
@@ -325,16 +386,15 @@ msgstr "الاسم كامل "
 
 #: templates/admins/users.html:114
 #: templates/authentication_app/login_page.html:105
+#: templates/profile/settings_view.html:65
 msgid "Username"
 msgstr "اسم المستخدم"
 
-#: templates/admins/users.html:115
+#: templates/admins/users.html:115 templates/profile/settings_view.html:70
 msgid "Email"
 msgstr "البريد الإلكتروني"
 
-#: templates/admins/users.html:116 templates/profile/profile-settings.html:103
-#: templates/profile/settings_update.html:103
-#: templates/profile/settings_view.html:103
+#: templates/admins/users.html:116 templates/profile/signup-settings.html:101
 msgid "Cafe Name"
 msgstr "اسم المقهى"
 
@@ -345,10 +405,6 @@ msgstr "ملف البيانات"
 #: templates/admins/users.html:118
 msgid "Firebase Config"
 msgstr "رابط الفايربيس"
-
-#: templates/admins/users.html:119
-msgid "Status"
-msgstr "الحالة"
 
 #: templates/admins/users.html:120 templates/admins/users.html:165
 msgid "Action"
@@ -366,7 +422,7 @@ msgstr "افتح الملف "
 msgid "No File"
 msgstr "لم يتم رفع ملف"
 
-#: templates/admins/users.html:154
+#: templates/admins/users.html:154 templates/profile/settings_view.html:92
 msgid "Firebase Link"
 msgstr "رابط الفايربيس"
 
@@ -566,57 +622,86 @@ msgstr "اختر التصنيف المرغوب"
 msgid "Select a Subcategory"
 msgstr "اختر الفئة التي تريد السؤال عنها"
 
-#: templates/profile/profile-settings.html:87
-#: templates/profile/settings_update.html:87
-#: templates/profile/settings_view.html:87
-msgid "profile"
+#: templates/profile/settings_view.html:6
+#| msgid "Settings"
+msgid "Settings "
+msgstr "الإعدادات"
+
+#: templates/profile/settings_view.html:23
+msgid "Profile"
 msgstr "بيانات المستخدم"
 
-#: templates/profile/profile-settings.html:107
-#: templates/profile/settings_update.html:107
-#: templates/profile/settings_view.html:107
-msgid "Location"
+#: templates/profile/settings_view.html:26
+msgid "Notifications"
+msgstr "الإشعارات"
+
+#: templates/profile/settings_view.html:34
+msgid "No cafe logo available."
+msgstr "لا يوجد شعار للمقهى"
+
+#: templates/profile/settings_view.html:48
+msgid "No cafe description available."
+msgstr "لا يوجد وصف للمقهى"
+
+#: templates/profile/settings_view.html:61
+msgid "Your cafe name"
+msgstr "اسم مقهاك"
+
+#: templates/profile/settings_view.html:74
+msgid "Address"
 msgstr "الموقع"
 
-#: templates/profile/profile-settings.html:112
-#: templates/profile/settings_update.html:112
-#: templates/profile/settings_view.html:112
+#: templates/profile/settings_view.html:79
+msgid "Data file"
+msgstr "ملف البيانات"
+
+#: templates/profile/settings_view.html:84
+msgid "View current file"
+msgstr "ملف بياناتك الحالية"
+
+#: templates/profile/settings_view.html:93
+msgid "No firbase link available."
+msgstr "لا يوجد رابط فايربيس"
+
+#: templates/profile/settings_view.html:97
+#: templates/profile/signup-settings.html:110
 msgid "Area"
 msgstr "المنطقة"
 
-#: templates/profile/profile-settings.html:123
-#: templates/profile/settings_update.html:123
-#: templates/profile/settings_view.html:123
+#: templates/profile/settings_view.html:102
+#: templates/profile/signup-settings.html:121
 msgid "City"
 msgstr "المدينة"
 
-#: templates/profile/profile-settings.html:129
-#: templates/profile/settings_update.html:129
-#: templates/profile/settings_view.html:129
+#: templates/profile/settings_view.html:107
+msgid "update"
+msgstr "تحديث"
+
+#: templates/profile/signup-settings.html:85
+msgid "profile"
+msgstr "بيانات المستخدم"
+
+#: templates/profile/signup-settings.html:105
+msgid "Location"
+msgstr "الموقع"
+
+#: templates/profile/signup-settings.html:127
 msgid "Upload you data here"
 msgstr "ارفع بياناتك هنا "
 
-#: templates/profile/profile-settings.html:136
-#: templates/profile/settings_update.html:136
-#: templates/profile/settings_view.html:136
+#: templates/profile/signup-settings.html:134
 msgid "Link to social media accounts if any"
 msgstr "رابط مواقع التواصل الاجتماعي إن وجد"
 
-#: templates/profile/profile-settings.html:140
-#: templates/profile/settings_update.html:140
-#: templates/profile/settings_view.html:140
+#: templates/profile/signup-settings.html:138
 msgid "Talk about you cafe briefly"
 msgstr "تحدث قليًا عن مقهاك"
 
-#: templates/profile/profile-settings.html:144
-#: templates/profile/settings_update.html:144
-#: templates/profile/settings_view.html:144
+#: templates/profile/signup-settings.html:142
 msgid "Cafe Logo"
 msgstr "شعار المقهى"
 
-#: templates/profile/profile-settings.html:149
-#: templates/profile/settings_update.html:149
-#: templates/profile/settings_view.html:149
+#: templates/profile/signup-settings.html:147
 msgid ""
 "By clicking the \"Submit Your Request\" button, you agree to upload your "
 "data to this website and confirm that the information is accurate."
@@ -624,24 +709,16 @@ msgstr ""
 "عند الضغط على زر \"ارفع طلبك\" فأنت توافق على رفع بياناتك إلى هذا الموقع، "
 "وتقر بأنها معلومات صحيحة."
 
-#: templates/profile/profile-settings.html:150
-#: templates/profile/settings_update.html:150
-#: templates/profile/settings_view.html:150
+#: templates/profile/signup-settings.html:148
 msgid "Submit Your Request"
 msgstr "ارفع طلبك"
 
-#: templates/profile/profile-settings.html:160
-#: templates/profile/profile-settings.html:170
-#: templates/profile/settings_update.html:160
-#: templates/profile/settings_update.html:170
-#: templates/profile/settings_view.html:160
-#: templates/profile/settings_view.html:170
+#: templates/profile/signup-settings.html:158
+#: templates/profile/signup-settings.html:168
 msgid "Confirm"
 msgstr "تأكيد"
 
-#: templates/profile/profile-settings.html:165
-#: templates/profile/settings_update.html:165
-#: templates/profile/settings_view.html:165
+#: templates/profile/signup-settings.html:163
 msgid ""
 "By clicking \"Confirm,\" you confirm your desire to submit your access "
 "request to the website. <br>We ask you to wait until you receive an email "
@@ -686,6 +763,12 @@ msgstr "التقارير"
 msgid "welcomeTitle"
 msgstr "أهلًا وسهلًا!"
 
+#~ msgid "Holidays"
+#~ msgstr "الإجازات"
+
+#~ msgid "Sure"
+#~ msgstr "متأكد"
+
 #~ msgid "Messages"
 #~ msgstr "رسالة"
 
@@ -709,9 +792,6 @@ msgstr "أهلًا وسهلًا!"
 
 #~ msgid "This field cannot be null."
 #~ msgstr "هذا المدخل لا يمكن ان يكون فارغ"
-
-#~ msgid "Email address"
-#~ msgstr "البريد الإلكتروني"
 
 #~ msgid "Integer"
 #~ msgstr "عدد صحيح"
