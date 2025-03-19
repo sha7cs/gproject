@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+<!--profile-settings-->
 <!doctype html>
 <html lang="en">
   <head>
@@ -126,7 +127,7 @@
                   </div>
                   <div class="form-group mb-3">
                     <div class="form-group mb-3">
-                      <label for="example-fileinput">{% trans 'Upload you data here'%}</label>
+                      <label for="-fileinput">{% trans 'Upload you data here'%}</label>
                       {{ form.data_file }}
                       {% comment %} <input type="file" id="example-fileinput" class="form-control-file" name="data-file" required> {% endcomment %}
                     </div>

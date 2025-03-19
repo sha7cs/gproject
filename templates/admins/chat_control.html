@@ -9,7 +9,7 @@
             <div class="row mb-5">
                 <div class="col-md-10 mb-4">
                     <h1>{{category}}</h1>
-                    <p>{%trans 'What is displayed under it are all the subcategories associated with this category along with their questions, and you can manage them, including deleting and adding.' %}</p>
+                    <p> {% trans 'What is displayed under it are all the subcategories associated with this category along with their questions, and you can manage them, including deleting and adding.' %}</p>
                     <hr>
                     <div>
                         {{ form.errors }}
@@ -21,193 +21,194 @@
                 
 
                 {% for subcategory in category.subcategories.all %} <!--يعرض التصنيف الفرعي  -->
-                <!-- Files List -->
                 <div class="col-md-4 mb-4">
                 <div class="card shadow">
                     <div class="card-header">
                     <strong class="card-title">{{subcategory}}</strong>
-                      <a class="float-right small text-muted mx-1"  data-toggle="modal" data-target="#newQuestionModal{{ subcategory.id }}" title="{% trans 'Add a new question' %}" style="curser:pointer;"><span class="fe fe-plus fe-16"></span></a>
-                      <a class="float-right small text-muted mx-1"  data-toggle="modal" data-target="#delSubcategoryModal{{ subcategory.id }}" title="{% trans 'Add a new question' %}" style="curser:pointer;"><span class="fe fe-minus fe-16 text-danger"></span></a>
+                      <a class="float-right small text-muted mx-1"  data-toggle="modal" data-target="#delSubcategoryModal{{ subcategory.id }}" title="{% trans 'Delete the subcategory' %}" style="cursor:pointer;"><span class="fe fe-trash fe-16 text-danger"></span></a> <!--زر حذف التصنيف الفرعي  -->
+                      <a class="float-right small mx-1"  data-toggle="modal" data-target="#newQuestionModal{{ subcategory.id }}" title="{% trans 'Add a new question' %}" style="cursor:pointer;"><span class="fe fe-plus fe-16"></span></a> <!--زر اضافة سؤال -->
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" style="min-height: 50px;">
                     <div class="list-group list-group-flush my-n3 pl-0">
-                        {% for question in subcategory.questions.all%} <!--يعرض الاسئلة -->
-                            <div class="list-group-item">
-                            <div class="row align-items-center">
-                                {% comment %} <div class="col-auto">
-                                <span class="fe fe-image fe-24 text-muted"></span>
-                                </div> {% endcomment %}
-                                <div class="col">
-                                <small><strong>{{question}}</strong></small>
-                                {% comment %} <div class="my-0 text-muted small"><span class="badge badge-light text-muted mr-2">1.2M</span><span class="badge badge-pill badge-light text-muted">SVG</span></div> {% endcomment %}
+                        {% if subcategory.questions.all %}
+                            {% for question in subcategory.questions.all%} <!--يعرض الاسئلة -->
+                                <div class="list-group-item">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                    <small><strong>{{question}}</strong></small>
+                                    </div>
+                                    <div class="col-auto pr-0">
+                                        <div class="dropdown">
+                                            <a class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                              <a class="dropdown-item" data-toggle="modal" data-target="#updateQuestionModal{{ question.id }}">{% trans 'Modify'%}</a> <!--زر تعديل الاسئلة-->
+                                              <a class="dropdown-item text-danger" data-toggle="modal" data-target="#delQuestionModal{{ question.id }}" >{% trans 'Delete'%}</a> <!--زر حذف الاسئلة-->
+                                            </div>
+                                          </div>
+                                    </div>
                                 </div>
-                                <div class="col-auto pr-0">
-                                    <div class="dropdown">
-                                        <a class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#updateQuestionModal{{ question.id }}">{% trans 'Modify'%}</a>
-                                          <a class="dropdown-item text-danger" href="#" data-toggle="modal" data-target="#delQuestionModal{{ question.id }}" >{% trans 'Delete'%}</a>
+                                </div>
+
+
+                                <!--update a question -->
+                                <div class="modal fade" id="updateQuestionModal{{ question.id }}" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="varyModalLabel">{% trans 'Modify Question:'%}</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST">
+                                                {% load custom_filters %}
+                                                {% csrf_token %}   
+                                                <input type="hidden" name="question_id_{{ question.id }}" value="{{ question.id }}">
+
+                                                <div class="form-group">
+                                                    <label  for="question_ar_{{ question.id }}">{%trans 'The question in Arabic:'%}</label>
+                                                    <input type="text" class="form-control" id="question_ar_{{ question.id }}" name="question_ar_{{ question.id }}" value="{{ question|translate_question:'ar' }}">
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label for="question_en_{{ question.id }}">{%trans 'The question in English:'%}</label>
+                                                    <textarea class="form-control" id="question_en_{{ question.id }}" name="question_en_{{ question.id }}">{{ question|translate_question:'en' }}</textarea>
+                                                  </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">{%trans 'Close'%}</button>
+                                                <button type="submit" class="btn mb-2 btn-primary">{%trans 'Modify'%}</button>
+                                                </div>
+                                            </form>
+                                      </div>
+                                    </div>
+                                  </div>
+
+
+                                  <!--delete a question -->
+                                  <div class="modal fade" id="delQuestionModal{{ question.id }}" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="varyModalLabel">{% trans 'Delete a Question:'%}</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body" >
+                                            <form method="POST" action="{% url 'delete_question' question.id %}">
+                                                {% csrf_token %}   
+                                                  <div class="form-group">
+                                                    <h2>{%trans 'Are you sure?'%}</h2>
+                                                  </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">{%trans 'Close'%}</button>
+                                                <button type="submit" class="btn mb-2 btn-danger">{%trans 'Delete'%}</button>
+                                                </div>
+                                            </form>
+                                      </div>
+                                    </div>
+                                  </div>
+
+
+                                  <!--create a subcategory -->
+                                  <div class="modal fade" id="newSubCategoryModal{{ category.id }}" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="varyModalLabel">{% trans 'Add a Category:'%}</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body" >
+                                            <form method="POST" action="{% url 'create_subcategory' category.id %}">
+                                                {% csrf_token %}   
+
+                                                <div class="form-group">
+                                                    <label  for="subcategory_ar_{{ category.id }}">{%trans 'The Subcategory in Arabic:'%}</label>
+                                                    {{ form_subcategory.subcategory_ar }}
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label for="subcategory_en_{{ category.id }}"> {%trans 'The Subcategory in English:'%}</label>
+                                                    {{ form_subcategory.subcategory_en }}
+                                                  </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">{%trans 'Close'%}</button>
+                                                <button type="submit" class="btn mb-2 btn-primary">{%trans 'Create'%}</button>
+                                                </div>
+                                            </form>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                            {%endfor %}
+                        {% else %}          
+                            <div class="text-muted text-center p-2">{% trans 'No questions available' %}</div>
+                        {% endif %}
+                        <!--create a question -->
+                        <div class="modal fade" id="newQuestionModal{{ subcategory.id }}" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="varyModalLabel">{% trans 'Add Question:'%}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body" >
+                                  <form method="POST" action="{% url 'create_question' subcategory.id %}">
+                                      {% csrf_token %}   
+                                      <input type="hidden" name="subcategory_id" value="{{ subcategory.id }}">
+
+                                      <div class="form-group">
+                                          <label  for="question_ar_{{ question.id }}">{%trans 'The question in Arabic:'%}</label>
+                                          {{ formQ.question_ar }}
+                                        </div>
+                                        <div class="form-group">
+                                          <labelfor="question_en_{{ question.id }}">{%trans 'The question in English:'%}</label>
+                                          {{ formQ.question_en }}
                                         </div>
                                       </div>
-                                </div>
+                                      <div class="modal-footer">
+                                      <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">{%trans 'Close'%}</button>
+                                      <button type="submit" class="btn mb-2 btn-primary">{%trans 'Create'%}</button>
+                                      </div>
+                                  </form>
                             </div>
+                          </div>
+                        </div>
+
+
+                        <!--delete a subcategory -->
+                        <div class="modal fade" id="delSubcategoryModal{{ subcategory.id }}" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="varyModalLabel">{% trans 'Delete a Subcategory:'%}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body" >
+                                  <form method="POST" action="{% url 'delete_subcategory' subcategory.id %}">
+                                      {% csrf_token %}   
+                                      <div class="form-group">
+                                          <h2>{%trans 'Are you sure?'%}</h2>
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                      <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">{%trans 'Close'%}</button>
+                                      <button type="submit" class="btn mb-2 btn-danger">{%trans 'Delete'%}</button>
+                                      </div>
+                                  </form>
                             </div>
-                            <!--update a question -->
-                            <div class="modal fade" id="updateQuestionModal{{ question.id }}" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="varyModalLabel">{% trans 'Modify Question:'%}</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form method="POST">
-                                            {% load custom_filters %}
-                                            {% csrf_token %}   
-                                            <input type="hidden" name="question_id_{{ question.id }}" value="{{ question.id }}">
-
-                                            <div class="form-group">
-                                                <label  for="question_ar_{{ question.id }}">{%trans 'The question in Arabic:'%}</label>
-                                                <input type="text" class="form-control" id="question_ar_{{ question.id }}" name="question_ar_{{ question.id }}" value="{{ question|translate_question:'ar' }}">
-                                              </div>
-                                              <div class="form-group">
-                                                <labelfor="question_en_{{ question.id }}">{%trans 'The question in English:'%}</label>
-                                                <textarea class="form-control" id="question_en_{{ question.id }}" name="question_en_{{ question.id }}">{{ question|translate_question:'en' }}</textarea>
-                                              </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                            <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">{%trans 'Close'%}</button>
-                                            <button type="submit" class="btn mb-2 btn-primary">{%trans 'Modify'%}</button>
-                                            </div>
-                                        </form>
-                                  </div>
-                                </div>
-                              </div>
-                                <!--create a question -->
-                              <div class="modal fade" id="newQuestionModal{{ subcategory.id }}" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="varyModalLabel">{% trans 'Add Question:'%}</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body" >
-                                        <form method="POST" action="{% url 'create_question' subcategory.id %}">
-                                            {% csrf_token %}   
-                                            <input type="hidden" name="subcategory_id" value="{{ subcategory.id }}">
-
-                                            <div class="form-group">
-                                                <label  for="question_ar_{{ question.id }}">{%trans 'The question in Arabic:'%}</label>
-                                                {{ formQ.question_ar }}
-                                              </div>
-                                              <div class="form-group">
-                                                <labelfor="question_en_{{ question.id }}">{%trans 'The question in English:'%}</label>
-                                                {{ formQ.question_en }}
-                                              </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                            <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">{%trans 'Close'%}</button>
-                                            <button type="submit" class="btn mb-2 btn-primary">{%trans 'Create'%}</button>
-                                            </div>
-                                        </form>
-                                  </div>
-                                </div>
-                              </div>
-
-
-                               <!--delete a question -->
-                               <div class="modal fade" id="delQuestionModal{{ question.id }}" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="varyModalLabel">{% trans 'Delete a Question:'%}</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body" >
-                                        <form method="POST" action="{% url 'delete_question' question.id %}">
-                                            {% csrf_token %}   
-                                            <div class="form-group">
-                                                <label>{%trans 'Are you sure?'%}</label>
-                                              </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                            <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">{%trans 'Close'%}</button>
-                                            <button type="submit" class="btn mb-2 btn-primary">{%trans 'Sure'%}</button>
-                                            </div>
-                                        </form>
-                                  </div>
-                                </div>
-                              </div>
-
-
-                               <!--create a subcategory -->
-                               <div class="modal fade" id="newSubCategoryModal{{ category.id }}" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="varyModalLabel">{% trans 'Add a Category:'%}</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body" >
-                                        <form method="POST" action="{% url 'create_subcategory' category.id %}">
-                                            {% csrf_token %}   
-
-                                            <div class="form-group">
-                                                <label  for="subcategory_ar_{{ category.id }}">{%trans 'The Subcategory in Arabic:'%}</label>
-                                                {{ form_subcategory.subcategory_ar }}
-                                              </div>
-                                              <div class="form-group">
-                                                <label for="subcategory_en_{{ category.id }}"> {%trans 'The Subcategory in English:'%}</label>
-                                                {{ form_subcategory.subcategory_en }}
-                                              </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                            <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">{%trans 'Close'%}</button>
-                                            <button type="submit" class="btn mb-2 btn-primary">{%trans 'Create'%}</button>
-                                            </div>
-                                        </form>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <!--delete a subcategory -->
-                              <div class="modal fade" id="delSubcategoryModal{{ subcategory.id }}" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="varyModalLabel">{% trans 'Delete a Question:'%}</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body" >
-                                        <form method="POST" action="{% url 'delete_subcategory' subcategory.id %}">
-                                            {% csrf_token %}   
-                                            <div class="form-group">
-                                                <label>{%trans 'Are you sure?'%}</label>
-                                              </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                            <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">{%trans 'Close'%}</button>
-                                            <button type="submit" class="btn mb-2 btn-primary">{%trans 'Sure'%}</button>
-                                            </div>
-                                        </form>
-                                  </div>
-                                </div>
-                              </div>
-
-
-                        {%endfor %}
-                    </div> <!-- / .list-group -->
+                          </div>
+                        </div>
+                      </div> <!-- / .list-group -->
                     </div> <!-- / .card-body -->
                 </div> <!-- / .card -->
                 </div> <!-- / .col-md-3 -->
@@ -216,4 +217,14 @@
         {% endfor %}
     </div>
 </main>
+
+<script>
+  $(document).ready(function() {
+    $('[data-toggle="modal"]').on('click', function() {
+        console.log('Button clicked!');  // This will log whenever a button is clicked
+        $('#newQuestionModal{{ subcategory.id }}').modal('show');
+
+    });
+});
+</script>
   {% endblock %}

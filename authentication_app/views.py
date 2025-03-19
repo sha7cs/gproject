@@ -3,10 +3,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView
 import logging
-from .forms import CreateUser, UserProfileForm #هذولي الفورمز الي بنستخدمهم تلقونهم بفايل فورمز
+from .forms import CreateUser, UserProfileForm, UserUpdateForm
 from django.contrib import messages
-from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy,reverse
+from django.views.generic.edit import CreateView,UpdateView
 from django.contrib.auth.models import Group 
 from .decorators import allowed_users, admin_only, unauthenticated_user #هذولي الديكوريترز الي حنا مسوينهم نقدر نسوي الي نحتاج براحتنا
 from django.contrib.auth.decorators import login_required
@@ -117,12 +117,12 @@ def settings(request):
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, _(f"{field.capitalize()}: {error}"))
-            return render(request, 'profile/profile-settings.html', {'form': form, 'areas': areas, 'cities': cities})
+            return render(request, 'profile/signup-settings.html', {'form': form, 'areas': areas, 'cities': cities})
     else:
         areas = Area.objects.all()
         cities = City.objects.all()
         form = UserProfileForm()
-        return render(request, 'profile/profile-settings.html', {'form': form, 'areas': areas, 'cities': cities})
+        return render(request, 'profile/signup-settings.html', {'form': form, 'areas': areas, 'cities': cities})
     
 @login_required
 @admin_only
@@ -147,3 +147,30 @@ def update_settings(request):
 
 def waiting(request):
     return render(request, 'profile/waiting.html')
+
+from django.shortcuts import get_object_or_404
+
+@login_required
+@allowed_users(allowed_roles=['normal_user'])
+def settings_view(request):
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+    areas = Area.objects.all()
+    cities = City.objects.all()
+    form = UserProfileForm(instance=user_profile)    
+    user_form= UserUpdateForm(instance = request.user)
+    return render(request, 'profile/settings_view.html',{'user':user_profile , 'areas':areas, 'cities':cities,'form':form,'user_form':user_form})
+
+@login_required
+@allowed_users(allowed_roles=['normal_user'])
+def settings_update(request):
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
+        user_form= UserUpdateForm(request.POST,instance= request.user)
+        if form.is_valid() and user_form.is_valid():
+            form.save()
+            user_form.save()
+            messages.success(request, _("Profile updated successfully!"))
+            return redirect('settings_view')
+        else:
+            return redirect('settings_view')

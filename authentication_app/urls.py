@@ -11,5 +11,7 @@ urlpatterns = [
     path('settings', views.settings, name = "user_settings"),
     path('update-settings/', views.update_settings, name='update_settings'),
     path('admindashboard/', views.admindashboard, name = "admindashboard"),
-    path('waiting/', views.waiting, name = "wait")
+    path('waiting/', views.waiting, name = "wait"),
+    path('mysettings/',views.settings_view, name="settings_view"),
+    path('mysettings/update',views.settings_update, name="settings_update"),
 ]  

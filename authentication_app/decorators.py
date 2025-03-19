@@ -20,7 +20,7 @@ def allowed_users(allowed_roles=[]):
                     if request.user.is_staff or request.user.is_superuser:
                             return redirect('admindashboard')
                     elif not user_profile or user_profile.status != 1:
-                        messages.error(request, _("Your account is still pending, you can't access this page"))
+                        messages.error(request, _("Your account is still pending"))
                         return redirect('user_settings')  # Redirect to settings page
                     return redirect('home')  # Redirect unauthorized users to home
             return redirect('login_page')  # Redirect non-logged-in users to login
@@ -33,7 +33,7 @@ def admin_only(view_func):
         if request.user.is_superuser:  # Check if user is a superuser (admin)
             return view_func(request, *args, **kwargs)
         elif not user_profile or user_profile.status != 1:
-            messages.error(request, _("Your account is still pending, you can't access this page"))
+            messages.error(request, _("Your account is still pending"))
             return redirect('user_settings')  # Redirect to settings page
         return redirect('home')  # Redirect normal users to home
     return wrapper_func
@@ -41,10 +41,13 @@ def admin_only(view_func):
 
 def unauthenticated_user(view_func):
     def wrapper_func(request, *args, **kwargs):
+        user_profile = getattr(request.user, 'userprofile', None) 
         if request.user.is_authenticated:
             if request.user.is_staff or request.user.is_superuser:
                 return redirect('admindashboard')  # Redirect staff/admin users to admin dashboard
-            return redirect('home')  # Redirect normal users to home
+            elif not user_profile or user_profile.status != 1:
+                return redirect('user_settings')  # Redirect pending users to settings page
+            return redirect('home')  # Redirect accepted users to home
         return view_func(request, *args, **kwargs)
     return wrapper_func
 
@@ -56,7 +59,7 @@ def approved_user_required(view_func):
         user_profile = getattr(request.user, 'userprofile', None)  # Get UserProfile safely
 
         if not user_profile or user_profile.status != 1:  # Not approved
-            messages.error(request, _("Your account is still pending, you can't access this page"))
+            messages.error(request, _("Your account is still pending"))
             return redirect('user_settings')  # Redirect to settings page
         
         return view_func(request, *args, **kwargs)

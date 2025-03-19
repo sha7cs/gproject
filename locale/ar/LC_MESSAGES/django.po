@@ -9,15 +9,14 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-17 08:22+0000\n"
-"PO-Revision-Date: 2025-03-17 07:24+0000\n"
+"PO-Revision-Date: 2025-03-18 00:32+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 "X-Translated-Using: django-rosetta 0.10.1\n"
 
 #: GP/settings.py:137
@@ -48,20 +47,18 @@ msgid "Questions updated successfully!"
 msgstr "تم تعديل السؤال بنجاح!"
 
 #: administrators/views.py:176
-#, fuzzy
 #| msgid "Questions updated successfully!"
 msgid "New question created successfully!"
-msgstr "تم تعديل السؤال بنجاح!"
+msgstr "تم إنشاء السؤال بنجاح!"
 
 #: administrators/views.py:179
 msgid "There was an error creating the question."
-msgstr ""
+msgstr "كان هناك مشكلة في إنشاء السؤال"
 
 #: administrators/views.py:190
-#, fuzzy
 #| msgid "Questions updated successfully!"
 msgid "Question deleted successfully!"
-msgstr "تم تعديل السؤال بنجاح!"
+msgstr "تم حذف السؤال بنجاح!"
 
 #: authentication_app/decorators.py:23 authentication_app/decorators.py:36
 #: authentication_app/decorators.py:59
@@ -86,7 +83,8 @@ msgstr "لا يوجد ملف شخصي مرتبط بهذا الحساب."
 
 #: authentication_app/views.py:98
 msgid ""
-"You have already submitted your profile. You cannot access the settings page."
+"You have already submitted your profile. You cannot access the settings "
+"page."
 msgstr "لقد رفعت بياناتك سابقًا، الرجاء الانتظار حتى يصلك رد من جهتنا."
 
 #: authentication_app/views.py:111
@@ -218,10 +216,9 @@ msgstr ""
 "ويمكنك التحكم بها بما فيه الحذف والإضافة"
 
 #: templates/admins/chat_control.html:19
-#, fuzzy
 #| msgid "Subcategory"
 msgid "Add a Subcategory"
-msgstr "التصنيف الفرعي"
+msgstr "أضف تصنيف فرعي"
 
 #: templates/admins/chat_control.html:49 templates/admins/chat_control.html:83
 msgid "Modify"
@@ -232,20 +229,22 @@ msgid "Delete"
 msgstr "حذف"
 
 #: templates/admins/chat_control.html:61
-#, fuzzy
 #| msgid "Question"
 msgid "Modify Question:"
-msgstr "سؤال"
+msgstr "تعديل السؤال"
 
-#: templates/admins/chat_control.html:73 templates/admins/chat_control.html:105
+#: templates/admins/chat_control.html:73
+#: templates/admins/chat_control.html:105
 msgid "The question in Arabic:"
 msgstr "السؤال بالعربية:"
 
-#: templates/admins/chat_control.html:77 templates/admins/chat_control.html:109
+#: templates/admins/chat_control.html:77
+#: templates/admins/chat_control.html:109
 msgid "The question in English:"
 msgstr "السؤال بالإنجليزية:"
 
-#: templates/admins/chat_control.html:82 templates/admins/chat_control.html:114
+#: templates/admins/chat_control.html:82
+#: templates/admins/chat_control.html:114
 #: templates/admins/chat_control.html:141
 #: templates/profile/profile-settings.html:168
 #: templates/profile/settings_update.html:168
@@ -254,30 +253,27 @@ msgid "Close"
 msgstr "إغلاق"
 
 #: templates/admins/chat_control.html:94
-#, fuzzy
 #| msgid "Question"
 msgid "Add Question:"
-msgstr "سؤال"
+msgstr "إضافة سؤال"
 
 #: templates/admins/chat_control.html:115
-#, fuzzy
 #| msgid "Create Account"
 msgid "Create"
-msgstr "إنشاء حساب"
+msgstr "إنشاء"
 
 #: templates/admins/chat_control.html:128
-#, fuzzy
 #| msgid "Question"
 msgid "Delete a Question:"
-msgstr "سؤال"
+msgstr "حذف سؤال"
 
 #: templates/admins/chat_control.html:137
 msgid "Are you sure?"
-msgstr ""
+msgstr "هل أنت متأكد؟"
 
 #: templates/admins/chat_control.html:142
 msgid "Sure"
-msgstr ""
+msgstr "متأكد"
 
 #: templates/admins/users.html:4
 msgid "users settings"
