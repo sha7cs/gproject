@@ -1,6 +1,6 @@
 {% load static %}
 {% load i18n %}
-<aside class="sidebar-left border-right bg-white shadow" id="leftSidebar" data-simplebar>
+<aside class="sidebar-left border-right bg-white shadow " id="leftSidebar" data-simplebar>
     <a href="#" class="btn collapseSidebar toggle-btn d-lg-none text-muted ml-2 mt-3" data-toggle="toggle">
       <i class="fe fe-x"><span class="sr-only"></span></i>
     </a>
@@ -17,6 +17,9 @@
           </svg>
         </a>
       </div>
+      <p class="text-muted nav-heading mt-4 mb-1">
+        <span>{%trans 'Main pages'%}</span>
+      </p>
       <ul class="navbar-nav flex-fill w-100 mb-2">
         <li class="nav-item w-100">
             <a class="nav-link" href="{% url 'home' %}">
@@ -25,7 +28,6 @@
             </a>
           </li>
       </ul>
-      <hr class="my-1 w-50 mx-auto">
       <ul class="navbar-nav flex-fill w-100 mb-2">
         <li class="nav-item w-100">
             <a class="nav-link" href="{% url 'analysis' %}">
@@ -34,7 +36,6 @@
             </a>
           </li>
       </ul>
-      <hr class="my-1 w-50 mx-auto">
       <ul class="navbar-nav flex-fill w-100 mb-2">
         <li class="nav-item w-100">
             <a class="nav-link" href="{% url 'promotions' %}">
@@ -43,12 +44,14 @@
             </a>
           </li>
       </ul>
-      <hr class="my-1 w-50 mx-auto">
+      <p class="text-muted nav-heading mt-4 mb-1">
+        <span>{%trans 'User'%}</span>
+      </p>
       <ul class="navbar-nav flex-fill w-100 mb-2">
         <li class="nav-item w-100">
-            <a class="nav-link" href="{% url 'reports' %}">
-                <i class="fe fe-file fe-16"></i>
-                <span class="ml-3 item-text">{% trans 'reports' %}</span><span class="sr-only">(current)</span>
+            <a class="nav-link" href="{% url 'settings_view' %}">
+                <i class="fe fe-settings fe-16"></i>
+                <span class="ml-3 item-text">{% trans 'Settings' %}</span><span class="sr-only">(current)</span>
             </a>
           </li>
       </ul>
