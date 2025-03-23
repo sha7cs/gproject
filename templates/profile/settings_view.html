@@ -11,22 +11,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 <style>
-  .cafe-logo {
-    position: relative;
-    width: 120px; /* Adjust size as needed */
-    height: 120px;
-    border-radius: 50%;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.cafe-logo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
+ 
 .upload-overlay {
     position: absolute;
     top: 0;
@@ -46,7 +31,14 @@
 .cafe-logo:hover .upload-overlay {
     opacity: 1;
 }
-
+.cafe-logo {
+  position: relative;
+  display: inline-block;
+  width: fit-content; /* Ensure it wraps around the image */
+}
+.cafe-logo:hover .upload-overlay {
+  opacity: 1;
+}
 .file-input {
     display: none;
 }
@@ -73,13 +65,13 @@
                   <div class="avatar avatar-xl">
                     <label for="cafe_logo" class="cafe-logo">
                     {% if user.cafe_logo %}
-                        <img src="{{ user.cafe_logo.url }}" alt="Cafe Logo">
+                        <img src="{{ user.cafe_logo.url }}" class="avatar-img rounded-3" alt="Cafe Logo">
                     {% else %}
                         <img src="https://i.pinimg.com/736x/e5/58/dd/e558dd367b8813ce7972684e8be537ab.jpg" alt="Default Cafe Logo">
                     {% endif %}
                     <div class="upload-overlay">
                       <i class="fe fe-camera"></i>
-                   </div>
+                    </div>
                   </label>
                     <input type="file" name="cafe_logo" id="cafe_logo" class="file-input" accept="image/*">
                   </div>
@@ -201,4 +193,20 @@
     "positionClass": "toast-top-right"
   };
 </script>
+<script>
+  document.getElementById('cafe_logo').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      const preview = document.querySelector('.avatar-img');
+      preview.src = e.target.result; // Set the preview image to the selected file
+    };
+
+    if (file) {
+      reader.readAsDataURL(file); // Read the file as a data URL
+    }
+  });
+</script>
+
 {% endblock%}
