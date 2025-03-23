@@ -10,7 +10,47 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<style>
+  .cafe-logo {
+    position: relative;
+    width: 120px; /* Adjust size as needed */
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
 
+.cafe-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.upload-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.cafe-logo:hover .upload-overlay {
+    opacity: 1;
+}
+
+.file-input {
+    display: none;
+}
+</style>
 <main role="main" class="main-content">
     <div class="container-fluid">
       <div class="row justify-content-center">
@@ -31,9 +71,17 @@
               <div class="row mt-5 align-items-center">
                 <div class="col-md-3 text-center mb-5">
                   <div class="avatar avatar-xl">
-                    {% trans 'No cafe logo available.' as logo_default_text %} <!--maybe i will put a default image if user doesnt have-->
-                    <img src="{{ user.cafe_logo.url|default:logo_default_text }}" alt="..." class="avatar-img rounded-circle mb-2">
-                    <input type="file" name="cafe_logo" id="cafe_logo" class="form-control-file" accept="image/*">
+                    <label for="cafe_logo" class="cafe-logo">
+                    {% if user.cafe_logo %}
+                        <img src="{{ user.cafe_logo.url }}" alt="Cafe Logo">
+                    {% else %}
+                        <img src="https://i.pinimg.com/736x/e5/58/dd/e558dd367b8813ce7972684e8be537ab.jpg" alt="Default Cafe Logo">
+                    {% endif %}
+                    <div class="upload-overlay">
+                      <i class="fe fe-camera"></i>
+                   </div>
+                  </label>
+                    <input type="file" name="cafe_logo" id="cafe_logo" class="file-input" accept="image/*">
                   </div>
                 </div>
                 <div class="col">

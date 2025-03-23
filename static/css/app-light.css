@@ -8932,10 +8932,12 @@ select {
   width: 48px; }
 
 .avatar-lg img {
-  width: 64px; }
+  width: 64px; 
+height: 64px;}
 
 .avatar-xl img {
-  width: 110px; }
+  width: 110px;
+  height: 110px; }
 
 .squircle {
   height: 84px;
