@@ -22,9 +22,6 @@ def home(request):
 @approved_user_required
 def reports_view(request):
     return render(request, 'layout/reports.html' )
-@unauthenticated_user
+
 def welcome_view(request):
     return render(request, 'welcome.html' )
-@unauthenticated_user
-def the_welcome(request):
-    return render(request, 'theWelocm.html')
