@@ -9,177 +9,175 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-05 05:00+0000\n"
-"PO-Revision-Date: 2025-03-19 09:29+0000\n"
-"Last-Translator:   <admin@example.com>\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: ar\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-"X-Translated-Using: django-rosetta 0.10.1\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: GP/settings.py:140
 msgid "English"
-msgstr "الإنجليزية"
+msgstr ""
 
 #: GP/settings.py:141
 msgid "Arabic"
-msgstr "العربية"
+msgstr ""
 
 #: administrators/views.py:26 templates/admins/users.html:29
 #: templates/admins/users.html:85 templates/admins/users.html:352
 msgid "Pending"
-msgstr "قيد الانتظار"
+msgstr ""
 
 #: administrators/views.py:30 templates/admins/users.html:34
 #: templates/admins/users.html:86 templates/admins/users.html:353
 msgid "Accepted"
-msgstr "مقبول"
+msgstr ""
 
 #: administrators/views.py:34 templates/admins/users.html:39
 #: templates/admins/users.html:87 templates/admins/users.html:354
 msgid "Denied"
-msgstr "مرفوض"
+msgstr ""
 
 #: administrators/views.py:158
 msgid "Questions updated successfully!"
-msgstr "تم تعديل السؤال بنجاح!"
+msgstr ""
 
 #: administrators/views.py:182
 msgid "New question created successfully!"
-msgstr "تم إنشاء السؤال بنجاح!"
+msgstr ""
 
 #: administrators/views.py:185
 msgid "There was an error creating the question."
-msgstr "كان هناك مشكلة في إنشاء السؤال"
+msgstr ""
 
 #: administrators/views.py:196
 msgid "Question deleted successfully!"
-msgstr "تم حذف السؤال بنجاح!"
+msgstr ""
 
 #: administrators/views.py:210
 msgid "New Subcategory created successfully!"
-msgstr "تم إنشاء تصنيف فرعي بنجاح!"
+msgstr ""
 
 #: administrators/views.py:213
 msgid "There was an error creating the Subcategory."
-msgstr "كان هناك مشكلة في إنشاء التصنيف فرعي"
+msgstr ""
 
 #: administrators/views.py:222
 msgid "Subcategory deleted successfully!"
-msgstr "تم حذف التصنيف الفرعي بنجاح!"
+msgstr ""
 
 #: authentication_app/decorators.py:23 authentication_app/decorators.py:36
 #: authentication_app/decorators.py:62
 msgid "Your account is still pending"
-msgstr "حسابك لا زال قيد الانتظار"
+msgstr ""
 
 #: authentication_app/forms.py:25 authentication_app/forms.py:26
 #: templates/profile/settings_view.html:172
 msgid "choose"
-msgstr "اختر"
+msgstr ""
 
 #: authentication_app/forms.py:28
 msgid "Enter your cafe name"
-msgstr "ادخل اسم مقهاك"
+msgstr ""
 
 #: authentication_app/views.py:33
 msgid "Account created successfully! You are now logged in."
-msgstr "تم إنشاء الحساب بنجاح! لقد تم تسجيل دخولك الآن."
+msgstr ""
 
 #: authentication_app/views.py:62
 msgid "Your account has been denied. Contact support."
-msgstr "تم رفض حسابك. يرجى التواصل مع الدعم."
+msgstr ""
 
 #: authentication_app/views.py:67
 msgid "No profile associated with this account."
-msgstr "لا يوجد ملف شخصي مرتبط بهذا الحساب."
+msgstr ""
 
 #: authentication_app/views.py:98
 msgid ""
 "You have already submitted your profile. You cannot access the settings page."
-msgstr "لقد رفعت بياناتك سابقًا، الرجاء الانتظار حتى يصلك رد من جهتنا."
+msgstr ""
 
 #: authentication_app/views.py:111
 msgid "Your request has been submitted."
-msgstr "لقد تم رفع طلبك."
+msgstr ""
 
 #: authentication_app/views.py:173
 msgid "Profile updated successfully!"
-msgstr "تم تعديل بياناتك بنجاح!"
+msgstr ""
 
 #: promotions/models.py:9
 msgid "category"
-msgstr "التصنيف"
+msgstr ""
 
 #: promotions/models.py:10 promotions/models.py:25
 msgid "description"
-msgstr "الوصف"
+msgstr ""
 
 #: promotions/models.py:14
 msgid "Category"
-msgstr "التصنيف"
+msgstr ""
 
 #: promotions/models.py:15
 msgid "Categories"
-msgstr "التصنيفات"
+msgstr ""
 
 #: promotions/models.py:24
 msgid "subcategory"
-msgstr "التصنيف الفرعي"
+msgstr ""
 
 #: promotions/models.py:30
 msgid "Subcategory"
-msgstr "التصنيف الفرعي"
+msgstr ""
 
 #: promotions/models.py:31
 msgid "Subcategories"
-msgstr "التصنيفات الفرعية"
+msgstr ""
 
 #: promotions/models.py:40
 msgid "question"
-msgstr "سؤال"
+msgstr ""
 
 #: promotions/models.py:45
 msgid "Question"
-msgstr "سؤال"
+msgstr ""
 
 #: promotions/models.py:46
 msgid "Questions"
-msgstr "أسئلة"
+msgstr ""
 
 #: promotions/models.py:55
 msgid "title"
-msgstr "العنوان"
+msgstr ""
 
 #: promotions/models.py:56
 msgid "advice"
-msgstr "النصيحة"
+msgstr ""
 
 #: promotions/models.py:60
 msgid "Daily Advice"
-msgstr "النصيحة اليومية"
+msgstr ""
 
 #: promotions/models.py:61
 msgid "Daily Advices"
-msgstr "النصيحة اليومية"
+msgstr ""
 
 #: promotions/views.py:41
 msgid "of the month"
-msgstr "من الشهر"
+msgstr ""
 
 #: templates/admins/base.html:36 templates/base.html:36
 #: templates/profile/signup-settings.html:37 templates/profile/waiting.html:37
 #: templates/welcome.html:4
 msgid "dir"
-msgstr "rtl"
+msgstr ""
 
 #: templates/admins/base.html:55 templates/navbar.html:17
 #: templates/profile/signup-settings.html:46 templates/profile/waiting.html:48
 msgid "languages"
-msgstr "اللغة"
+msgstr ""
 
 #: templates/admins/base.html:71 templates/navbar.html:47
 #: templates/profile/settings_view.html:51
@@ -188,28 +186,28 @@ msgstr "اللغة"
 #: templates/profile/signup-settings.html:81 templates/profile/waiting.html:63
 #: templates/sidebar.html:54
 msgid "Settings"
-msgstr "الإعدادات"
+msgstr ""
 
 #: templates/admins/base.html:75 templates/navbar.html:51
 #: templates/profile/signup-settings.html:65 templates/profile/waiting.html:67
 msgid "Logout"
-msgstr "تسجيل خروج"
+msgstr ""
 
 #: templates/admins/base.html:103 templates/admins/users.html:18
 msgid "Users"
-msgstr "المستخدمين"
+msgstr ""
 
 #: templates/admins/base.html:112
 msgid "Chatbot"
-msgstr "الشات بوت"
+msgstr ""
 
 #: templates/admins/base.html:121
 msgid "Analysis"
-msgstr "التحليل"
+msgstr ""
 
 #: templates/admins/chat_control.html:4
 msgid "chat control"
-msgstr "التحكم بالشات"
+msgstr ""
 
 #: templates/admins/chat_control.html:12
 msgid ""
@@ -217,42 +215,40 @@ msgid ""
 "category along with their questions, and you can manage them, including "
 "deleting and adding."
 msgstr ""
-"ما يعرض تحتها هو كل التصنيفات الفرعية المرتبطة بهذا التصنيف مع اسئلتها، "
-"ويمكنك التحكم بها بما فيه الحذف والإضافة"
 
 #: templates/admins/chat_control.html:19
 msgid "Add a Subcategory"
-msgstr "أضف تصنيف فرعي"
+msgstr ""
 
 #: templates/admins/chat_control.html:28
 msgid "Delete the subcategory"
-msgstr "احذف التصنيف الفرعي"
+msgstr ""
 
 #: templates/admins/chat_control.html:29
 msgid "Add a new question"
-msgstr "إضافة سؤال جديد"
+msgstr ""
 
 #: templates/admins/chat_control.html:45 templates/admins/chat_control.html:81
 msgid "Modify"
-msgstr "تعديل"
+msgstr ""
 
 #: templates/admins/chat_control.html:46 templates/admins/chat_control.html:108
 #: templates/admins/chat_control.html:205
 #: venv/lib/python3.12/site-packages/django/forms/formsets.py:499
 msgid "Delete"
-msgstr "حذف"
+msgstr ""
 
 #: templates/admins/chat_control.html:59
 msgid "Modify Question:"
-msgstr "تعديل السؤال"
+msgstr ""
 
 #: templates/admins/chat_control.html:71 templates/admins/chat_control.html:168
 msgid "The question in Arabic:"
-msgstr "السؤال بالعربية:"
+msgstr ""
 
 #: templates/admins/chat_control.html:75 templates/admins/chat_control.html:172
 msgid "The question in English:"
-msgstr "السؤال بالإنجليزية:"
+msgstr ""
 
 #: templates/admins/chat_control.html:80 templates/admins/chat_control.html:107
 #: templates/admins/chat_control.html:140
@@ -260,73 +256,73 @@ msgstr "السؤال بالإنجليزية:"
 #: templates/admins/chat_control.html:204
 #: templates/profile/signup-settings.html:166
 msgid "Close"
-msgstr "إغلاق"
+msgstr ""
 
 #: templates/admins/chat_control.html:94
 msgid "Delete a Question:"
-msgstr "حذف سؤال"
+msgstr ""
 
 #: templates/admins/chat_control.html:103
 #: templates/admins/chat_control.html:200
 msgid "Are you sure?"
-msgstr "هل أنت متأكد؟"
+msgstr ""
 
 #: templates/admins/chat_control.html:121
 msgid "Add a Category:"
-msgstr "أضف تصنيف "
+msgstr ""
 
 #: templates/admins/chat_control.html:131
 msgid "The Subcategory in Arabic:"
-msgstr "التصنيف الفرعي بالعربية:"
+msgstr ""
 
 #: templates/admins/chat_control.html:135
 msgid "The Subcategory in English:"
-msgstr "التصنيف الفرعي بالإنجليزية:"
+msgstr ""
 
 #: templates/admins/chat_control.html:141
 #: templates/admins/chat_control.html:178
 msgid "Create"
-msgstr "إنشاء"
+msgstr ""
 
 #: templates/admins/chat_control.html:150
 msgid "No questions available"
-msgstr "لا يوجد اسئلة"
+msgstr ""
 
 #: templates/admins/chat_control.html:157
 msgid "Add Question:"
-msgstr "إضافة سؤال"
+msgstr ""
 
 #: templates/admins/chat_control.html:191
 msgid "Delete a Subcategory:"
-msgstr "حذف تصنيف فرعي"
+msgstr ""
 
 #: templates/admins/user_details.html:82
 msgid "About the Cafe"
-msgstr "عن المقهى"
+msgstr ""
 
 #: templates/admins/user_details.html:85
 msgid "Contact & Social Media"
-msgstr "وسائل التواصل الاجتماعي"
+msgstr ""
 
 #: templates/admins/user_details.html:86
 msgid "Social Media:"
-msgstr "وسائل التواصل الاجتماعي"
+msgstr ""
 
 #: templates/admins/user_details.html:88
 msgid "Firebase Configuration"
-msgstr "رابط الفايربيس"
+msgstr ""
 
 #: templates/admins/user_details.html:89
 msgid "Firebase Config Link:"
-msgstr "رابط الفايربيس"
+msgstr ""
 
 #: templates/admins/user_details.html:91 templates/admins/users.html:119
 msgid "Status"
-msgstr "الحالة"
+msgstr ""
 
 #: templates/admins/user_details.html:94
 msgid "Additional Information"
-msgstr "معلومات إضافية"
+msgstr ""
 
 #: templates/admins/user_details.html:95
 msgid "Thread ID:"
@@ -334,35 +330,35 @@ msgstr ""
 
 #: templates/admins/users.html:4
 msgid "users settings"
-msgstr "إعدادات المستخدم"
+msgstr ""
 
 #: templates/admins/users.html:8
 msgid "search for user..."
-msgstr "البحث عن مستخدم..."
+msgstr ""
 
 #: templates/admins/users.html:24 templates/admins/users.html:84
 msgid "All"
-msgstr "الكل"
+msgstr ""
 
 #: templates/admins/users.html:63
 msgid "Filters"
-msgstr "التصفية حسب"
+msgstr ""
 
 #: templates/admins/users.html:72
 msgid "Filter by Date"
-msgstr "التصفية حسب التاريخ"
+msgstr ""
 
 #: templates/admins/users.html:82
 msgid "Filter by Status"
-msgstr "التصفية حسب الحالة"
+msgstr ""
 
 #: templates/admins/users.html:94
 msgid "Apply"
-msgstr "تطبيق"
+msgstr ""
 
 #: templates/admins/users.html:95
 msgid "Reset"
-msgstr "إعادة تعيين"
+msgstr ""
 
 #: templates/admins/users.html:110
 msgid "ID"
@@ -370,101 +366,101 @@ msgstr ""
 
 #: templates/admins/users.html:111
 msgid "Logo"
-msgstr "الشعار"
+msgstr ""
 
 #: templates/admins/users.html:112
 msgid "Registration Date"
-msgstr "تاريخ التسجيل"
+msgstr ""
 
 #: templates/admins/users.html:113
 msgid "Full Name"
-msgstr "الاسم كامل "
+msgstr ""
 
 #: templates/admins/users.html:114
 #: templates/authentication_app/login_page.html:105
 #: templates/profile/settings_view.html:105
 msgid "Username"
-msgstr "اسم المستخدم"
+msgstr ""
 
 #: templates/admins/users.html:115 templates/profile/settings_view.html:110
 msgid "Email"
-msgstr "البريد الإلكتروني"
+msgstr ""
 
 #: templates/admins/users.html:116 templates/profile/signup-settings.html:101
 msgid "Cafe Name"
-msgstr "اسم المقهى"
+msgstr ""
 
 #: templates/admins/users.html:117
 msgid "Uploaded File"
-msgstr "ملف البيانات"
+msgstr ""
 
 #: templates/admins/users.html:118
 msgid "Firebase Config"
-msgstr "رابط الفايربيس"
+msgstr ""
 
 #: templates/admins/users.html:120 templates/admins/users.html:165
 msgid "Action"
-msgstr "خيارات"
+msgstr ""
 
 #: templates/admins/users.html:137
 msgid "No Logo Uploaded"
-msgstr "لم يتم رفع الشعار"
+msgstr ""
 
 #: templates/admins/users.html:147
 msgid "View File"
-msgstr "افتح الملف "
+msgstr ""
 
 #: templates/admins/users.html:149
 msgid "No File"
-msgstr "لم يتم رفع ملف"
+msgstr ""
 
 #: templates/admins/users.html:154 templates/profile/settings_view.html:132
 msgid "Firebase Link"
-msgstr "رابط الفايربيس"
+msgstr ""
 
 #: templates/admins/users.html:156
 msgid "No Firebase Config"
-msgstr "لا يوجد رابط فايربيس"
+msgstr ""
 
 #: templates/admins/users.html:168
 msgid "More"
-msgstr "المزيد"
+msgstr ""
 
 #: templates/admins/users.html:172
 msgid "Accept"
-msgstr "قبول"
+msgstr ""
 
 #: templates/admins/users.html:175
 msgid "Remove"
-msgstr "رفض"
+msgstr ""
 
 #: templates/admins/users.html:188 templates/admins/users.html:192
 msgid "Previous"
-msgstr "السابق"
+msgstr ""
 
 #: templates/admins/users.html:210 templates/admins/users.html:214
 msgid "Next"
-msgstr "التالي"
+msgstr ""
 
 #: templates/analysis/analysis.html:5 templates/analysis/analysis.html:11
 msgid "Sales Analysis"
-msgstr "تحليل المبيعات"
+msgstr ""
 
 #: templates/analysis/analysis.html:48 templates/analysis/analysis.html:139
 msgid "Total Sales"
-msgstr "إجمالي المبيعات"
+msgstr ""
 
 #: templates/analysis/analysis.html:55
 msgid "Transactions"
-msgstr "المعاملات"
+msgstr ""
 
 #: templates/analysis/analysis.html:62
 msgid "Best Seller"
-msgstr " الأكثر مبيعًا"
+msgstr ""
 
 #: templates/analysis/analysis.html:69
 msgid "Sales Growth Rate"
-msgstr "معدل نمو المبيعات"
+msgstr ""
 
 #: templates/analysis/analysis.html:76
 msgid "Predicted Sales"
@@ -472,119 +468,119 @@ msgstr ""
 
 #: templates/analysis/analysis.html:86
 msgid "Filter Data"
-msgstr "تصفية البيانات"
+msgstr ""
 
 #: templates/analysis/analysis.html:88
 msgid "By Month"
-msgstr "حسب الأشهر"
+msgstr ""
 
 #: templates/analysis/analysis.html:90
 msgid "By Day (Select Month)"
-msgstr "حسب الأيام (اختر الشهر)"
+msgstr ""
 
 #: templates/analysis/analysis.html:93
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:29
 msgid "May"
-msgstr "مايو"
+msgstr ""
 
 #: templates/analysis/analysis.html:94
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:30
 msgid "June"
-msgstr "يونيو"
+msgstr ""
 
 #: templates/analysis/analysis.html:95
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:31
 msgid "July"
-msgstr "يوليو"
+msgstr ""
 
 #: templates/analysis/analysis.html:96
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:32
 msgid "August"
-msgstr "أغسطس"
+msgstr ""
 
 #: templates/analysis/analysis.html:97
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:33
 msgid "September"
-msgstr "سبتمبر"
+msgstr ""
 
 #: templates/analysis/analysis.html:98
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:34
 msgid "October"
-msgstr "أكتوبر"
+msgstr ""
 
 #: templates/analysis/analysis.html:99
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:35
 msgid "November"
-msgstr "نوفمبر"
+msgstr ""
 
 #: templates/analysis/analysis.html:100
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:36
 msgid "December"
-msgstr "ديسمبر"
+msgstr ""
 
 #: templates/analysis/analysis.html:109
 msgid "Sales by Period"
-msgstr "المبيعات حسب الفترة"
+msgstr ""
 
 #: templates/analysis/analysis.html:113
 msgid "Category Sales Percentage"
-msgstr "نسبة مبيعات الفئات"
+msgstr ""
 
 #: templates/authentication_app/login_page.html:8
 #: templates/authentication_app/login_page.html:94
 #: templates/authentication_app/login_page.html:107
 msgid "Log In"
-msgstr "تسجيل الدخول"
+msgstr ""
 
 #: templates/authentication_app/login_page.html:106
 msgid "Password"
-msgstr "كلمة المرور"
+msgstr ""
 
 #: templates/authentication_app/login_page.html:111
 msgid "Don't have an account?"
-msgstr "لا يوجد لديك حساب؟"
+msgstr ""
 
 #: templates/authentication_app/login_page.html:111
 #: templates/authentication_app/signup_page.html:8
 #: templates/authentication_app/signup_page.html:105
 msgid "Sign Up"
-msgstr "إنشاء حساب"
+msgstr ""
 
 #: templates/authentication_app/signup_page.html:119
 msgid "Create Account"
-msgstr "إنشاء حساب"
+msgstr ""
 
 #: templates/authentication_app/signup_page.html:123
 msgid "Already have an account?"
-msgstr "لديك حساب بالفعل؟"
+msgstr ""
 
 #: templates/authentication_app/signup_page.html:123
 msgid "Log in"
-msgstr "تسجيل الدخول"
+msgstr ""
 
 #: templates/chatbot/chatbot.html:17 templates/layout/promotions.html:117
 msgid "botwelcome"
-msgstr "مرحبا، أنا مساعدك التسويقي اسألني اللي تبي!"
+msgstr ""
 
 #: templates/chatbot/chatbot.html:22 templates/layout/promotions.html:122
 msgid "typeanswer"
-msgstr "اكتب رسالتك هنا ..."
+msgstr ""
 
 #: templates/chatbot/chatbot.html:23 templates/layout/promotions.html:123
 msgid "send"
-msgstr "إرسال"
+msgstr ""
 
 #: templates/layout/promotions.html:15
 msgid "Promotions Page"
-msgstr "صفحة الترويجات"
+msgstr ""
 
 #: templates/layout/promotions.html:40
 msgid "Best Days to Promote"
-msgstr " أفضل الأيام للعروض الترويجية"
+msgstr ""
 
 #: templates/layout/promotions.html:42
 msgid "The best days for promotions based on sales trends."
-msgstr " أفضل الأيام للعروض الترويجية بناءً على اتجاهات المبيعات."
+msgstr ""
 
 #: templates/layout/promotions.html:57
 msgid "Upcoming Event"
@@ -604,122 +600,120 @@ msgstr ""
 
 #: templates/layout/promotions.html:78
 msgid "Which Product to Discount"
-msgstr " أي منتج يجب تخفيض سعره"
+msgstr ""
 
 #: templates/layout/promotions.html:80
 msgid "This product has the lowest sales and could benefit from a discount."
-msgstr "هذا المنتج لديه أقل المبيعات وقد يستفيد من تخفيض السعر."
+msgstr ""
 
 #: templates/layout/promotions.html:94
 msgid "Welcome to the Chat"
-msgstr "أهلًا انا مساعدك التسويقي!"
+msgstr ""
 
 #: templates/layout/promotions.html:95
 msgid "Click below to start"
-msgstr "انا شات تقدر تسأله عن أي شيء ممكن تحتاجه بالتسويق، والتحليل "
+msgstr ""
 
 #: templates/layout/promotions.html:97
 msgid "start chat"
-msgstr "اضغط هنا لبدأ الدردشة"
+msgstr ""
 
 #: templates/layout/promotions.html:103
 msgid "select category"
-msgstr "اختر التصنيف المرغوب"
+msgstr ""
 
 #: templates/layout/promotions.html:111
 msgid "Select a Subcategory"
-msgstr "اختر الفئة التي تريد السؤال عنها"
+msgstr ""
 
 #: templates/profile/settings_view.html:6
 msgid "Settings "
-msgstr "الإعدادات"
+msgstr ""
 
 #: templates/profile/settings_view.html:55
 msgid "Profile"
-msgstr "بيانات المستخدم"
+msgstr ""
 
 #: templates/profile/settings_view.html:58
 msgid "Notifications"
-msgstr "الإشعارات"
+msgstr ""
 
 #: templates/profile/settings_view.html:88
 msgid "No cafe description available."
-msgstr "لا يوجد وصف للمقهى"
+msgstr ""
 
 #: templates/profile/settings_view.html:101
 msgid "Your cafe name"
-msgstr "اسم مقهاك"
+msgstr ""
 
 #: templates/profile/settings_view.html:114
 msgid "Address"
-msgstr "الموقع"
+msgstr ""
 
 #: templates/profile/settings_view.html:119
 msgid "Data file"
-msgstr "ملف البيانات"
+msgstr ""
 
 #: templates/profile/settings_view.html:124
 msgid "View current file"
-msgstr "ملف بياناتك الحالية"
+msgstr ""
 
 #: templates/profile/settings_view.html:133
 msgid "No firbase link available."
-msgstr "لا يوجد رابط فايربيس"
+msgstr ""
 
 #: templates/profile/settings_view.html:137
 #: templates/profile/signup-settings.html:110
 msgid "Area"
-msgstr "المنطقة"
+msgstr ""
 
 #: templates/profile/settings_view.html:142
 #: templates/profile/signup-settings.html:121
 msgid "City"
-msgstr "المدينة"
+msgstr ""
 
 #: templates/profile/settings_view.html:147
 msgid "update"
-msgstr "تحديث"
+msgstr ""
 
 #: templates/profile/signup-settings.html:85
 msgid "profile"
-msgstr "بيانات المستخدم"
+msgstr ""
 
 #: templates/profile/signup-settings.html:105
 msgid "Location"
-msgstr "الموقع"
+msgstr ""
 
 #: templates/profile/signup-settings.html:127
 msgid "Upload you data here"
-msgstr "ارفع بياناتك هنا "
+msgstr ""
 
 #: templates/profile/signup-settings.html:134
 msgid "Link to social media accounts if any"
-msgstr "رابط مواقع التواصل الاجتماعي إن وجد"
+msgstr ""
 
 #: templates/profile/signup-settings.html:138
 msgid "Talk about you cafe briefly"
-msgstr "تحدث قليًا عن مقهاك"
+msgstr ""
 
 #: templates/profile/signup-settings.html:142
 msgid "Cafe Logo"
-msgstr "شعار المقهى"
+msgstr ""
 
 #: templates/profile/signup-settings.html:147
 msgid ""
 "By clicking the \"Submit Your Request\" button, you agree to upload your "
 "data to this website and confirm that the information is accurate."
 msgstr ""
-"عند الضغط على زر \"ارفع طلبك\" فأنت توافق على رفع بياناتك إلى هذا الموقع، "
-"وتقر بأنها معلومات صحيحة."
 
 #: templates/profile/signup-settings.html:148
 msgid "Submit Your Request"
-msgstr "ارفع طلبك"
+msgstr ""
 
 #: templates/profile/signup-settings.html:158
 #: templates/profile/signup-settings.html:168
 msgid "Confirm"
-msgstr "تأكيد"
+msgstr ""
 
 #: templates/profile/signup-settings.html:163
 msgid ""
@@ -727,56 +721,48 @@ msgid ""
 "request to the website. <br>We ask you to wait until you receive an email "
 "confirming your access approval."
 msgstr ""
-"بضغطك على متأكد فأنت تؤكد رغبتك برفع طلب دخولك للموقع. <br> نطلب منك "
-"الانتظار حتى يصلك بريدك الكتروني ينص على قبولك أو رفضك."
 
 #: templates/profile/waiting.html:11
 msgid "Waiting for approval"
-msgstr "بانتظار القبول"
+msgstr ""
 
 #: templates/profile/waiting.html:90
 msgid "Your request has been submitted ✅"
-msgstr "لقد تم رفع طلبك ✅"
+msgstr ""
 
 #: templates/profile/waiting.html:92
 msgid ""
 "Please wait while your request is reviewed. You will be notified via email "
 "when your request is accepted or rejected."
 msgstr ""
-"الرجاء الانتظار حتى يتم مراجعة طلبك، وسيتم إعلامك عن طريق البريد الإلكتروني "
-"عند قبول أو رفض طلبك."
 
 #: templates/sidebar.html:21
-#, fuzzy
-#| msgid "languages"
 msgid "Main pages"
-msgstr "اللغة"
+msgstr ""
 
 #: templates/sidebar.html:27
 msgid "dashboard"
-msgstr "لوحة التحكم"
+msgstr ""
 
 #: templates/sidebar.html:35
 msgid "analysis"
-msgstr "التحليل"
+msgstr ""
 
 #: templates/sidebar.html:43
 msgid "promotions"
-msgstr "التسويق"
+msgstr ""
 
 #: templates/sidebar.html:48
-#, fuzzy
-#| msgid "Users"
 msgid "User"
-msgstr "المستخدمين"
+msgstr ""
 
 #: templates/welcome.html:513
 msgid "welcomeTitle"
-msgstr "أهلًا وسهلًا!"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/contrib/messages/apps.py:16
 msgid "Messages"
-msgstr "رسالة"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/contrib/sitemaps/apps.py:8
 msgid "Site Maps"
@@ -787,10 +773,8 @@ msgid "Static Files"
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/contrib/syndication/apps.py:7
-#, fuzzy
-#| msgid "Location"
 msgid "Syndication"
-msgstr "الموقع"
+msgstr ""
 
 #. Translators: String used to replace omitted page numbers in elided page
 #. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
@@ -812,26 +796,24 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:22
 msgid "Enter a valid value."
-msgstr "ادخل قيمة صحيحة"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:70
-#, fuzzy
-#| msgid "Enter a valid date."
 msgid "Enter a valid domain name."
-msgstr "ادخل تاريخ صحيح"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:152
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:768
 msgid "Enter a valid URL."
-msgstr "ادخل رابط صحيح"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:213
 msgid "Enter a valid integer."
-msgstr "ادخل رقم صحيح"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:224
 msgid "Enter a valid email address."
-msgstr "ادخل ايميل بالصيغة الصحيحة "
+msgstr ""
 
 #. Translators: "letters" means latin letters: a-z and A-Z.
 #: venv/lib/python3.12/site-packages/django/core/validators.py:307
@@ -849,10 +831,9 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/core/validators.py:336
 #: venv/lib/python3.12/site-packages/django/core/validators.py:350
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2215
-#, fuzzy, python-format
-#| msgid "Enter a valid email address."
+#, python-format
 msgid "Enter a valid %(protocol)s address."
-msgstr "ادخل ايميل بالصيغة الصحيحة "
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:329
 msgid "IPv4"
@@ -908,10 +889,6 @@ msgid_plural ""
 "%(show_value)d)."
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:509
 #, python-format
@@ -923,18 +900,12 @@ msgid_plural ""
 "%(show_value)d)."
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:532
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:359
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:398
-#, fuzzy
-#| msgid "Enter a valid integer."
 msgid "Enter a number."
-msgstr "ادخل رقم صحيح"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:534
 #, python-format
@@ -942,10 +913,6 @@ msgid "Ensure that there are no more than %(max)s digit in total."
 msgid_plural "Ensure that there are no more than %(max)s digits in total."
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:539
 #, python-format
@@ -953,10 +920,6 @@ msgid "Ensure that there are no more than %(max)s decimal place."
 msgid_plural "Ensure that there are no more than %(max)s decimal places."
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:544
 #, python-format
@@ -966,10 +929,6 @@ msgid_plural ""
 "Ensure that there are no more than %(max)s digits before the decimal point."
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:615
 #, python-format
@@ -980,12 +939,12 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:677
 msgid "Null characters are not allowed."
-msgstr "القيم الفارغة غير مسموح بها "
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/base.py:1571
 #: venv/lib/python3.12/site-packages/django/forms/models.py:908
 msgid "and"
-msgstr "و"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/base.py:1573
 #, python-format
@@ -1004,13 +963,11 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:135
 msgid "This field cannot be null."
-msgstr "هذا المدخل لا يمكن ان يكون فارغ"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:136
-#, fuzzy
-#| msgid "This field cannot be null."
 msgid "This field cannot be blank."
-msgstr "هذا المدخل لا يمكن ان يكون فارغ"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:137
 #, python-format
@@ -1054,10 +1011,8 @@ msgid "String (unlimited)"
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1320
-#, fuzzy
-#| msgid "Positive integer"
 msgid "Comma-separated integers"
-msgstr "عدد موجب"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1421
 #, python-format
@@ -1102,10 +1057,8 @@ msgid "“%(value)s” value must be a decimal number."
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1698
-#, fuzzy
-#| msgid "December"
 msgid "Decimal number"
-msgstr "ديسمبر"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1859
 #, python-format
@@ -1115,16 +1068,12 @@ msgid ""
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1863
-#, fuzzy
-#| msgid "Location"
 msgid "Duration"
-msgstr "الموقع"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1915
-#, fuzzy
-#| msgid "Enter a valid email address."
 msgid "Email address"
-msgstr "ادخل ايميل بالصيغة الصحيحة "
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1940
 msgid "File path"
@@ -1146,31 +1095,23 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2062
 msgid "Integer"
-msgstr "عدد صحيح"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2158
-#, fuzzy
-#| msgid "Positive integer"
 msgid "Big (8 byte) integer"
-msgstr "عدد موجب"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2175
-#, fuzzy
-#| msgid "Integer"
 msgid "Small integer"
-msgstr "عدد صحيح"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2183
-#, fuzzy
-#| msgid "Address"
 msgid "IPv4 address"
-msgstr "الموقع"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2214
-#, fuzzy
-#| msgid "Address"
 msgid "IP address"
-msgstr "الموقع"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2305
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2306
@@ -1183,20 +1124,16 @@ msgid "Boolean (Either True, False or None)"
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2359
-#, fuzzy
-#| msgid "Positive integer"
 msgid "Positive big integer"
-msgstr "عدد موجب"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2374
 msgid "Positive integer"
-msgstr "عدد موجب"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2389
-#, fuzzy
-#| msgid "Positive integer"
 msgid "Positive small integer"
-msgstr "عدد موجب"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2405
 #, python-format
@@ -1205,7 +1142,7 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2441
 msgid "Text"
-msgstr "نص"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2521
 #, python-format
@@ -1223,11 +1160,11 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2529
 msgid "Time"
-msgstr "وقت"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2637
 msgid "URL"
-msgstr "رابط"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2661
 msgid "Raw binary data"
@@ -1243,14 +1180,12 @@ msgid "Universally unique identifier"
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/files.py:244
-#, fuzzy
-#| msgid "No File"
 msgid "File"
-msgstr "لم يتم رفع ملف"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/files.py:420
 msgid "Image"
-msgstr "صورة"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/json.py:24
 msgid "A JSON object"
@@ -1294,38 +1229,30 @@ msgid ":?.!"
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:95
-#, fuzzy
-#| msgid "This field cannot be null."
 msgid "This field is required."
-msgstr "هذا المدخل لا يمكن ان يكون فارغ"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:308
-#, fuzzy
-#| msgid "Enter a valid integer."
 msgid "Enter a whole number."
-msgstr "ادخل رقم صحيح"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:479
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1260
 msgid "Enter a valid date."
-msgstr "ادخل تاريخ صحيح"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:502
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1261
 msgid "Enter a valid time."
-msgstr "ادخل وقت صحيح"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:529
-#, fuzzy
-#| msgid "Enter a valid date."
 msgid "Enter a valid date/time."
-msgstr "ادخل تاريخ صحيح"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:563
-#, fuzzy
-#| msgid "Enter a valid date."
 msgid "Enter a valid duration."
-msgstr "ادخل تاريخ صحيح"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:564
 #, python-brace-format
@@ -1337,10 +1264,8 @@ msgid "No file was submitted. Check the encoding type on the form."
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:634
-#, fuzzy
-#| msgid "Your request has been submitted."
 msgid "No file was submitted."
-msgstr "لقد تم رفع طلبك."
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:635
 msgid "The submitted file is empty."
@@ -1353,10 +1278,6 @@ msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:642
 msgid "Please either submit a file or check the clear checkbox, not both."
@@ -1378,28 +1299,20 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:970
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1089
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1590
-#, fuzzy
-#| msgid "Enter a valid value."
 msgid "Enter a list of values."
-msgstr "ادخل قيمة صحيحة"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1090
-#, fuzzy
-#| msgid "Enter a valid value."
 msgid "Enter a complete value."
-msgstr "ادخل قيمة صحيحة"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1329
-#, fuzzy
-#| msgid "Enter a valid URL."
 msgid "Enter a valid UUID."
-msgstr "ادخل رابط صحيح"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1359
-#, fuzzy
-#| msgid "Enter a valid URL."
 msgid "Enter a valid JSON."
-msgstr "ادخل رابط صحيح"
+msgstr ""
 
 #. Translators: This is the default suffix added to form field labels
 #: venv/lib/python3.12/site-packages/django/forms/forms.py:94
@@ -1424,10 +1337,6 @@ msgid "Please submit at most %(num)d form."
 msgid_plural "Please submit at most %(num)d forms."
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
 
 #: venv/lib/python3.12/site-packages/django/forms/formsets.py:70
 #, python-format
@@ -1435,10 +1344,6 @@ msgid "Please submit at least %(num)d form."
 msgid_plural "Please submit at least %(num)d forms."
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
 
 #: venv/lib/python3.12/site-packages/django/forms/formsets.py:484
 #: venv/lib/python3.12/site-packages/django/forms/formsets.py:491
@@ -1475,10 +1380,9 @@ msgid "Select a valid choice. That choice is not one of the available choices."
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1594
-#, fuzzy, python-format
-#| msgid "Enter a valid value."
+#, python-format
 msgid "“%(pk)s” is not a valid value."
-msgstr "ادخل قيمة صحيحة"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/utils.py:227
 #, python-format
@@ -1505,11 +1409,11 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/widgets.py:801
 msgid "Yes"
-msgstr "نعم"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/widgets.py:802
 msgid "No"
-msgstr "لا"
+msgstr ""
 
 #. Translators: Please do not add spaces around commas.
 #: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:873
@@ -1523,10 +1427,6 @@ msgid "%(size)d byte"
 msgid_plural "%(size)d bytes"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
 
 #: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:922
 #, python-format
@@ -1555,273 +1455,271 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dateformat.py:74
 msgid "p.m."
-msgstr "م."
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dateformat.py:75
 msgid "a.m."
-msgstr "ص."
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dateformat.py:80
 msgid "PM"
-msgstr "مساءً"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dateformat.py:81
 msgid "AM"
-msgstr "صباحًا"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dateformat.py:153
 msgid "midnight"
-msgstr "منتصف الليل"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dateformat.py:155
 msgid "noon"
-msgstr "الظهر"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:7
 msgid "Monday"
-msgstr "الإثنين"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:8
 msgid "Tuesday"
-msgstr "الثلاثاء"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:9
 msgid "Wednesday"
-msgstr " الأربعاء"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:10
 msgid "Thursday"
-msgstr "الخميس"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:11
 msgid "Friday"
-msgstr "الجمعة"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:12
 msgid "Saturday"
-msgstr "السبت"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:13
 msgid "Sunday"
-msgstr "الأحد"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:16
 msgid "Mon"
-msgstr "الإثنين"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:17
 msgid "Tue"
-msgstr "الثلاثاء"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:18
 msgid "Wed"
-msgstr "الأربعاء"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:19
 msgid "Thu"
-msgstr "الخميس"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:20
 msgid "Fri"
-msgstr "الجمعة"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:21
 msgid "Sat"
-msgstr "السبت"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:22
 msgid "Sun"
-msgstr "الأحد"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:25
 msgid "January"
-msgstr "يناير"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:26
 msgid "February"
-msgstr "فبراير"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:27
 msgid "March"
-msgstr "مارس"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:28
 msgid "April"
-msgstr "أبريل"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:39
 msgid "jan"
-msgstr "يناير"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:40
 msgid "feb"
-msgstr "فبراير"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:41
 msgid "mar"
-msgstr "مارس"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:42
 msgid "apr"
-msgstr "أبريل"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:43
 msgid "may"
-msgstr "مايو"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:44
 msgid "jun"
-msgstr "يونيو"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:45
 msgid "jul"
-msgstr "يوليو"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:46
 msgid "aug"
-msgstr "أغسطس"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:47
 msgid "sep"
-msgstr "سبتمبر"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:48
 msgid "oct"
-msgstr "أكتوبر"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:49
 msgid "nov"
-msgstr "نوفمبر"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:50
 msgid "dec"
-msgstr "ديسمبر"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:53
 msgctxt "abbrev. month"
 msgid "Jan."
-msgstr "يناير"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:54
 msgctxt "abbrev. month"
 msgid "Feb."
-msgstr "فبراير"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:55
 msgctxt "abbrev. month"
 msgid "March"
-msgstr "مارس"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:56
 msgctxt "abbrev. month"
 msgid "April"
-msgstr "أبريل"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:57
 msgctxt "abbrev. month"
 msgid "May"
-msgstr "مايو"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:58
 msgctxt "abbrev. month"
 msgid "June"
-msgstr "يونيو"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:59
 msgctxt "abbrev. month"
 msgid "July"
-msgstr "يوليو"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:60
 msgctxt "abbrev. month"
 msgid "Aug."
-msgstr "أغسطس"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:61
 msgctxt "abbrev. month"
 msgid "Sept."
-msgstr "سبتمبر"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:62
 msgctxt "abbrev. month"
 msgid "Oct."
-msgstr "أكتوبر"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:63
 msgctxt "abbrev. month"
 msgid "Nov."
-msgstr "نوفمبر"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:64
 msgctxt "abbrev. month"
 msgid "Dec."
-msgstr "ديسمبر"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:67
 msgctxt "alt. month"
 msgid "January"
-msgstr "يناير"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:68
 msgctxt "alt. month"
 msgid "February"
-msgstr "فبراير"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:69
 msgctxt "alt. month"
 msgid "March"
-msgstr "مارس"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:70
 msgctxt "alt. month"
 msgid "April"
-msgstr "أبريل"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:71
 msgctxt "alt. month"
 msgid "May"
-msgstr "مايو"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:72
 msgctxt "alt. month"
 msgid "June"
-msgstr "يونيو"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:73
 msgctxt "alt. month"
 msgid "July"
-msgstr "يوليو"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:74
 msgctxt "alt. month"
 msgid "August"
-msgstr "أغسطس"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:75
 msgctxt "alt. month"
 msgid "September"
-msgstr "سبتمبر"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:76
 msgctxt "alt. month"
 msgid "October"
-msgstr "أكتوبر"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:77
 msgctxt "alt. month"
 msgid "November"
-msgstr "نوفمبر"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:78
 msgctxt "alt. month"
 msgid "December"
-msgstr "ديسمبر"
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/ipv6.py:8
-#, fuzzy
-#| msgid "Enter a valid email address."
 msgid "This is not a valid IPv6 address."
-msgstr "ادخل ايميل بالصيغة الصحيحة "
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/text.py:75
 #, python-format
@@ -1830,10 +1728,8 @@ msgid "%(truncated_text)s…"
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/text.py:286
-#, fuzzy
-#| msgid "More"
 msgid "or"
-msgstr "المزيد"
+msgstr ""
 
 #. Translators: This string is used as a separator between list elements
 #: venv/lib/python3.12/site-packages/django/utils/text.py:305
@@ -1842,80 +1738,46 @@ msgid ", "
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/timesince.py:8
-#, fuzzy, python-format
-#| msgid "%(num)d month"
-#| msgid_plural "%(num)d months"
+#, python-format
 msgid "%(num)d year"
 msgid_plural "%(num)d years"
-msgstr[0] "%(num)d شهر"
-msgstr[1] "%(num)d أشهر"
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] ""
+msgstr[1] ""
 
 #: venv/lib/python3.12/site-packages/django/utils/timesince.py:9
 #, python-format
 msgid "%(num)d month"
 msgid_plural "%(num)d months"
-msgstr[0] "%(num)d شهر"
-msgstr[1] "%(num)d أشهر"
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] ""
+msgstr[1] ""
 
 #: venv/lib/python3.12/site-packages/django/utils/timesince.py:10
-#, fuzzy, python-format
-#| msgid "%(num)d month"
-#| msgid_plural "%(num)d months"
+#, python-format
 msgid "%(num)d week"
 msgid_plural "%(num)d weeks"
-msgstr[0] "%(num)d شهر"
-msgstr[1] "%(num)d أشهر"
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] ""
+msgstr[1] ""
 
 #: venv/lib/python3.12/site-packages/django/utils/timesince.py:11
-#, fuzzy, python-format
-#| msgid "%(num)d month"
-#| msgid_plural "%(num)d months"
+#, python-format
 msgid "%(num)d day"
 msgid_plural "%(num)d days"
-msgstr[0] "%(num)d شهر"
-msgstr[1] "%(num)d أشهر"
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] ""
+msgstr[1] ""
 
 #: venv/lib/python3.12/site-packages/django/utils/timesince.py:12
-#, fuzzy, python-format
-#| msgid "%(num)d month"
-#| msgid_plural "%(num)d months"
+#, python-format
 msgid "%(num)d hour"
 msgid_plural "%(num)d hours"
-msgstr[0] "%(num)d شهر"
-msgstr[1] "%(num)d أشهر"
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] ""
+msgstr[1] ""
 
 #: venv/lib/python3.12/site-packages/django/utils/timesince.py:13
-#, fuzzy, python-format
-#| msgid "%(num)d month"
-#| msgid_plural "%(num)d months"
+#, python-format
 msgid "%(num)d minute"
 msgid_plural "%(num)d minutes"
-msgstr[0] "%(num)d شهر"
-msgstr[1] "%(num)d أشهر"
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] ""
+msgstr[1] ""
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:29
 msgid "Forbidden"
@@ -2026,10 +1888,8 @@ msgid "Empty list and “%(class_name)s.allow_empty” is False."
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/views/static.py:49
-#, fuzzy
-#| msgid "Null characters are not allowed."
 msgid "Directory indexes are not allowed here."
-msgstr "القيم الفارغة غير مسموح بها "
+msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/views/static.py:51
 #, python-format
@@ -2116,27 +1976,3 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/httplib2/__init__.py:1468
 msgid "Redirected but the response is missing a Location: header."
 msgstr ""
-
-#~ msgid "No cafe logo available."
-#~ msgstr "لا يوجد شعار للمقهى"
-
-#~ msgid "reports"
-#~ msgstr "التقارير"
-
-#~ msgid "Holidays"
-#~ msgstr "الإجازات"
-
-#~ msgid "Sure"
-#~ msgstr "متأكد"
-
-#~ msgid "Sales Growth Rate "
-#~ msgstr " معدل نمو المبيعات"
-
-#~ msgid "total_sales"
-#~ msgstr "إجمالي المبيعات"
-
-#~ msgid "total_transactions"
-#~ msgstr "المعاملات"
-
-#~ msgid "best_seller"
-#~ msgstr " الأكثر مبيعًا"

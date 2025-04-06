@@ -17,9 +17,12 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 
 cred = credentials.Certificate("GP/firebase_config/cafe-data-project-106c5-firebase-adminsdk-fbsvc-ffab31fb27.json")
-firebase_admin.initialize_app(cred)
+if not firebase_admin._apps:
+    firebase_admin.initialize_app(cred)
 
 db = firestore.client()
+
+
 
 from dotenv import load_dotenv
 load_dotenv() 
