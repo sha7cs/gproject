@@ -295,7 +295,7 @@ def chatbot(request):
          #analysis cards data  
          analysis_results = analyze_sales_data()
          next_event = get_next_event()
-         return render(request, 'layout/promotions.html',{
+         return render(request, 'promotions/promotions.html',{
             'categories': categories,
             'subcategories': subcategories,
             'allquestions': allquestions,
