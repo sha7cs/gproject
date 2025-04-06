@@ -4,163 +4,230 @@
 
 {% block title %}{% trans "Sales Analysis" %}{% endblock %}
 
-
 {% block content %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<main role="main" class="main-content">
+  <div class="container-fluid mt-5">
+
+    <h2 class="text-center mb-4" style="color: #5c3f71; font-weight: bold;">{% trans 'Sales Analysis' %}</h2>
+
     <style>
-        body {
-            background-color: #f8f9fa;
+        .card-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            column-gap: 20px;
+            row-gap: 20px;
         }
-        .card {
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(160, 142, 142, 1); /* Gray-Brown */
+        .card-box {
+            flex: 1 1 200px;
+            max-width: 240px;
         }
-        h2 {
-            color: #5c3f71; /* Purple */
+        .card-body h5 {
+            font-size: 1.2rem;
             font-weight: bold;
         }
-        .custom-bg-primary {
-            background-color: rgb(86, 97, 114) !important; /* Bluesh */
+        .card-header {
+            font-size: 1rem;
+            font-weight: 600;
         }
-        .custom-bg-success {
-            background-color: rgb(136, 163, 155) !important; /* Green */
-        }
-        .custom-bg-warning {
-            background-color: rgb(160, 142, 142) !important; /* Gray-Brown */
-        }
-        .custom-text-primary {
-            color: rgb(86, 97, 114) !important; /* Bluesh */
-        }
-        .custom-text-success {
-            color: rgb(136, 163, 155) !important; /* Green */
-        }
-        .custom-text-warning {
-            color: rgb(160, 142, 142) !important; /* Gray-Brown */
+        .custom-bg-primary { background-color: rgb(86, 97, 114) !important; }
+        .custom-bg-success { background-color: rgb(136, 163, 155) !important; }
+        .custom-bg-warning { background-color: rgb(160, 142, 142) !important; }
+        .custom-text-primary { color: rgb(86, 97, 114) !important; }
+        .custom-text-success { color: rgb(136, 163, 155) !important; }
+        .custom-text-warning { color: rgb(160, 142, 142) !important; }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(160, 142, 142, 1);
         }
     </style>
-    <div class="container mt-5">
-        <h2 class="text-center">{% trans 'Sales Analysis' %}</h2>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card text-center">
-                    <div class="card-header custom-bg-primary text-white">{% trans 'Total Sales' %}</div>
-                    <div class="card-body">
-                        <h5 class="custom-text-primary">{{ total_sales }}</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center">
-                    <div class="card-header custom-bg-success text-white">{% trans 'Transactions' %}</div>
-                    <div class="card-body">
-                        <h5 class="custom-text-success">{{ total_transactions }}</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center">
-                    <div class="card-header custom-bg-warning text-white">{% trans 'Best Seller'%}</div>
-                    <div class="card-body">
-                        <h5 class="custom-text-warning">{{ best_seller }}</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center">
-                    <div class="card-header custom-bg-primary text-white">{% trans "Sales Growth Rate" %}
-                    </div>
-                    <div class="card-body">
-                        <h5 class="custom-text-primary">{{ sales_growth_rate }}%</h5>
-                    </div>
-                </div>
-            </div>
+
+    <!-- Statistic Cards -->
+    <div class="card-row">
+        <div class="card card-box text-center mb-4">
+          <div class="card-header custom-bg-primary text-white">{% trans 'Total Sales' %}</div>
+          <div class="card-body">
+            <h5 id="totalSales" class="custom-text-primary">{{ total_sales }}</h5>
+          </div>
         </div>
-        
-
-        <div class="row mt-4">
-            <div class="col-md-12 text-center">
-                <h4 style="color: #566172;">{% trans "Filter Data" %}</h4>
-                <div class="btn-group">
-                    <button class="btn btn-primary" onclick="updateChart('month')">{% trans "By Month" %}</button>
-                    <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">{% trans "By Day (Select Month)" %}</button>
-
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#" onclick="updateChart('day', 5)">{% trans "May" %}</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="updateChart('day', 6)">{% trans "June" %}</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="updateChart('day', 7)">{% trans "July" %}</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="updateChart('day', 8)">{% trans "August" %}</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="updateChart('day', 9)">{% trans "September" %}</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="updateChart('day', 10)">{% trans "October" %}</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="updateChart('day', 11)">{% trans "November" %}</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="updateChart('day', 12)">{% trans "December" %}</a></li>
-                    </ul>
-                </div>                
-            </div>
+      
+        <div class="card card-box text-center mb-4">
+          <div class="card-header custom-bg-success text-white">{% trans 'Transactions' %}</div>
+          <div class="card-body">
+            <h5 id="transactions" class="custom-text-success">{{ total_transactions }}</h5>
+          </div>
         </div>
-
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <h4 class="text-center" style="color: #566172;">{% trans "Sales by Period" %}</h4>
-
-                <canvas id="monthlySalesChart"></canvas>
-            </div>
-            <div class="col-md-6">
-                <h4 class="text-center" style="color: #566172;">{% trans "Category Sales Percentage" %}</h4>
-
-                <canvas id="categoryPieChart"></canvas>
-            </div>
+      
+        <div class="card card-box text-center mb-4">
+          <div class="card-header custom-bg-warning text-white">{% trans 'Best Seller' %}</div>
+          <div class="card-body">
+            <h5 class="custom-text-warning">{{ best_seller }}</h5>
+          </div>
+        </div>
+      
+        <div class="card card-box text-center mb-4">
+          <div class="card-header custom-bg-primary text-white">{% trans 'Sales Growth Rate' %}</div>
+          <div class="card-body">
+            <h5 class="custom-text-primary">{{ sales_growth_rate }}%</h5>
+          </div>
+        </div>
+      
+        <div class="card card-box text-center mb-4">
+          <div class="card-header custom-bg-success text-white">{% trans 'Predicted Sales' %}</div>
+          <div class="card-body">
+            <h5 id="predictedSales" class="custom-text-success">{{ predicted_sales }} SAR</h5>
+          </div>
         </div>
     </div>
+      
+    <!-- Filter Section -->
+    <div class="row mb-4">
+      <div class="col-md-12 text-center">
+        <h4 style="color: #566172;">{% trans "Filter Data" %}</h4>
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="updateChart('month')">{% trans "By Month" %}</button>
+          <button id="dayButton" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+            {% trans "By Day (Select Month)" %}
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#" onclick="updateChart('day', 5)">{% trans "May" %}</a></li>
+            <li><a class="dropdown-item" href="#" onclick="updateChart('day', 6)">{% trans "June" %}</a></li>
+            <li><a class="dropdown-item" href="#" onclick="updateChart('day', 7)">{% trans "July" %}</a></li>
+            <li><a class="dropdown-item" href="#" onclick="updateChart('day', 8)">{% trans "August" %}</a></li>
+            <li><a class="dropdown-item" href="#" onclick="updateChart('day', 9)">{% trans "September" %}</a></li>
+            <li><a class="dropdown-item" href="#" onclick="updateChart('day', 10)">{% trans "October" %}</a></li>
+            <li><a class="dropdown-item" href="#" onclick="updateChart('day', 11)">{% trans "November" %}</a></li>
+            <li><a class="dropdown-item" href="#" onclick="updateChart('day', 12)">{% trans "December" %}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
-    <script>
-        let monthlyChart, pieChart;
+    <!-- Charts Section -->
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <h4 class="text-center" style="color: #566172;">{% trans "Sales by Period" %}</h4>
+        <canvas id="monthlySalesChart"></canvas>
+      </div>
+      <div class="col-md-6 mb-4">
+        <h4 class="text-center" style="color: #566172;">{% trans "Category Sales Percentage" %}</h4>
+        <canvas id="categoryPieChart"></canvas>
+      </div>
+    </div>
+  </div>
+</main>
 
-        function initializeCharts() {
-            
-            const monthlyCtx = document.getElementById('monthlySalesChart').getContext('2d');
-            monthlyChart = new Chart(monthlyCtx, {
-                type: 'bar',
-                data: { labels: [], datasets: [{ label: "{% trans 'Total Sales' %}", data: [], backgroundColor: 'rgba(86, 97, 114, 0.2)', borderColor: 'rgba(86, 97, 114, 1)', borderWidth: 1 }] },
-                options: { responsive: true, scales: { y: { beginAtZero: true } } }
-            });
 
-            
-            const pieCtx = document.getElementById('categoryPieChart').getContext('2d');
-            pieChart = new Chart(pieCtx, {
-                type: 'pie',
-                data: { labels: [], datasets: [{ data: [], backgroundColor: ['rgb(194, 80, 145)', 'rgb(92, 63, 113)', 'rgb(86, 97, 114)', 'rgb(160, 142, 142)', 'rgb(136, 163, 155)'] }] },
-                options: { responsive: true, plugins: { tooltip: { callbacks: { label: function(context) { return `${context.label}: ${context.raw}`; } } } } }
-            });
-        }
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const currentLang = "{{ language_code }}";
+    let monthlyChart, pieChart;
 
-        function updateChart(type, month = null) {
-            let url = `/analysis/filter-data/?filter=${type}`;
-            if (month) {
-                url += `&month=${month}`;
+    function formatNumber(num) {
+        if (num >= 1_000_000) return (num / 1_000_000).toFixed(2) + "M";
+        else if (num >= 1_000) return (num / 1_000).toFixed(1) + "K";
+        else return num.toFixed(0);
+    }
+
+    function initializeCharts() {
+        const monthlyCtx = document.getElementById('monthlySalesChart').getContext('2d');
+        monthlyChart = new Chart(monthlyCtx, {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: "{% trans 'Total Sales' %}",
+                    data: [],
+                    backgroundColor: 'rgba(86, 97, 114, 0.2)',
+                    borderColor: 'rgba(86, 97, 114, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return formatNumber(value);
+                            }
+                        }
+                    }
+                }
             }
+        });
 
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    monthlyChart.data.labels = Object.keys(data.sales);
-                    monthlyChart.data.datasets[0].data = Object.values(data.sales);
-                    monthlyChart.update();
+        const pieCtx = document.getElementById('categoryPieChart').getContext('2d');
+        pieChart = new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: [],
+                datasets: [{
+                    data: [],
+                    backgroundColor: [
+                        'rgb(194, 80, 145)', 'rgb(92, 63, 113)', 'rgb(86, 97, 114)',
+                        'rgb(160, 142, 142)', 'rgb(136, 163, 155)', 'rgb(220, 220, 220)',
+                        'rgb(180, 200, 180)', 'rgb(150, 150, 200)', 'rgb(200, 180, 150)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                return `${label}: ${formatNumber(value)}`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
 
-                    pieChart.data.labels = Object.keys(data.sales);
-                    pieChart.data.datasets[0].data = Object.values(data.sales);
-                    pieChart.update();
-                })
-                .catch(error => console.error('Error:', error));
-        }
+    function updateChart(type, month = null) {
+        let url = `/analysis/filter-data/?filter=${type}`;
+        if (month) url += `&month=${month}`;
 
-       
-        window.onload = function () {
-            initializeCharts();
-            updateChart('month'); 
-        };
-    </script>
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            monthlyChart.data.labels = Object.keys(data.sales);
+            monthlyChart.data.datasets[0].data = Object.values(data.sales);
+            monthlyChart.update();
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            pieChart.data.labels = data.category_labels;
+            pieChart.data.datasets[0].data = data.category_data;
+            pieChart.update();
+
+            const dayButton = document.getElementById('dayButton');
+            if (type === 'month') {
+                dayButton.innerText = "By Day (Select Month)";
+            } else if (type === 'day') {
+                const monthNames = ["January", "February", "March", "April", "May", "June", "July",
+                                    "August", "September", "October", "November", "December"];
+                dayButton.innerText = monthNames[month - 1];
+            }
+        })
+        .catch(error => console.error('Error fetching chart data:', error));
+    }
+
+    window.onload = function () {
+        initializeCharts();
+        updateChart('month');
+
+        const totalSales = parseFloat("{{ total_sales }}");
+        const transactions = parseFloat("{{ total_transactions }}");
+        const predictedSales = parseFloat("{{ predicted_sales }}");
+
+        document.getElementById("totalSales").innerText = formatNumber(totalSales);
+        document.getElementById("transactions").innerText = formatNumber(transactions);
+        document.getElementById("predictedSales").innerText = formatNumber(predictedSales) + " SAR";
+    };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 {% endblock %}
-
