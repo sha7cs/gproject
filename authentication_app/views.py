@@ -33,11 +33,11 @@ class SignUpView(CreateView):
         messages.success(self.request, _('Account created successfully! You are now logged in.')) 
         return redirect(self.success_url)
 
-    def form_invalid(self, form):
-        for field, errors in form.errors.items():
-            for error in errors:
-                messages.error(self.request, _(f"{field.capitalize()}: {error}"))
-        return super().form_invalid(form)
+    # def form_invalid(self, form):
+    #     for field, errors in form.errors.items():
+    #         for error in errors:
+    #             messages.error(self.request, _(f"{field.capitalize()}: {error}"))
+    #     return super().form_invalid(form)
 
 
 logger = logging.getLogger(__name__) ## هذا اتوقع يسجل اللقوز عشان نراقب الوضع ههههههههه
@@ -73,11 +73,11 @@ class CustomLoginView(LoginView):
         messages.success(self.request,_(f"Welcome back, {form.get_user().username}"))
         return super().form_valid(form)
 
-    def form_invalid(self, form):
+    # def form_invalid(self, form):
  
-        for field, errors in form.errors.items():
-            for error in errors:
-                messages.error(self.request, f"{field.capitalize()}: {error}")
+    #     for field, errors in form.errors.items():
+    #         for error in errors:
+    #             messages.error(self.request, f"{field.capitalize()}: {error}")
 
         return super().form_invalid(form)
     # هذي لاي شيء نبغى نضيفه زياده ينرسل 

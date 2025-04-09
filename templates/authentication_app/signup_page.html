@@ -1,138 +1,162 @@
-{%load static%}
+{% load static %}
 {% load i18n %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% trans 'Sign Up'%}</title>
-       <!-- flash library-->
-       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-   
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f3f4f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+{% load widget_tweaks %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<!doctype html>
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% get_current_language_bidi as bidi %}{% if bidi %}rtl{% else %}ltr{% endif %}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% trans 'Sign Up' %}</title>
 
-        .container {
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            width: 400px;
-            text-align: center;
-        }
+    <!-- Overpass font -->
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-        h2 {
-            color: #5c3f71;
-            margin-bottom: 20px;
-        }
-
-        .message {
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        .message.success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .message.error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        input[type="text"], input[type="email"], input[type="password"], input[type="submit"] {
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #a08e8e;
-            font-size: 16px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        input[type="submit"] {
-            background-color: #c25091;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #5c3f71;
-        }
-
-        .login-link {
-            margin-top: 20px;
-            font-size: 14px;
-        }
-
-        .login-link a {
-            color: #566172;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .login-link a:hover {
-            text-decoration: underline;
-        }
+    <!-- App CSS (adjust paths if needed) -->
+    <link rel="stylesheet" href="{% static 'css/app-light.css' %}" id="lightTheme">
+    <link rel="stylesheet" href="{% static 'css/app-dark.css' %}" id="darkTheme" disabled>
+  </head>
+  <style>
+    .login-box {
+        background-color: #ffffff;  /* White background for the box */
+        border-radius: 1px;         /* Rounded corners */
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); /* Soft shadow for depth */
+        padding: 2rem;               /* Space inside the box */
+      }
+      
+    html[dir="rtl"] .login-box {
+    text-align: right;
+    }
+    .errorlist {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: #dc3545;
+    font-size: 0.875rem;
+    }
+    
+    .errorlist li {
+    margin-top: 0.25rem;
+    }
+    
+    .form-control.is-invalid {
+    border-color: #dc3545;
+    padding-right: 2.25rem;
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+    }
+    
+    .invalid-feedback {
+    display: block;
+    color: #dc3545;
+    font-size: 0.875rem;
+    }
+    .loginBG{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("{% static 'images/loginbg2.svg' %}");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        z-index: -1; /* Ensure content is above the background */
+    }
+      
     </style>
-</head>
-<body>
 
-    <div class="container">
-        <h2>{%trans 'Sign Up'%}</h2>
+    <body class="light">
+        <div class="loginBG"></div>
+        <main role="main" class="main-content">
+          <div class="container-fluid">
+            <div class="row justify-content-center align-items-center vh-100">
+              <div class="col-12 col-lg-10 col-xl-8">
+                
+                <div class="login-box mx-auto" style="max-width: 500px;">
+                  <!-- Logo or Brand -->
+                  <a class="navbar-brand mx-auto mt-2 mb-4 d-block text-center" href="#">
+                    <h3>{% trans 'Create an account' %}</h3>
+                    <h4 class="h6 mb-0" style="color: #6c757d;">{% trans 'Join us to help elevate your cafe performace on trusted way!' %} </h4>
+                  </a>
+                  <!-- Sign Up Form -->
+                  <form method="POST">
+                    {% csrf_token %}
+      
+                    <div class="form-group">
+                      {{ form.username.label_tag }}
+                      {{ form.username|add_class:"form-control"|attr:"placeholder:Username" }}
+                      {% if form.username.errors %}
+                        <div class="invalid-feedback">{{ form.username.errors.0 }}</div>
+                      {% endif %}
+                    </div>
+      
+                    <div class="form-group">
+                      {{ form.email.label_tag }}
+                      {{ form.email|add_class:"form-control"|attr:"placeholder:Email" }}
+                      {% if form.email.errors %}
+                        <div class="invalid-feedback">{{ form.email.errors.0 }}</div>
+                      {% endif %}
+                    </div>
+      
+                    <div class="form-group">
+                      {{ form.password1.label_tag }}
+                      {{ form.password1|add_class:"form-control"|attr:"placeholder:Password" }}
+                      {% if form.password1.errors %}
+                        <div class="invalid-feedback">{{ form.password1.errors.0 }}</div>
+                      {% endif %}
+                    </div>
+      
+                    <div class="form-group">
+                      {{ form.password2.label_tag }}
+                      {{ form.password2|add_class:"form-control"|attr:"placeholder:Confirm Password" }}
+                      {% if form.password2.errors %}
+                        <div class="invalid-feedback">{{ form.password2.errors.0 }}</div>
+                      {% endif %}
+                    </div>
+      
+                    <button type="submit" class="btn btn-primary mt-3 d-block mx-auto">{% trans 'Create Account' %}</button>
+                  </form>
+      
+                  <!-- Login Link -->
+                  <p class="mt-3 text-center">
+                    {% trans "Already have an account?" %}
+                    <a href="{% url 'login' %}">{% trans 'Log in' %}</a>
+                  </p>
+      
+                  <img src="{% static '/images/oad.png' %}" class="navbar-brand-img brand-sm mx-auto d-block" 
+                  style="width: 100px; height: auto;" alt="Logo">
+             
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+{% comment %} خليته كومنت لانه اوريدي يطلع الملاحظات تحت الفيلد مانحتاج النوتيفيكيشن على جنب {% endcomment %}
+    <!-- Flash Messages Script -->
+    {% comment %} <script>
+      toastr.options = {
+        "closeButton": true,
+        "progressBar": true,
+        "timeOut": "3000",
+        "extendedTimeOut": "1000",
+        "positionClass": "toast-top-right"
+      };
+      {% if messages %}
+      {% for message in messages %}
+      const msgText = "{{ message|escapejs }}";
+      const msgTag = "{{ message.tags }}";
 
-        <!-- Display messages (success or error) -->
-        {% if messages %}
-        <script>
-          {% for message in messages %}
-            toastr["{{ message.tags }}"]("{{ message|escapejs }}");
-          {% endfor %}
-        </script>
-      {% endif %}
-
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="{%trans 'Create Account'%}">
-        </form>        
-
-        <div class="login-link">
-            <p>{% trans 'Already have an account?'%} <a href="{% url 'login' %}">{% trans 'Log in'%}</a></p>
-        </div>
-    </div>
-
-        <!--flash messages script-->
-        <script>
-            toastr.options = {
-              "closeButton": true,
-              "progressBar": true,
-              "timeOut": "3000",
-              "extendedTimeOut": "1000",
-              "positionClass": "toast-top-right"
-            };
-          </script>
-</body>
+      if (msgText && msgText.trim() !== "") {
+        toastr[msgTag](msgText);
+      }
+     {% endfor %}
+     {% endif %}
+    </script> {% endcomment %}
+  </body>
 </html>

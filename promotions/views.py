@@ -24,39 +24,55 @@ import requests
 
 DB_PATH = "sales_data.db"
 
-def analyze_sales_data():
-    conn = sqlite3.connect(DB_PATH)
-    df = pd.read_sql("SELECT business_date, total_price, detailed_orders FROM sales", conn)
-    conn.close()
-    
-    df['business_date'] = pd.to_datetime(df['business_date'], dayfirst=True, errors='coerce')
-    df = df.dropna(subset=['business_date', 'total_price'])
-    df['day_of_month'] = df['business_date'].dt.day
-    
-#best days to promote
-    best_days = df.groupby('day_of_month')['total_price'].sum()
-    best_days_range = best_days.sort_values(ascending=False).head(5).index.tolist()
-    best_days_range = sorted([int(day) for day in best_days_range])
 
-    best_time_range = f"{best_days_range[0]}-{best_days_range[-1]} " + _("of the month") if len(best_days_range) > 1 else f"{best_days_range[0]} " + _("of the month")
+def analyze_sales_data(request):
+    try:
+        # Get the user's uploaded file
+        user_profile = UserProfile.objects.get(user=request.user)
+        user_file = user_profile.data_file
+        
+        if not user_file:
+            return {"error": "User has not uploaded a CSV file."}
 
-# Extract the least selling products
-    df['detailed_orders'] = df['detailed_orders'].apply(lambda x: json.loads(x) if x else [])
-    
-    products = []
-    for order_list in df['detailed_orders']:
-        if isinstance(order_list, list):
-            for item in order_list:
-                products.append(item['item'])
+        # Read the CSV into a pandas DataFrame
+        df = pd.read_csv(user_file.path)
+        df['business_date'] = pd.to_datetime(df['business_date'], errors='coerce', dayfirst=True)
+        df = df.dropna(subset=['business_date', 'total_price'])
 
-    products_df = pd.DataFrame(products, columns=['product'])
-    
-    if not products_df.empty:
-        best_product = products_df['product'].value_counts().idxmin()
-    else:
-        best_product = "No data available"
+        # Best days to promote (group by day of the month)
+        df['day_of_month'] = df['business_date'].dt.day
+        best_days = df.groupby('day_of_month')['total_price'].sum()
+        best_days_range = best_days.sort_values(ascending=False).head(5).index.tolist()
+        best_days_range = sorted([int(day) for day in best_days_range])
 
-    return {"best_time": best_time_range, "best_product": best_product}
+        if len(best_days_range) > 1:
+            best_time_range = f"{best_days_range[0]}-{best_days_range[-1]} of the month"
+        elif best_days_range:
+            best_time_range = f"{best_days_range[0]} of the month"
+        else:
+            best_time_range = "No data available"
+
+        # Least selling product
+        df['detailed_orders'] = df['detailed_orders'].apply(lambda x: json.loads(x.replace("'", "\"")) if isinstance(x, str) else [])
+        products = []
+        for order_list in df['detailed_orders']:
+            if isinstance(order_list, list):
+                for item in order_list:
+                    products.append(item.get('item'))
+
+        products_df = pd.DataFrame(products, columns=['product'])
+        best_product = products_df['product'].value_counts().idxmin() if not products_df.empty else "No data available"
+
+        return {
+            "best_time": best_time_range,
+            "best_product": best_product
+        }
+
+    except Exception as e:
+        return {"error": str(e)}
+
+
+
 
 API_KEY = 'AjYi7mqOuumRPwEbkpEG9A7SjTZIczMz'
 YEAR = datetime.datetime.today().year
@@ -293,7 +309,7 @@ def chatbot(request):
          advice= advice_entry if advice_entry else 'No advice available'
 
          #analysis cards data  
-         analysis_results = analyze_sales_data()
+         analysis_results = analyze_sales_data(request)
          next_event = get_next_event()
          return render(request, 'promotions/promotions.html',{
             'categories': categories,
@@ -304,8 +320,8 @@ def chatbot(request):
             'allquestions_json': allquestions_json,
             'language': language,
             'advice':advice,
-            'best_time': analysis_results['best_time'],
-            'best_product': analysis_results['best_product'],
+            'best_time': analysis_results.get('best_time', 'No data available'),
+            'best_product': analysis_results.get('best_product', 'No data available'),
             'next_event': next_event  
         })
     try:

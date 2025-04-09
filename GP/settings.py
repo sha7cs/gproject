@@ -62,7 +62,8 @@ INSTALLED_APPS = [
     'parler',
     'promotions',
     'authentication_app',
-    'administrators'
+    'administrators',
+    'widget_tweaks'
 ]
 
 MIDDLEWARE = [
@@ -90,6 +91,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+            'filters': 'analysis.templatetags.filters'
+            }
         },
     },
 ]

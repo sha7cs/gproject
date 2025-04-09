@@ -19,10 +19,9 @@
 <div class="col-md-4">
   <div class="row">
       <div class="col-12 mb-3">
-          <div class="card-big-shadow">
               <div class="card card-just-text" data-background="color" data-color="green" data-radius="none">
                   <div class="content" style="padding: 10; height: 100%; display: flex; flex-direction: column; text-align: center;">
-                      <h6 class="category della-respira-regular mb-3">Your Daily Marketing Advice</h6>
+                      <h6 class="category mb-3">Your Daily Marketing Advice</h6>
                       <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                           <span style="font-weight: bold; margin-bottom: 10px; font-size: 24px;">{{ advice.title }}</span>
                           <span>{{ advice.advice }}</span>
@@ -30,12 +29,10 @@
                   </div>
               </div>
           </div>
-      </div>
 
       <!-- ✅ Best Time to Promote (Based on Sales Analysis) -->
       <div class="col-12 mb-3">
-          <div class="card-big-shadow">
-              <div class="card card-just-text" data-background="color" data-color="pink" data-radius="none">
+              <div class="card card-just-text" data-background="color" data-color="purple" data-radius="none">
                   <div class="content">
                       <h6 class="category mb-3">{% trans 'Best Days to Promote' %}</h6>
                       <h4 class="title mb-3">{{ best_time }}</h4>
@@ -44,14 +41,12 @@
               </div>
           </div>
       </div>
-  </div>
 </div>
 
 <!-- Second column: Upcoming Event -->
 <div class="col-md-4">
   <div class="row">
    <div class="col-12 mb-3">
-    <div class="card-big-shadow">
         <div class="card card-just-text" data-background="color" data-color="bluesh" data-radius="none">
             <div class="content" style="text-align: center;">
                 <h6 class="category mb-3">{% trans 'Upcoming Event' %}</h6>
@@ -67,12 +62,10 @@
             </div>
         </div>
     </div>
-</div>
 
 
       <!--  Which Product to Discount (Based on Low Sales) -->
       <div class="col-12 mb-3">
-          <div class="card-big-shadow">
               <div class="card card-just-text" data-background="color" data-color="gray-brown" data-radius="none">
                   <div class="content">
                       <h6 class="category mb-3">{% trans 'Which Product to Discount' %}</h6>
@@ -83,7 +76,6 @@
           </div>
       </div>
   </div>
-</div>
 
 <!-- Third column: Chatbot -->
 <div class="col-md-4">
@@ -93,7 +85,7 @@
           <div class="custom-cover">
               <h2>{% trans 'Welcome to the Chat' %}</h2>
               <p>{% trans 'Click below to start' %}</p>
-              <img src="{% static 'chat/images/robot.png'%}" alt="Robot" class="robot-image" />
+              {% comment %} <img src="{% static 'chat/images/robot.png'%}" alt="Robot" class="robot-image" /> {% endcomment %}
               <button class="custom-card-button cover" onclick="startChat()">{% trans 'start chat' %}</button>
           </div>
       </div>
@@ -102,7 +94,7 @@
       <div class='my-auto flex-column text-center' id="chat-content" style="display: none;">
           <h2 class="text-center" id="categoryTitle">{% trans 'select category' %}</h2>
           <div class="d-flex flex-column align-items-center">
-              <div class="category-buttons mx-4" id="category-buttons">
+              <div class="category-buttons " id="category-buttons">
                   {% for category in categories %}
                   <button class="custom-card-button my-2" onclick="selectCategory('{{ category.id }}')">{{ category.category }}</button>
                   {% endfor %}
