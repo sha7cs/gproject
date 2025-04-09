@@ -9,6 +9,9 @@
   <div class="container-fluid mt-5">
 
     <h2 class="text-center mb-4" style="color: #5c3f71; font-weight: bold;">{% trans 'Sales Analysis' %}</h2>
+    <a href="{% url 'sales_report_pdf' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="btn btn-primary" target="_blank">
+        Convert to PDF
+    </a> 
 
     <style>
         .card-row {
@@ -102,32 +105,8 @@
         </div>
       </div>
     </div>
-
-    <!-- Charts Section -->
-    <div class="row">
-      <div class="col-md-6 mb-4">
-        <h4 class="text-center" style="color: #566172;">{% trans "Sales by Period" %}</h4>
-        <canvas id="monthlySalesChart"></canvas>
-      </div>
-      <div class="col-md-6 mb-4">
-        <h4 class="text-center" style="color: #566172;">{% trans "Category Sales Percentage" %}</h4>
-        <canvas id="categoryPieChart"></canvas>
-      </div>
-    </div>
-  </div>
-</main>
-
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    const currentLang = "{{ language_code }}";
-    let monthlyChart, pieChart;
-
-    function formatNumber(num) {
-        if (num >= 1_000_000) return (num / 1_000_000).toFixed(2) + "M";
-        else if (num >= 1_000) return (num / 1_000).toFixed(1) + "K";
-        else return num.toFixed(0);
-    }
+    <script>
+        let monthlyChart, pieChart;
 
     function initializeCharts() {
         const monthlyCtx = document.getElementById('monthlySalesChart').getContext('2d');

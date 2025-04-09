@@ -7,7 +7,7 @@ h4, .h4 {
 
 h6, .h6 {
 
-    font-family: "Della Respira", serif;
+    
     font-weight: 400;
 
 }
@@ -27,7 +27,7 @@ button:hover {
 
 /* ===== Card Styles ===== */
 .card {
-  border-radius: 8px;
+  border-radius: 20px;
   box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
   background-color: #ffffff;
   color: #252422;
@@ -38,7 +38,7 @@ button:hover {
 }
 
 .card[data-radius="none"] {
-  border-radius: 0;
+  border-radius: 20;
 }
 
 .card-big-shadow {
@@ -72,7 +72,7 @@ button:hover {
 .card[data-background="color"] .description,
 .card[data-background="color"] .content,
 .card[data-background="color"] .card-footer {
-  color: #ffffff;
+  color: #000000;
 }
 
 .card.card-just-text .content {
@@ -95,19 +95,19 @@ button:hover {
 }
 
 .card[data-color="purple"] {
-  background: #5c3f71;
+  background: #E3E2F6;
 }
 
 .card[data-color="bluesh"] {
-  background: #566172;
+  background: #D5F2FE;
 }
 
 .card[data-color="gray-brown"] {
-  background: #a08e8e;
+  background: #F8F8F8;
 }
 
 .card[data-color="green"] {
-  background: #88a39b;
+  background: #E3E7CF;
 }
 
 /* ===== Custom Button Styles ===== */
@@ -115,14 +115,14 @@ button:hover {
   margin-top: 20px;
   padding: 12px 30px;
   background-color: #5c3f71;
-  color: white;
+  color: #ffffff;
   border: none;
   border-radius: 25px;
   font-size: 16px;
 }
 
 .custom-card-button.cover {
-  background-color: #c25091;
+  background-color: #BFBDF6;
 }
 
 .custom-card-button:hover {
@@ -140,19 +140,19 @@ button:hover {
   align-items: center;
   width: 100%;
   height: 100%; /* Take full size of the parent */
-  background-color: #5c3f71;
-  border-radius: 10px; /* Match parent container's border radius */
+  background-color: #E3E2F6;
+  border-radius: 20px; /* Match parent container's border radius */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .custom-cover {
   text-align: center;
-  color: #e5dced;
+  color: #ffffff;
 }
 
 .custom-cover h2 {
   font-size: 26px;
-  color: #e5dced;
+  color: #000000;
 }
 
 .custom-cover p {
@@ -174,11 +174,11 @@ button:hover {
 /* ===== Chat Container ===== */
 .chat-container {
   max-width: 400px;
-  height: 593px;
+  height: 600px;
   margin: 0 auto;
   border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #ffffff;
+  border-radius: 20px;
+  background-color: #f8f9fa;
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -187,7 +187,7 @@ button:hover {
 .chat-container .message {
   max-width: 70%;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 20px;
   font-size: 14px;
   line-height: 1.5;
   word-wrap: break-word;
@@ -241,7 +241,7 @@ button:hover {
   flex-direction: column;
   gap: 10px;
   background-color: #f8f9fa;
-  border-bottom: 1px solid #ddd;
+  border-radius: 20px;
 }
 
 .chat-container .input-bar {
@@ -251,12 +251,24 @@ button:hover {
   border-top: 1px solid #ddd;
   background-color: #f9f9f9;
 }
+.chat-container .input-bar form {
+  display: flex;
+  width: 100%; /* Ensures the form takes the full width */
+  gap: 10px;    /* Adds space between input and button */
+}
 
 .chat-container .input-bar input {
-  flex: 1;
+  flex: 1; /* Makes input field take all available space */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 20px;
+  margin-right: 10px; /* Adds space between input and button */
+}
+.chat-container .input-bar button {
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-size: 14px;
+  white-space: nowrap;
 }
 
 @keyframes fadeIn {
@@ -268,4 +280,14 @@ button:hover {
   font-family: "Della Respira", serif;
   font-weight: 400;
   font-style: normal;
+}
+/* Fix for category buttons container */
+.category-buttons,
+.subcategory-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 0;
 }

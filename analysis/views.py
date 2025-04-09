@@ -301,3 +301,206 @@ train_accuracy = round(100 - ((train_mae / y_train.mean()) * 100), 2)
 print("\n Training Performance:")
 print(f" Training Accuracy: {train_accuracy}%")
 print(f" Training MAE: {round(train_mae, 2)} SAR")
+
+
+init_db()
+
+#################
+from django.shortcuts import render
+from django.http import HttpResponse
+import pandas as pd
+import tempfile
+from django.template.loader import render_to_string
+from weasyprint import HTML
+from authentication_app.models import UserProfile 
+from django.core.exceptions import ObjectDoesNotExist
+import ast
+from .templatetags import filters
+
+import matplotlib
+matplotlib.use('Agg')
+
+import matplotlib.pyplot as plt
+import numpy as np
+from io import BytesIO
+import base64
+
+def generate_pie_chart(category_sales):
+    """Generate a pie chart for category sales distribution with labels."""
+    if not category_sales:
+        return None  # No chart if no data
+
+    categories, values = zip(*category_sales.items())  
+
+    fig, ax = plt.subplots(figsize=(5,3), facecolor='#1E1E1E')  # Dark background
+    colors = ['#2E2E2E', '#595959', '#8C8C8C', '#BFBFBF', '#D9D9D9']  # Shades of black/grey  
+
+    wedges, texts, autotexts = ax.pie(
+        values, labels=None, autopct='%1.1f%%', startangle=140, 
+        colors=colors[:len(categories)], textprops={'color': 'white'}
+    )
+    
+    # Improve label visibility
+    for text in texts:
+        text.set_color('white')
+    for autotext in autotexts:
+        autotext.set_color('white')
+
+    # Add a legend outside the chart for clarity
+    ax.legend(wedges, categories, title="Categories", loc="center left", bbox_to_anchor=(1, 0, 0.5, 1), fontsize=10)
+    ax.set_facecolor('#1E1E1E')
+
+    # Save figure to a BytesIO object
+    pie_image = BytesIO()
+    plt.savefig(pie_image, format='png', bbox_inches='tight', transparent=True)
+    plt.close(fig)
+    pie_image.seek(0)
+
+    return pie_image
+
+
+
+def generate_line_chart(monthly_sales):
+    """Generate a better sales growth chart with proper labels and colors."""
+    if len(monthly_sales) < 2:
+        print("⚠ Not enough data for a line chart!")
+        return None
+
+    months = sorted(monthly_sales.keys())  # X-axis (e.g., 10, 11)
+    sales = [monthly_sales[m] for m in months]  # Y-axis values
+
+    fig, ax = plt.subplots(figsize=(5, 3), facecolor='white')
+
+    # Line plot with visible markers
+    ax.plot(
+        months, sales, marker='o', linestyle='-', color='black', linewidth=2.5, 
+        markerfacecolor='darkgray', markeredgecolor='black', markersize=6, label='Monthly Sales'
+    )
+
+    # Explicitly set x-axis labels
+    ax.set_xticks(months)
+    ax.set_xticklabels([f"Month {m}" for m in months], fontsize=10, fontweight="bold")
+
+    # Explicitly set y-axis labels (ensuring even spacing)
+    min_sales, max_sales = min(sales), max(sales)
+    y_ticks = np.linspace(min_sales, max_sales, num=5)  # Create 5 evenly spaced ticks
+    ax.set_yticks(y_ticks)
+    ax.set_yticklabels([f"${int(y)}" for y in y_ticks], fontsize=10)
+
+    # Labels & Title
+    ax.set_xlabel("Month", fontsize=10, fontweight='bold')
+    ax.set_ylabel("Sales ($)", fontsize=10, fontweight='bold')
+    ax.set_title("Sales Growth Over Time", fontsize=12, fontweight='bold')
+
+    # Grid & Legend
+    ax.grid(True, linestyle="--", alpha=0.6, color="gray")
+    ax.legend(fontsize=9, facecolor="lightgray", edgecolor="black")
+
+    # Save to memory
+    line_image = BytesIO()
+    plt.savefig(line_image, format='png', bbox_inches='tight', dpi=100)
+    plt.close(fig)
+    line_image.seek(0)
+
+    return line_image
+
+
+def sales_report_pdf(request):
+    """Generates a PDF report from sales analysis data."""
+    try:
+        user_profile = UserProfile.objects.get(user=request.user)
+        user_file = user_profile.data_file
+
+        if not user_file:
+            return HttpResponse("User has not uploaded a CSV file.", status=400)
+
+        df = pd.read_csv(user_file.path)
+        df['business_date'] = pd.to_datetime(df['business_date'], errors='coerce', dayfirst=True)
+
+        start_date = request.GET.get('start_date')
+        end_date = request.GET.get('end_date')
+
+        if start_date and end_date:
+            start_date = pd.to_datetime(start_date)
+            end_date = pd.to_datetime(end_date)
+        else:
+            start_date = df['business_date'].min()
+            end_date = df['business_date'].max()
+
+        df = df[(df['business_date'] >= start_date) & (df['business_date'] <= end_date)]
+
+        if df.empty:
+            return HttpResponse("No data available for the selected date range.", status=400)
+
+        total_sales = df['total_price'].sum()
+        total_transactions = len(df)
+
+        detailed_orders = df['detailed_orders'].dropna()
+        all_items = []
+
+        for order in detailed_orders:
+            try:
+                order_items = ast.literal_eval(order)
+                for item in order_items:
+                    all_items.append(item['item'])
+            except (ValueError, SyntaxError) as e:
+                print(f"Error parsing detailed_orders: {e}")
+
+        best_seller = pd.Series(all_items).value_counts().idxmax() if all_items else "N/A"
+
+        monthly_sales = df.groupby(df['business_date'].dt.month)['total_price'].sum().to_dict()
+
+        sales_growth_rate = 0
+        if len(monthly_sales) >= 2:
+            months = sorted(monthly_sales.keys())
+            current_month, previous_month = months[-1], months[-2]
+            current_sales, previous_sales = monthly_sales[current_month], monthly_sales[previous_month]
+            if previous_sales > 0:
+                sales_growth_rate = ((current_sales - previous_sales) / previous_sales) * 100
+
+        category_sales = {}
+        for order in detailed_orders:
+            try:
+                order_items = ast.literal_eval(order)
+                for item in order_items:
+                    category = item['category']
+                    category_sales[category] = category_sales.get(category, 0) + item['quantity']
+            except (ValueError, SyntaxError) as e:
+                print(f"Error parsing detailed_orders: {e}")
+
+        category_chart = generate_pie_chart(category_sales)
+        growth_chart = generate_line_chart(monthly_sales)
+        
+        import base64
+        category_chart2 = base64.b64encode(category_chart.read()).decode() if category_chart else ""
+        growth_chart2 = base64.b64encode(growth_chart.read()).decode() if growth_chart else ""
+
+
+
+        context = {
+            'cafe_name': user_profile.cafe_name,
+            'total_sales': total_sales,
+            'total_transactions': total_transactions,
+            'best_seller': best_seller,
+            'sales_growth_rate': round(sales_growth_rate, 2),
+            'monthly_sales': monthly_sales,
+            'category_info': list(zip(category_sales.keys(), category_sales.values())),
+            'start_date': start_date.strftime('%Y-%m-%d') if start_date else '',
+            'end_date': end_date.strftime('%Y-%m-%d') if end_date else '',
+            'category_chart': category_chart2,
+            'growth_chart': growth_chart2,
+        }
+
+        html_string = render_to_string('analysis/pdf_template.html', context)
+
+        with tempfile.NamedTemporaryFile(delete=True) as temp_pdf:
+            HTML(string=html_string).write_pdf(temp_pdf.name)
+            temp_pdf.seek(0)
+            pdf_data = temp_pdf.read()
+
+        response = HttpResponse(pdf_data, content_type="application/pdf")
+        response["Content-Disposition"] = "inline; filename=sales_report.pdf"
+        return response
+
+    except Exception as e:
+        return HttpResponse(f"Error generating PDF: {str(e)}", status=500)

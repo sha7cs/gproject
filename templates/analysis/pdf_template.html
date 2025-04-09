@@ -1,0 +1,111 @@
+{% load filters %}  <!-- Load custom filters -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sales Report</title>
+    <style>
+        body { font-family: "Times New Roman", serif; margin: 20px; }
+        h2, h3 { color: #333; text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+        th { background-color: #f4f4f4; }
+        tr:nth-child(odd) {background-color: #f9f9f9; }
+        tr:nth-child(even) {background-color: #ffffff;}
+        .header { text-align: center; margin-bottom: 20px; }
+        .date-range { font-size: 14px; font-weight: bold; text-align: center; margin-bottom: 15px; }
+        .chart-container { text-align: left; margin: 20px 0; }
+        .footer { text-align: center; font-size: 12px; position: fixed; bottom: 10px; width: 100%; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>{{ cafe_name }} - Sales Report</h2>
+        <p class="date-range">Period: <strong>{{ start_date }} to {{ end_date }}</strong></p>
+        <p><em>This report presents an overview of the café’s sales performance, including key metrics, category breakdowns, and monthly trends.</em></p>
+    </div>
+    <hr style="border: 1px solid black; margin: 20px 0;">
+    <p style="font-size: 18px; text-align: left;">
+        The café recorded a <strong>{{ sales_growth_rate }}%</strong> growth rate with a total sales revenue of <strong>{{ total_sales|format_sales }}</strong> over <strong>{{ total_transactions }}</strong> transactions. The best-selling item was <strong>{{ best_seller }}</strong>.
+    </p>
+    <h3>Detailed Information</h3>
+    
+    <h4>General Info</h4>
+    <table>
+        <tr>
+            <th>Total Sales</th>
+            <th>Growth Rate</th>
+            <th>Total Transactions</th>
+            <th>Best-Selling Item</th>
+        </tr>
+        <tr>
+            <td>{{ total_sales|format_commas }}</td>
+            <td>{{ sales_growth_rate }}%</td>
+            <td>{{ total_transactions }}</td>
+            <td>{{ best_seller }}</td>
+        </tr>
+    </table>
+
+    <h4>Monthly Sales</h4>
+    <table>
+        <tr>
+            <th>Month</th>
+            <th>Sales</th>
+            <th>Month</th>
+            <th>Sales</th>
+        </tr>
+        {% for month, sales in monthly_sales.items %}
+            {% if forloop.counter0|divisibleby:2 %}
+                <tr>
+                    <td>{{ month|month_name_filter }} ({{ month }})</td>
+                    <td>{{ sales|format_commas }}</td>
+            {% else %}
+                    <td>{{ month|month_name_filter }} ({{ month }})</td>
+                    <td>{{ sales|format_commas }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+
+    <h4>Category Sales</h4>
+    <table>
+        <tr>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Category</th>
+            <th>Quantity</th>
+        </tr>
+        {% for category, quantity in category_info %}
+            {% if forloop.counter0|divisibleby:2 %}
+                <tr>
+                    <td>{{ category }}</td>
+                    <td>{{ quantity|format_commas }}</td>
+            {% else %}
+                    <td>{{ category }}</td>
+                    <td>{{ quantity|format_commas }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+
+
+    </table>
+
+    <h4>Charts</h4>
+    <div class="chart-container">
+        <h4>Category Sales Distribution</h4>
+        <img src="data:image/png;base64,{{ category_chart }}" alt="Category Sales Chart" style="width:500; height:auto;">
+    </div>
+
+    <div class="chart-container">
+        <h4>Sales Growth Over Time</h4>
+        <img src="data:image/png;base64,{{ growth_chart }}" alt="Sales Growth Chart" style="width:500px; height:auto;">
+    </div>
+
+    <div class="footer">
+        <p>This report was made by o/ad</p>
+    </div>
+
+</body>
+</html>
