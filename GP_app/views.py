@@ -15,8 +15,7 @@ def index(request):
 def home(request):
     return render(request, 'layout/dashboard.html' )
 
-# def analytics_view(request):
-#     return render(request, 'layout/analytics.html' )
+
 @login_required
 @allowed_users(allowed_roles=['normal_user','admins'])
 @approved_user_required
