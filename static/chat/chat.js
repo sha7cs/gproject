@@ -42,9 +42,13 @@ function selectCategory(categoryId) {
 function selectSubcategory(subcategoryId,category) {
     // const form = document.getElementById("messageForm"); // Form containing the input field
     subcategory = subcategoriesjs.find(subcategory => subcategory.id == subcategoryId).subcategory;
+    const template = messages.dataset.chatTemplate;
 
-    messages.innerHTML += `<div class="message bot">'You chose ${category} to chat about ${subcategory}. Please answer any given questions sincerly, so i can give you a good advice.</div>`;
-   
+    const finalMessage = template
+    .replace("{category}", category)
+    .replace("{subcategory}", subcategory);
+  
+    messages.innerHTML += `<div class="message bot">${finalMessage}</div>`;
     if (isWaitingForResponse) return; // Prevent sending multiple requests
     isWaitingForResponse = true; // Block further requests
 

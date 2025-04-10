@@ -105,9 +105,10 @@
               <!-- Subcategory buttons dynamically added here -->
           </div>
           <div class="chat-section p-1" id="chat-section">
-              <div class="messages" id="messages">
-                  <div class="message bot">{% trans 'botwelcome' %}</div>
-              </div>
+            <div class="messages" id="messages"
+                data-chat-template="{% trans 'You chose {category} to chat about {subcategory}. Please answer any given questions sincerely, so I can give you a good advice.' %}">
+                <div class="message bot">{% trans 'botwelcome' %}</div>
+            </div>
               <div class="input-bar" id="input-bar">
                   <form id="messageForm">
                       {% csrf_token %}
