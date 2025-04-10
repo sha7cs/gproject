@@ -10,6 +10,8 @@ from django.contrib import messages
 from django.shortcuts import redirect, get_object_or_404
 from django.db.models import Q 
 from django.utils.translation import gettext_lazy as _  
+from django.core.mail import send_mail
+from django.conf import settings 
 
 def index(request):
     return render(request, 'admins/base.html')
@@ -100,7 +102,16 @@ def accept_user(request, user_id):
     # Update the status to Accepted
     profile.status = UserProfile.ACCEPTED
     profile.save()
-
+    #send email
+    email = profile.user.email
+    subject = 'Acceptance Email'
+    message = "you are accepted"
+    send_mail(
+        subject, # title
+        message,
+        'settings.EMAIL_HOST_USER', #sender
+        [email], # reciver email
+        fail_silently=False)
     messages.success(request,_(f"{profile.user.username} has been accepted."))
     return redirect('admins.users')  
 
@@ -112,7 +123,6 @@ def remove_user(request, user_id):
     # Update the status to Accepted
     profile.status = UserProfile.DENIED
     profile.save()
-
     messages.success(request, _(f"{profile.user.username} has been Denied."))
     return redirect('admins.users')  
 
