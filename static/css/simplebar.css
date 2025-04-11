@@ -229,3 +229,14 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
+
+
+#sidebar-logo {
+  transition: all 0.3s ease;
+}
+
+#leftSidebar.collapsed #sidebar-logo {
+  content: url("/static/images/oad-collapsed.png");
+  width: 30px !important;
+  height: auto !important;
+}

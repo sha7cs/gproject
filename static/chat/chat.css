@@ -1,14 +1,13 @@
 /* ===== Global Styles ===== */
 h4, .h4 {
-  font-size: 1.5em;
+  font-size: 2.0em;
   font-weight: 600;
   line-height: 1.2em;
 }
 
 h6, .h6 {
-
-    
-    font-weight: 400;
+  font-size: 26px;
+  font-weight: bold;
 
 }
 
@@ -76,7 +75,7 @@ button:hover {
 }
 
 .card.card-just-text .content {
-  padding: 50px 65px;
+  padding: 40px 30px;
   text-align: center;
 }
 
@@ -86,7 +85,7 @@ button:hover {
 
 .card .category,
 .card .label {
-  font-size: 14px;
+  /* font-size: 14px; */
   margin-bottom: 0;
 }
 
@@ -114,7 +113,7 @@ button:hover {
 .custom-card-button {
   margin-top: 20px;
   padding: 12px 30px;
-  background-color: #5c3f71;
+  background-color: #602E9E;
   color: #ffffff;
   border: none;
   border-radius: 25px;
@@ -123,10 +122,12 @@ button:hover {
 
 .custom-card-button.cover {
   background-color: #BFBDF6;
+  color :#000000;
 }
 
 .custom-card-button:hover {
-  background-color: #c25091;
+  background-color: #602E9E;
+  color: #ffffff ;
 }
 
 .custom-card-button:active {
@@ -148,6 +149,7 @@ button:hover {
 .custom-cover {
   text-align: center;
   color: #ffffff;
+  padding: 20px;
 }
 
 .custom-cover h2 {
@@ -161,7 +163,7 @@ button:hover {
 }
 
 .custom-cover button:hover {
-  background-color: #d94370;
+  background-color: #BFBDF6;
 }
 .robot-image {
   width: 100%; /* Adjust as needed */
@@ -182,6 +184,8 @@ button:hover {
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  justify-content: center;  /* Centers items vertically */
+  align-items: center;
 }
 
 .chat-container .message {

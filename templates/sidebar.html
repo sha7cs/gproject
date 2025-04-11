@@ -1,18 +1,24 @@
 {% load static %}
 {% load i18n %}
-<aside class="sidebar-left border-right bg-lightblue shadow " id="leftSidebar" data-simplebar>
+<aside class="sidebar-left border-right bg-lightblue shadow" id="leftSidebar" data-simplebar>
+    <!-- Button to collapse the sidebar -->
     <a href="#" class="btn collapseSidebar toggle-btn d-lg-none text-muted ml-2 mt-3" data-toggle="toggle">
       <i class="fe fe-x"><span class="sr-only"></span></i>
     </a>
+
+    <!-- Navigation bar inside sidebar -->
     <nav class="vertnav navbar navbar-light">
-      <!-- nav bar -->
-      <div class="w-100 mb-4 d-flex">
+      <!-- Logo section -->
+      <div class="w-100 mb-4 d-flex mt-3">
         <a class="w-100 mb-4 d-flex justify-content-center align-items-center logo-wrapper" href="./index.html">
-          <img src="{% static '/images/oad.png' %}" class="navbar-brand-img brand-sm sidebar-logo" style="width: 100px; height: auto;" alt="Logo" alt="Logo">
+          <!-- Default logo when sidebar is not collapsed -->
+          <img src="{% static '/images/oad.png' %}" class="navbar-brand-img brand-sm sidebar-logo" style="width: 100px; height: auto;" alt="Logo" alt="Logo" id="sidebar-logo">
         </a>
       </div>
+
+      <!-- Navigation sections -->
       <p class="text-muted nav-heading mt-4 mb-1">
-        <span>{%trans 'Main pages'%}</span>
+        <span>{% trans 'Main pages' %}</span>
       </p>
       <ul class="navbar-nav flex-fill w-100 mb-2">
         <li class="nav-item w-100 {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
@@ -20,7 +26,7 @@
                 <i class="fe fe-home fe-16"></i>
                 <span class="ml-3 item-text">{% trans 'dashboard' %}</span><span class="sr-only">(current)</span>
             </a>
-          </li>
+        </li>
       </ul>
       <ul class="navbar-nav flex-fill w-100 mb-2">
         <li class="nav-item w-100 {% if request.resolver_match.url_name == 'analysis' %}active{% endif %}">
@@ -28,7 +34,7 @@
                 <i class="fe fe-bar-chart-2 fe-16"></i>
                 <span class="ml-3 item-text">{% trans 'analysis' %}</span><span class="sr-only">(current)</span>
             </a>
-          </li>
+        </li>
       </ul>
       <ul class="navbar-nav flex-fill w-100 mb-2">
         <li class="nav-item w-100 {% if request.resolver_match.url_name == 'promotions' %}active{% endif %}">
@@ -36,10 +42,12 @@
                 <i class="fe fe-trending-up fe-16"></i>
                 <span class="ml-3 item-text">{% trans 'promotions' %}</span><span class="sr-only">(current)</span>
             </a>
-          </li>
+        </li>
       </ul>
+      
+      <!-- User section -->
       <p class="text-muted nav-heading mt-4 mb-1">
-        <span>{%trans 'User'%}</span>
+        <span>{% trans 'User' %}</span>
       </p>
       <ul class="navbar-nav flex-fill w-100 mb-2">
         <li class="nav-item w-100 {% if request.resolver_match.url_name == 'settings_view' %}active{% endif %}">
@@ -47,7 +55,15 @@
                 <i class="fe fe-settings fe-16"></i>
                 <span class="ml-3 item-text">{% trans 'Settings' %}</span><span class="sr-only">(current)</span>
             </a>
-          </li>
+        </li>
       </ul>
     </nav>
-  </aside>
+</aside>
+
+<!-- JavaScript to handle the sidebar collapse -->
+<script>
+  document.querySelector('.collapseSidebar').addEventListener('click', function() {
+    const sidebar = document.getElementById('leftSidebar');
+    sidebar.classList.toggle('collapsed'); // Toggle the collapsed state
+  });
+</script>

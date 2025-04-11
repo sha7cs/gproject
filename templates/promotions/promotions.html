@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Della+Respira&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="{% static 'chat/chat.css' %}">
 <main role="main" class="main-content">
   <div class="container-fluid">
@@ -14,30 +15,40 @@
       <div class="col-12">
         <h1 class="page-title">{% trans 'Promotions Page' %}</h1>
         <div class="row">
-
+<style>
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+</style>
 <!-- First column: Marketing Advice -->
 <div class="col-md-4">
   <div class="row">
       <div class="col-12 mb-3">
               <div class="card card-just-text" data-background="color" data-color="green" data-radius="none">
-                  <div class="content" style="padding: 10; height: 100%; display: flex; flex-direction: column; text-align: center;">
-                      <h6 class="category mb-3">Your Daily Marketing Advice</h6>
-                      <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                          <span style="font-weight: bold; margin-bottom: 10px; font-size: 24px;">{{ advice.title }}</span>
-                          <span>{{ advice.advice }}</span>
-                      </div>
+                <div class="content d-flex flex-column justify-content-between h-100">
+                    <h6 class="category mb-3" style="color:#8F9474;">
+                      {% trans 'Your Daily Marketing Advice' %}
+                    </h6>
+                    <div class="d-flex flex-column align-items-start text-left mt-auto justify-content-center flex-grow-1">
+                      <h4 class="title mb-3">{{ advice_title }}</h4>
+                      <p>{{ advice_text }}</p>
+                    </div>
                   </div>
               </div>
           </div>
 
+
       <!-- ✅ Best Time to Promote (Based on Sales Analysis) -->
       <div class="col-12 mb-3">
               <div class="card card-just-text" data-background="color" data-color="purple" data-radius="none">
-                  <div class="content">
-                      <h6 class="category mb-3">{% trans 'Best Days to Promote' %}</h6>
+                  <div class="content d-flex flex-column justify-content-between h-100">
+                      <h6 class="category mb-3 "style = "color:#602E9E;">{% trans 'Best Days to Promote' %}</h6>
+                      <div class="d-flex flex-column align-items-center text-center justify-content-center flex-grow-1">
                       <h4 class="title mb-3">{{ best_time }}</h4>
                       <p class="description">{% trans 'The best days for promotions based on sales trends.' %}</p>
                   </div>
+                </div>
               </div>
           </div>
       </div>
@@ -48,18 +59,21 @@
   <div class="row">
    <div class="col-12 mb-3">
         <div class="card card-just-text" data-background="color" data-color="bluesh" data-radius="none">
-            <div class="content" style="text-align: center;">
-                <h6 class="category mb-3">{% trans 'Upcoming Event' %}</h6>
+            <div class="content d-flex flex-column justify-content-between h-100">
+                <h6 class="category mb-3 "style = 'color:#71AFB4;'>{% trans 'Upcoming Event' %}</h6>
                 {% if next_event %}
-                    <h4 class="title mb-3">{{ next_event.event_name }}</h4>
+                <div class="d-flex flex-column align-items-center text-center justify-content-center flex-grow-1">
+                    <h4 class="title mb-0"" >{{ next_event.event_name }}</h4>
                     <p class="description">
-                        {% trans 'Date:' %} <strong>{{ next_event.event_date }}</strong><br>
-                        {% trans 'Days Remaining:' %} <strong>{{ next_event.days_remaining }}</strong>
+                        {% trans 'Days Remaining:' %}<br>
+                        <strong style="font-size: 3.5rem;">{{ next_event.days_remaining }}</strong><br>
+                        {% trans 'Date:' %} <strong>{{ next_event.event_date }}</strong><br> 
                     </p>
                 {% else %}
                     <p class="description">{% trans 'No upcoming events.' %}</p>
                 {% endif %}
             </div>
+        </div>
         </div>
     </div>
 
@@ -67,11 +81,13 @@
       <!--  Which Product to Discount (Based on Low Sales) -->
       <div class="col-12 mb-3">
               <div class="card card-just-text" data-background="color" data-color="gray-brown" data-radius="none">
-                  <div class="content">
+                  <div class="content d-flex flex-column justify-content-between h-100">
                       <h6 class="category mb-3">{% trans 'Which Product to Discount' %}</h6>
-                      <h4 class="title mb-3">{{ best_product }}</h4>
-                      <p class="description">{% trans 'This product has the lowest sales and could benefit from a discount.' %}</p>
+                      <div class="d-flex flex-column align-items-center text-center justify-content-center flex-grow-1">
+                      <h4 class="title mb-3" style = 'color:#59AEB4;'>{{ best_product }}</h4>
+                      <p class="description" style = 'color:#59AEB4;'>{% trans 'This product has the lowest sales and could benefit from a discount.' %}</p>
                   </div>
+                </div>
               </div>
           </div>
       </div>
@@ -84,8 +100,8 @@
       <div class="cover-container" id="cover-container">
           <div class="custom-cover">
               <h2>{% trans 'Welcome to the Chat' %}</h2>
-              <p>{% trans 'Click below to start' %}</p>
-              {% comment %} <img src="{% static 'chat/images/robot.png'%}" alt="Robot" class="robot-image" /> {% endcomment %}
+              <p style="color: #000000;">{% trans 'Click below to start' %}</p>
+              <img src="{% static 'chat/images/robot.png'%}" alt="Robot" class="robot-image" />
               <button class="custom-card-button cover" onclick="startChat()">{% trans 'start chat' %}</button>
           </div>
       </div>
@@ -100,10 +116,12 @@
                   {% endfor %}
               </div>
           </div>
-          <h2 class="text-center" id="subcategoryTitle" style="display: none;">{% trans 'Select a Subcategory' %}</h2>
+          <div class="text-center w-100 justify-content-center" >
+          <h2 id="subcategoryTitle" style="display: none;">{% trans 'Select a Subcategory' %}</h2>
           <div class="subcategory-buttons" id="subcategory-buttons" style="display: none;flex-direction: column; gap: 10px;">
               <!-- Subcategory buttons dynamically added here -->
           </div>
+        </div>
           <div class="chat-section p-1" id="chat-section">
             <div class="messages" id="messages"
                 data-chat-template="{% trans 'You chose {category} to chat about {subcategory}. Please answer any given questions sincerely, so I can give you a good advice.' %}">
