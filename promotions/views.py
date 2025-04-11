@@ -304,9 +304,14 @@ def chatbot(request):
          else:
             advice_index = today.timetuple().tm_yday % total_advice
             advice_entry = DailyAdvice.objects.all().order_by('id')[advice_index]
-            advice_entry.set_current_language('en')
+            # advice_entry.set_current_language('en')
             
-         advice= advice_entry if advice_entry else 'No advice available'
+         advice = advice_entry if advice_entry else _('No advice available')
+         if advice_entry:
+            advice_title = _(advice_entry.title)  # Translating title
+            advice_text = _(advice_entry.advice)  # Translating advice text
+         else:
+            advice_title = advice_text = None
 
          #analysis cards data  
          analysis_results = analyze_sales_data(request)
@@ -319,7 +324,8 @@ def chatbot(request):
             'subcategories_json': subcategories_json,
             'allquestions_json': allquestions_json,
             'language': language,
-            'advice':advice,
+            'advice_title': advice_title,
+            'advice_text':advice_text,
             'best_time': analysis_results.get('best_time', 'No data available'),
             'best_product': analysis_results.get('best_product', 'No data available'),
             'next_event': next_event  
