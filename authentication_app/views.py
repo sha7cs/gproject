@@ -107,7 +107,7 @@ def settings(request):
             user_profile = form.save(commit=False)
             user_profile.user = request.user 
             user_profile.save()
-
+            
             messages.success(request, _('Your request has been submitted.'))
             return redirect("wait") 
         else:
