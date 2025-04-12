@@ -13,6 +13,9 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from authentication_app.models import UserProfile ,City,Area
 from django.utils.translation import gettext_lazy as _ 
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
+from django.conf import settings as django_settings
 
 
 ##واضح هذا حق الساين ان هههههههههه
@@ -85,7 +88,10 @@ class CustomLoginView(LoginView):
         context = super().get_context_data(**kwargs)
         context['custom_message'] = 'Log in to access your dashboard.'
         return context
- 
+
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+    
 @login_required
 @allowed_users(allowed_roles=['admins','normal_user'])
 def settings(request):
@@ -107,7 +113,16 @@ def settings(request):
             user_profile = form.save(commit=False)
             user_profile.user = request.user 
             user_profile.save()
-            
+            #send email
+            html_message = render_to_string('admins/pending_email.html', {'cafe_name': user_profile.cafe_name})
+            send_mail(
+                'قيد الانتظار - منصة عد',
+                '',
+                django_settings.EMAIL_HOST_USER,
+                [user_profile.user.email],
+                html_message=html_message,
+                fail_silently=False,
+            )
             messages.success(request, _('Your request has been submitted.'))
             return redirect("wait") 
         else:
