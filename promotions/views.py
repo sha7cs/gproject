@@ -364,16 +364,12 @@ def chatbot(request):
                 return JsonResponse({
                     "response": next_question,
                     "questionIndex": question_index + 2,  # Increment correctly
-                })
-              
-            elif question_index == questions.count():
+                })             
+            else:
                 # Only generate assistant response once all questions are answered
                 final_response = run_assistant(thread_id, inst)
                 return JsonResponse({"response": markdown.markdown(str(final_response))})
-            else:
-                # No more questions
-                return JsonResponse({"response": "Thank you! The process is complete."})
-            
+                
         return JsonResponse({"error": "Invalid request method."}, status=405)
     
     except Exception as e:
