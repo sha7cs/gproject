@@ -30,9 +30,8 @@ class UserProfileForm(forms.ModelForm):
     social_media_link = forms.URLField(required=False, widget=forms.URLInput(attrs={'class': 'form-control'}))
     cafe_description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}), required=False)
     cafe_logo = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'class': 'form-control-file', 'accept': '.png, .jpg, .jpeg, .gif, .webp'}),validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'gif', 'webp'])])    
-    data_file = forms.FileField(required=False, widget=forms.ClearableFileInput(attrs={'class': 'form-control-file'}))
-    firebase_config = forms.URLField(required=False, widget=forms.URLInput(attrs={'class': 'form-control','accept': '.csv, .xlsx, .xls' }), validators=[FileExtensionValidator(allowed_extensions=['csv','.xlsx','.xls'])]) # the accept allows only csv at the frontend they cant chose a non csv, the validator prevents uploading non csv files
-
+    data_file = forms.FileField(widget=forms.ClearableFileInput(attrs={'class': 'form-control-file','accept': '.csv, .xlsx, .xls' }), validators=[FileExtensionValidator(allowed_extensions=['csv','.xlsx','.xls'])]) # the accept allows only csv at the frontend they cant chose a non csv, the validator prevents uploading non csv files)
+    firebase_config = forms.URLField(required=False, widget=forms.URLInput(attrs={'class': 'form-control'}))
     class Meta:
         model = UserProfile
         fields = ['cafe_name', 'location', 'area', 'city', 'social_media_link', 'cafe_description', 'cafe_logo', 'data_file', 'firebase_config']

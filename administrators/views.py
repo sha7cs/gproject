@@ -93,7 +93,7 @@ def users(request):
 # make the admin can see the details of the user request   
 # اخليه ينرسل ايميل اذا قبلهم الادمن 
 # ممكن نخلي المرفوضين بعد ما يمر عليهم عشر ايام نحذفهم من الداتا بيس
-from django.core.mail import EmailMultiAlternatives
+
 from django.template.loader import render_to_string
     
 @login_required
@@ -104,17 +104,17 @@ def accept_user(request, user_id):
     # Update the status to Accepted
     profile.status = UserProfile.ACCEPTED
     profile.save()
-    #send email
-    email = profile.user.email
-    subject = '☕️ تم قبولك في منصة عد!'
-    html_content = render_to_string('admins/acceptance_email.html', {
-        'cafe_name': profile.cafe_name,
-    })
-    text_content = "تم قبولك في عُد بنجاح. يسعدنا انضمامك."
-
-    msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, [email])
-    msg.attach_alternative(html_content, "text/html")
-    msg.send()
+    
+    
+    html_message = render_to_string('admins/acceptance_email.html', {'cafe_name': profile.cafe_name})
+    send_mail(
+        '☕️ تم قبولك في منصة عد!',
+        '',
+        settings.EMAIL_HOST_USER,
+        [profile.user.email],
+        html_message=html_message,
+        fail_silently=False,
+    )
     messages.success(request,_(f"{profile.user.username} has been accepted."))
     return redirect('admins.users')  
 
@@ -127,15 +127,15 @@ def remove_user(request, user_id):
     profile.status = UserProfile.DENIED
     profile.save()
     #send email
-    email = profile.user.email
-    subject = 'نعتذر منك'
-    html_content = render_to_string('admins/reject_email.html', {
-        'cafe_name': profile.cafe_name,
-    })
-
-    msg = EmailMultiAlternatives(subject,'', settings.EMAIL_HOST_USER, [email])
-    msg.attach_alternative(html_content, "text/html")
-    msg.send()
+    html_message = render_to_string('admins/reject_email.html', {'cafe_name': profile.cafe_name})
+    send_mail(
+        'نعتذر منك - منصة عد',
+        '',
+        settings.EMAIL_HOST_USER,
+        [profile.user.email],
+        html_message=html_message,
+        fail_silently=False,
+    )
     messages.success(request, _(f"{profile.user.username} has been Denied."))
     return redirect('admins.users')  
 
