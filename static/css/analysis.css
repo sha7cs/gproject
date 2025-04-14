@@ -1,0 +1,34 @@
+
+.card-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    column-gap: 20px;
+    row-gap: 20px;
+    width: 100%; 
+}
+.card-box {
+    overflow: hidden; /* Ensures the child border-radius works cleanly */
+    border-radius: 20px; /* Optional: smooths the rest of the card */
+    border: 1px solid #ddd; /* Optional: gives it a defined edge */
+}
+.card-body h5 {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.card-header {
+    font-size: 1rem;
+    font-weight: 600;
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
+}
+.custom-bg-primary { background-color: #D5F2FE !important; }
+.custom-bg-success { background-color: #E3E2F6 !important; }
+.custom-bg-warning { background-color: #E3E7CF !important; }
+.custom-text-primary { color: #71AFB4 !important; }
+.custom-text-success { color: #602E9E !important; }
+.custom-text-warning { color: #8F9474 !important; }
+.card {
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(160, 142, 142, 1);
+}

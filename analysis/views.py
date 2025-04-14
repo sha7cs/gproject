@@ -83,18 +83,47 @@ def fetch_and_store_data():
     conn.close()
     set_last_update_time()
 
-def get_sales_data():
+import pandas as pd
+import json
+import time
+
+def get_sales_data(profile):
+    """
+    Load sales data for a specific user profile.
+    Will fetch from Firebase or CSV based on profile.
+    If neither is available, an error or empty DataFrame will be returned.
+    """
+    # Check if data needs to be updated (optional, based on last update time)
     if time.time() - get_last_update_time() > UPDATE_INTERVAL:
-        fetch_and_store_data()
-    
-    conn = sqlite3.connect(DB_PATH)
-    df = pd.read_sql("SELECT * FROM sales", conn)
+        if profile.firebase_config:
+            # Fetch data from Firebase and store it in SQLite
+            fetch_and_store_data_from_firebase(profile.firebase_config)
+        elif profile.data_file:
+            # Fetch data from CSV file (No need to store in SQLite)
+            df = pd.read_csv(profile.data_file.path)
+            # Process CSV data directly into DataFrame
+            df['business_date'] = pd.to_datetime(df['business_date'], dayfirst=True, errors='coerce')
+            df = df.dropna(subset=['business_date', 'total_price'])
+            df['detailed_orders'] = df['detailed_orders'].apply(lambda x: json.loads(x) if isinstance(x, str) and x else [])
+            return df
+        else:
+            # Handle case where neither Firebase nor CSV is available
+            raise ValueError("No data source available for this user")
+
+    # If Firebase is available, data will be fetched and stored in SQLite
+    # So we just need to read it from SQLite in both cases
+
+    conn = sqlite3.connect(DB_PATH)  # Connect to the SQLite database
+    df = pd.read_sql("SELECT * FROM sales", conn)  # Read the data into a DataFrame
     conn.close()
 
+    # Format the DataFrame as needed
     df['business_date'] = pd.to_datetime(df['business_date'], dayfirst=True, errors='coerce')
     df = df.dropna(subset=['business_date', 'total_price'])
     df['detailed_orders'] = df['detailed_orders'].apply(lambda x: json.loads(x) if x else [])
+
     return df
+
 
 def set_language(request):
     language = request.GET.get('language')
@@ -109,7 +138,8 @@ def set_language(request):
 @approved_user_required
 def analysis_view(request):
     try:
-        df = get_sales_data()
+        profile = UserProfile.objects.get(user=request.user)  # Get the current user's profile
+        df = get_sales_data(profile)
         total_sales = df['total_price'].sum()
         total_transactions = len(df)
 
@@ -151,7 +181,8 @@ def analysis_view(request):
 
 def filter_data(request):
     try:
-        df = get_sales_data()
+        profile = UserProfile.objects.get(user=request.user)  # Get the current user's profile
+        df = get_sales_data(profile)
         filter_type = request.GET.get('filter', 'month')
         selected_month = request.GET.get('month', None)
 
@@ -417,20 +448,28 @@ def sales_report_pdf(request):
         df = pd.read_csv(user_file.path)
         df['business_date'] = pd.to_datetime(df['business_date'], errors='coerce', dayfirst=True)
 
-        start_date = request.GET.get('start_date')
-        end_date = request.GET.get('end_date')
+        # ✅ New: Handle selected months from modal
+        selected_months = request.GET.getlist('months')
+        if selected_months:
+            selected_months = [int(month) for month in selected_months]
+            df = df[df['business_date'].dt.month.isin(selected_months)]
 
-        if start_date and end_date:
-            start_date = pd.to_datetime(start_date)
-            end_date = pd.to_datetime(end_date)
         else:
-            start_date = df['business_date'].min()
-            end_date = df['business_date'].max()
+            # Fallback to full range if no selection
+            start_date = request.GET.get('start_date')
+            end_date = request.GET.get('end_date')
 
-        df = df[(df['business_date'] >= start_date) & (df['business_date'] <= end_date)]
+            if start_date and end_date:
+                start_date = pd.to_datetime(start_date)
+                end_date = pd.to_datetime(end_date)
+            else:
+                start_date = df['business_date'].min()
+                end_date = df['business_date'].max()
+
+            df = df[(df['business_date'] >= start_date) & (df['business_date'] <= end_date)]
 
         if df.empty:
-            return HttpResponse("No data available for the selected date range.", status=400)
+            return HttpResponse("No data available for the selected range.", status=400)
 
         total_sales = df['total_price'].sum()
         total_transactions = len(df)
@@ -470,12 +509,10 @@ def sales_report_pdf(request):
 
         category_chart = generate_pie_chart(category_sales)
         growth_chart = generate_line_chart(monthly_sales)
-        
+
         import base64
         category_chart2 = base64.b64encode(category_chart.read()).decode() if category_chart else ""
         growth_chart2 = base64.b64encode(growth_chart.read()).decode() if growth_chart else ""
-
-
 
         context = {
             'cafe_name': user_profile.cafe_name,
@@ -485,8 +522,8 @@ def sales_report_pdf(request):
             'sales_growth_rate': round(sales_growth_rate, 2),
             'monthly_sales': monthly_sales,
             'category_info': list(zip(category_sales.keys(), category_sales.values())),
-            'start_date': start_date.strftime('%Y-%m-%d') if start_date else '',
-            'end_date': end_date.strftime('%Y-%m-%d') if end_date else '',
+            'start_date': df['business_date'].min().strftime('%Y-%m-%d') if not selected_months else '',
+            'end_date': df['business_date'].max().strftime('%Y-%m-%d') if not selected_months else '',
             'category_chart': category_chart2,
             'growth_chart': growth_chart2,
         }
