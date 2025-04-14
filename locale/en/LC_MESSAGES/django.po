@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-10 07:54+0000\n"
-"PO-Revision-Date: 2025-03-16 03:18+0000\n"
+"POT-Creation-Date: 2025-04-14 18:43+0000\n"
+"PO-Revision-Date: 2025-04-14 18:44+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en\n"
@@ -19,54 +19,54 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.10.1\n"
 
-#: GP/settings.py:144
+#: GP/settings.py:151
 msgid "English"
 msgstr "english"
 
-#: GP/settings.py:145
+#: GP/settings.py:152
 msgid "Arabic"
 msgstr "arabic"
 
-#: administrators/views.py:26 templates/admins/users.html:29
+#: administrators/views.py:28 templates/admins/users.html:29
 #: templates/admins/users.html:85 templates/admins/users.html:352
 msgid "Pending"
 msgstr "Pending"
 
-#: administrators/views.py:30 templates/admins/users.html:34
+#: administrators/views.py:32 templates/admins/users.html:34
 #: templates/admins/users.html:86 templates/admins/users.html:353
 msgid "Accepted"
 msgstr "Accepted"
 
-#: administrators/views.py:34 templates/admins/users.html:39
+#: administrators/views.py:36 templates/admins/users.html:39
 #: templates/admins/users.html:87 templates/admins/users.html:354
 msgid "Denied"
 msgstr "Denied"
 
-#: administrators/views.py:158
+#: administrators/views.py:181
 msgid "Questions updated successfully!"
 msgstr ""
 
-#: administrators/views.py:182
+#: administrators/views.py:205
 msgid "New question created successfully!"
 msgstr ""
 
-#: administrators/views.py:185
+#: administrators/views.py:208
 msgid "There was an error creating the question."
 msgstr ""
 
-#: administrators/views.py:196
+#: administrators/views.py:219
 msgid "Question deleted successfully!"
 msgstr ""
 
-#: administrators/views.py:210
+#: administrators/views.py:233
 msgid "New Subcategory created successfully!"
 msgstr ""
 
-#: administrators/views.py:213
+#: administrators/views.py:236
 msgid "There was an error creating the Subcategory."
 msgstr ""
 
-#: administrators/views.py:222
+#: administrators/views.py:245
 msgid "Subcategory deleted successfully!"
 msgstr ""
 
@@ -84,28 +84,29 @@ msgstr ""
 msgid "Enter your cafe name"
 msgstr ""
 
-#: authentication_app/views.py:33
+#: authentication_app/views.py:36
 msgid "Account created successfully! You are now logged in."
 msgstr ""
 
-#: authentication_app/views.py:62
+#: authentication_app/views.py:65
 msgid "Your account has been denied. Contact support."
 msgstr ""
 
-#: authentication_app/views.py:67
+#: authentication_app/views.py:70
 msgid "No profile associated with this account."
 msgstr ""
 
-#: authentication_app/views.py:98
+#: authentication_app/views.py:104
 msgid ""
-"You have already submitted your profile. You cannot access the settings page."
+"You have already submitted your profile. You cannot access the settings "
+"page."
 msgstr ""
 
-#: authentication_app/views.py:111
+#: authentication_app/views.py:126
 msgid "Your request has been submitted."
 msgstr ""
 
-#: authentication_app/views.py:173
+#: authentication_app/views.py:188
 msgid "Profile updated successfully!"
 msgstr ""
 
@@ -165,6 +166,10 @@ msgstr "Daily Advice"
 msgid "Daily Advices"
 msgstr "Daily Advices"
 
+#: promotions/views.py:309
+msgid "No advice available"
+msgstr ""
+
 #: templates/admins/base.html:36 templates/base.html:36
 #: templates/profile/signup-settings.html:37 templates/profile/waiting.html:37
 msgid "dir"
@@ -180,7 +185,7 @@ msgstr ""
 #: templates/profile/signup-settings.html:12
 #: templates/profile/signup-settings.html:61
 #: templates/profile/signup-settings.html:81 templates/profile/waiting.html:63
-#: templates/sidebar.html:48
+#: templates/sidebar.html:56
 msgid "Settings"
 msgstr ""
 
@@ -234,7 +239,8 @@ msgstr "Question"
 msgid "Modify"
 msgstr ""
 
-#: templates/admins/chat_control.html:46 templates/admins/chat_control.html:108
+#: templates/admins/chat_control.html:46
+#: templates/admins/chat_control.html:108
 #: templates/admins/chat_control.html:205
 msgid "Delete"
 msgstr ""
@@ -245,15 +251,18 @@ msgstr ""
 msgid "Modify Question:"
 msgstr "Question"
 
-#: templates/admins/chat_control.html:71 templates/admins/chat_control.html:168
+#: templates/admins/chat_control.html:71
+#: templates/admins/chat_control.html:168
 msgid "The question in Arabic:"
 msgstr ""
 
-#: templates/admins/chat_control.html:75 templates/admins/chat_control.html:172
+#: templates/admins/chat_control.html:75
+#: templates/admins/chat_control.html:172
 msgid "The question in English:"
 msgstr ""
 
-#: templates/admins/chat_control.html:80 templates/admins/chat_control.html:107
+#: templates/admins/chat_control.html:80
+#: templates/admins/chat_control.html:107
 #: templates/admins/chat_control.html:140
 #: templates/admins/chat_control.html:177
 #: templates/admins/chat_control.html:204
@@ -677,105 +686,115 @@ msgid ""
 "when your request is accepted or rejected."
 msgstr ""
 
-#: templates/promotions/promotions.html:15
+#: templates/promotions/promotions.html:23
 #, fuzzy
 #| msgid "promotions page"
 msgid "Promotions Page"
 msgstr "Promotions page"
 
-#: templates/promotions/promotions.html:37
+#: templates/promotions/promotions.html:33
+#, fuzzy
+#| msgid "Daily Advice"
+msgid "Your Daily Marketing Advice"
+msgstr "Daily Advice"
+
+#: templates/promotions/promotions.html:48
 msgid "Best Days to Promote"
 msgstr ""
 
-#: templates/promotions/promotions.html:39
+#: templates/promotions/promotions.html:51
 msgid "The best days for promotions based on sales trends."
 msgstr ""
 
-#: templates/promotions/promotions.html:52
+#: templates/promotions/promotions.html:65
 msgid "Upcoming Event"
 msgstr ""
 
-#: templates/promotions/promotions.html:56
-msgid "Date:"
-msgstr ""
-
-#: templates/promotions/promotions.html:57
+#: templates/promotions/promotions.html:70
 msgid "Days Remaining:"
 msgstr ""
 
-#: templates/promotions/promotions.html:60
+#: templates/promotions/promotions.html:72
+msgid "Date:"
+msgstr ""
+
+#: templates/promotions/promotions.html:75
 msgid "No upcoming events."
 msgstr ""
 
-#: templates/promotions/promotions.html:71
+#: templates/promotions/promotions.html:87
 msgid "Which Product to Discount"
 msgstr ""
 
-#: templates/promotions/promotions.html:73
+#: templates/promotions/promotions.html:90
 msgid "This product has the lowest sales and could benefit from a discount."
 msgstr ""
 
-#: templates/promotions/promotions.html:86
+#: templates/promotions/promotions.html:104
 msgid "Welcome to the Chat"
 msgstr "Welcome to the Marketing chat"
 
-#: templates/promotions/promotions.html:87
+#: templates/promotions/promotions.html:105
 msgid "Click below to start"
 msgstr ""
 "you can say i'm your marketing expert, i'm here to help you either with "
 "marketing or analysis."
 
-#: templates/promotions/promotions.html:90
+#: templates/promotions/promotions.html:107
 #, fuzzy
 #| msgid "start chat"
 msgid "start chat"
 msgstr "click here to start chatting"
 
-#: templates/promotions/promotions.html:96
+#: templates/promotions/promotions.html:114
 msgid "select category"
 msgstr "Select a category"
 
-#: templates/promotions/promotions.html:104
+#: templates/promotions/promotions.html:123
 msgid "Select a Subcategory"
 msgstr "Select a Subcategory"
 
-#: templates/promotions/promotions.html:110
+#: templates/promotions/promotions.html:129
+msgid "history btn style"
+msgstr "top: 10px; right: 10px;"
+
+#: templates/promotions/promotions.html:135
 #, python-brace-format
 msgid ""
 "You chose {category} to chat about {subcategory}. Please answer any given "
 "questions sincerely, so I can give you a good advice."
 msgstr ""
 
-#: templates/promotions/promotions.html:111
+#: templates/promotions/promotions.html:136
 msgid "botwelcome"
 msgstr ""
 "Hello! i'm your marketing adviser, please feel free to ask me anything."
 
-#: templates/promotions/promotions.html:116
+#: templates/promotions/promotions.html:141
 msgid "typeanswer"
 msgstr "Type your answer here..."
 
-#: templates/promotions/promotions.html:117
+#: templates/promotions/promotions.html:142
 msgid "send"
 msgstr "Send"
 
-#: templates/sidebar.html:15
+#: templates/sidebar.html:21
 msgid "Main pages"
 msgstr ""
 
-#: templates/sidebar.html:21
+#: templates/sidebar.html:27
 msgid "dashboard"
 msgstr "Dashboard"
 
-#: templates/sidebar.html:29
+#: templates/sidebar.html:35
 msgid "analysis"
 msgstr "Analysis"
 
-#: templates/sidebar.html:37
+#: templates/sidebar.html:43
 msgid "promotions"
 msgstr "Promotions"
 
-#: templates/sidebar.html:42
+#: templates/sidebar.html:50
 #, fuzzy
 #| msgid "Users"
 msgid "User"
@@ -788,27 +807,22 @@ msgstr "Users"
 #~ msgstr "Welcome to our website!"
 
 #, fuzzy
-#~| msgid "Duration"
 #~ msgid "Syndication"
 #~ msgstr "Duration"
 
 #, fuzzy
-#~| msgid "jan"
 #~ msgid "and"
 #~ msgstr "jan"
 
 #, fuzzy
-#~| msgid "December"
 #~ msgid "Decimal number"
 #~ msgstr "December"
 
 #, fuzzy
-#~| msgid "Duration"
 #~ msgid "Duration"
 #~ msgstr "Duration"
 
 #, fuzzy
-#~| msgid "Email address"
 #~ msgid "Email address"
 #~ msgstr "Email address"
 
@@ -816,23 +830,18 @@ msgstr "Users"
 #~ msgstr "File path"
 
 #, fuzzy
-#~| msgid "Email address"
 #~ msgid "IPv4 address"
 #~ msgstr "Email address"
 
 #, fuzzy
-#~| msgid "Email address"
 #~ msgid "IP address"
 #~ msgstr "Email address"
 
 #, fuzzy
-#~| msgid "File path"
 #~ msgid "File"
 #~ msgstr "File path"
 
 #, fuzzy
-#~| msgctxt "abbrev. month"
-#~| msgid "Nov."
 #~ msgid "No"
 #~ msgstr "Nov"
 
@@ -1041,12 +1050,10 @@ msgstr "Users"
 #~ msgstr "December"
 
 #, fuzzy
-#~| msgid "No day specified"
 #~ msgid "No year specified"
 #~ msgstr "No day specified"
 
 #, fuzzy
-#~| msgid "No day specified"
 #~ msgid "No month specified"
 #~ msgstr "No day specified"
 
