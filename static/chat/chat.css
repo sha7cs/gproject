@@ -27,7 +27,7 @@ button:hover {
 /* ===== Card Styles ===== */
 .card {
   border-radius: 20px;
-  box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
+  box-shadow: 0 4px 8px rgba(160, 142, 142, 1);
   background-color: #ffffff;
   color: #252422;
   margin-bottom: 20px;
