@@ -363,7 +363,7 @@ def chatbot(request):
                 next_question = questions[question_index].question
                 return JsonResponse({
                     "response": next_question,
-                    "questionIndex": question_index + 2,  # Increment correctly
+                    "questionIndex": question_index + 2, 
                 })             
             else:
                 # Only generate assistant response once all questions are answered
@@ -377,4 +377,15 @@ def chatbot(request):
         print("Backend Error:", error_message)  # Log error in Django console
         return JsonResponse({"error": "Server error. Check Django logs for details."}, status=500)
     
+from django.shortcuts import redirect
 
+
+@login_required
+def delete_thread(request):
+    if request.method == 'POST':
+        profile = request.user.userprofile
+        thread_id = profile.thread_id
+        if thread_id:
+            profile.thread_id = None
+            profile.save()
+        return redirect('promotions') 
