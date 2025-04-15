@@ -20,7 +20,7 @@ import datetime
 import markdown
 import sqlite3
 import requests
-
+from analysis.views import user_data
 
 DB_PATH = "sales_data.db"
 
@@ -225,9 +225,9 @@ import time
 def run_assistant(thread_id, instructions):
     try:
         run = client.beta.threads.runs.create_and_poll(
-            thread_id=thread_id,
-            assistant_id="asst_2vl0GWgN3eO4zit970iZln8m",
-            instructions=instructions
+            thread_id    = thread_id,
+            assistant_id = "asst_2vl0GWgN3eO4zit970iZln8m",
+            instructions = instructions
         )
         retries = 0
         max_retries=3
@@ -282,6 +282,7 @@ def chatbot(request):
          allquestions = Question.objects.all()
          language = get_language()
 
+        
          categories_json = json.dumps([
         {'id': category.pk, 'category': category.safe_translation_getter('category', any_language=True)}
         for category in categories
@@ -336,18 +337,51 @@ def chatbot(request):
             question = request.POST.get('question', '').strip()
             user_response = request.POST.get('response', '').strip()
             question_index = int(request.POST.get('questionIndex'))
-            
             user_profile, created = UserProfile.objects.get_or_create(user=request.user)
             thread_id = get_or_create_thread(user_profile)
+            
+            # اذا موجودة بالبوست احفظها بالسشن اذا مو موجودة حط اللي بالسشن داخل الفاريبل كاتقوري
+            category = request.POST.get('category')
+            if category != 'null':
+                request.session['category'] = category
+            else:
+                category = request.session.get('category')
+            if not category:
+                return JsonResponse({"error": "Category is missing. Please reselect the category."}, status=400)
+
+            print(category)
+            print("SESSION DUMP:", dict(request.session))
 
             if question:
                 add_assistant_message_to_thread(thread_id, question)
             if user_response:
                 add_message_to_thread(thread_id, user_response)
+            # نجيب بيانات االمستخدم للشات
+            context_data = user_data(request) 
+            user_analysis_summary = f"""
+                                        - إجمالي المبيعات: {context_data['total_sales']}
+                                        - عدد العمليات: {context_data['total_transactions']}
+                                        - المنتج الأفضل مبيعًا: {context_data['best_seller']}
+                                        - معدل نمو المبيعات: {context_data['sales_growth_rate']}%
+                                        - أعلى مبيعات بالفئات: {', '.join(f"{label}: {value}" for label, value in zip(context_data['category_labels'], context_data['category_data']))}
+                                        - التوقعات المستقبلية: {context_data['predicted_sales']} (بدقة {context_data['prediction_accuracy']}%)
+                                        """
+            if category in ["analysis", "تحليل"]:
+                inst = f"""أنت محلل بيانات محترف تساعد مدير مقهى في السعودية يفهم أداء مشروعه من ناحية الأرقام.
+                راح توصلك بيانات المقهى على شكل أرقام (مبيعات، منتجات، نمو..الخ).
+                عطي المستخدم تحليل واضح وبسيط يفهمه بسهولة، بدون مصطلحات صعبة.
+                ركّز على وش قاعد يصير، هل الأمور ماشية صح؟ وش أبرز الملاحظات؟ وش ممكن يتعدل؟
+                بعد التحليل، إذا المستخدم سألك عن شيء زيادة، جاوبه عادي.
 
-            inst = """You are a marketing expert helping a café manager in Saudi Arabia.
-                      Ask 2-3 follow-up questions before providing concise marketing advice."""
-           
+                بيانات المستخدم:
+                {user_analysis_summary}
+                """
+            elif category in ["marketing", "نصائح تسويقية"]:
+                inst = """أنت خبير تسويق تساعد مدير مقهى في السعودية. عندك خبرة واسعة بأساليب التسويق والعروض اللي تمشي في السوق السعودي وذوق الزبائن.
+                راح توصلك معلومات من المستخدم على شكل أسئلة وأجوبتها داخل المحادثة (زي محادثة سابقة)، فاقرأها وافهم وش هدفه أو وش يفكر فيه، بعدين عطه اقتراحات عملية تنفعه فعلاً.
+                ردك يكون كأنك تسولف معاه، لا تستخدم لغة رسمية ولا تنسيق نقاط. خلك واضح، مباشر، وودّي، وخلّي الرد سهل يقدر يطبقه في الواقع.
+                الرد يكون مختصر (أقل من 200 كلمة)، ويركز على أفكار تسويقية قابلة للتطبيق.
+                """ 
             try:
                subcategory = Subcategory.objects.filter(
                         translations__language_code__in=get_active_language_choices(),
