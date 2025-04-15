@@ -1,190 +1,190 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n %}
-{% load auth_filters%} 
+{% load auth_filters %}
 
-{% block title%} {%trans 'Settings '%}{% endblock %}
+{% block title %} {% trans 'Settings' %} {% endblock %}
 
 {% block content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-<style>
- 
-.upload-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
 
-.cafe-logo:hover .upload-overlay {
-    opacity: 1;
-}
-.cafe-logo {
-  position: relative;
-  display: inline-block;
-  width: fit-content; /* Ensure it wraps around the image */
+<style>
+.upload-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  display: flex; justify-content: center; align-items: center;
+  font-size: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 }
 .cafe-logo:hover .upload-overlay {
   opacity: 1;
 }
+.cafe-logo {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+}
 .file-input {
-    display: none;
+  display: none;
 }
 </style>
+
 <main role="main" class="main-content">
-    <div class="container-fluid">
-      <div class="row justify-content-center">
-        <div class="col-12 col-lg-10 col-xl-8">
-        
-          <h2 class="h3 mb-4 page-title">{%trans 'Settings'%}</h2>
-          <div class="my-4">
-            <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">{%trans 'Profile'%}</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">{%trans "Notifications"%}</a>
-              </li>
-            </ul>
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10 col-xl-8">
+        <h2 class="h3 mb-4 page-title">{% trans 'Settings' %}</h2>
+
+        <!-- Tabs -->
+        <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">{% trans 'Profile' %}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">{% trans 'Notifications' %}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="event-tab" data-toggle="tab" href="#events" role="tab" aria-controls="events" aria-selected="false">{% trans 'Events' %}</a>
+          </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="myTabContent">
+
+          <!-- Profile Tab -->
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <form method="POST" enctype="multipart/form-data" action="{% url 'settings_update' %}">
-              {% csrf_token%}
+              {% csrf_token %}
               <div class="row mt-5 align-items-center">
                 <div class="col-md-3 text-center mb-5">
                   <div class="avatar avatar-xl">
                     <label for="cafe_logo" class="cafe-logo">
-                    {% if user.cafe_logo %}
+                      {% if user.cafe_logo %}
                         <img src="{{ user.cafe_logo.url }}" class="avatar-img rounded-3" alt="Cafe Logo">
-                    {% else %}
+                      {% else %}
                         <img src="https://i.pinimg.com/736x/e5/58/dd/e558dd367b8813ce7972684e8be537ab.jpg" alt="Default Cafe Logo">
-                    {% endif %}
-                    <div class="upload-overlay">
-                      <i class="fe fe-camera"></i>
-                    </div>
-                  </label>
+                      {% endif %}
+                      <div class="upload-overlay"><i class="fe fe-camera"></i></div>
+                    </label>
                     <input type="file" name="cafe_logo" id="cafe_logo" class="file-input" accept="image/*">
                   </div>
                 </div>
                 <div class="col">
                   <div class="row align-items-center">
                     <div class="col-md-7">
-                      <h4 class="mb-1">{{user.cafe_name}}</h4>
-                      <p class="small mb-3"><span class="badge badge-dark">{{user.area}} , {{user.city.name}}</span></p>
+                      <h4 class="mb-1">{{ user.cafe_name }}</h4>
+                      <p class="small mb-3"><span class="badge badge-dark">{{ user.area }} , {{ user.city.name }}</span></p>
                     </div>
                   </div>
                   <div class="row mb-4">
                     <div class="col-md-7">
                       {% trans "No cafe description available." as description_default_text %}
-                      <p class="text-muted">{{user.cafe_description|default:description_default_text}}</p>
+                      <p class="text-muted">{{ user.cafe_description|default:description_default_text }}</p>
                     </div>
                     <div class="col">
                       <p class="small mb-0 text-muted">P.O. Box 464, 5975 Eget Avenue</p>
-                      <p class="small mb-0 text-muted">(537) 315-1481</p> <!--قهررر ما حطيت ببياناتهم رقم الجوال ): -->
+                      <p class="small mb-0 text-muted">(537) 315-1481</p>
                     </div>
                   </div>
                 </div>
               </div>
+
               <hr class="my-4">
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="cafe_name">{% trans 'Your cafe name' %}</label>
-                  {{form.cafe_name}}
+                  {{ form.cafe_name }}
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="username">{%trans 'Username'%}</label>
+                  <label for="username">{% trans 'Username' %}</label>
                   {{ user_form.username|add_class:"form-control" }}
-                </div> 
+                </div>
               </div>
+
               <div class="form-group">
-                <label for="email">{%trans 'Email'%}</label>
+                <label for="email">{% trans 'Email' %}</label>
                 {{ user_form.email|add_class:"form-control" }}
               </div>
+
               <div class="form-group">
-                <label for="inputAddress5">{%trans 'Address'%}</label>
-                {{form.location}}
+                <label for="inputAddress5">{% trans 'Address' %}</label>
+                {{ form.location }}
               </div>
+
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="data_file">{% trans 'Data file' %}</label>
-                  
                   {% if user.data_file %}
-                      <p>
-                          <a href="{{ user.data_file.url }}" target="_blank" class="text-primary">
-                              {% trans 'View current file' %}
-                          </a>
-                      </p>
+                    <p><a href="{{ user.data_file.url }}" target="_blank" class="text-primary">{% trans 'View current file' %}</a></p>
                   {% endif %}
-                  
-                  <input type="file" name="data_file" id="data_file" class="form-control-file" accept=".csv , .xlsx, .xls">
+                  <input type="file" name="data_file" id="data_file" class="form-control-file" accept=".csv,.xlsx,.xls">
                 </div>
+
                 <div class="form-group">
-                  <label for="firebase_link">{% trans 'Firebase Link'%}</label>
+                  <label for="firebase_link">{% trans 'Firebase Link' %}</label>
                   {% trans "No firbase link available." as firebase_default_text %}
-                  <input type="link" class="form-control" id="firebase_link" name="firebase_link" value="{{user.firebase_config|default:firebase_default_text}}">
+                  <input type="link" class="form-control" id="firebase_link" name="firebase_link" value="{{ user.firebase_config|default:firebase_default_text }}">
                 </div>
+
                 <div class="form-group col-md-3">
                   <label for="inputState5">{% trans 'Area' %}</label>
-                  {{form.area}}
-              </div>
-              
-              <div class="form-group col-md-3">
+                  {{ form.area }}
+                </div>
+                <div class="form-group col-md-3">
                   <label for="inputCity">{% trans 'City' %}</label>
-                  {{form.city}}   
+                  {{ form.city }}
+                </div>
               </div>
-              </div>
+
               <hr class="my-4">
-              <button type="submit" class="btn btn-primary">{%trans 'update'%}</button>
+              <button type="submit" class="btn btn-primary">{% trans 'Update' %}</button>
             </form>
-          </div> <!-- /.card-body -->
-        </div> <!-- /.col-12 -->
-      </div> <!-- .row -->
-    </div> <!-- .container-fluid -->
-  </main> <!-- main -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const cityDropdown = document.getElementById('inputCity');
-        const areaDropdown = document.getElementById('inputState5');
+          </div>
 
-        // Store city data in a JavaScript object
-        const cities = [
-            {% for city in cities %}
-                { id: "{{ city.id }}", name: "{{ city.name }}", area_id: "{{ city.area.id }}" },
-            {% endfor %}
-        ];
+          <!-- Notifications Tab -->
+          <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            <p>{% trans "Notifications tab (coming soon)" %}</p>
+          </div>
 
-        // Handle area selection change
-        areaDropdown.addEventListener('change', function() {
-            const selectedAreaId = this.value;
+          <!-- Events Tab -->
+          {% include "profile/user_events_tab.html" %}
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
 
-            // Enable the city dropdown
-            cityDropdown.disabled = false;
-            cityDropdown.innerHTML = '<option selected disabled>{%trans 'choose'%}</option>'; // Reset city options
-
-            // Filter and add matching cities
-            cities.forEach(city => {
-                if (city.area_id === selectedAreaId) {
-                    const option = document.createElement('option');
-                    option.value = city.id;
-                    option.textContent = city.name;
-                    cityDropdown.appendChild(option);
-                }
-            });
-        });
-    });
-</script>
-  
 <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const cityDropdown = document.getElementById('inputCity');
+    const areaDropdown = document.getElementById('inputState5');
+    const cities = [
+      {% for city in cities %}
+        { id: "{{ city.id }}", name: "{{ city.name }}", area_id: "{{ city.area.id }}" },
+      {% endfor %}
+    ];
+    areaDropdown.addEventListener('change', function() {
+      const selectedAreaId = this.value;
+      cityDropdown.disabled = false;
+      cityDropdown.innerHTML = '<option selected disabled>{% trans "choose" %}</option>';
+      cities.forEach(city => {
+        if (city.area_id === selectedAreaId) {
+          const option = document.createElement('option');
+          option.value = city.id;
+          option.textContent = city.name;
+          cityDropdown.appendChild(option);
+        }
+      });
+    });
+  });
+
   toastr.options = {
     "closeButton": true,
     "progressBar": true,
@@ -192,21 +192,27 @@
     "extendedTimeOut": "1000",
     "positionClass": "toast-top-right"
   };
-</script>
-<script>
+
   document.getElementById('cafe_logo').addEventListener('change', function(event) {
     const file = event.target.files[0];
     const reader = new FileReader();
-
     reader.onload = function(e) {
       const preview = document.querySelector('.avatar-img');
-      preview.src = e.target.result; // Set the preview image to the selected file
+      preview.src = e.target.result;
     };
-
     if (file) {
-      reader.readAsDataURL(file); // Read the file as a data URL
+      reader.readAsDataURL(file);
     }
   });
+    document.addEventListener("DOMContentLoaded", function () {
+      const hash = window.location.hash;
+      if (hash) {
+        const tabLink = document.querySelector(`a.nav-link[href="${hash}"]`);
+        if (tabLink) {
+          new bootstrap.Tab(tabLink).show();
+        }
+      }
+    });
+  
 </script>
-
-{% endblock%}
+{% endblock %}

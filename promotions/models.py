@@ -4,6 +4,28 @@ from django.utils.translation import gettext_lazy as _
 from parler.models import TranslatableModel,TranslatedFields # this for tranlating models i dont think we need it 
 from django.db import models
 
+from authentication_app.models import UserProfile
+
+
+class Event(TranslatableModel):
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='events', null=True, blank=True)
+
+
+    translations = TranslatedFields(
+        name=models.CharField(_('Event Name'), max_length=255),
+        description=models.TextField(_('Description'), null=True, blank=True),
+    )
+
+    date = models.DateField(_('Date'))
+
+    class Meta:
+        verbose_name = _('Event')
+        verbose_name_plural = _('Events')
+        ordering = ['date']
+
+    def __str__(self):
+        return f"{self.name} ({self.date})"
+
 class Category(TranslatableModel):
     translations = TranslatedFields(
         category=models.CharField(_('category'), max_length=255),

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from authentication_app.models import UserProfile 
-from promotions.models import Category,Subcategory,Question
+from promotions.models import Category,Subcategory,Question,Event
 from django.core.paginator import Paginator
 from django.db.models import Q
 from datetime import datetime
@@ -11,7 +11,75 @@ from django.shortcuts import redirect, get_object_or_404
 from django.db.models import Q 
 from django.utils.translation import gettext_lazy as _  
 from django.core.mail import send_mail
-from django.conf import settings 
+from django.conf import settings
+from django.db import models  
+
+@login_required
+@allowed_users(allowed_roles=['admins'])
+def event_control(request):
+    if request.method == 'POST':
+        action = request.POST.get('action')
+
+        if action == 'delete':
+            event_id = request.POST.get('event_id')
+            event = get_object_or_404(Event, id=event_id)
+            event.delete()
+            messages.success(request, _("Event deleted successfully."))
+
+        elif action == 'edit':
+            event_id = request.POST.get('event_id')
+            name_ar = request.POST.get('name_ar')
+            name_en = request.POST.get('name_en')
+            description = request.POST.get('description', '')
+            date = request.POST.get('date')
+
+            event = get_object_or_404(Event, id=event_id)
+            event.date = date
+
+            event.set_current_language('ar')
+            event.name = name_ar
+            event.description = description
+            event.save()
+
+            event.set_current_language('en')
+            event.name = name_en
+            event.save()
+
+            messages.success(request, _("Event updated successfully."))
+
+        else:  # default: add single event for all
+            name_ar = request.POST.get('name_ar')
+            name_en = request.POST.get('name_en')
+            description = request.POST.get('description', '')
+            date = request.POST.get('date')
+
+            try:
+                event = Event.objects.create(date=date)
+                event.set_current_language('ar')
+                event.name = name_ar
+                event.description = description
+                event.save()
+
+                event.set_current_language('en')
+                event.name = name_en
+                event.save()
+
+                messages.success(request, _("Event added successfully!"))
+            except Exception as e:
+                messages.error(request, _(f"Error: {e}"))
+
+        return redirect("admins.events")
+
+    # GET
+    events = Event.objects.filter(user__isnull=True).order_by('-date')  # only global events
+    return render(request, "admins/event_control.html", {
+        "events": events
+    })
+
+
+
+
+
 
 def index(request):
     return render(request, 'admins/base.html')

@@ -13,6 +13,80 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from authentication_app.models import UserProfile ,City,Area
 from django.utils.translation import gettext_lazy as _ 
+from django.http import HttpResponseRedirect
+from promotions.models import Event
+from promotions.forms import EventForm
+from django.db.models import Q
+from django.utils.translation import get_language
+
+
+
+@login_required
+def user_events_view(request):
+    user_profile = request.user.userprofile
+    events = Event.objects.filter(
+        Q(user=user_profile) | Q(user__isnull=True)
+    ).order_by('-date')
+
+
+    language = get_language()
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        event_id = request.POST.get('event_id')
+
+        if action == 'delete' and event_id:
+            Event.objects.filter(id=event_id, user=user_profile).delete()
+            messages.success(request, _("Event deleted successfully."))
+            return HttpResponseRedirect(reverse('settings_view') + '#events')
+
+        elif action == 'edit' and event_id:
+            try:
+                event = Event.objects.get(id=event_id, user=user_profile)
+
+                event.date = request.POST.get('date')
+                event.set_current_language('en')
+                event.name = request.POST.get('name_en')
+                event.description = request.POST.get('description')
+                event.save()
+
+                event.set_current_language('ar')
+                event.name = request.POST.get('name_ar')
+                event.save()
+
+                messages.success(request, _("Event updated successfully."))
+            except Event.DoesNotExist:
+                messages.error(request, _("Event not found."))
+
+            return HttpResponseRedirect(reverse('settings_view') + '#events')
+
+        else:  # Default action: Add new event
+            form = EventForm(request.POST)
+            if form.is_valid():
+                event = Event(user=user_profile, date=form.cleaned_data['date'])
+
+                event.set_current_language('en')
+                event.name = form.cleaned_data['name_en']
+                event.description = form.cleaned_data['description']
+                event.save()
+
+                event.set_current_language('ar')
+                event.name = form.cleaned_data['name_ar']
+                event.save()
+
+                messages.success(request, _("Event added successfully."))
+                return HttpResponseRedirect(reverse('settings_view') + '#events')
+
+
+    else:
+        form = EventForm()
+
+    return render(request, 'profile/settings_view.html', {
+        'form_event': form,
+        'events': events,
+    })
+
+
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.conf import settings as django_settings
@@ -165,15 +239,43 @@ def waiting(request):
 
 from django.shortcuts import get_object_or_404
 
+# @login_required
+# @allowed_users(allowed_roles=['admins','normal_user'])
+# def settings_view(request):
+#     user_profile = get_object_or_404(UserProfile, user=request.user)
+#     areas = Area.objects.all()
+#     cities = City.objects.all()
+#     form = UserProfileForm(instance=user_profile)    
+#     user_form= UserUpdateForm(instance = request.user)
+#     return render(request, 'profile/settings_view.html',{'user':user_profile , 'areas':areas, 'cities':cities,'form':form,'user_form':user_form})
 @login_required
-@allowed_users(allowed_roles=['admins','normal_user'])
+@allowed_users(allowed_roles=['admins', 'normal_user'])
 def settings_view(request):
     user_profile = get_object_or_404(UserProfile, user=request.user)
     areas = Area.objects.all()
     cities = City.objects.all()
+
     form = UserProfileForm(instance=user_profile)    
-    user_form= UserUpdateForm(instance = request.user)
-    return render(request, 'profile/settings_view.html',{'user':user_profile , 'areas':areas, 'cities':cities,'form':form,'user_form':user_form})
+    user_form = UserUpdateForm(instance=request.user)
+
+    form_event = EventForm()
+    user_events = Event.objects.filter(user=user_profile) # user event
+    admin_events = Event.objects.filter(user__isnull=True)  # admin event
+
+
+    return render(request, 'profile/settings_view.html', {
+        'user': user_profile,
+        'areas': areas,
+        'cities': cities,
+        'form': form,
+        'user_form': user_form,
+        'form_event': form_event,
+        'events': user_events,  
+        'admin_events': admin_events,
+    })
+
+
+
 
 @login_required
 @allowed_users(allowed_roles=['admins','normal_user'])
@@ -187,5 +289,11 @@ def settings_update(request):
             user_form.save()
             messages.success(request, _("Profile updated successfully!"))
             return redirect('settings_view')
+
+
         else:
             return redirect('settings_view')
+
+
+        
+
