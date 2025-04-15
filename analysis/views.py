@@ -179,6 +179,44 @@ def analysis_view(request):
         print("Analysis View Error:", error_message)
         return JsonResponse({"error": "Something went wrong. Check Django logs."}, status=500)
 
+# عشان نرسل الداتا ذي للشات 
+def user_data(request):
+    profile = UserProfile.objects.get(user=request.user)  # Get the current user's profile
+    df = get_sales_data(profile)
+    total_sales = df['total_price'].sum()
+    total_transactions = len(df)
+
+    detailed_orders = df['detailed_orders'].dropna()
+    all_items = [item['item'] for order in detailed_orders for item in order]
+    best_seller = pd.Series(all_items).value_counts().idxmax() if all_items else None
+
+    monthly_sales = df.groupby(df['business_date'].dt.month)['total_price'].sum().to_dict()
+
+    if len(monthly_sales) >= 2:
+        months = sorted(monthly_sales.keys())
+        sales_growth_rate = ((monthly_sales[months[-1]] - monthly_sales[months[-2]]) / monthly_sales[months[-2]]) * 100
+    else:
+        sales_growth_rate = 0
+
+    category_sales = {}
+    for order in detailed_orders:
+        for item in order:
+            category_sales[item['category']] = category_sales.get(item['category'], 0) + item['quantity']
+
+    context = {
+        'total_sales': total_sales,
+        'total_transactions': total_transactions,
+        'best_seller': best_seller,
+        'sales_growth_rate': round(sales_growth_rate, 2),
+        'monthly_sales': monthly_sales,
+        'category_labels': list(category_sales.keys()),
+        'category_data': list(category_sales.values()),
+        'predicted_sales': predicted_january_sales,
+        'prediction_accuracy': accuracy,
+    }
+
+    return context
+
 def filter_data(request):
     try:
         profile = UserProfile.objects.get(user=request.user)  # Get the current user's profile

@@ -7,6 +7,7 @@ const chatSection = document.getElementById("chat-section");
 const subcategoryButtons = document.getElementById("subcategory-buttons");
 const categoryTitle = document.getElementById('categoryTitle')
 const subcategoryTitle = document.getElementById('subcategoryTitle')
+// const typingIndicator = document.querySelector("#typing-indicator");
 
 // <!--حق ان الشات يكتب برجع له -->
 function showTyping() {
@@ -23,7 +24,6 @@ function getSubcategoriesForCategory(categoryId) {
 
 function selectCategory(categoryId) {
     const category = categoriesjs.find(category => category.id == categoryId).category;
-        // messages.innerHTML += `<div class="message bot">Please choose a subcategory.</div>`;
     const mainCatgoriesButtons = document.getElementById("category-buttons");
     const subcategoryButtons = document.getElementById("subcategory-buttons");
     subcategoryButtons.innerHTML = '';
@@ -41,11 +41,7 @@ function selectCategory(categoryId) {
     subcategoryButtons.style.display = "flex"; // Show the subcategory buttons
     categoryTitle.style.display = "none";
     subcategoryTitle.style.display = "flex";
-    } //else {
-    //     messages.innerHTML += `<div class="message bot">No subcategries found</div>`;
-    //     // messages.innerHTML += `<div class="message bot">${trans('NoSubcategories')}</div>`;
-    // }
-
+    } 
 }
 
 function selectSubcategory(subcategoryId,category) {
@@ -65,9 +61,12 @@ function selectSubcategory(subcategoryId,category) {
     subcategoryTitle.style.display = "none";
     chatSection.classList.add("active"); // Add the 'active' class to make it visible
    
-    // Show typing indicator <!--حق ان الشات يكتب برجع له -->
-    const typingIndicator = document.getElementById("typing-indicator");
-    typingIndicator.style.display = "flex";
+    // إنشاء مؤشر الكتابة
+    const typingIndicator = document.createElement("div");
+    typingIndicator.id = "typing-indicator";
+    typingIndicator.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+    typingIndicator.classList.add("message", "bot");
+    messages.appendChild(typingIndicator);
 
     questionIndex = 0;
     // Trigger the backend interaction by submitting the first request
@@ -87,9 +86,11 @@ function selectSubcategory(subcategoryId,category) {
     })
     .then(response => response.json())
     .then(data => {
-         // Hide typing indicator // <!--حق ان الشات يكتب برجع له -->
-         typingIndicator.style.display = "none";
-
+        // إزالة مؤشر الكتابة
+        const existingIndicator = document.getElementById("typing-indicator");
+        if (existingIndicator) {
+            existingIndicator.remove();
+        }
         // Display the first question from the backend
         if (data.response) {
             messages.innerHTML += `<div class="message bot">${data.response}</div>`;
@@ -99,6 +100,7 @@ function selectSubcategory(subcategoryId,category) {
         messages.scrollTop = messages.scrollHeight; // Scroll to the latest message
     })
     .catch(error => console.error("Fetch Error:", error)).finally(() => {
+        typingIndicator.style.display = "none";
         isWaitingForResponse = false; // Re-enable sending after response is received
     });
     }
@@ -117,12 +119,14 @@ function selectSubcategory(subcategoryId,category) {
     
         messages.innerHTML += `<div class="message user">${userResponse}</div>`;
         input.value = "";
+
+        // إنشاء مؤشر الكتابة
+        const typingIndicator = document.createElement("div");
+        typingIndicator.id = "typing-indicator";
+        typingIndicator.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+        typingIndicator.classList.add("message", "bot");
+        messages.appendChild(typingIndicator);
     
-
-        // Show typing indicator // <!--حق ان الشات يكتب برجع له -->
-        const typingIndicator = document.getElementById("typing-indicator");
-        typingIndicator.style.display = "flex";
-
         // Send user response to backend
         fetch('/'+lang+'/promotions/', {
             method: 'POST',
@@ -131,7 +135,7 @@ function selectSubcategory(subcategoryId,category) {
             },
             body: new URLSearchParams({
                 'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-                'category': category,
+                'category': category, 
                 'subcategory': subcategory,
                 'question': currentQuestion, 
                 'response': userResponse,  
@@ -140,8 +144,11 @@ function selectSubcategory(subcategoryId,category) {
         })
         .then((response) => response.json())
         .then((data) => {
-             // Hide typing indicator // <!--حق ان الشات يكتب برجع له -->
-            typingIndicator.style.display = "none";
+            // إزالة مؤشر الكتابة
+            const existingIndicator = document.getElementById("typing-indicator");
+            if (existingIndicator) {
+                existingIndicator.remove();
+            }
 
             if (data.response) {
                 if (data.response !== currentQuestion) {
