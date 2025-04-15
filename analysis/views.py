@@ -240,13 +240,14 @@ def filter_data(request):
         else:
             sales_data = df.groupby(df['business_date'].dt.month)['total_price'].sum().to_dict()
 
-            detailed_orders = df['detailed_orders'].dropna()
+            detailed_orders =                 df['detailed_orders'].dropna()
             category_sales = {}
             for order in detailed_orders:
                 for item in order:
                     category = item['category']
                     quantity = item['quantity']
                     category_sales[category] = category_sales.get(category, 0) + quantity
+                    
 
         return JsonResponse({
             'sales': sales_data,
@@ -266,7 +267,7 @@ df['business_date'] = pd.to_datetime(df['business_date'], dayfirst=True, errors=
 df = df.dropna(subset=['business_date', 'total_price'])
 
 # Get holidays from API
-API_KEY = 'AjYi7mqOuumRPwEbkpEG9A7SjTZIczMz'
+API_KEY = 'iQsiUvz77fut0nlpqGmsEBghzWCIbeIW'
 YEAR = datetime.datetime.today().year
 
 def get_events():

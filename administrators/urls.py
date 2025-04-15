@@ -12,4 +12,7 @@ urlpatterns = [
     path('delete-question/<int:question_id>/', views.delete_question, name='delete_question'),
     path('create-subcategory/<int:category_id>/', views.create_subcategory, name='create_subcategory'),
     path('delete-subcategory/<int:subcategory_id>/', views.delete_subcategory, name='delete_subcategory'),
+    path('events/', views.event_control, name="admins.events"),
+   
+
 ]

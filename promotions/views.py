@@ -20,6 +20,8 @@ import datetime
 import markdown
 import sqlite3
 import requests
+from promotions.models import Event
+
 from analysis.views import user_data
 
 DB_PATH = "sales_data.db"
@@ -74,7 +76,7 @@ def analyze_sales_data(request):
 
 
 
-API_KEY = 'AjYi7mqOuumRPwEbkpEG9A7SjTZIczMz'
+API_KEY = 'iQsiUvz77fut0nlpqGmsEBghzWCIbeIW'
 YEAR = datetime.datetime.today().year
 
 events_data = {
@@ -97,28 +99,10 @@ events_data = {
     "Saudi National Day": {
         "key": "Saudi National Day",
         "ar": "اليوم الوطني السعودي"
-    },
-    "International Coffee Day": {
-        "key": "International Coffee Day",
-        "ar": "اليوم العالمي للقهوة"
-    },
-    "International Mother's Day": {
-        "key": "International Mother's Day",
-        "ar": "اليوم العالمي للأم"
-    },
-    "International Father's Day": {
-        "key": "International Father's Day",
-        "ar": "اليوم العالمي للأب"
-    },
-    "International Friendship Day": {
-        "key": "International Friendship Day",
-        "ar": "اليوم العالمي للصداقة"
-    },
-    "World Smile Day": {
-        "key": "World Smile Day",
-        "ar": "اليوم العالمي للابتسامة"
     }
+    
 }
+
 
 
 def get_events_from_api():
@@ -135,32 +119,23 @@ def get_events_from_api():
             if api_name in events_data:
                 details = events_data[api_name]
                 name_display = details['ar'] if current_lang == 'ar' else details['key']
-
                 date_miladi = holiday['date']['iso']
                 events.append({
                     'event_name': name_display,
                     'gregorian_date': pd.to_datetime(date_miladi, utc=True)
                 })
 
-   
-    manual_events = [
-        {"name": "International Coffee Day", "date": f"{YEAR}-10-01"},
-        {"name": "International Mother's Day", "date": f"{YEAR}-03-21"},
-        {"name": "International Father's Day", "date": f"{YEAR}-06-21"},
-        {"name": "International Friendship Day", "date": f"{YEAR}-07-30"},
-        {"name": "World Smile Day", "date": f"{YEAR}-10-04"},  
-    ]
-
-    for event in manual_events:
-        if event["name"] not in [e['event_name'] for e in events]:  
-            details = events_data.get(event["name"])
-            name_display = details['ar'] if current_lang == 'ar' else details['key']
-            events.append({
-                'event_name': name_display,
-                'gregorian_date': pd.to_datetime(event["date"], utc=True)
-            })
+    
+    event_objects = Event.objects.all()
+    for ev in event_objects:
+        ev.set_current_language(current_lang)
+        events.append({
+            'event_name': ev.name,
+            'gregorian_date': pd.to_datetime(ev.date)
+        })
 
     return pd.DataFrame(events)
+
 
 def get_next_event():
     df = get_events_from_api()
@@ -183,6 +158,7 @@ def get_next_event():
         }
     
     return None
+
 
 def set_language(request, urlname):
     language = request.GET.get('language')

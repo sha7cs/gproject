@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 from .models import UserProfile,City,Area
 from django.utils.translation import gettext_lazy as _ 
 from django.core.validators import FileExtensionValidator
+from promotions.models import Event  
+
+
 
 
 #مثل ماتلاحظون هذي فورم جديد انهرت من الاصليه حقت جانقو ليه سوينا كذا؟ عشان نقدر نحكم بالاتربيوت الي نبيهم زي مثلا هنا زدت الايميل! 
@@ -61,4 +64,5 @@ class UserUpdateForm(UserChangeForm):
         if commit:
             user.save()
         return user
+  
   

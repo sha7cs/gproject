@@ -14,4 +14,5 @@ urlpatterns = [
     path('waiting/', views.waiting, name = "wait"),
     path('mysettings/',views.settings_view, name="settings_view"),
     path('mysettings/update',views.settings_update, name="settings_update"),
+    path('mysettings/events/', views.user_events_view, name='user_events_view'),
 ]  
