@@ -246,7 +246,25 @@ def run_assistant(thread_id, instructions):
 
 # firebase = pyrebase.initialize_app(firebaseConfig)
 # firebase_db = firebase.database()
+def marketing_advice():
+    today = datetime.date.today()
+    total_advice = DailyAdvice.objects.count()
 
+    if total_advice == 0:
+        advice_entry = None 
+    else:
+        advice_index = today.timetuple().tm_yday % total_advice
+        advice_entry = DailyAdvice.objects.all().order_by('id')[advice_index]
+    # advice_entry.set_current_language('en')
+    
+    advice = advice_entry if advice_entry else _('No advice available')
+    if advice_entry:
+        advice_title = _(advice_entry.title)  # Translating title
+        advice_text = _(advice_entry.advice)  # Translating advice text
+    else:
+        advice_title = advice_text = None
+    return advice_title, advice_text
+    
 
 @login_required
 @allowed_users(allowed_roles=['normal_user','admins'])
@@ -273,23 +291,7 @@ def chatbot(request):
         ])
          
          ####heres the card content stuff 
-         today = datetime.date.today()
-         total_advice = DailyAdvice.objects.count()
-
-         if total_advice == 0:
-             advice_entry = None
-         else:
-            advice_index = today.timetuple().tm_yday % total_advice
-            advice_entry = DailyAdvice.objects.all().order_by('id')[advice_index]
-            # advice_entry.set_current_language('en')
-            
-         advice = advice_entry if advice_entry else _('No advice available')
-         if advice_entry:
-            advice_title = _(advice_entry.title)  # Translating title
-            advice_text = _(advice_entry.advice)  # Translating advice text
-         else:
-            advice_title = advice_text = None
-
+         advice_title, advice_text = marketing_advice()
          #analysis cards data  
          analysis_results = analyze_sales_data(request)
          next_event = get_next_event()

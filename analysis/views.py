@@ -15,9 +15,12 @@ from django.db.models.functions import ExtractMonth
 from firebase_admin import firestore
 from authentication_app.decorators import allowed_users, admin_only, unauthenticated_user, approved_user_required
 
+from django.core.cache import cache
 from prophet import Prophet
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error
+
+from django.utils.translation import gettext as _
 
 
 db = firestore.client()
@@ -86,6 +89,7 @@ def fetch_and_store_data():
 import pandas as pd
 import json
 import time
+import ast
 
 def get_sales_data(profile):
     """
@@ -98,31 +102,32 @@ def get_sales_data(profile):
         if profile.firebase_config:
             # Fetch data from Firebase and store it in SQLite
             fetch_and_store_data_from_firebase(profile.firebase_config)
+            # If Firebase is available, data will be fetched and stored in SQLite
+            # So we just need to read it from SQLite in both cases
+
+            conn = sqlite3.connect(DB_PATH)  # Connect to the SQLite database
+            df = pd.read_sql("SELECT * FROM sales", conn)  # Read the data into a DataFrame
+            conn.close()
+
+            # Format the DataFrame as needed
+            df['business_date'] = pd.to_datetime(df['business_date'], dayfirst=True, errors='coerce')
+            df = df.dropna(subset=['business_date', 'total_price'])
+            df['detailed_orders'] = df['detailed_orders'].apply(lambda x: ast.literal_eval(x) if isinstance(x, str) and x else [])
+
+
+            return df
         elif profile.data_file:
             # Fetch data from CSV file (No need to store in SQLite)
             df = pd.read_csv(profile.data_file.path)
             # Process CSV data directly into DataFrame
             df['business_date'] = pd.to_datetime(df['business_date'], dayfirst=True, errors='coerce')
             df = df.dropna(subset=['business_date', 'total_price'])
-            df['detailed_orders'] = df['detailed_orders'].apply(lambda x: json.loads(x) if isinstance(x, str) and x else [])
+            df = df.dropna(subset=['business_date', 'total_price'])
+            df['detailed_orders'] = df['detailed_orders'].apply(lambda x: ast.literal_eval(x) if isinstance(x, str) and x else [])
             return df
         else:
             # Handle case where neither Firebase nor CSV is available
             raise ValueError("No data source available for this user")
-
-    # If Firebase is available, data will be fetched and stored in SQLite
-    # So we just need to read it from SQLite in both cases
-
-    conn = sqlite3.connect(DB_PATH)  # Connect to the SQLite database
-    df = pd.read_sql("SELECT * FROM sales", conn)  # Read the data into a DataFrame
-    conn.close()
-
-    # Format the DataFrame as needed
-    df['business_date'] = pd.to_datetime(df['business_date'], dayfirst=True, errors='coerce')
-    df = df.dropna(subset=['business_date', 'total_price'])
-    df['detailed_orders'] = df['detailed_orders'].apply(lambda x: json.loads(x) if x else [])
-
-    return df
 
 
 def set_language(request):
@@ -139,6 +144,7 @@ def set_language(request):
 def analysis_view(request):
     try:
         profile = UserProfile.objects.get(user=request.user)  # Get the current user's profile
+        last_updated = profile.last_updated
         df = get_sales_data(profile)
         total_sales = df['total_price'].sum()
         total_transactions = len(df)
@@ -159,7 +165,7 @@ def analysis_view(request):
         for order in detailed_orders:
             for item in order:
                 category_sales[item['category']] = category_sales.get(item['category'], 0) + item['quantity']
-
+        predicted_january_sales, accuracy = get_prediction(df, profile.user.id, last_updated)
         context = {
             'total_sales': total_sales,
             'total_transactions': total_transactions,
@@ -182,6 +188,7 @@ def analysis_view(request):
 # عشان نرسل الداتا ذي للشات 
 def user_data(request):
     profile = UserProfile.objects.get(user=request.user)  # Get the current user's profile
+    last_updated = profile.last_updated
     df = get_sales_data(profile)
     total_sales = df['total_price'].sum()
     total_transactions = len(df)
@@ -202,7 +209,7 @@ def user_data(request):
     for order in detailed_orders:
         for item in order:
             category_sales[item['category']] = category_sales.get(item['category'], 0) + item['quantity']
-
+    predicted_january_sales, accuracy = get_prediction(df, profile.user.id, last_updated)
     context = {
         'total_sales': total_sales,
         'total_transactions': total_transactions,
@@ -258,13 +265,13 @@ def filter_data(request):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
-# Prediction (Hybrid Model)
-conn = sqlite3.connect(DB_PATH)
-df = pd.read_sql("SELECT business_date, total_price FROM sales", conn)
-conn.close()
+# # Prediction (Hybrid Model)
+# conn = sqlite3.connect(DB_PATH)
+# df = pd.read_sql("SELECT business_date, total_price FROM sales", conn)
+# conn.close()
 
-df['business_date'] = pd.to_datetime(df['business_date'], dayfirst=True, errors='coerce')
-df = df.dropna(subset=['business_date', 'total_price'])
+# df['business_date'] = pd.to_datetime(df['business_date'], dayfirst=True, errors='coerce')
+# df = df.dropna(subset=['business_date', 'total_price'])
 
 # Get holidays from API
 API_KEY = 'iQsiUvz77fut0nlpqGmsEBghzWCIbeIW'
@@ -291,86 +298,100 @@ def get_events():
 
     return dates
 
-event_dates = get_events()
 
-# Monthly Aggregation
-monthly_sales = df.resample('MS', on='business_date')['total_price'].sum().reset_index()
-monthly_sales = monthly_sales.rename(columns={'business_date': 'ds', 'total_price': 'y'})
-monthly_sales['has_event'] = monthly_sales['ds'].dt.date.apply(
-    lambda d: 1 if any(event.month == d.month for event in event_dates) else 0
-)
+def get_prediction(df, user_id, last_updated):  # you’ll need to pass request.user.id or profile.user.id
+    cache_key = f"user_prediction_{user_id}"
+    cached_data = cache.get(cache_key)
 
-# Prophet Forecast
-model = Prophet(weekly_seasonality=False, yearly_seasonality=True, changepoint_prior_scale=0.4)
-model.fit(monthly_sales[['ds', 'y']])
-future = model.make_future_dataframe(periods=1, freq='MS')
-forecast = model.predict(future)[['ds', 'yhat']]
+    if cached_data and cached_data['last_updated'] == last_updated:
+        return cached_data['result'], cached_data['accuracy']  # Return (prediction, accuracy) from cache
 
-# Merge predictions
-merged = pd.merge(monthly_sales, forecast, on='ds', how='left')
-merged['month'] = merged['ds'].dt.month
-merged['year'] = merged['ds'].dt.year
-merged['yhat_lag1'] = merged['yhat'].shift(1)
-merged = merged.dropna()
+    if len(df) < 60:  # Safety check: minimum ~2 months of data
+        return ("Data too small to generate accurate prediction", 0)
 
-features = ['month', 'year', 'yhat', 'yhat_lag1', 'has_event']
+    try:
+        event_dates = get_events()
 
-# Train/Test Split
-train_data = merged[merged['ds'] < '2024-11-01']
-test_data = merged[(merged['ds'] >= '2024-11-01') & (merged['ds'] <= '2024-12-01')]
+        # Prepare data
+        monthly_sales = df.resample('MS', on='business_date')['total_price'].sum().reset_index()
+        if len(monthly_sales) < 3:
+            return _("Not enough monthly data for prediction", 0)
 
-X_train = train_data[features]
-y_train = train_data['y']
-X_test = test_data[features]
-y_test = test_data['y']
+        monthly_sales = monthly_sales.rename(columns={'business_date': 'ds', 'total_price': 'y'})
+        monthly_sales['has_event'] = monthly_sales['ds'].dt.date.apply(
+            lambda d: 1 if any(event.month == d.month for event in event_dates) else 0
+        )
 
-# Train Random Forest
-rf_model = RandomForestRegressor(n_estimators=1000, max_depth=20, random_state=42)
-rf_model.fit(X_train, y_train)
+        # Prophet Forecast
+        model = Prophet(weekly_seasonality=False, yearly_seasonality=True, changepoint_prior_scale=0.4)
+        model.fit(monthly_sales[['ds', 'y']])
+        future = model.make_future_dataframe(periods=1, freq='MS')
+        forecast = model.predict(future)[['ds', 'yhat']]
 
-# Evaluate
-y_pred = rf_model.predict(X_test)
-mae = mean_absolute_error(y_test, y_pred)
-avg_actual = y_test.mean()
-accuracy = round(100 - ((mae / avg_actual) * 100), 2)
-mae = round(mae, 2)
+        # Merge for ML
+        merged = pd.merge(monthly_sales, forecast, on='ds', how='left')
+        merged['month'] = merged['ds'].dt.month
+        merged['year'] = merged['ds'].dt.year
+        merged['yhat_lag1'] = merged['yhat'].shift(1)
+        merged = merged.dropna()
 
-# Predict January 2025
-january_ds = pd.to_datetime('2025-01-01')
-has_event_jan = 1 if any(event.month == 1 for event in event_dates) else 0
-last_yhat = forecast.iloc[-2]['yhat']
-next_yhat = forecast.iloc[-1]['yhat']
+        if merged.shape[0] < 3:
+            return _("Insufficient data after merging", 0)
 
-january_features = pd.DataFrame([{
-    'month': 1,
-    'year': 2025,
-    'yhat': next_yhat,
-    'yhat_lag1': last_yhat,
-    'has_event': has_event_jan
-}])
+        features = ['month', 'year', 'yhat', 'yhat_lag1', 'has_event']
 
-predicted_january_sales = round(rf_model.predict(january_features)[0], 2)
+        # Train/Test Split
+        train_data = merged[merged['ds'] < '2024-11-01']
+        test_data = merged[(merged['ds'] >= '2024-11-01') & (merged['ds'] <= '2024-12-01')]
 
+        if train_data.empty or test_data.empty:
+            return _("Not enough data for training/testing split", 0)
 
-print("\n Hybrid Model Forecast (Monthly):")
-print(f" Accuracy for Nov + Dec 2024: {accuracy}%")
-print(f"MAE: {mae} SAR")
-print(f" January 2025 Total Sales Prediction: {predicted_january_sales} SAR")
+        X_train = train_data[features]
+        y_train = train_data['y']
+        X_test = test_data[features]
+        y_test = test_data['y']
 
-#check if there is overfiting (احذفه بعدين)
-train_pred = rf_model.predict(X_train)
-train_mae = mean_absolute_error(y_train, train_pred)
-train_accuracy = round(100 - ((train_mae / y_train.mean()) * 100), 2)
+        # Random Forest
+        rf_model = RandomForestRegressor(n_estimators=1000, max_depth=20, random_state=42)
+        rf_model.fit(X_train, y_train)
 
-print(f"Train Accuracy: {train_accuracy}%")
-print(f"Train MAE: {round(train_mae, 2)} SAR")
-train_pred = rf_model.predict(X_train)
-train_mae = mean_absolute_error(y_train, train_pred)
-train_accuracy = round(100 - ((train_mae / y_train.mean()) * 100), 2)
+        # Accuracy
+        y_pred = rf_model.predict(X_test)
+        mae = mean_absolute_error(y_test, y_pred)
+        avg_actual = y_test.mean() if y_test.mean() != 0 else 1
+        accuracy = round(100 - ((mae / avg_actual) * 100), 2)
+        accuracy = max(0, min(accuracy, 100))
 
-print("\n Training Performance:")
-print(f" Training Accuracy: {train_accuracy}%")
-print(f" Training MAE: {round(train_mae, 2)} SAR")
+        # Predict January
+        january_ds = pd.to_datetime('2025-01-01')
+        has_event_jan = 1 if any(event.month == 1 for event in event_dates) else 0
+        last_yhat = forecast.iloc[-2]['yhat']
+        next_yhat = forecast.iloc[-1]['yhat']
+
+        january_features = pd.DataFrame([{
+            'month': 1,
+            'year': 2025,
+            'yhat': next_yhat,
+            'yhat_lag1': last_yhat,
+            'has_event': has_event_jan
+        }])
+
+        predicted_january_sales = round(rf_model.predict(january_features)[0], 2)
+
+        # Cache result for 1 day (86400 seconds)
+        cache.set(cache_key, {
+            'result': predicted_january_sales,
+            'accuracy': accuracy,
+            'last_updated': last_updated,
+        }, timeout=86400)
+
+        return predicted_january_sales, accuracy
+
+    except Exception as e:
+        print("Prediction error:", str(e))
+        return ("Prediction error", 0)
+
 
 
 init_db()

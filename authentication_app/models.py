@@ -42,6 +42,8 @@ class UserProfile(models.Model):
     social_media_link = models.URLField(blank=True, null=True)  
     cafe_description = models.TextField(blank=True, null=True)  
     cafe_logo = models.ImageField(upload_to='static/logos/', blank=True, null=True)
+    
+    last_updated = models.DateTimeField(auto_now=True)
 
     def get_status_display_ar(self):
         """Returns the Arabic translation of the status."""

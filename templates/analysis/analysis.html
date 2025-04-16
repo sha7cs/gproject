@@ -137,13 +137,13 @@
         <div class="card card-box text-center mb-4">
           <div class="card-header custom-bg-success custom-text-success">{% trans 'Predicted Sales' %}</div>
           <div class="card-body">
-            <h5 id="predictedSales" class="custom-text-success">{{ predicted_sales }} SAR</h5>
+            <h5 id="predictedSales" class="custom-text-success">{{ predicted_sales }}</h5>
           </div>
         </div>
     </div>
       
     <!-- Filter Section -->
-    <div class="row mb-4" style="margin-top: 50px;">
+    <div class="row mb-4" style="margin-top: 20px;">
         <div class="col-md-12 text-start">
         <h5 style="color: #566172;">{% trans "View sales breakdown by:" %}</h5>
         <div class="btn-group">
@@ -178,15 +178,22 @@
     <div class="row mt-5">
         <div class="col-md-8">
             <!-- Label for the Bar Chart -->
-            <h4 class="text-center">{% trans "Total Sales" %}</h4>
-            <canvas id="monthlySalesChart" height="120"></canvas>
+            <div class="card shadow flex-fill">
+                <div class="card-body">
+                  <h5 class="card-title">{% trans "Total Sales" %}</h5>
+                  <canvas id="monthlySalesChart" height="120"></canvas>
         </div>
+    </div>
+</div>
         <div class="col-md-4">
-            <!-- Label for the Pie Chart -->
-            <h4 class="text-center">{% trans "Category Sales Distribution" %}</h4>
+            <div class="card shadow flex-fill">
+                <div class="card-body">
+                  <h5 class="card-title">{% trans "Category Sales Distribution" %}</h5>
             <canvas id="categoryPieChart" height="270"></canvas>
         </div>
     </div>
+</div>
+</div>
 
   
   
