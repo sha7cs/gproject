@@ -289,11 +289,8 @@ def settings_update(request):
             user_form.save()
             messages.success(request, _("Profile updated successfully!"))
             return redirect('settings_view')
-
-
         else:
             return redirect('settings_view')
-
 
         
 
