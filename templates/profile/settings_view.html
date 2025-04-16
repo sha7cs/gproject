@@ -86,8 +86,23 @@
                   <div class="row mb-4">
                     <div class="col-md-7">
                       {% trans "No cafe description available." as description_default_text %}
-                      <p class="text-muted">{{ user.cafe_description|default:description_default_text }}</p>
+                      <p id="description-text" class="text-muted">
+                        {{ form.cafe_description.value|default:description_default_text }}
+                      </p>
+                    
+                      <!-- Hidden textarea -->
+                      <div id="description-input" class="d-none">
+                        {{ form.cafe_description }}
+                        <button id="cancel-description-btn"  class="btn btn-sm mr-3" type='button'>Cancel</button>
+                        <button id="submit-description-btn"  class="btn btn-sm mr-3" type='submit'>submit</button>
+                      </div>
+
                     </div>
+                   <!-- Edit Button -->
+                    <button id="edit-description-btn" class="btn btn-sm mr-3" type="button">
+                      <i class="fa fa-edit"></i>
+                    </button>
+
                     <div class="col">
                       <p class="small mb-0 text-muted">P.O. Box 464, 5975 Eget Avenue</p>
                       <p class="small mb-0 text-muted">(537) 315-1481</p>
@@ -160,6 +175,23 @@
     </div>
   </div>
 </main>
+<!--for description edit button-->
+<script>
+  document.getElementById('edit-description-btn').addEventListener('click', function () {
+    document.getElementById('description-text').classList.add('d-none');
+    document.getElementById('description-input').classList.remove('d-none');
+    document.getElementById('cancel-description-btn').classList.remove('d-none');
+    document.getElementById('submit-description-btn').classList.remove('d-none');
+    this.classList.add('d-none'); // Optional: hide the edit button
+  });
+
+  document.getElementById('cancel-description-btn').addEventListener('click', function () {
+    document.getElementById('description-input').classList.add('d-none');
+    document.getElementById('description-text').classList.remove('d-none');
+    document.getElementById('edit-description-btn').classList.remove('d-none');
+  });
+  
+</script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
