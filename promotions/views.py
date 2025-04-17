@@ -52,7 +52,7 @@ def analyze_sales_data(request):
         elif best_days_range:
             best_time_range = f"{best_days_range[0]} of the month"
         else:
-            best_time_range = "No data available"
+            best_time_range = _("No data available",0)
 
         # Least selling product
         df['detailed_orders'] = df['detailed_orders'].apply(lambda x: json.loads(x.replace("'", "\"")) if isinstance(x, str) else [])
