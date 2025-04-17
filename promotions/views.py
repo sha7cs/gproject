@@ -327,9 +327,6 @@ def chatbot(request):
             if not category:
                 return JsonResponse({"error": "Category is missing. Please reselect the category."}, status=400)
 
-            print(category)
-            print("SESSION DUMP:", dict(request.session))
-
             if question:
                 add_assistant_message_to_thread(thread_id, question)
             if user_response:
