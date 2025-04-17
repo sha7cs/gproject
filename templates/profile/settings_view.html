@@ -104,8 +104,8 @@
                     </button>
 
                     <div class="col">
-                      <p class="small mb-0 text-muted">P.O. Box 464, 5975 Eget Avenue</p>
-                      <p class="small mb-0 text-muted">(537) 315-1481</p>
+                      {% comment %} <p class="small mb-0 text-muted">P.O. Box 464, 5975 Eget Avenue</p> {% endcomment %}
+                      {% comment %} <p class="small mb-0 text-muted">(537) 315-1481</p> {% endcomment %}
                     </div>
                   </div>
                 </div>
@@ -147,8 +147,8 @@
                   {% trans "No firbase link available." as firebase_default_text %}
                   <input type="link" class="form-control" id="firebase_link" name="firebase_link" value="{{ user.firebase_config|default:firebase_default_text }}">
                 </div>
-
-                <div class="form-group col-md-3">
+                
+                <div class="form-group col-md-4">
                   <label for="inputState5">{% trans 'Area' %}</label>
                   {{ form.area }}
                 </div>
