@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-17 07:02+0000\n"
-"PO-Revision-Date: 2025-04-17 18:42+0000\n"
+"POT-Creation-Date: 2025-04-17 19:04+0000\n"
+"PO-Revision-Date: 2025-04-17 19:06+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ar\n"
@@ -28,22 +28,16 @@ msgid "Arabic"
 msgstr "العربية"
 
 #: administrators/views.py:27 authentication_app/views.py:40
-#, fuzzy
-#| msgid "Question deleted successfully!"
 msgid "Event deleted successfully."
-msgstr "تم حذف السؤال بنجاح!"
+msgstr "تم حذف الحدث بنجاح!"
 
 #: administrators/views.py:48 authentication_app/views.py:57
-#, fuzzy
-#| msgid "Questions updated successfully!"
 msgid "Event updated successfully."
-msgstr "تم تعديل السؤال بنجاح!"
+msgstr "تم تعديل الحدث بنجاح!"
 
 #: administrators/views.py:67
-#, fuzzy
-#| msgid "Question deleted successfully!"
 msgid "Event added successfully!"
-msgstr "تم حذف السؤال بنجاح!"
+msgstr "تم إضافة الحدث بنجاح!"
 
 #: administrators/views.py:96 templates/admins/users.html:29
 #: templates/admins/users.html:85 templates/admins/users.html:352
@@ -90,15 +84,15 @@ msgstr "تم حذف التصنيف الفرعي بنجاح!"
 
 #: analysis/views.py:318
 msgid "Not enough monthly data for prediction"
-msgstr "لا يوجد بيانات كافية للتنبؤ"
+msgstr "البيانات غير كافية لتوقع المبيعات "
 
 #: analysis/views.py:339
 msgid "Insufficient data after merging"
-msgstr "البيانات غير كافية بعد دمجها"
+msgstr "البيانات غير كافية بعد الدمج."
 
 #: analysis/views.py:348
 msgid "Not enough data for training/testing split"
-msgstr "لا يوجد بيانات تكفي للتدريب والاختبار"
+msgstr "لا توجد بيانات كافية  للتدريب والاختبار."
 
 #: authentication_app/decorators.py:23 authentication_app/decorators.py:36
 #: authentication_app/decorators.py:62
@@ -106,7 +100,7 @@ msgid "Your account is still pending"
 msgstr "حسابك لا زال قيد الانتظار"
 
 #: authentication_app/forms.py:28 authentication_app/forms.py:29
-#: templates/profile/settings_view.html:208
+#: templates/profile/settings_view.html:210
 msgid "choose"
 msgstr "اختر"
 
@@ -119,10 +113,8 @@ msgid "Event not found."
 msgstr "لا يوجد حدث"
 
 #: authentication_app/views.py:77
-#, fuzzy
-#| msgid "Question deleted successfully!"
 msgid "Event added successfully."
-msgstr "تم حذف السؤال بنجاح!"
+msgstr "تم إضافة الحدث بنجاح!"
 
 #: authentication_app/views.py:110
 msgid "Account created successfully! You are now logged in."
@@ -152,10 +144,8 @@ msgstr "تم تعديل بياناتك بنجاح!"
 
 #: promotions/models.py:15 templates/admins/event_control.html:42
 #: templates/profile/user_events_tab.html:34
-#, fuzzy
-#| msgid "Cafe Name"
 msgid "Event Name"
-msgstr "اسم المقهى"
+msgstr "اسم الحدث"
 
 #: promotions/models.py:16 templates/admins/event_control.html:30
 #: templates/admins/event_control.html:44
@@ -163,8 +153,6 @@ msgstr "اسم المقهى"
 #: templates/profile/user_events_tab.html:22
 #: templates/profile/user_events_tab.html:36
 #: templates/profile/user_events_tab.html:118
-#, fuzzy
-#| msgid "description"
 msgid "Description"
 msgstr "الوصف"
 
@@ -181,7 +169,7 @@ msgstr "التاريخ"
 msgid "Event"
 msgstr "الحدث"
 
-#: promotions/models.py:23 templates/admins/base.html:121
+#: promotions/models.py:23 templates/admins/base.html:136
 #: templates/profile/settings_view.html:54
 msgid "Events"
 msgstr "الأحداث"
@@ -240,25 +228,33 @@ msgstr "النصيحة اليومية"
 
 #: promotions/models.py:83
 msgid "Daily Advices"
-msgstr "النصيحة اليومية"
+msgstr "النصائح اليومية"
+
+#: promotions/views.py:51
+#| msgid "of the month"
+msgid "{}-{} of the month"
+msgstr "من يوم {} إلى {} من الشهر"
+
+#: promotions/views.py:53
+#| msgid "of the month"
+msgid "{} of the month"
+msgstr "يوم {} من الشهر"
 
 #: promotions/views.py:260
-#, fuzzy
-#| msgid "No cafe logo available."
 msgid "No advice available"
-msgstr "لا يوجد شعار للمقهى"
+msgstr "النصيحة غير متوفرة"
 
-#: templates/admins/base.html:36 templates/base.html:36
+#: templates/admins/base.html:51 templates/base.html:72
 #: templates/profile/signup-settings.html:37 templates/profile/waiting.html:37
 msgid "dir"
 msgstr "rtl"
 
-#: templates/admins/base.html:55 templates/navbar.html:17
+#: templates/admins/base.html:70 templates/navbar.html:17
 #: templates/profile/signup-settings.html:46 templates/profile/waiting.html:48
 msgid "languages"
 msgstr "اللغة"
 
-#: templates/admins/base.html:71 templates/navbar.html:47
+#: templates/admins/base.html:86 templates/navbar.html:47
 #: templates/profile/settings_view.html:6
 #: templates/profile/settings_view.html:43
 #: templates/profile/signup-settings.html:12
@@ -268,20 +264,20 @@ msgstr "اللغة"
 msgid "Settings"
 msgstr "الإعدادات"
 
-#: templates/admins/base.html:75 templates/navbar.html:51
+#: templates/admins/base.html:90 templates/navbar.html:51
 #: templates/profile/signup-settings.html:65 templates/profile/waiting.html:67
 msgid "Logout"
 msgstr "تسجيل خروج"
 
-#: templates/admins/base.html:103 templates/admins/users.html:18
+#: templates/admins/base.html:118 templates/admins/users.html:18
 msgid "Users"
 msgstr "المستخدمين"
 
-#: templates/admins/base.html:112
+#: templates/admins/base.html:127
 msgid "Chatbot"
 msgstr "الشات بوت"
 
-#: templates/admins/base.html:130
+#: templates/admins/base.html:145
 msgid "Analysis"
 msgstr "التحليل"
 
@@ -386,38 +382,34 @@ msgid "Delete a Subcategory:"
 msgstr "حذف تصنيف فرعي"
 
 #: templates/admins/event_control.html:4
-#, fuzzy
-#| msgid "chat control"
 msgid "Event Control"
-msgstr "التحكم بالشات"
+msgstr "التحكم بالأحداث"
 
 #: templates/admins/event_control.html:9
 msgid "Manage Events"
-msgstr "إدارة الأحداث"
+msgstr "تحكم بالأحداث"
 
 #: templates/admins/event_control.html:17
 #: templates/admins/event_control.html:98
 #: templates/profile/user_events_tab.html:9
 #: templates/profile/user_events_tab.html:106
 msgid "Event Name (Arabic)"
-msgstr "اسم الحدث (بالعربية)"
+msgstr "عنوان الحدث (بالعربية)"
 
 #: templates/admins/event_control.html:21
 #: templates/admins/event_control.html:102
 #: templates/profile/user_events_tab.html:13
 #: templates/profile/user_events_tab.html:110
 msgid "Event Name (English)"
-msgstr "اسم الحدث (بالإنجليزية)"
+msgstr "عنوان الحدث (بالإنجليزية)"
 
 #: templates/admins/event_control.html:34
 #: templates/profile/user_events_tab.html:26
 msgid "Add Event"
-msgstr "أضف الحدث"
+msgstr "إضافة حدث"
 
 #: templates/admins/event_control.html:45
 #: templates/profile/user_events_tab.html:37
-#, fuzzy
-#| msgid "Action"
 msgid "Actions"
 msgstr "خيارات"
 
@@ -429,7 +421,7 @@ msgstr "تعديل"
 #: templates/admins/event_control.html:74
 #: templates/profile/user_events_tab.html:82
 msgid "No events yet."
-msgstr "ليس هناك أحداث بعد"
+msgstr "لا يوجد أحداث"
 
 #: templates/admins/event_control.html:91
 #: templates/profile/user_events_tab.html:99
@@ -444,37 +436,37 @@ msgstr "إلغاء"
 #: templates/admins/event_control.html:116
 #: templates/profile/user_events_tab.html:124
 msgid "Save Changes"
-msgstr "احفظ التغييرات"
+msgstr "حفظ التغييرات"
 
-#: templates/admins/user_details.html:82
+#: templates/admins/user_details.html:90
 msgid "About the Cafe"
 msgstr "عن المقهى"
 
-#: templates/admins/user_details.html:85
+#: templates/admins/user_details.html:93
 msgid "Contact & Social Media"
 msgstr "وسائل التواصل الاجتماعي"
 
-#: templates/admins/user_details.html:86
+#: templates/admins/user_details.html:94
 msgid "Social Media:"
 msgstr "وسائل التواصل الاجتماعي"
 
-#: templates/admins/user_details.html:88
+#: templates/admins/user_details.html:96
 msgid "Firebase Configuration"
 msgstr "رابط الفايربيس"
 
-#: templates/admins/user_details.html:89
+#: templates/admins/user_details.html:97
 msgid "Firebase Config Link:"
 msgstr "رابط الفايربيس"
 
-#: templates/admins/user_details.html:91 templates/admins/users.html:119
+#: templates/admins/user_details.html:99 templates/admins/users.html:119
 msgid "Status"
 msgstr "الحالة"
 
-#: templates/admins/user_details.html:94
+#: templates/admins/user_details.html:102
 msgid "Additional Information"
 msgstr "معلومات إضافية"
 
-#: templates/admins/user_details.html:95
+#: templates/admins/user_details.html:103
 msgid "Thread ID:"
 msgstr ""
 
@@ -526,11 +518,11 @@ msgstr "تاريخ التسجيل"
 msgid "Full Name"
 msgstr "الاسم كامل "
 
-#: templates/admins/users.html:114 templates/profile/settings_view.html:121
+#: templates/admins/users.html:114 templates/profile/settings_view.html:123
 msgid "Username"
 msgstr "اسم المستخدم"
 
-#: templates/admins/users.html:115 templates/profile/settings_view.html:127
+#: templates/admins/users.html:115 templates/profile/settings_view.html:129
 msgid "Email"
 msgstr "البريد الإلكتروني"
 
@@ -562,7 +554,7 @@ msgstr "افتح الملف "
 msgid "No File"
 msgstr "لم يتم رفع ملف"
 
-#: templates/admins/users.html:154 templates/profile/settings_view.html:146
+#: templates/admins/users.html:154 templates/profile/settings_view.html:148
 msgid "Firebase Link"
 msgstr "رابط الفايربيس"
 
@@ -595,8 +587,6 @@ msgid "Sales Analysis"
 msgstr "تحليل المبيعات"
 
 #: templates/analysis/analysis.html:51
-#, fuzzy
-#| msgid "Analysis"
 msgid "Analysis Page"
 msgstr "التحليل"
 
@@ -605,23 +595,20 @@ msgid "Generate Report"
 msgstr "إصدار تقرير"
 
 #: templates/analysis/analysis.html:63
-#| msgid "select category"
 msgid "Select Date Range"
-msgstr "حدد مدة زمنية"
+msgstr "حدد الفترة الزمنية"
 
 #: templates/analysis/analysis.html:68
-#| msgid "By Day (Select Month)"
 msgid "Select Months"
 msgstr "اختر الشهر"
 
 #: templates/analysis/analysis.html:87
-#| msgid "Filter by Date"
 msgid "From Date"
 msgstr "من تاريخ"
 
 #: templates/analysis/analysis.html:92
 msgid "To Date"
-msgstr "إلى تاريخ"
+msgstr "حتى تاريخ"
 
 #: templates/analysis/analysis.html:99
 #: templates/profile/signup-settings.html:158
@@ -655,14 +642,12 @@ msgid "View sales breakdown by:"
 msgstr "عرض تفاصيل المبيعات حسب:"
 
 #: templates/analysis/analysis.html:151
-#| msgid "By Month"
 msgid "Month"
-msgstr "الاشهر"
+msgstr "الأشهر"
 
 #: templates/analysis/analysis.html:155
-#| msgid "May"
 msgid "Day"
-msgstr "الايام"
+msgstr "الأيام"
 
 #: templates/analysis/analysis.html:159
 msgid "January"
@@ -713,70 +698,46 @@ msgid "December"
 msgstr "ديسمبر"
 
 #: templates/analysis/analysis.html:191
-#| msgid "Category Sales Percentage"
 msgid "Category Sales Distribution"
 msgstr "توزيع المبيعات حسب الفئة"
 
 #: templates/authentication_app/login_page.html:9
-#: templates/authentication_app/login_page.html:101
+#: templates/authentication_app/login_page.html:102
 msgid "Log In"
 msgstr "تسجيل الدخول"
 
-#: templates/authentication_app/login_page.html:78
+#: templates/authentication_app/login_page.html:79
 msgid "Welcome Back!"
-msgstr "مرحبًا بعودتك"
+msgstr "مرحبًا بعودتك!"
 
-#: templates/authentication_app/login_page.html:106
+#: templates/authentication_app/login_page.html:107
 msgid "Don't have an account?"
 msgstr "لا يوجد لديك حساب؟"
 
-#: templates/authentication_app/login_page.html:107
-#: templates/authentication_app/signup_page.html:14
+#: templates/authentication_app/login_page.html:108
+#: templates/authentication_app/signup_page.html:15
 msgid "Sign Up"
 msgstr "إنشاء حساب"
 
-#: templates/authentication_app/signup_page.html:84
-#, fuzzy
-#| msgid "Create Account"
+#: templates/authentication_app/signup_page.html:85
 msgid "Create an account"
 msgstr "إنشاء حساب"
 
-#: templates/authentication_app/signup_page.html:85
+#: templates/authentication_app/signup_page.html:86
 msgid "Join us to help elevate your cafe performace on trusted way!"
 msgstr "سجل معنا وخلنا نساعدك ترفع مستوى اداء مقهاك بطريقة موثوقه"
 
-#: templates/authentication_app/signup_page.html:123
+#: templates/authentication_app/signup_page.html:124
 msgid "Create Account"
 msgstr "إنشاء حساب"
 
-#: templates/authentication_app/signup_page.html:128
+#: templates/authentication_app/signup_page.html:129
 msgid "Already have an account?"
 msgstr "لديك حساب بالفعل؟"
 
-#: templates/authentication_app/signup_page.html:129
+#: templates/authentication_app/signup_page.html:130
 msgid "Log in"
 msgstr "تسجيل الدخول"
-
-#: templates/layout/dashboard.html:16
-#, python-format
-msgid ""
-"<h1>Welcome, %(username)s! Let's dive into the data and uncover what matters.<br></h1>\n"
-"\n"
-"    <h2>Here are some quick insights to guide your next steps.</h2>"
-msgstr ""
-
-#: templates/layout/dashboard.html:24
-msgid "your last months category sales distribution"
-msgstr "توزيع المبيعات حسب الفئة للشهر الفائت"
-
-#: templates/layout/dashboard.html:37
-#| msgid "Daily Advice"
-msgid "Today's Advice"
-msgstr "نصيحة اليوم"
-
-#: templates/layout/dashboard.html:46
-msgid " next event is "
-msgstr "الحدث التالي"
 
 #: templates/profile/settings_view.html:48
 msgid "Profile"
@@ -790,45 +751,43 @@ msgstr "الإشعارات"
 msgid "No cafe description available."
 msgstr "لا يوجد وصف للمقهى"
 
-#: templates/profile/settings_view.html:117
+#: templates/profile/settings_view.html:119
 msgid "Your cafe name"
 msgstr "اسم مقهاك"
 
-#: templates/profile/settings_view.html:132
+#: templates/profile/settings_view.html:134
 msgid "Address"
 msgstr "الموقع"
 
-#: templates/profile/settings_view.html:138
+#: templates/profile/settings_view.html:140
 msgid "Data file"
 msgstr "ملف البيانات"
 
-#: templates/profile/settings_view.html:140
+#: templates/profile/settings_view.html:142
 msgid "View current file"
 msgstr "ملف بياناتك الحالية"
 
-#: templates/profile/settings_view.html:147
+#: templates/profile/settings_view.html:149
 msgid "No firbase link available."
 msgstr "لا يوجد رابط فايربيس"
 
-#: templates/profile/settings_view.html:152
+#: templates/profile/settings_view.html:154
 #: templates/profile/signup-settings.html:110
 msgid "Area"
 msgstr "المنطقة"
 
-#: templates/profile/settings_view.html:156
+#: templates/profile/settings_view.html:158
 #: templates/profile/signup-settings.html:121
 msgid "City"
 msgstr "المدينة"
 
-#: templates/profile/settings_view.html:162
-#, fuzzy
-#| msgid "update"
+#: templates/profile/settings_view.html:164
 msgid "Update"
 msgstr "تحديث"
 
-#: templates/profile/settings_view.html:168
+#: templates/profile/settings_view.html:170
 msgid "Notifications tab (coming soon)"
-msgstr "صفحة الإشعارات (قريبًا)"
+msgstr "علامة الإشعارات (قريبًا)"
 
 #: templates/profile/signup-settings.html:85
 msgid "profile"
@@ -877,15 +836,15 @@ msgstr ""
 
 #: templates/profile/user_events_tab.html:30
 msgid "Your Events"
-msgstr "الأحداث الخاصة بك"
+msgstr "أحداثك"
 
 #: templates/profile/user_events_tab.html:48
 msgid "Admin Event"
-msgstr "الأحداث الخاصة بالمطورين"
+msgstr "حدث من المطور"
 
 #: templates/profile/user_events_tab.html:74
 msgid "Are you sure you want to delete this event?"
-msgstr "هل أنت متأكد من حذف هذا الحدث؟"
+msgstr "هل أنت متأكد أنك تريد حذف هذا الحدث؟"
 
 #: templates/profile/waiting.html:11
 msgid "Waiting for approval"
@@ -908,9 +867,8 @@ msgid "Promotions Page"
 msgstr "صفحة الترويجات"
 
 #: templates/promotions/promotions.html:59
-#| msgid "Daily Advice"
 msgid "Your Daily Marketing Advice"
-msgstr "النصيحة اليومية"
+msgstr "نصيحتك اليومية"
 
 #: templates/promotions/promotions.html:74
 msgid "Best Days to Promote"
@@ -930,7 +888,7 @@ msgstr "الأيام المتبقية:"
 
 #: templates/promotions/promotions.html:99
 msgid "Date:"
-msgstr "التاريخ:"
+msgstr "التاريخ"
 
 #: templates/promotions/promotions.html:102
 msgid "No upcoming events."
@@ -1017,9 +975,6 @@ msgstr "المستخدم"
 
 #~ msgid "dashboard"
 #~ msgstr "لوحة التحكم"
-
-#~ msgid "of the month"
-#~ msgstr "من الشهر"
 
 #~ msgid "Sales by Period"
 #~ msgstr "المبيعات حسب الفترة"

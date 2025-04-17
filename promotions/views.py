@@ -48,9 +48,9 @@ def analyze_sales_data(request):
         best_days_range = sorted([int(day) for day in best_days_range])
 
         if len(best_days_range) > 1:
-            best_time_range = f"{best_days_range[0]}-{best_days_range[-1]} of the month"
+            best_time_range = _("{}-{} of the month").format(best_days_range[0], best_days_range[-1])
         elif best_days_range:
-            best_time_range = f"{best_days_range[0]} of the month"
+            best_time_range = _("{} of the month").format(best_days_range[0])
         else:
             best_time_range = _("No data available",0)
 
