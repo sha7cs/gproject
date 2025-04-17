@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-17 19:04+0000\n"
+"POT-Creation-Date: 2025-04-17 19:27+0000\n"
 "PO-Revision-Date: 2025-04-14 18:44+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -243,6 +243,10 @@ msgstr "of the month"
 msgid "{} of the month"
 msgstr "of the month"
 
+#: promotions/views.py:55
+msgid "No data available"
+msgstr ""
+
 #: promotions/views.py:260
 msgid "No advice available"
 msgstr ""
@@ -279,10 +283,6 @@ msgstr "Users"
 #: templates/admins/base.html:127
 msgid "Chatbot"
 msgstr "Chatbot"
-
-#: templates/admins/base.html:145
-msgid "Analysis"
-msgstr "Analysis"
 
 #: templates/admins/chat_control.html:4
 msgid "chat control"
@@ -770,6 +770,42 @@ msgstr ""
 msgid "Log in"
 msgstr ""
 
+#: templates/layout/dashboard.html:16
+#, python-format
+msgid ""
+"<h1 class=\"page-title display-3\" style= \"color: rgb(143, 148, 116); font-"
+"weight: 700;\">Welcome, %(username)s!</h1>\n"
+"      <h1>Let’s break down your data and see what’s new..<br></h1>\n"
+"    <h3 style=\"color:#B3B4B5;\">Here are a few quick insights to help you "
+"plan things right</h3>"
+msgstr ""
+
+#: templates/layout/dashboard.html:24
+msgid "last month's category sales distribution:"
+msgstr ""
+
+#: templates/layout/dashboard.html:27
+msgid "see more on Analysis"
+msgstr ""
+
+#: templates/layout/dashboard.html:38
+#, fuzzy
+#| msgid "Daily Advice"
+msgid "today's Advice:"
+msgstr "Daily Advice"
+
+#: templates/layout/dashboard.html:41
+msgid "learn more on promotions"
+msgstr ""
+
+#: templates/layout/dashboard.html:49
+msgid "next event is:"
+msgstr ""
+
+#: templates/layout/dashboard.html:52
+msgid "check for the date"
+msgstr ""
+
 #: templates/profile/settings_view.html:48
 msgid "Profile"
 msgstr ""
@@ -893,95 +929,95 @@ msgid ""
 "when your request is accepted or rejected."
 msgstr ""
 
-#: templates/promotions/promotions.html:49
+#: templates/promotions/promotions.html:45
 #, fuzzy
 #| msgid "promotions page"
 msgid "Promotions Page"
 msgstr "Promotions page"
 
-#: templates/promotions/promotions.html:59
+#: templates/promotions/promotions.html:55
 #, fuzzy
 #| msgid "Daily Advice"
 msgid "Your Daily Marketing Advice"
 msgstr "Daily Advice"
 
-#: templates/promotions/promotions.html:74
+#: templates/promotions/promotions.html:70
 msgid "Best Days to Promote"
 msgstr ""
 
-#: templates/promotions/promotions.html:77
+#: templates/promotions/promotions.html:73
 msgid "The best days for promotions based on sales trends."
 msgstr ""
 
-#: templates/promotions/promotions.html:92
+#: templates/promotions/promotions.html:88
 msgid "Upcoming Event"
 msgstr ""
 
-#: templates/promotions/promotions.html:97
+#: templates/promotions/promotions.html:93
 msgid "Days Remaining:"
 msgstr ""
 
-#: templates/promotions/promotions.html:99
+#: templates/promotions/promotions.html:95
 msgid "Date:"
 msgstr ""
 
-#: templates/promotions/promotions.html:102
+#: templates/promotions/promotions.html:98
 msgid "No upcoming events."
 msgstr ""
 
-#: templates/promotions/promotions.html:114
+#: templates/promotions/promotions.html:110
 msgid "Which Product to Discount"
 msgstr ""
 
-#: templates/promotions/promotions.html:117
+#: templates/promotions/promotions.html:113
 msgid "This product has the lowest sales and could benefit from a discount."
 msgstr ""
 
-#: templates/promotions/promotions.html:131
+#: templates/promotions/promotions.html:127
 msgid "Welcome to the Chat"
 msgstr "Welcome to the Marketing chat"
 
-#: templates/promotions/promotions.html:132
+#: templates/promotions/promotions.html:128
 msgid "Click below to start"
 msgstr ""
 "you can say i'm your marketing expert, i'm here to help you either with "
 "marketing or analysis."
 
-#: templates/promotions/promotions.html:134
+#: templates/promotions/promotions.html:130
 #, fuzzy
 #| msgid "start chat"
 msgid "start chat"
 msgstr "click here to start chatting"
 
-#: templates/promotions/promotions.html:141
+#: templates/promotions/promotions.html:137
 msgid "select category"
 msgstr "Select a category"
 
-#: templates/promotions/promotions.html:150
+#: templates/promotions/promotions.html:146
 msgid "Select a Subcategory"
 msgstr "Select a Subcategory"
 
-#: templates/promotions/promotions.html:159
+#: templates/promotions/promotions.html:155
 msgid "history btn style"
 msgstr "top: 10px; right: 10px;"
 
-#: templates/promotions/promotions.html:167
+#: templates/promotions/promotions.html:163
 #, python-brace-format
 msgid ""
 "You chose {category} to chat about {subcategory}. Please answer any given "
 "questions sincerely, so I can give you a good advice."
 msgstr ""
 
-#: templates/promotions/promotions.html:168
+#: templates/promotions/promotions.html:164
 msgid "botwelcome"
 msgstr ""
 "Hello! i'm your marketing adviser, please feel free to ask me anything."
 
-#: templates/promotions/promotions.html:174
+#: templates/promotions/promotions.html:170
 msgid "typeanswer"
 msgstr "Type your answer here..."
 
-#: templates/promotions/promotions.html:175
+#: templates/promotions/promotions.html:171
 msgid "send"
 msgstr "Send"
 
@@ -1006,6 +1042,9 @@ msgstr "Promotions"
 #| msgid "Users"
 msgid "User"
 msgstr "Users"
+
+#~ msgid "Analysis"
+#~ msgstr "Analysis"
 
 #~ msgid "dashboard"
 #~ msgstr "Dashboard"
