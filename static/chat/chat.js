@@ -9,14 +9,6 @@ const categoryTitle = document.getElementById('categoryTitle')
 const subcategoryTitle = document.getElementById('subcategoryTitle')
 // const typingIndicator = document.querySelector("#typing-indicator");
 
-// <!--حق ان الشات يكتب برجع له -->
-function showTyping() {
-    document.getElementById("typing-indicator").style.display = "flex";
-}
-
-function hideTyping() {
-    document.getElementById("typing-indicator").style.display = "none";
-}
 
 function getSubcategoriesForCategory(categoryId) {
     return subcategoriesjs.filter(subcategory => subcategory.category == categoryId);
@@ -45,7 +37,6 @@ function selectCategory(categoryId) {
 }
 
 function selectSubcategory(subcategoryId,category) {
-    // const form = document.getElementById("messageForm"); // Form containing the input field
     subcategory = subcategoriesjs.find(subcategory => subcategory.id == subcategoryId).subcategory;
     const template = messages.dataset.chatTemplate;
 
