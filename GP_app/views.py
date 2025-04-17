@@ -26,7 +26,7 @@ def home(request):
     advice_title, advice_text = marketing_advice()
     next_event = get_next_event()
     context = {
-        'username': request.user.username,
+        'username': profile.cafe_name,
         'category_labels': list(category_sales.keys()),
         'category_data': list(category_sales.values()),
         'advice_title' : advice_title,
