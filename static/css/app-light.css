@@ -61,7 +61,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 body {
   margin: 0;
   font-family: "Overpass", sans-serif;
-  font-size: 0.875rem;
+  font-size: 0.975rem;
   font-weight: 400;
   line-height: 1.5;
   color: #6c757d;
@@ -124,7 +124,7 @@ strong {
   font-weight: 700; }
 
 small {
-  font-size: 80%; }
+  font-size: 85%; }
 
 sub,
 sup {
@@ -9059,7 +9059,7 @@ height: 64px;}
 .fc-bootstrap table,
 .fc-bootstrap .fc-head-container {
   border-width: 0 !important;
-  font-size: 0.875rem; }
+  font-size: 0.975rem; }
 
 .fc-bootstrap th,
 .fc-bootstrap td {
