@@ -27,6 +27,7 @@ db = firestore.client()
 from dotenv import load_dotenv
 load_dotenv() 
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+CALENDARIFIC_API_KEY = os.getenv("CALENDARIFIC_API_KEY")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

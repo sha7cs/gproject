@@ -21,7 +21,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error
 
 from django.utils.translation import gettext as _
-
+from django.conf import settings
 
 db = firestore.client()
 
@@ -274,7 +274,7 @@ def filter_data(request):
 # df = df.dropna(subset=['business_date', 'total_price'])
 
 # Get holidays from API
-API_KEY = 'iQsiUvz77fut0nlpqGmsEBghzWCIbeIW'
+API_KEY = settings.CALENDARIFIC_API_KEY
 YEAR = datetime.datetime.today().year
 
 def get_events():

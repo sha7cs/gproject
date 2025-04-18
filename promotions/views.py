@@ -44,7 +44,7 @@ def analyze_sales_data(request):
         # Best days to promote (group by day of the month)
         df['day_of_month'] = df['business_date'].dt.day
         best_days = df.groupby('day_of_month')['total_price'].sum()
-        best_days_range = best_days.sort_values(ascending=False).head(5).index.tolist()
+        best_days_range = best_days.sort_values(ascending=True).head(5).index.tolist()
         best_days_range = sorted([int(day) for day in best_days_range])
 
         if len(best_days_range) > 1:
@@ -76,7 +76,7 @@ def analyze_sales_data(request):
 
 
 
-API_KEY = 'iQsiUvz77fut0nlpqGmsEBghzWCIbeIW'
+API_KEY = settings.CALENDARIFIC_API_KEY
 YEAR = datetime.datetime.today().year
 
 events_data = {
