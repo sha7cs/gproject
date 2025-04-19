@@ -21,7 +21,7 @@ import markdown
 import sqlite3
 import requests
 from promotions.models import Event
-
+from django.db.models import Q
 from analysis.views import user_data
 
 DB_PATH = "sales_data.db"
@@ -105,13 +105,14 @@ events_data = {
 
 
 
-def get_events_from_api():
+def get_events_from_api(request):
+    user_profile = UserProfile.objects.get(user=request.user)
     url = f"https://calendarific.com/api/v2/holidays?&api_key={API_KEY}&country=SA&year={YEAR}"
     response = requests.get(url)
     data = response.json()
 
     events = []
-    current_lang = get_language()  # 'ar' or 'en'
+    current_lang = get_language()
 
     if 'response' in data and 'holidays' in data['response']:
         for holiday in data['response']['holidays']:
@@ -125,8 +126,11 @@ def get_events_from_api():
                     'gregorian_date': pd.to_datetime(date_miladi, utc=True)
                 })
 
-    
-    event_objects = Event.objects.all()
+    # get events from admin or himself
+    event_objects = Event.objects.filter(
+        Q(user__isnull=True) | Q(user=user_profile)
+    )
+
     for ev in event_objects:
         ev.set_current_language(current_lang)
         events.append({
@@ -136,9 +140,10 @@ def get_events_from_api():
 
     return pd.DataFrame(events)
 
+    
 
-def get_next_event():
-    df = get_events_from_api()
+def get_next_event(request):
+    df = get_events_from_api(request)
 
     today = pd.to_datetime(datetime.datetime.utcnow()).tz_localize('UTC')
     df['gregorian_date'] = pd.to_datetime(df['gregorian_date'], utc=True)
@@ -294,7 +299,7 @@ def chatbot(request):
          advice_title, advice_text = marketing_advice()
          #analysis cards data  
          analysis_results = analyze_sales_data(request)
-         next_event = get_next_event()
+         next_event = get_next_event(request)
          return render(request, 'promotions/promotions.html',{
             'categories': categories,
             'subcategories': subcategories,

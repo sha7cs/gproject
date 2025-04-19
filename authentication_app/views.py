@@ -20,16 +20,33 @@ from django.db.models import Q
 from django.utils.translation import get_language
 
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+from django.utils.translation import get_language, gettext_lazy as _
+from django.contrib.auth.decorators import login_required
+from promotions.models import Event
+from promotions.forms import EventForm
+from authentication_app.models import UserProfile
+from django.db.models import Q
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.decorators import login_required
+from promotions.models import Event
+from promotions.forms import EventForm
+from authentication_app.models import UserProfile
 
 @login_required
 def user_events_view(request):
     user_profile = request.user.userprofile
-    events = Event.objects.filter(
-        Q(user=user_profile) | Q(user__isnull=True)
-    ).order_by('-date')
 
-
-    language = get_language()
+    user_events = Event.objects.filter(user=user_profile)
+    admin_events = Event.objects.filter(user__isnull=True)
 
     if request.method == 'POST':
         action = request.POST.get('action')
@@ -43,8 +60,8 @@ def user_events_view(request):
         elif action == 'edit' and event_id:
             try:
                 event = Event.objects.get(id=event_id, user=user_profile)
-
                 event.date = request.POST.get('date')
+
                 event.set_current_language('en')
                 event.name = request.POST.get('name_en')
                 event.description = request.POST.get('description')
@@ -60,10 +77,12 @@ def user_events_view(request):
 
             return HttpResponseRedirect(reverse('settings_view') + '#events')
 
-        else:  # Default action: Add new event
+        elif action == 'add':
             form = EventForm(request.POST)
             if form.is_valid():
-                event = Event(user=user_profile, date=form.cleaned_data['date'])
+                event = form.save(commit=False)
+                event.user = user_profile  
+                event.save()
 
                 event.set_current_language('en')
                 event.name = form.cleaned_data['name_en']
@@ -77,14 +96,16 @@ def user_events_view(request):
                 messages.success(request, _("Event added successfully."))
                 return HttpResponseRedirect(reverse('settings_view') + '#events')
 
-
     else:
         form = EventForm()
 
     return render(request, 'profile/settings_view.html', {
         'form_event': form,
-        'events': events,
+        'events': user_events,
+        'admin_events': admin_events
     })
+
+
 
 
 from django.template.loader import render_to_string
@@ -261,7 +282,7 @@ def settings_view(request):
     form_event = EventForm()
     user_events = Event.objects.filter(user=user_profile) # user event
     admin_events = Event.objects.filter(user__isnull=True)  # admin event
-
+    
 
     return render(request, 'profile/settings_view.html', {
         'user': user_profile,

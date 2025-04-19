@@ -39,6 +39,8 @@ class Category(TranslatableModel):
 
     def __str__(self):
         return self.category
+    
+    
 
 
 class Subcategory(TranslatableModel):
