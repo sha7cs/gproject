@@ -24,7 +24,7 @@ def home(request):
         for item in order:
             category_sales[item['category']] = category_sales.get(item['category'], 0) + item['quantity']
     advice_title, advice_text = marketing_advice()
-    next_event = get_next_event()
+    next_event = get_next_event(request)
     context = {
         'username': profile.cafe_name,
         'category_labels': list(category_sales.keys()),
