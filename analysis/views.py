@@ -26,7 +26,7 @@ from django.conf import settings
 db = firestore.client()
 
 DB_PATH = "sales_data.db"
-UPDATE_INTERVAL = 365 * 24 * 60 * 60  # update every year
+UPDATE_INTERVAL = 6 * 30 * 24 * 60 * 60  # update every 6 months
 
 # Database Initialization
 def init_db():
