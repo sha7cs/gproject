@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+{% comment %} <!DOCTYPE html>
+{% load static %}
+{% load i18n %}>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,21 +19,17 @@
 
         /* Navigation */
         .nav {
-            display: flex;
-            justify-content: flex-end;
-            padding: 10px 20px;
-            background-color: #566172;
-            color: white;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            opacity: 0;
+            transform: translateY(-50px);
+            animation: slideDown 0.6s ease-out forwards;
+            animation-delay: 0.8s;
         }
-
-        .nav a {
-            margin-left: 20px;
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
+          
+        @keyframes slideDown {
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
         }
 
         /* Hero Section */
@@ -131,7 +128,15 @@
             height: 280px;
             border-radius: 60px;
             animation: rotate 6s infinite ease-in-out;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
         }
+        .square:hover {
+            transform: scale(1.05) rotate(1deg);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+        }
+        
         
         .square h1 {
             color: white;
@@ -147,7 +152,7 @@
 
         /* Color Classes */
         .square.pink { background-color: #c25091; }
-        .square.purple { background-color: #5c3f71; }
+        .square.purple { background-color: #5c3f71; animation: glow 3s infinite ease-in-out;}
         .square.blue { background-color: #566172; }
         .square.brown { background-color: #a08e8e; }
         .square.green { background-color: #88a39b; }
@@ -184,6 +189,11 @@
                 transform: translateX(0);
             }
         }
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 10px #fff5, 0 0 20px #fff4; }
+            50% { box-shadow: 0 0 20px #fff7, 0 0 40px #fff6; }
+          }
+          
         
 
         @keyframes rotate {
@@ -231,11 +241,26 @@
 <body>
 
     <!-- Navigation -->
-    <div class="nav">
+    <nav class="nav">
         <a href="#services">Our Services</a>
         <a href="#about">About Us</a>
         <a href="#contact">Contact </a>
-    </div>
+        <li class="nav-item dropdown mt-2 mx-2">
+            {% get_current_language as CURRENT_LANGUAGE %}
+            {% get_available_languages as AVAILABLE_LANGUAGES %}
+            {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+            <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {%trans 'languages'%}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            {% for language in languages%}
+                <a class="dropdown-item" href="{% url 'set_language' urlname=request.resolver_match.view_name %}?language={{ language.code }}">
+                {{ language.name_local }}
+                </a>              
+            {% endfor %}
+            </div>
+        </li>
+    </nav>
 
     <!-- Hero Section -->
     <div class="hero">
@@ -303,5 +328,488 @@
         <p>Team Yummy</p>
     </footer>
 
-</body>
-</html>
+</body> {% endcomment %}
+
+<!DOCTYPE html>
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+{% comment %} <html lang="en"> {% endcomment %}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manufacturing Landing Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Beiruti:wght@200..900&family=Changa:wght@200..800&family=Lateef:wght@200;300;400;500;600;700;800&family=Mirza:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+
+.beiruti-<uniquifier> {
+font-family: "Beiruti", sans-serif;
+font-optical-sizing: auto;
+font-weight: <weight>;
+font-style: normal;
+}
+    /* Fonts and base setup */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background: #F8F8F8;
+  color: #111;
+  font-family: "beiruti", sans-serif;
+}
+
+h1, h2, h3 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.custom-navbar {
+    background-color: #e5e2f8; /* soft purple */
+    border-radius: 40px;
+    width: fit-content;
+    margin: 30px auto; /* center horizontally */
+    padding: 10px 30px;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  .custom-navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .custom-navbar li a {
+    text-decoration: none;
+    color: #5e2ca5; /* rich purple text */
+    font-size: 14px;
+    text-transform: lowercase;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .custom-navbar li a:hover {
+    color: #38218f;
+  }
+
+  /* Ensure the dropdown only shows on button click */
+  .custom-navbar .dropdown-menu {
+    display: none; /* Hidden by default */
+  }
+  
+  .custom-navbar .dropdown-toggle:focus + .dropdown-menu,
+  .custom-navbar .dropdown-menu.show {
+    display: block; /* Show when the button is clicked or in focus */
+  }
+  
+  /* Optional: Make sure the active language looks distinct */
+  .dropdown-item.active {
+    background-color: #5e2ca5; /* Rich purple background */
+    color: white; /* White text color */
+    font-weight: bold; /* Make the active item stand out */
+  }
+  
+  .dropdown-item.active:hover {
+    background-color: #3e1c7c; /* Darker purple on hover */
+  }
+  
+  
+
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 999px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width : 100px;
+}
+
+.btn.dark {
+  background-color: #95DEFD;
+  color: white;
+  border: 2px solid #95DEFD;
+}
+
+.btn.light {
+  background: #D5F2FE;
+  color: #000000;
+  border: 2px solid #95DEFD ;
+}
+.btn.dark:hover {
+    background-color: #5ECBEF; /* darker blue */
+  }
+  
+  
+  .btn.light:hover {
+    background-color: #B5EAF9; /* slightly darker light blue */
+    border-color: #5ECBEF;
+  }
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+}
+.hero-content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+.hero h1 span {
+  color: #E3E2F6;
+}
+
+.hero p {
+  color: #444;
+  font-size: 1.5rem;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  {% comment %} margin-bottom: 50px; {% endcomment %}
+}
+
+/* Stats Cards */
+.stats-cards {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.cards-container {
+    display: flex;
+    align-items: flex-end; /* Align all cards to bottom */
+  } 
+
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  flex: 1 1 220px;
+  height: auto;
+  min-height: 200px;
+  min-width: 220px;
+  max-width: 250px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.card.tall {
+  height: 300px;
+}
+
+/* Services Section */
+.services {
+  background: #E3E2F6;
+  color: #000000;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.services h2 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.services p {
+  color: #602E9E;
+  margin-bottom: 50px;
+}
+
+.service-cards {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.service-card {
+  background: #E9E8FF;
+  padding: 25px;
+  border-radius: 20px;
+  width: 300px;
+  text-align: left;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.service-card h3 {
+  margin-bottom: 10px;
+}
+
+/* Scroll animation */
+.scroll-fade {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  
+  .scroll-fade.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .tech-image {
+    height: 4em; /* Size relative to text */
+    vertical-align: middle;
+    margin-left: 8px;
+  }
+  .floating-icons {
+    position: relative;
+    width: 100%;
+    height: 0;
+  }
+  
+  .floating-icons .icon {
+    position: absolute;
+    display: flex;
+    align-items: center;    /* Vertically center */
+    justify-content: center; /* Horizontally center */
+    border-radius: 50%;
+    background-color: #e8fef1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    width: 60px;   /* Example size */
+    height: 60px;
+  }
+  
+  .floating-icons .icon:hover {
+    transform: scale(1.1);
+  }
+  .floating-icons .icon img {
+    width: 30px;       /* Adjust as needed */
+    height: auto;
+    object-fit: contain;
+  }
+  
+  .icon.analysis {
+    top: -100px;
+    left: 12%;
+    width: 55px;
+    height: 55px;
+    background-color:#FDFCFA;
+  }
+  
+  .icon.stars {
+    top: -150px;
+    left: 9%;
+    width: 45px;
+    height: 45px;
+    background-color:#BFBDF6;
+  }
+  .icon.oad {
+    top: -105px;
+    left: 4%;
+    width: 45px;
+    height: 45px;
+    background-color: #E3E7CF;
+  }
+
+  .icon.arrow {
+    top: -180px;
+    right: 7%;
+    width: 50px;
+    height: 50px;
+    background-color:#FDFCFA;
+  }
+  .icon.report {
+    top: -90px;
+    right: 9%;
+    width: 60px;
+    height: 60px;
+    background-color: #E3E7CF;
+  }
+  
+  .icon.chat {
+    top: -105px;
+    right: 4%;
+    width: 45px;
+    height: 45px;
+    background-color: #D5F2FE;
+  }
+
+  
+
+  /* Floating animation */
+  .icon {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="custom-navbar">
+        <ul>
+          <li><a href="#about">about us</a></li>
+          <li><a href="#services">our services</a></li>
+          <li><a href="#contact">contact us</a></li>
+          
+          <!-- Language Dropdown -->
+          <li class="nav-item dropdown mt-2 mx-2">
+            {% get_current_language as CURRENT_LANGUAGE %}
+            {% get_available_languages as AVAILABLE_LANGUAGES %}
+            {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+            <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {% trans 'language' %}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+              {% for language in languages %}
+                <a class="dropdown-item {% if language.code == CURRENT_LANGUAGE %}active{% endif %}" href="{% url 'set_language' urlname=request.resolver_match.view_name %}?language={{ language.code }}">
+                  {{ language.name_local }}
+                </a>              
+              {% endfor %}
+            </div>
+          </li>
+          
+        </ul>
+      </nav>
+      
+  
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Welcome to <img src="/static/images/oad.png" alt="Latest Technology" class="tech-image"></h1>
+        <p>Turn great experiences into loyal customers — and smart insights into café growth.</p>
+        <div class="hero-buttons">
+          <a href="{% url 'login' %}" class="btn dark">Login</a>
+          <a href="{% url 'signup' %}" class="btn light">Signup</a>
+        </div>
+      </div>
+      <div class="floating-icons">
+        <div class="icon arrow">
+          <img src="/static/images/right-arrows.png" alt="Arrow" style="transform: rotate(-135deg);">
+        </div>
+        <div class="icon analysis">
+          <img src="/static/images/analysis-2.png" alt="Analysis">
+        </div>
+        <div class="icon stars">
+          <img src="/static/images/sparkles.png" alt="Stars">
+        </div>
+        <div class="icon oad">
+            <img src="/static/images/oad-collapsed.png" alt="Oad">
+          </div>
+        <div class="icon report">
+          <img src="/static/images/seo-report.png" alt="Report">
+        </div>
+        <div class="icon chat">
+          <img src="/static/images/bubble-chat.png" alt="Chat">
+        </div>
+      </div>
+  
+      <div class="stats-cards">
+        <div class="card tall scroll-fade d-flex align-items-start justify-content-center" style="background-color: #D5F2FE; padding: 20px;">
+            <div>
+              <h2 class="category mb-3" style="color:#71AFB4;">Marketing Advice</h2>
+              <h3 class="mb-0"><br><br>Offer discounts for students</h3>
+            </div>
+          </div>
+          
+          
+          
+          
+
+        <div class="card scroll-fade" style="background-color: #E3E2F6;">
+        </div>
+        <div class="card scroll-fade" style="min-height: 150px; background-color: #E3E7CF;">
+          <h2>sales growth</h2>
+          <p>slase has <br>Increase⬆︎</p>
+          <small>café perfomance is good </small>
+        </div>
+        <div class="card scroll-fade">
+          <div class="content d-flex flex-column justify-content-between h-100">
+                <h2 class="category mb-3" style="color:#71AFB4;">Upcoming Event<br></h2>
+                <div class="d-flex flex-column align-items-center text-center justify-content-center flex-grow-1">
+                  <h3 class="title mb-0"><br>XYZ</h3>
+                  <p class="description" style="font-size: 1rem; line-height: 1.6;">
+                    Days Remaining:<br>
+                    <strong style="font-size: 3rem;">5</strong><br>
+                    Date: <strong>April 27, 2025</strong><br> 
+                  </p>
+                </div>
+              </div>
+        </div>
+        <div class="card tall scroll-fade" style="background-color: #E3E2F6;">
+          <p><strong>abcdefg</strong></p>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Services Section -->
+    <section class="services">
+      <h2>More Than Just a Name</h2>
+      <p>Discover who we are, what we do, and how we can help you succeed.</p>
+      <div id="services" class="service-cards">
+        <div class="service-card scroll-fade">
+          <h3>our services</h3>
+          <p>Details...</p>
+        </div>
+        <div id='about' class="service-card scroll-fade">
+          <h3>about the developers</h3>
+          <p>We are....</p>
+        </div>
+        <div id='contact' class="service-card scroll-fade">
+          <h3>for contact</h3>
+          <p>Reach us via email: <strong>heresoad@gmail.com</strong> <br> happy to chat!</p>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Bootstrap JS (for dropdown and other components) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap 5 JS (includes Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <script>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+          }
+        });
+      });
+  
+      document.querySelectorAll('.scroll-fade').forEach((el) => observer.observe(el));
+    </script>
+  </body>
+  
+{% comment %} </html> {% endcomment %}

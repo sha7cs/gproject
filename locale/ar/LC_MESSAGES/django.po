@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-17 19:27+0000\n"
-"PO-Revision-Date: 2025-04-17 19:34+0000\n"
+"PO-Revision-Date: 2025-04-21 17:07+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ar\n"
@@ -587,7 +587,7 @@ msgstr "تحليل المبيعات"
 
 #: templates/analysis/analysis.html:51
 msgid "Analysis Page"
-msgstr "التحليل"
+msgstr "صفحة التحليل"
 
 #: templates/analysis/analysis.html:53
 msgid "Generate Report"
