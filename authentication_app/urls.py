@@ -9,7 +9,6 @@ urlpatterns = [
     path('login' , CustomLoginView.as_view() , name='login'),
     path('logout/', LogoutView.as_view(next_page='theWelcome'), name='logout'),
     path('settings', views.settings, name = "user_settings"),
-    path('update-settings/', views.update_settings, name='update_settings'),
     path('admindashboard/', views.admindashboard, name = "admindashboard"),
     path('waiting/', views.waiting, name = "wait"),
     path('mysettings/',views.settings_view, name="settings_view"),

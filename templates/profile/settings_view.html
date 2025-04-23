@@ -139,7 +139,12 @@
                   {% if user.data_file %}
                     <p><a href="{{ user.data_file.url }}" target="_blank" class="text-primary">{% trans 'View current file' %}</a></p>
                   {% endif %}
-                  <input type="file" name="data_file" id="data_file" class="form-control-file" accept=".csv,.xlsx,.xls">
+                  <input type="file" name="data_file" id="data_file" class="form-control-file" accept=".csv">
+                  <!-- زر يطلع الاشياء المطلوبة بالملف-->
+                  <button type="button" class="btn btn-link p-0  text-danger" data-toggle="modal" data-target="#fileRequirementsModal">
+                    {% trans 'View file structure requirements' %}
+                  </button>
+
                 </div>
 
                 <div class="form-group">
@@ -247,4 +252,43 @@
     });
   
 </script>
+
+<!-- مودال يطلع الاشياء الضرورية بالملف-->
+<div class="modal fade" id="fileRequirementsModal" tabindex="-1" role="dialog" aria-labelledby="fileRequirementsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="fileRequirementsModalLabel">{% trans 'File Requirements' %}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="{% trans 'Close' %}">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><strong>{% trans 'Required columns:' %}</strong></p>
+        <ul>
+          <li><code>id</code></li>
+          <li><code>branch_name</code></li>
+          <li><code>type</code></li>
+          <li><code>business_date</code></li>
+          <li><code>total_price</code></li>
+          <li><code>detailed_orders</code></li>
+        </ul>
+        <p><strong>{% trans 'Optional columns:' %}</strong></p>
+        <ul>
+          <li><code>discount_name</code></li>
+          <li><code>discounts</code></li>
+          <li><code>total_taxes</code></li>
+          <li><code>check_number</code></li>
+          <li><code>kitchen_notes</code></li>
+          <li><code>preparation_period</code></li>
+        </ul>
+        <hr>
+        <p>{% trans 'Make sure the file is in .csv format and that column names match exactly or closely with the above.' %}</p>
+        <p>{% trans "it's better to have the optional columns,but not required" %}</p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
