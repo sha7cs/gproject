@@ -110,7 +110,6 @@ function selectSubcategory(subcategoryId,category) {
     
         messages.innerHTML += `<div class="message user">${userResponse}</div>`;
         input.value = "";
-
         // إنشاء مؤشر الكتابة
         const typingIndicator = document.createElement("div");
         typingIndicator.id = "typing-indicator";

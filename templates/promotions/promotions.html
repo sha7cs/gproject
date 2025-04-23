@@ -11,6 +11,60 @@
 
 <link rel="stylesheet" href="{% static 'chat/chat.css' %}">
 <style>
+  .custom-tooltip.custom-tooltip2{
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+ 
+.tooltip-text {  /* لزر تجديد المحادثة */
+  visibility: hidden;
+  width: max-content;
+  max-width: 250px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1000;
+  top: 120%; 
+  left: -230%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  white-space: normal;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+:dir(rtl) .tooltip-text {
+  left: 320%; 
+  transform: translateX(-50%);
+}
+
+.tooltip-text2 { /* لزر الكاتقوري */
+  visibility: hidden;
+  width: max-content;
+  max-width: 250px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1000;
+  top: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  white-space: normal;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.custom-tooltip:hover .tooltip-text,
+.custom-tooltip:hover .tooltip-text2 {
+  visibility: visible;
+  opacity: 1;
+}
  
   #typing-indicator .dot {
       height: 8px;
@@ -138,7 +192,12 @@
                     <div class="d-flex flex-column align-items-center">
                         <div class="category-buttons " id="category-buttons">
                             {% for category in categories %}
-                            <button class="custom-card-button my-2" onclick="selectCategory('{{ category.id }}')">{{ category.category }}</button>
+                            <button class="custom-card-button my-2 custom-tooltip" onclick="selectCategory('{{ category.id }}')">
+                              {{ category.category }}
+                              <span class="tooltip-text2">
+                                {{ category.description }}
+                              </span>
+                            </button>
                             {% endfor %}
                         </div>
                     </div>
@@ -152,9 +211,13 @@
                       <!--delete history button-->
                       <form method="POST" action="{% url 'delete_thread' %}" id="delete-chat-form">
                         {%csrf_token%}
-                        <div class="delete-history-btn position-absolute" style="{%trans 'history btn style'%}">
-                          <button class="btn btn-sm mr-3" onclick="clearChatHistory()" type="submit">
-                            <i class="fas fa-trash-alt"></i>
+                        <div class="delete-history-btn position-absolute custom-tooltip" style="{%trans 'history btn style'%}">
+                          <button class="btn btn-sm mr-3" onclick="clearChatHistory()" type="submit" 
+                         >
+                          <span class="tooltip-text">
+                            {% trans "This button will refresh the chatbot's memory and start a new conversation." %}
+                          </span>
+                          <i class="fas fa-trash-alt"></i>
                           </button>
                         </div>
                       </form>
@@ -199,6 +262,8 @@
     }
   });
 </script>
+
+
 <script src="{% static 'chat/chat.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

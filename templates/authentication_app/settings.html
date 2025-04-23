@@ -1,7 +1,0 @@
-{% comment %} <p>Username: {{ request.user.username }}</p>
-<p>Email: {{ request.user.email }}</p>
-<p>Cafe Name: {{ request.user.userprofile.cafe_name }}</p>
-<p>Uploaded File: <a href="{{ request.user.userprofile.data_file.url }}">{{ request.user.userprofile.data_file.name }}</a></p>
-<p>Firebase Config: <a href="{{ request.user.userprofile.firebase_config }}">{{ request.user.userprofile.firebase_config }}</a></p>
-<a href="{% url 'update_settings' %}">Edit Profile</a> {% endcomment %}
-
