@@ -22,12 +22,12 @@ from analysis import views
 
 urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls, name="admin"),
-    path('', include('GP_app.urls')),
+    path('', include('home.urls')),
     path('rosetta/' , include("rosetta.urls")),
     path('promotions/' , include("promotions.urls")),
     path('analysis/', include('analysis.urls')),
    # path('analysis/', views.analysis_view, name='analysis'), 
-    path('auth/', include('authentication_app.urls')),
+    path('auth/', include('authentication.urls')),
     path('admins/', include('administrators.urls')),
 
 )

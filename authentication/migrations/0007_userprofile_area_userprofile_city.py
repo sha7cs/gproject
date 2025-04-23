@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authentication_app', '0006_city'),
+        ('authentication', '0006_city'),
     ]
 
     operations = [

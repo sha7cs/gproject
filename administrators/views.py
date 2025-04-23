@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from authentication_app.models import UserProfile 
+from authentication.models import UserProfile 
 from promotions.models import Category,Subcategory,Question,Event
 from django.core.paginator import Paginator
 from django.db.models import Q
 from datetime import datetime
-from authentication_app.decorators import allowed_users, admin_only, unauthenticated_user #هذولي الديكوريترز الي حنا مسوينهم نقدر نسوي الي نحتاج براحتنا
+from authentication.decorators import allowed_users, admin_only, unauthenticated_user #هذولي الديكوريترز الي حنا مسوينهم نقدر نسوي الي نحتاج براحتنا
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import redirect, get_object_or_404
@@ -92,15 +92,15 @@ def users(request):
     # for the UI
     status_data = {
         UserProfile.PENDING: {
-            "class": "badge badge-warning fas fa-clock",
+            "class": "badge badge-warning",
             "text": _('Pending'),
         },
         UserProfile.ACCEPTED: {
-            "class": "badge badge-success fas fa-check-circle",
+            "class": "badge badge-success",
             "text": _('Accepted'),
         },
         UserProfile.DENIED: {
-            "class": "badge badge-danger fas fa-times-circle",
+            "class": "badge badge-danger",
             "text": _('Denied'),
         }
     }

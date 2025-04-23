@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from authentication_app.models import UserProfile
+from authentication.models import UserProfile
 from promotions.models import Category,Subcategory,Question, DailyAdvice
 from django.http import JsonResponse
 import json
@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import get_language, activate
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from authentication_app.decorators import allowed_users, admin_only, unauthenticated_user,approved_user_required
+from authentication.decorators import allowed_users, admin_only, unauthenticated_user,approved_user_required
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
 import pandas as pd

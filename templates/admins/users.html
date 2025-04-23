@@ -140,7 +140,12 @@
               <td>{{ profile.user.get_full_name|default:"N/A" }}</td>  <!-- Full Name -->
               <td>{{ profile.user.username }}</td>  <!-- Username -->
               <td>{{ profile.user.email }}</td>  <!-- Email -->
-              <td>{{ profile.cafe_name|default:"N/A" }}</td>  <!-- Cafe Name -->
+              {% if request.LANGUAGE_CODE == 'ar' %}
+                 <td>{{ profile.cafe_name_ar|default:"N/A" }}</td> 
+              {% else %}
+                 <td>{{ profile.cafe_name|default:"N/A" }}</td> 
+              {% endif %}
+              <!-- Cafe Name -->
               <td>
                 {% if profile.data_file %}
                   <a href="{{ profile.data_file.url }}" target="_blank">{% trans 'View File'%}</a>

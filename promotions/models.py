@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from parler.models import TranslatableModel,TranslatedFields # this for tranlating models i dont think we need it 
 from django.db import models
 
-from authentication_app.models import UserProfile
+from authentication.models import UserProfile
 
 
 class Event(TranslatableModel):

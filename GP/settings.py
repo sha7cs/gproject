@@ -63,13 +63,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'GP_app',
+    'home',
     'crispy_forms',
     'crispy_bootstrap5',
     'rosetta',
     'parler',
     'promotions',
-    'authentication_app',
+    'authentication',
     'administrators',
     'widget_tweaks'
 ]

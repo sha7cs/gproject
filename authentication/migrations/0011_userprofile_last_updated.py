@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("authentication_app", "0010_alter_userprofile_cafe_name_and_more"),
+        ("authentication", "0010_alter_userprofile_cafe_name_and_more"),
     ]
 
     operations = [

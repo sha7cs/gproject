@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authentication_app', '0005_area_userprofile_cafe_description_and_more'),
+        ('authentication', '0005_area_userprofile_cafe_description_and_more'),
     ]
 
     operations = [

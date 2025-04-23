@@ -10,7 +10,7 @@ from django.contrib.auth.models import Group
 from .decorators import allowed_users, admin_only, unauthenticated_user #هذولي الديكوريترز الي حنا مسوينهم نقدر نسوي الي نحتاج براحتنا
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from authentication_app.models import UserProfile ,City,Area
+from authentication.models import UserProfile ,City,Area
 from django.utils.translation import gettext_lazy as _ 
 from django.http import HttpResponseRedirect
 from promotions.models import Event
@@ -90,7 +90,7 @@ def user_events_view(request):
 ##واضح هذا حق الساين ان هههههههههه
 @method_decorator(unauthenticated_user, name='dispatch')
 class SignUpView(CreateView):
-    template_name = 'authentication_app/signup_page.html'
+    template_name = 'authentication/signup_page.html'
     form_class = CreateUser # هذي الفروم الي يسويه ياخذه من الفرومز روحوا للملف فيه الشرح 
     success_url = reverse_lazy('user_settings')  # Redirect to home after signup او ممكن نخليه يروح للوق ان او السيتنقز بكيفنا
 
@@ -115,7 +115,7 @@ class SignUpView(CreateView):
 logger = logging.getLogger(__name__) ## هذا اتوقع يسجل اللقوز عشان نراقب الوضع ههههههههه
 @method_decorator(unauthenticated_user, name='dispatch')
 class CustomLoginView(LoginView):
-    template_name = 'authentication_app/login_page.html'
+    template_name = 'authentication/login_page.html'
 
     def get_success_url(self):
         user = self.request.user
