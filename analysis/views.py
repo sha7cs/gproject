@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models.functions import ExtractMonth
 
 from firebase_admin import firestore
-from authentication_app.decorators import allowed_users, admin_only, unauthenticated_user, approved_user_required
+from authentication.decorators import allowed_users, admin_only, unauthenticated_user, approved_user_required
 
 from django.core.cache import cache
 from prophet import Prophet
@@ -403,7 +403,7 @@ import pandas as pd
 import tempfile
 from django.template.loader import render_to_string
 from weasyprint import HTML
-from authentication_app.models import UserProfile 
+from authentication.models import UserProfile 
 from django.core.exceptions import ObjectDoesNotExist
 import ast
 from .templatetags import filters

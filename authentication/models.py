@@ -5,13 +5,13 @@ from django.contrib.auth.models import User
 # وكل الاشياء ذي وبعدين اللي حنا مسوينه يعطينا حريتنا بالمعلمومات الي نحتاجه
 
 
-class Area(models.Model):
+class Area(models.Model):      
     name = models.CharField(max_length=255, unique=True)
 
     def __str__(self):
         return self.name
 
-class City(models.Model):
+class City(models.Model):  
     name = models.CharField(max_length=255)
     area = models.ForeignKey(Area, on_delete=models.CASCADE, related_name="cities")
 
@@ -31,9 +31,9 @@ class UserProfile(models.Model):
     
     user = models.OneToOneField(User, on_delete=models.CASCADE)  # Links to User model
     cafe_name = models.CharField(max_length=255)  # Cafe name
+    cafe_name_ar = models.CharField(max_length=255,blank=True, null=True)  # Cafe name in arabic 
     data_file = models.FileField(upload_to='static/uploads/' )  # Upload CSV or any file
     firebase_config = models.URLField(blank=True, null=True)  # Firebase Config link
-    thread_id = models.CharField(max_length=255, blank=True, null=True)  
     status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING)  # Default to pending
     # New fields
     location = models.CharField(max_length=255, default='Filler' )

@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authentication_app', '0007_userprofile_area_userprofile_city'),
+        ('authentication', '0007_userprofile_area_userprofile_city'),
     ]
 
     operations = [

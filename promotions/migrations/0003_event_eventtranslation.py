@@ -9,7 +9,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authentication_app', '0010_alter_userprofile_cafe_name_and_more'),
+        ('authentication', '0010_alter_userprofile_cafe_name_and_more'),
         ('promotions', '0002_dailyadvice_dailyadvicetranslation'),
     ]
 
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('date', models.DateField(verbose_name='Date')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='events', to='authentication_app.userprofile')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='events', to='authentication.userprofile')),
             ],
             options={
                 'verbose_name': 'Event',
