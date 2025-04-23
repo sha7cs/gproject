@@ -270,6 +270,9 @@ def marketing_advice():
         advice_title = advice_text = None
     return advice_title, advice_text
     
+def create_new_thread():
+    thread = client.beta.threads.create()
+    return thread.id
 
 @login_required
 @allowed_users(allowed_roles=['normal_user','admins'])
@@ -321,7 +324,11 @@ def chatbot(request):
             user_response = request.POST.get('response', '').strip()
             question_index = int(request.POST.get('questionIndex'))
             user_profile, created = UserProfile.objects.get_or_create(user=request.user)
-            thread_id = get_or_create_thread(user_profile)
+            if 'thread_id' not in request.session or request.GET.get('new') == '1':
+                request.session['thread_id'] = create_new_thread()
+            
+            thread_id = request.session['thread_id']
+            # thread_id = get_or_create_thread(user_profile)
             
             # اذا موجودة بالبوست احفظها بالسشن اذا مو موجودة حط اللي بالسشن داخل الفاريبل كاتقوري
             category = request.POST.get('category')
@@ -397,9 +404,6 @@ from django.shortcuts import redirect
 @login_required
 def delete_thread(request):
     if request.method == 'POST':
-        profile = request.user.userprofile
-        thread_id = profile.thread_id
-        if thread_id:
-            profile.thread_id = None
-            profile.save()
-        return redirect('promotions') 
+        if 'thread_id' in request.session:
+            del request.session['thread_id']
+        return redirect('promotions')  

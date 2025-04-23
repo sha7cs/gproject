@@ -1,8 +1,0 @@
-<hi>this is the admin dashboard</h>
-
-    <form method="POST" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
-    <a href="{% url 'home' %}" class="home-button">Go to Home</a>
-    
