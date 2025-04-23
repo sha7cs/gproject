@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView
 import logging
@@ -17,29 +16,11 @@ from django.http import HttpResponseRedirect
 from promotions.models import Event
 from promotions.forms import EventForm
 from django.db.models import Q
-from django.utils.translation import get_language
-
-
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.urls import reverse
-from django.http import HttpResponseRedirect
 from django.utils.translation import get_language, gettext_lazy as _
-from django.contrib.auth.decorators import login_required
-from promotions.models import Event
-from promotions.forms import EventForm
-from authentication_app.models import UserProfile
-from django.db.models import Q
-
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.urls import reverse
-from django.http import HttpResponseRedirect
-from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.decorators import login_required
-from promotions.models import Event
-from promotions.forms import EventForm
-from authentication_app.models import UserProfile
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
+from django.conf import settings as django_settings
+from django.shortcuts import get_object_or_404
 
 @login_required
 def user_events_view(request):
@@ -104,13 +85,6 @@ def user_events_view(request):
         'events': user_events,
         'admin_events': admin_events
     })
-
-
-
-
-from django.template.loader import render_to_string
-from django.core.mail import send_mail
-from django.conf import settings as django_settings
 
 
 ##واضح هذا حق الساين ان هههههههههه
@@ -184,9 +158,6 @@ class CustomLoginView(LoginView):
         context['custom_message'] = 'Log in to access your dashboard.'
         return context
 
-from django.core.mail import EmailMultiAlternatives
-from django.template.loader import render_to_string
-    
 @login_required
 @allowed_users(allowed_roles=['admins','normal_user'])
 def settings(request):
@@ -239,36 +210,10 @@ def settings(request):
 def admindashboard(request):
     return redirect('admins.users')
 
-#هذي كتبه لي جبت يبي له تعديل مسميات وتعتمد على المودل الي بنسويه بس فمرته تعديل البيانات عادي
-@login_required
-@allowed_users(allowed_roles=['normal_user'])
-def update_settings(request):
-    user_profile = request.user.userprofile  
-    form = UserProfileForm(instance=user_profile)
-
-    if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
-        if form.is_valid():
-            form.save()
-            return redirect('user_settings')
-
-    return render(request, 'settings_update.html', {'form': form})
-
-
 def waiting(request):
     return render(request, 'profile/waiting.html')
 
-from django.shortcuts import get_object_or_404
 
-# @login_required
-# @allowed_users(allowed_roles=['admins','normal_user'])
-# def settings_view(request):
-#     user_profile = get_object_or_404(UserProfile, user=request.user)
-#     areas = Area.objects.all()
-#     cities = City.objects.all()
-#     form = UserProfileForm(instance=user_profile)    
-#     user_form= UserUpdateForm(instance = request.user)
-#     return render(request, 'profile/settings_view.html',{'user':user_profile , 'areas':areas, 'cities':cities,'form':form,'user_form':user_form})
 @login_required
 @allowed_users(allowed_roles=['admins', 'normal_user'])
 def settings_view(request):
@@ -296,8 +241,6 @@ def settings_view(request):
     })
 
 
-
-
 @login_required
 @allowed_users(allowed_roles=['admins','normal_user'])
 def settings_update(request):
@@ -305,13 +248,15 @@ def settings_update(request):
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
         user_form= UserUpdateForm(request.POST,instance= request.user)
+        
         if form.is_valid() and user_form.is_valid():
             form.save()
             user_form.save()
             messages.success(request, _("Profile updated successfully!"))
             return redirect('settings_view')
         else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, _(f"{field.capitalize()}: {error}"))
+                    print('')
             return redirect('settings_view')
-
-        
-
