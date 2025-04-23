@@ -14,13 +14,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='userprofile',
             name='area',
-            field=models.ForeignKey(default=10, on_delete=django.db.models.deletion.CASCADE, to='authentication_app.area'),
+            field=models.ForeignKey(default=10, on_delete=django.db.models.deletion.CASCADE, to='authentication.area'),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='userprofile',
             name='city',
-            field=models.ForeignKey(default=7, on_delete=django.db.models.deletion.CASCADE, to='authentication_app.city'),
+            field=models.ForeignKey(default=7, on_delete=django.db.models.deletion.CASCADE, to='authentication.city'),
             preserve_default=False,
         ),
     ]

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-17 19:27+0000\n"
+"POT-Creation-Date: 2025-04-23 19:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,19 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: GP/settings.py:151
+#: GP/settings.py:152
 msgid "English"
 msgstr ""
 
-#: GP/settings.py:152
+#: GP/settings.py:153
 msgid "Arabic"
 msgstr ""
 
-#: administrators/views.py:27 authentication_app/views.py:40
+#: administrators/views.py:27 authentication/views.py:38
 msgid "Event deleted successfully."
 msgstr ""
 
-#: administrators/views.py:48 authentication_app/views.py:57
+#: administrators/views.py:48 authentication/views.py:55
 msgid "Event updated successfully."
 msgstr ""
 
@@ -39,17 +39,17 @@ msgid "Event added successfully!"
 msgstr ""
 
 #: administrators/views.py:96 templates/admins/users.html:29
-#: templates/admins/users.html:85 templates/admins/users.html:352
+#: templates/admins/users.html:85 templates/admins/users.html:357
 msgid "Pending"
 msgstr ""
 
 #: administrators/views.py:100 templates/admins/users.html:34
-#: templates/admins/users.html:86 templates/admins/users.html:353
+#: templates/admins/users.html:86 templates/admins/users.html:358
 msgid "Accepted"
 msgstr ""
 
 #: administrators/views.py:104 templates/admins/users.html:39
-#: templates/admins/users.html:87 templates/admins/users.html:354
+#: templates/admins/users.html:87 templates/admins/users.html:359
 msgid "Denied"
 msgstr ""
 
@@ -93,50 +93,63 @@ msgstr ""
 msgid "Not enough data for training/testing split"
 msgstr ""
 
-#: authentication_app/decorators.py:23 authentication_app/decorators.py:36
-#: authentication_app/decorators.py:62
+#: authentication/decorators.py:23 authentication/decorators.py:36
+#: authentication/decorators.py:62
 msgid "Your account is still pending"
 msgstr ""
 
-#: authentication_app/forms.py:28 authentication_app/forms.py:29
-#: templates/profile/settings_view.html:210
+#: authentication/forms.py:29 authentication/forms.py:30
+#: templates/profile/settings_view.html:224
 msgid "choose"
 msgstr ""
 
-#: authentication_app/forms.py:31
+#: authentication/forms.py:31
 msgid "Enter your cafe name"
 msgstr ""
 
-#: authentication_app/views.py:59
+#: authentication/forms.py:32
+msgid "Enter your cafe name in Arabic"
+msgstr ""
+
+#: authentication/forms.py:53
+msgid "The file is not a valid CSV or contains unsupported encoding."
+msgstr ""
+
+#: authentication/forms.py:79
+#, python-format
+msgid "Missing required columns: %(cols)s"
+msgstr ""
+
+#: authentication/views.py:57
 msgid "Event not found."
 msgstr ""
 
-#: authentication_app/views.py:77
+#: authentication/views.py:77
 msgid "Event added successfully."
 msgstr ""
 
-#: authentication_app/views.py:110
+#: authentication/views.py:105
 msgid "Account created successfully! You are now logged in."
 msgstr ""
 
-#: authentication_app/views.py:139
+#: authentication/views.py:134
 msgid "Your account has been denied. Contact support."
 msgstr ""
 
-#: authentication_app/views.py:144
+#: authentication/views.py:139
 msgid "No profile associated with this account."
 msgstr ""
 
-#: authentication_app/views.py:178
+#: authentication/views.py:170
 msgid ""
 "You have already submitted your profile. You cannot access the settings page."
 msgstr ""
 
-#: authentication_app/views.py:200
+#: authentication/views.py:192
 msgid "Your request has been submitted."
 msgstr ""
 
-#: authentication_app/views.py:290
+#: authentication/views.py:255
 msgid "Profile updated successfully!"
 msgstr ""
 
@@ -167,7 +180,7 @@ msgstr ""
 msgid "Event"
 msgstr ""
 
-#: promotions/models.py:23 templates/admins/base.html:136
+#: promotions/models.py:23 templates/admins/base.html:131
 #: templates/profile/settings_view.html:54
 msgid "Events"
 msgstr ""
@@ -176,7 +189,7 @@ msgstr ""
 msgid "category"
 msgstr ""
 
-#: promotions/models.py:32 promotions/models.py:47
+#: promotions/models.py:32 promotions/models.py:49
 msgid "description"
 msgstr ""
 
@@ -188,43 +201,43 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: promotions/models.py:46
+#: promotions/models.py:48
 msgid "subcategory"
 msgstr ""
 
-#: promotions/models.py:52
+#: promotions/models.py:54
 msgid "Subcategory"
 msgstr ""
 
-#: promotions/models.py:53
+#: promotions/models.py:55
 msgid "Subcategories"
 msgstr ""
 
-#: promotions/models.py:62
+#: promotions/models.py:64
 msgid "question"
 msgstr ""
 
-#: promotions/models.py:67
+#: promotions/models.py:69
 msgid "Question"
 msgstr ""
 
-#: promotions/models.py:68
+#: promotions/models.py:70
 msgid "Questions"
 msgstr ""
 
-#: promotions/models.py:77
+#: promotions/models.py:79
 msgid "title"
 msgstr ""
 
-#: promotions/models.py:78
+#: promotions/models.py:80
 msgid "advice"
 msgstr ""
 
-#: promotions/models.py:82
+#: promotions/models.py:84
 msgid "Daily Advice"
 msgstr ""
 
-#: promotions/models.py:83
+#: promotions/models.py:85
 msgid "Daily Advices"
 msgstr ""
 
@@ -240,17 +253,18 @@ msgstr ""
 msgid "No data available"
 msgstr ""
 
-#: promotions/views.py:260
+#: promotions/views.py:265
 msgid "No advice available"
 msgstr ""
 
-#: templates/admins/base.html:51 templates/base.html:72
-#: templates/profile/signup-settings.html:37 templates/profile/waiting.html:37
+#: templates/admins/base.html:51 templates/base.html:4 templates/base.html:72
+#: templates/profile/signup-settings.html:5
+#: templates/profile/signup-settings.html:50 templates/profile/waiting.html:37
 msgid "dir"
 msgstr ""
 
 #: templates/admins/base.html:70 templates/navbar.html:17
-#: templates/profile/signup-settings.html:46 templates/profile/waiting.html:48
+#: templates/profile/signup-settings.html:59 templates/profile/waiting.html:48
 msgid "languages"
 msgstr ""
 
@@ -258,22 +272,22 @@ msgstr ""
 #: templates/profile/settings_view.html:6
 #: templates/profile/settings_view.html:43
 #: templates/profile/signup-settings.html:12
-#: templates/profile/signup-settings.html:61
-#: templates/profile/signup-settings.html:81 templates/profile/waiting.html:63
+#: templates/profile/signup-settings.html:74
+#: templates/profile/signup-settings.html:89 templates/profile/waiting.html:63
 #: templates/sidebar.html:56
 msgid "Settings"
 msgstr ""
 
 #: templates/admins/base.html:90 templates/navbar.html:51
-#: templates/profile/signup-settings.html:65 templates/profile/waiting.html:67
+#: templates/profile/signup-settings.html:78 templates/profile/waiting.html:67
 msgid "Logout"
 msgstr ""
 
-#: templates/admins/base.html:118 templates/admins/users.html:18
+#: templates/admins/base.html:113 templates/admins/users.html:18
 msgid "Users"
 msgstr ""
 
-#: templates/admins/base.html:127
+#: templates/admins/base.html:122
 msgid "Chatbot"
 msgstr ""
 
@@ -327,7 +341,9 @@ msgstr ""
 #: templates/admins/chat_control.html:140
 #: templates/admins/chat_control.html:177
 #: templates/admins/chat_control.html:204
-#: templates/profile/signup-settings.html:166
+#: templates/profile/settings_view.html:273
+#: templates/profile/signup-settings.html:181
+#: templates/profile/signup-settings.html:276
 #: templates/profile/user_events_tab.html:100
 msgid "Close"
 msgstr ""
@@ -428,35 +444,35 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
-#: templates/admins/user_details.html:90
+#: templates/admins/user_details.html:91
 msgid "About the Cafe"
 msgstr ""
 
-#: templates/admins/user_details.html:93
+#: templates/admins/user_details.html:94
 msgid "Contact & Social Media"
 msgstr ""
 
-#: templates/admins/user_details.html:94
+#: templates/admins/user_details.html:95
 msgid "Social Media:"
 msgstr ""
 
-#: templates/admins/user_details.html:96
+#: templates/admins/user_details.html:97
 msgid "Firebase Configuration"
 msgstr ""
 
-#: templates/admins/user_details.html:97
+#: templates/admins/user_details.html:98
 msgid "Firebase Config Link:"
 msgstr ""
 
-#: templates/admins/user_details.html:99 templates/admins/users.html:119
+#: templates/admins/user_details.html:100 templates/admins/users.html:119
 msgid "Status"
 msgstr ""
 
-#: templates/admins/user_details.html:102
+#: templates/admins/user_details.html:103
 msgid "Additional Information"
 msgstr ""
 
-#: templates/admins/user_details.html:103
+#: templates/admins/user_details.html:104
 msgid "Thread ID:"
 msgstr ""
 
@@ -508,15 +524,15 @@ msgstr ""
 msgid "Full Name"
 msgstr ""
 
-#: templates/admins/users.html:114 templates/profile/settings_view.html:123
+#: templates/admins/users.html:114 templates/profile/settings_view.html:131
 msgid "Username"
 msgstr ""
 
-#: templates/admins/users.html:115 templates/profile/settings_view.html:129
+#: templates/admins/users.html:115 templates/profile/settings_view.html:135
 msgid "Email"
 msgstr ""
 
-#: templates/admins/users.html:116 templates/profile/signup-settings.html:101
+#: templates/admins/users.html:116
 msgid "Cafe Name"
 msgstr ""
 
@@ -528,7 +544,7 @@ msgstr ""
 msgid "Firebase Config"
 msgstr ""
 
-#: templates/admins/users.html:120 templates/admins/users.html:165
+#: templates/admins/users.html:120 templates/admins/users.html:170
 msgid "Action"
 msgstr ""
 
@@ -536,39 +552,39 @@ msgstr ""
 msgid "No Logo Uploaded"
 msgstr ""
 
-#: templates/admins/users.html:147
+#: templates/admins/users.html:152
 msgid "View File"
 msgstr ""
 
-#: templates/admins/users.html:149
+#: templates/admins/users.html:154
 msgid "No File"
 msgstr ""
 
-#: templates/admins/users.html:154 templates/profile/settings_view.html:148
+#: templates/admins/users.html:159 templates/profile/settings_view.html:162
 msgid "Firebase Link"
 msgstr ""
 
-#: templates/admins/users.html:156
+#: templates/admins/users.html:161
 msgid "No Firebase Config"
 msgstr ""
 
-#: templates/admins/users.html:168
+#: templates/admins/users.html:173
 msgid "More"
 msgstr ""
 
-#: templates/admins/users.html:172
+#: templates/admins/users.html:177
 msgid "Accept"
 msgstr ""
 
-#: templates/admins/users.html:175
+#: templates/admins/users.html:180
 msgid "Remove"
 msgstr ""
 
-#: templates/admins/users.html:188 templates/admins/users.html:192
+#: templates/admins/users.html:193 templates/admins/users.html:197
 msgid "Previous"
 msgstr ""
 
-#: templates/admins/users.html:210 templates/admins/users.html:214
+#: templates/admins/users.html:215 templates/admins/users.html:219
 msgid "Next"
 msgstr ""
 
@@ -601,8 +617,8 @@ msgid "To Date"
 msgstr ""
 
 #: templates/analysis/analysis.html:99
-#: templates/profile/signup-settings.html:158
-#: templates/profile/signup-settings.html:168
+#: templates/profile/signup-settings.html:173
+#: templates/profile/signup-settings.html:183
 msgid "Confirm"
 msgstr ""
 
@@ -691,45 +707,45 @@ msgstr ""
 msgid "Category Sales Distribution"
 msgstr ""
 
-#: templates/authentication_app/login_page.html:9
-#: templates/authentication_app/login_page.html:102
+#: templates/authentication/login_page.html:9
+#: templates/authentication/login_page.html:109
 msgid "Log In"
 msgstr ""
 
-#: templates/authentication_app/login_page.html:79
+#: templates/authentication/login_page.html:79
 msgid "Welcome Back!"
 msgstr ""
 
-#: templates/authentication_app/login_page.html:107
+#: templates/authentication/login_page.html:114
 msgid "Don't have an account?"
 msgstr ""
 
-#: templates/authentication_app/login_page.html:108
-#: templates/authentication_app/signup_page.html:15
+#: templates/authentication/login_page.html:115
+#: templates/authentication/signup_page.html:15
 msgid "Sign Up"
 msgstr ""
 
-#: templates/authentication_app/signup_page.html:85
+#: templates/authentication/signup_page.html:85
 msgid "Create an account"
 msgstr ""
 
-#: templates/authentication_app/signup_page.html:86
+#: templates/authentication/signup_page.html:86
 msgid "Join us to help elevate your cafe performace on trusted way!"
 msgstr ""
 
-#: templates/authentication_app/signup_page.html:124
+#: templates/authentication/signup_page.html:124
 msgid "Create Account"
 msgstr ""
 
-#: templates/authentication_app/signup_page.html:129
+#: templates/authentication/signup_page.html:129
 msgid "Already have an account?"
 msgstr ""
 
-#: templates/authentication_app/signup_page.html:130
+#: templates/authentication/signup_page.html:130
 msgid "Log in"
 msgstr ""
 
-#: templates/layout/dashboard.html:16
+#: templates/home/dashboard.html:16
 #, python-format
 msgid ""
 "<h1 class=\"page-title display-3\" style= \"color: rgb(143, 148, 116); font-"
@@ -739,27 +755,27 @@ msgid ""
 "plan things right</h3>"
 msgstr ""
 
-#: templates/layout/dashboard.html:24
+#: templates/home/dashboard.html:24
 msgid "last month's category sales distribution:"
 msgstr ""
 
-#: templates/layout/dashboard.html:27
+#: templates/home/dashboard.html:27
 msgid "see more on Analysis"
 msgstr ""
 
-#: templates/layout/dashboard.html:38
+#: templates/home/dashboard.html:38
 msgid "today's Advice:"
 msgstr ""
 
-#: templates/layout/dashboard.html:41
+#: templates/home/dashboard.html:41
 msgid "learn more on promotions"
 msgstr ""
 
-#: templates/layout/dashboard.html:49
+#: templates/home/dashboard.html:49
 msgid "next event is:"
 msgstr ""
 
-#: templates/layout/dashboard.html:52
+#: templates/home/dashboard.html:52
 msgid "check for the date"
 msgstr ""
 
@@ -771,83 +787,127 @@ msgstr ""
 msgid "Notifications"
 msgstr ""
 
-#: templates/profile/settings_view.html:88
+#: templates/profile/settings_view.html:92
 msgid "No cafe description available."
 msgstr ""
 
-#: templates/profile/settings_view.html:119
-msgid "Your cafe name"
+#: templates/profile/settings_view.html:123
+msgid "Your cafe name in English"
 msgstr ""
 
-#: templates/profile/settings_view.html:134
+#: templates/profile/settings_view.html:127
+msgid "Your cafe name in Arabic"
+msgstr ""
+
+#: templates/profile/settings_view.html:143
 msgid "Address"
 msgstr ""
 
-#: templates/profile/settings_view.html:140
+#: templates/profile/settings_view.html:149
 msgid "Data file"
 msgstr ""
 
-#: templates/profile/settings_view.html:142
+#: templates/profile/settings_view.html:151
 msgid "View current file"
 msgstr ""
 
-#: templates/profile/settings_view.html:149
+#: templates/profile/settings_view.html:156
+#: templates/profile/signup-settings.html:143
+msgid "View file structure requirements"
+msgstr ""
+
+#: templates/profile/settings_view.html:163
 msgid "No firbase link available."
 msgstr ""
 
-#: templates/profile/settings_view.html:154
-#: templates/profile/signup-settings.html:110
+#: templates/profile/settings_view.html:168
+#: templates/profile/signup-settings.html:122
 msgid "Area"
 msgstr ""
 
-#: templates/profile/settings_view.html:158
-#: templates/profile/signup-settings.html:121
+#: templates/profile/settings_view.html:172
+#: templates/profile/signup-settings.html:133
 msgid "City"
 msgstr ""
 
-#: templates/profile/settings_view.html:164
+#: templates/profile/settings_view.html:178
 msgid "Update"
 msgstr ""
 
-#: templates/profile/settings_view.html:170
+#: templates/profile/settings_view.html:184
 msgid "Notifications tab (coming soon)"
 msgstr ""
 
-#: templates/profile/signup-settings.html:85
+#: templates/profile/settings_view.html:272
+#: templates/profile/signup-settings.html:275
+msgid "File Requirements"
+msgstr ""
+
+#: templates/profile/settings_view.html:278
+#: templates/profile/signup-settings.html:281
+msgid "Required columns:"
+msgstr ""
+
+#: templates/profile/settings_view.html:287
+#: templates/profile/signup-settings.html:290
+msgid "Optional columns:"
+msgstr ""
+
+#: templates/profile/settings_view.html:297
+#: templates/profile/signup-settings.html:300
+msgid ""
+"Make sure the file is in .csv format and that column names match exactly or "
+"closely with the above."
+msgstr ""
+
+#: templates/profile/settings_view.html:298
+#: templates/profile/signup-settings.html:301
+msgid "it's better to have the optional columns,but not required"
+msgstr ""
+
+#: templates/profile/signup-settings.html:93
 msgid "profile"
 msgstr ""
 
-#: templates/profile/signup-settings.html:105
+#: templates/profile/signup-settings.html:109
+msgid "Cafe Name in English"
+msgstr ""
+
+#: templates/profile/signup-settings.html:113
+msgid "Cafe Name in Arabic"
+msgstr ""
+
+#: templates/profile/signup-settings.html:117
 msgid "Location"
 msgstr ""
 
-#: templates/profile/signup-settings.html:127
+#: templates/profile/signup-settings.html:139
 msgid "Upload you data here"
 msgstr ""
 
-#: templates/profile/signup-settings.html:134
+#: templates/profile/signup-settings.html:149
 msgid "Link to social media accounts if any"
 msgstr ""
 
-#: templates/profile/signup-settings.html:138
+#: templates/profile/signup-settings.html:153
 msgid "Talk about you cafe briefly"
 msgstr ""
 
-#: templates/profile/signup-settings.html:142
+#: templates/profile/signup-settings.html:157
 msgid "Cafe Logo"
 msgstr ""
 
-#: templates/profile/signup-settings.html:147
+#: templates/profile/signup-settings.html:162
 msgid ""
 "By clicking the \"Submit Your Request\" button, you agree to upload your "
 "data to this website and confirm that the information is accurate."
 msgstr ""
 
-#: templates/profile/signup-settings.html:148
+#: templates/profile/signup-settings.html:163
 msgid "Submit Your Request"
 msgstr ""
 
-#: templates/profile/signup-settings.html:163
+#: templates/profile/signup-settings.html:178
 msgid ""
 "By clicking \"Confirm,\" you confirm your desire to submit your access "
 "request to the website. <br>We ask you to wait until you receive an email "
@@ -880,86 +940,91 @@ msgid ""
 "when your request is accepted or rejected."
 msgstr ""
 
-#: templates/promotions/promotions.html:45
+#: templates/promotions/promotions.html:99
 msgid "Promotions Page"
 msgstr ""
 
-#: templates/promotions/promotions.html:55
+#: templates/promotions/promotions.html:109
 msgid "Your Daily Marketing Advice"
 msgstr ""
 
-#: templates/promotions/promotions.html:70
+#: templates/promotions/promotions.html:124
 msgid "Best Days to Promote"
 msgstr ""
 
-#: templates/promotions/promotions.html:73
+#: templates/promotions/promotions.html:127
 msgid "The best days for promotions based on sales trends."
 msgstr ""
 
-#: templates/promotions/promotions.html:88
+#: templates/promotions/promotions.html:142
 msgid "Upcoming Event"
 msgstr ""
 
-#: templates/promotions/promotions.html:93
+#: templates/promotions/promotions.html:147
 msgid "Days Remaining:"
 msgstr ""
 
-#: templates/promotions/promotions.html:95
+#: templates/promotions/promotions.html:149
 msgid "Date:"
 msgstr ""
 
-#: templates/promotions/promotions.html:98
+#: templates/promotions/promotions.html:152
 msgid "No upcoming events."
 msgstr ""
 
-#: templates/promotions/promotions.html:110
+#: templates/promotions/promotions.html:164
 msgid "Which Product to Discount"
 msgstr ""
 
-#: templates/promotions/promotions.html:113
+#: templates/promotions/promotions.html:167
 msgid "This product has the lowest sales and could benefit from a discount."
 msgstr ""
 
-#: templates/promotions/promotions.html:127
+#: templates/promotions/promotions.html:181
 msgid "Welcome to the Chat"
 msgstr ""
 
-#: templates/promotions/promotions.html:128
+#: templates/promotions/promotions.html:182
 msgid "Click below to start"
 msgstr ""
 
-#: templates/promotions/promotions.html:130
+#: templates/promotions/promotions.html:184
 msgid "start chat"
 msgstr ""
 
-#: templates/promotions/promotions.html:137
+#: templates/promotions/promotions.html:191
 msgid "select category"
 msgstr ""
 
-#: templates/promotions/promotions.html:146
+#: templates/promotions/promotions.html:205
 msgid "Select a Subcategory"
 msgstr ""
 
-#: templates/promotions/promotions.html:155
+#: templates/promotions/promotions.html:214
 msgid "history btn style"
 msgstr ""
 
-#: templates/promotions/promotions.html:163
+#: templates/promotions/promotions.html:218
+msgid ""
+"This button will refresh the chatbot's memory and start a new conversation."
+msgstr ""
+
+#: templates/promotions/promotions.html:226
 #, python-brace-format
 msgid ""
 "You chose {category} to chat about {subcategory}. Please answer any given "
 "questions sincerely, so I can give you a good advice."
 msgstr ""
 
-#: templates/promotions/promotions.html:164
+#: templates/promotions/promotions.html:227
 msgid "botwelcome"
 msgstr ""
 
-#: templates/promotions/promotions.html:170
+#: templates/promotions/promotions.html:233
 msgid "typeanswer"
 msgstr ""
 
-#: templates/promotions/promotions.html:171
+#: templates/promotions/promotions.html:234
 msgid "send"
 msgstr ""
 
@@ -981,4 +1046,8 @@ msgstr ""
 
 #: templates/sidebar.html:50
 msgid "User"
+msgstr ""
+
+#: templates/welcome.html:694
+msgid "language"
 msgstr ""
