@@ -5,13 +5,17 @@ from django.contrib.auth.models import User
 # وكل الاشياء ذي وبعدين اللي حنا مسوينه يعطينا حريتنا بالمعلمومات الي نحتاجه
 
 
-class Area(models.Model):      
+class Area(models.Model): 
+    class Meta:
+        db_table = 'authentication_area'      
     name = models.CharField(max_length=255, unique=True)
 
     def __str__(self):
         return self.name
 
 class City(models.Model):  
+    class Meta:
+        db_table = 'authentication_city'
     name = models.CharField(max_length=255)
     area = models.ForeignKey(Area, on_delete=models.CASCADE, related_name="cities")
 
@@ -19,6 +23,8 @@ class City(models.Model):
         return f"{self.name} ({self.area.name})"
     
 class UserProfile(models.Model):
+    class Meta:
+        db_table = 'authentication_userprofile'
     PENDING = 0
     ACCEPTED = 1
     DENIED = 2
