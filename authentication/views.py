@@ -180,7 +180,7 @@ def settings(request):
             user_profile.user = request.user 
             user_profile.save()
             #send email
-            html_message = render_to_string('admins/pending_email.html', {'cafe_name': user_profile.cafe_name})
+            html_message = render_to_string('admins/pending_email.html', {'cafe_name': user_profile.cafe_name_ar})
             send_mail(
                 'قيد الانتظار - منصة عد',
                 '',

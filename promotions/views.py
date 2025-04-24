@@ -176,16 +176,6 @@ def set_language(request, urlname):
 # Initialize OpenAI client
 client = openai.Client(api_key = settings.OPENAI_API_KEY)
 
-# Step 2: Create a Thread
-def get_or_create_thread(user):
-    if not user.thread_id:
-        # Create a new thread if thread_id is not set
-        thread = client.beta.threads.create()
-        user.thread_id = thread.id  
-        user.save()
-    else:
-        client.beta.threads.retrieve(thread_id=user.thread_id)
-    return user.thread_id
 
 # Step 3: Add a Message to the Thread
 def add_message_to_thread(thread_id, user_message):

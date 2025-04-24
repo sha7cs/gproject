@@ -174,7 +174,7 @@ def accept_user(request, user_id):
     profile.save()
     
     
-    html_message = render_to_string('admins/acceptance_email.html', {'cafe_name': profile.cafe_name})
+    html_message = render_to_string('admins/acceptance_email.html', {'cafe_name': profile.cafe_name_ar})
     send_mail(
         '☕️ تم قبولك في منصة عد!',
         '',
@@ -195,7 +195,7 @@ def remove_user(request, user_id):
     profile.status = UserProfile.DENIED
     profile.save()
     #send email
-    html_message = render_to_string('admins/reject_email.html', {'cafe_name': profile.cafe_name})
+    html_message = render_to_string('admins/reject_email.html', {'cafe_name': profile.cafe_name_ar})
     send_mail(
         'نعتذر منك - منصة عد',
         '',
