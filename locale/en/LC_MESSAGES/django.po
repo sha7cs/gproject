@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 19:13+0000\n"
+"POT-Creation-Date: 2025-04-25 21:41+0000\n"
 "PO-Revision-Date: 2025-04-14 18:44+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1012,11 +1012,11 @@ msgstr ""
 msgid "The best days for promotions based on sales trends."
 msgstr ""
 
-#: templates/promotions/promotions.html:142 templates/welcome.html:437
+#: templates/promotions/promotions.html:142 templates/welcome.html:447
 msgid "Upcoming Event"
 msgstr ""
 
-#: templates/promotions/promotions.html:147 templates/welcome.html:441
+#: templates/promotions/promotions.html:147 templates/welcome.html:454
 msgid "Days Remaining:"
 msgstr ""
 
@@ -1119,7 +1119,7 @@ msgstr ""
 msgid "about us"
 msgstr ""
 
-#: templates/welcome.html:357 templates/welcome.html:460
+#: templates/welcome.html:357 templates/welcome.html:493
 msgid "our services"
 msgstr ""
 
@@ -1155,92 +1155,112 @@ msgstr ""
 msgid "Expectation of o/ad"
 msgstr ""
 
-#: templates/welcome.html:418
-msgid "better understaning of costumers"
+#: templates/welcome.html:420
+msgid "Better understanding of customers"
 msgstr ""
 
-#: templates/welcome.html:419
+#: templates/welcome.html:423
 #, fuzzy
 #| msgid "promotions"
-msgid "great promotion ideas"
+msgid "Great promotion ideas"
 msgstr "Promotions"
 
-#: templates/welcome.html:420
-msgid "one place for analysis & promotion"
+#: templates/welcome.html:426
+msgid "One place for analysis & promotion"
 msgstr ""
 
-#: templates/welcome.html:426
+#: templates/welcome.html:436
 msgid "Best day to sign up?"
 msgstr ""
 
-#: templates/welcome.html:428
-msgid "NOW 🫵🏼"
+#: templates/welcome.html:438
+msgid "NOW !"
 msgstr ""
 
-#: templates/welcome.html:431
+#: templates/welcome.html:441
 #, fuzzy
 #| msgid "Sales Growth Rate "
 msgid "sales growth"
 msgstr "Sales Growth Rate"
 
-#: templates/welcome.html:432
+#: templates/welcome.html:442
 msgid "sales has <br>Increase⬆︎"
 msgstr ""
 
-#: templates/welcome.html:433
+#: templates/welcome.html:443
 msgid "café perfomance is good "
 msgstr ""
 
-#: templates/welcome.html:439
-msgid "XYZ"
-msgstr ""
-
-#: templates/welcome.html:443
-msgid "Date: <strong>April 27, 2025"
+#: templates/welcome.html:451
+msgid "Event Impacting Sales"
 msgstr ""
 
 #: templates/welcome.html:456
+msgid "Date: MM/DD/YYYY"
+msgstr ""
+
+#: templates/welcome.html:459
+msgid " Integrated into your insights — we’ve already considered it"
+msgstr ""
+
+#: templates/welcome.html:465
+#, fuzzy
+#| msgid "Chatbot"
+msgid "Ask o/ad Chatbot"
+msgstr "Chatbot"
+
+#: templates/welcome.html:471
+msgid ""
+"Our assistant doesn’t just reply — it understands your cafe's data to give "
+"you the right advice, when you need it"
+msgstr ""
+
+#: templates/welcome.html:474
+msgid "Start chatting — made for you"
+msgstr ""
+
+#: templates/welcome.html:489
 msgid "More Than Just a Name"
 msgstr ""
 
-#: templates/welcome.html:457
+#: templates/welcome.html:490
 msgid "Discover who we are, what we do, and how we can help you succeed."
 msgstr ""
 
-#: templates/welcome.html:461
+#: templates/welcome.html:494
 msgid ""
 "This platform targets cafe managers, it aim to give them a way to grow their "
 "business using ours, it provides an analysis and promotion services."
 msgstr ""
 
-#: templates/welcome.html:464
+#: templates/welcome.html:497
 msgid "About the Developers"
 msgstr ""
 
-#: templates/welcome.html:466
+#: templates/welcome.html:499
 msgid "Talah Almuhawwis"
 msgstr ""
 
-#: templates/welcome.html:467
+#: templates/welcome.html:500
 msgid "Shatha Alharbi"
 msgstr ""
 
-#: templates/welcome.html:468
+#: templates/welcome.html:501
 msgid "Jumanah Almatrood"
 msgstr ""
 
-#: templates/welcome.html:470
+#: templates/welcome.html:503
 msgid ""
 "We are a very ambutious developers, and a great team, this platform has seen "
 "many phases and opinions that we have been through and they all brought us "
 "to this moment. We have more to go and we are very excited for our future."
 msgstr ""
 
-#: templates/welcome.html:474
+#: templates/welcome.html:507
 msgid "for contact"
 msgstr ""
 
-#: templates/welcome.html:475
+#: templates/welcome.html:508
 msgid ""
 "Reach us via email: <strong>heresoad@gmail.com</strong> <br> happy to chat!"
 msgstr ""

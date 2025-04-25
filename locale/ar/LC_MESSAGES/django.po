@@ -8,15 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 19:13+0000\n"
-"PO-Revision-Date: 2025-04-25 19:13+0000\n"
+"POT-Creation-Date: 2025-04-25 21:41+0000\n"
+"PO-Revision-Date: 2025-04-25 21:40+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 "X-Translated-Using: django-rosetta 0.10.1\n"
 
 #: GP/settings.py:152
@@ -143,8 +144,7 @@ msgstr "لا يوجد ملف شخصي مرتبط بهذا الحساب."
 
 #: authentication/views.py:170
 msgid ""
-"You have already submitted your profile. You cannot access the settings "
-"page."
+"You have already submitted your profile. You cannot access the settings page."
 msgstr "لقد رفعت بياناتك سابقًا، الرجاء الانتظار حتى يصلك رد من جهتنا."
 
 #: authentication/views.py:192
@@ -323,8 +323,7 @@ msgstr "إضافة سؤال جديد"
 msgid "Modify"
 msgstr "تعديل"
 
-#: templates/admins/chat_control.html:46
-#: templates/admins/chat_control.html:108
+#: templates/admins/chat_control.html:46 templates/admins/chat_control.html:108
 #: templates/admins/chat_control.html:205
 #: templates/admins/event_control.html:67
 #: templates/profile/user_events_tab.html:75
@@ -335,18 +334,15 @@ msgstr "حذف"
 msgid "Modify Question:"
 msgstr "تعديل السؤال"
 
-#: templates/admins/chat_control.html:71
-#: templates/admins/chat_control.html:168
+#: templates/admins/chat_control.html:71 templates/admins/chat_control.html:168
 msgid "The question in Arabic:"
 msgstr "السؤال بالعربية:"
 
-#: templates/admins/chat_control.html:75
-#: templates/admins/chat_control.html:172
+#: templates/admins/chat_control.html:75 templates/admins/chat_control.html:172
 msgid "The question in English:"
 msgstr "السؤال بالإنجليزية:"
 
-#: templates/admins/chat_control.html:80
-#: templates/admins/chat_control.html:107
+#: templates/admins/chat_control.html:80 templates/admins/chat_control.html:107
 #: templates/admins/chat_control.html:140
 #: templates/admins/chat_control.html:177
 #: templates/admins/chat_control.html:204
@@ -757,11 +753,14 @@ msgstr "تسجيل الدخول"
 #: templates/home/dashboard.html:16
 #, python-format
 msgid ""
-"<h1 class=\"page-title display-3\" style= \"color: rgb(143, 148, 116); font-weight: 700;\">Welcome, %(username)s!</h1>\n"
+"<h1 class=\"page-title display-3\" style= \"color: rgb(143, 148, 116); font-"
+"weight: 700;\">Welcome, %(username)s!</h1>\n"
 "      <h1>Let’s break down your data and see what’s new..<br></h1>\n"
-"    <h3 style=\"color:#B3B4B5;\">Here are a few quick insights to help you plan things right</h3>"
+"    <h3 style=\"color:#B3B4B5;\">Here are a few quick insights to help you "
+"plan things right</h3>"
 msgstr ""
-"<h1 class=\"page-title display-3\" style=\"color: rgb(143, 148, 116); font-weight: 700;\">حياك، %(username)s! </h1>\n"
+"<h1 class=\"page-title display-3\" style=\"color: rgb(143, 148, 116); font-"
+"weight: 700;\">حياك، %(username)s! </h1>\n"
 "  <h1>خلنا نحلل بياناتك ونشوف وش الجديد..<br></h1>\n"
 "  <h3 style=\"color:#B3B4B5;\">قدامك لمحات سريعة تساعدك تخطط صح.</h3>"
 
@@ -974,11 +973,11 @@ msgstr " أفضل الأيام للعروض الترويجية"
 msgid "The best days for promotions based on sales trends."
 msgstr " أفضل الأيام للعروض الترويجية بناءً على اتجاهات المبيعات."
 
-#: templates/promotions/promotions.html:142 templates/welcome.html:437
+#: templates/promotions/promotions.html:142 templates/welcome.html:447
 msgid "Upcoming Event"
 msgstr "الحدث القادم"
 
-#: templates/promotions/promotions.html:147 templates/welcome.html:441
+#: templates/promotions/promotions.html:147 templates/welcome.html:454
 msgid "Days Remaining:"
 msgstr "الأيام المتبقية:"
 
@@ -1076,7 +1075,7 @@ msgstr "عَُد"
 msgid "about us"
 msgstr "من نحن"
 
-#: templates/welcome.html:357 templates/welcome.html:460
+#: templates/welcome.html:357 templates/welcome.html:493
 msgid "our services"
 msgstr "خدماتنا"
 
@@ -1110,99 +1109,128 @@ msgstr "إنشاء حساب"
 msgid "Expectation of o/ad"
 msgstr "التوقعات من عَُد"
 
-#: templates/welcome.html:418
-msgid "better understaning of costumers"
+#: templates/welcome.html:420
+#, fuzzy
+#| msgid "better understaning of costumers"
+msgid "Better understanding of customers"
 msgstr "فهم أكبر لزباينك"
 
-#: templates/welcome.html:419
-msgid "great promotion ideas"
+#: templates/welcome.html:423
+#, fuzzy
+#| msgid "great promotion ideas"
+msgid "Great promotion ideas"
 msgstr "أفكار ترويجية رائعة"
 
-#: templates/welcome.html:420
-msgid "one place for analysis & promotion"
+#: templates/welcome.html:426
+#, fuzzy
+#| msgid "one place for analysis & promotion"
+msgid "One place for analysis & promotion"
 msgstr "مكان واحد للتحليل & التسويق!"
 
-#: templates/welcome.html:426
+#: templates/welcome.html:436
 msgid "Best day to sign up?"
 msgstr "ما هو أفضل يوم لتبدأ رحلتك معنا؟"
 
-#: templates/welcome.html:428
-msgid "NOW 🫵🏼"
-msgstr "الآن 🫵🏼"
+#: templates/welcome.html:438
+msgid "NOW !"
+msgstr "الآن!"
 
-#: templates/welcome.html:431
+#: templates/welcome.html:441
 msgid "sales growth"
 msgstr "معدل نمو المبيعات"
 
-#: templates/welcome.html:432
+#: templates/welcome.html:442
 msgid "sales has <br>Increase⬆︎"
 msgstr "الزيادة في <br> إرتفاع⬆︎"
 
-#: templates/welcome.html:433
+#: templates/welcome.html:443
 msgid "café perfomance is good "
 msgstr "أداء مقاهك ممتاز"
 
-#: templates/welcome.html:439
-msgid "XYZ"
-msgstr ""
-
-#: templates/welcome.html:443
-msgid "Date: <strong>April 27, 2025"
-msgstr "التاريخ: <strong>27 أبريل 2025</strong>"
+#: templates/welcome.html:451
+msgid "Event Impacting Sales"
+msgstr "حدث يؤثر على المبيعات"
 
 #: templates/welcome.html:456
+msgid "Date: MM/DD/YYYY"
+msgstr "تاريخ الحدث: شهر/يوم/سنة"
+
+#: templates/welcome.html:459
+msgid " Integrated into your insights — we’ve already considered it"
+msgstr "الحدث مدموج بتحليلك تلقائيًا"
+
+#: templates/welcome.html:465
+msgid "Ask o/ad Chatbot"
+msgstr "اسأل شات عَُد"
+
+#: templates/welcome.html:471
+msgid "Our assistant doesn’t just reply — it understands your cafe's data to give "
+"you the right advice, when you need it"
+msgstr "مساعدنا مو بس يرد عليك — يفهم بيانات مقهاك ويعطيك النصيحة اللي تناسبك بالوقت الصح"
+
+#: templates/welcome.html:474
+msgid "Start chatting — made for you"
+msgstr "ابدأ المحادثة — مصمم خصيصًا لك"
+
+#: templates/welcome.html:489
 msgid "More Than Just a Name"
 msgstr "أكثر من مجرد اسم"
 
-#: templates/welcome.html:457
+#: templates/welcome.html:490
 msgid "Discover who we are, what we do, and how we can help you succeed."
 msgstr "اكتشف من نحن، وما نقدمه، وكيف يمكننا مساعدتك على النجاح."
 
-#: templates/welcome.html:461
+#: templates/welcome.html:494
 msgid ""
-"This platform targets cafe managers, it aim to give them a way to grow their"
-" business using ours, it provides an analysis and promotion services."
+"This platform targets cafe managers, it aim to give them a way to grow their "
+"business using ours, it provides an analysis and promotion services."
 msgstr ""
-"تهدف هذه المنصة إلى مديري المقاهي، حيث تسعى لتوفير وسيلة لهم لنمو أعمالهم من"
-" خلال منصتنا. تقدم خدمات التحليل والترويج لمساعدتهم في تعزيز أعمالهم."
+"تهدف هذه المنصة إلى مديري المقاهي، حيث تسعى لتوفير وسيلة لهم لنمو أعمالهم من "
+"خلال منصتنا. تقدم خدمات التحليل والترويج لمساعدتهم في تعزيز أعمالهم."
 
-#: templates/welcome.html:464
+#: templates/welcome.html:497
 msgid "About the Developers"
 msgstr "عن المطورين"
 
-#: templates/welcome.html:466
+#: templates/welcome.html:499
 msgid "Talah Almuhawwis"
 msgstr "تالة المهوس"
 
-#: templates/welcome.html:467
+#: templates/welcome.html:500
 msgid "Shatha Alharbi"
 msgstr "شذا الحربي"
 
-#: templates/welcome.html:468
+#: templates/welcome.html:501
 msgid "Jumanah Almatrood"
 msgstr "جمانة المطرود"
 
-#: templates/welcome.html:470
+#: templates/welcome.html:503
 msgid ""
-"We are a very ambutious developers, and a great team, this platform has seen"
-" many phases and opinions that we have been through and they all brought us "
+"We are a very ambutious developers, and a great team, this platform has seen "
+"many phases and opinions that we have been through and they all brought us "
 "to this moment. We have more to go and we are very excited for our future."
 msgstr ""
 "نحن مطوّرون طموحون وفريق نؤمن بالشغف والعمل الجاد. مرّت هذه المنصّة بمراحل "
-"وأفكار وتجارب كثيرة شكّلتها وجعلتها ما هي عليه اليوم. ورغم كل ما أنجزناه، لا"
-" زال أمامنا طريق ممتع ومليء بالتحديات، ونحن متحمّسون جدًّا لما يحمله "
-"المستقبل لنا."
+"وأفكار وتجارب كثيرة شكّلتها وجعلتها ما هي عليه اليوم. ورغم كل ما أنجزناه، لا "
+"زال أمامنا طريق ممتع ومليء بالتحديات، ونحن متحمّسون جدًّا لما يحمله المستقبل "
+"لنا."
 
-#: templates/welcome.html:474
+#: templates/welcome.html:507
 msgid "for contact"
 msgstr "للتواصل"
 
-#: templates/welcome.html:475
+#: templates/welcome.html:508
 msgid ""
 "Reach us via email: <strong>heresoad@gmail.com</strong> <br> happy to chat!"
 msgstr ""
 "تواصل معنا عبر البريد الإلكتروني: <strong>heresoad@gmail.com</strong> <br> "
 "سعداء بالتواصل معك!"
+
+#~ msgid "NOW 🫵🏼"
+#~ msgstr "الآن 🫵🏼"
+
+#~ msgid "Date: <strong>April 27, 2025"
+#~ msgstr "التاريخ: <strong>27 أبريل 2025</strong>"
 
 #~ msgid "Analysis"
 #~ msgstr "التحليل"
