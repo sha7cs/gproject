@@ -341,7 +341,13 @@ def chatbot(request):
                 - إجمالي المبيعات: {context_data['total_sales']}
                 - عدد العمليات: {context_data['total_transactions']}
                 - المنتج الأفضل مبيعًا: {context_data['best_seller']}
-                - معدل نمو المبيعات: {context_data['sales_growth_rate']}%
+                - المنتج الأقل مبيعًا: {context_data['worst_seller']}
+                - عدد المنتجات المختلفة: {context_data['unique_products']}
+                - معدل نمو المبيعات (آخر شهرين): {context_data['sales_growth_rate']}% (فرق: {context_data['sales_growth_value']})
+                - متوسط المبيعات اليومية: {context_data['daily_avg_sales']}
+                - أعلى يوم مبيعات: {context_data['top_sales_day']}
+                - مبيعات الأسبوع الماضي: {context_data['last_week_sales']}
+                - عدد العمليات في الأسبوع الماضي: {context_data['last_week_transactions']}
                 - أعلى مبيعات بالفئات: {', '.join(f"{label}: {value}" for label, value in zip(context_data['category_labels'], context_data['category_data']))}
                 - التوقعات المستقبلية: {context_data['predicted_sales']} (بدقة {context_data['prediction_accuracy']}%)
                 """
@@ -350,8 +356,14 @@ def chatbot(request):
                 - Total Sales: {context_data['total_sales']}
                 - Number of Transactions: {context_data['total_transactions']}
                 - Best Selling Product: {context_data['best_seller']}
-                - Sales Growth Rate: {context_data['sales_growth_rate']}%
-                - Top Categories by Sales: {', '.join(f"{label}: {value}" for label, value in zip(context_data['category_labels'], context_data['category_data']))}
+                - Least Selling Product: {context_data['worst_seller']}
+                - Unique Products Count: {context_data['unique_products']}
+                - Sales Growth Rate (last two months): {context_data['sales_growth_rate']}% (Change: {context_data['sales_growth_value']})
+                - Average Daily Sales: {context_data['daily_avg_sales']}
+                - Top Sales Day: {context_data['top_sales_day']}
+                - Last Week's Sales: {context_data['last_week_sales']}
+                - Last Week's Transactions: {context_data['last_week_transactions']}
+                - Top Selling Categories: {', '.join(f"{label}: {value}" for label, value in zip(context_data['category_labels'], context_data['category_data']))}
                 - Future Sales Prediction: {context_data['predicted_sales']} (Accuracy: {context_data['prediction_accuracy']}%)
                 """
 
