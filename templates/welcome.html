@@ -409,46 +409,79 @@ a {
           <img src="/static/images/bubble-chat.png" alt="Chat">
         </div>
       </div>
-  
+
       <div class="stats-cards">
-        <div class="card tall scroll-fade d-flex align-items-start justify-content-center" style="background-color: #D5F2FE; padding: 20px;">
-            <div>
-              <h2 class="category mb-3" style="color:#71AFB4;">{% trans 'Expectation of o/ad'%}</h2>
-              <h3 class="mb-0" style="color:gray; text-align: center;"><br><br>{% trans 'better understaning of costumers'%}</h3>
-              <h3 class="mb-0" style="color:gray; text-align: center;"><br>{% trans 'great promotion ideas'%}</h3>
-              <h3 class="mb-0" style="color:gray; text-align: center;"><br>{% trans 'one place for analysis & promotion'%}</h3>
-            </div>
+        <div class="card tall scroll-fade d-flex align-items-center justify-content-center" style="background-color: #D5F2FE; padding: 20px;">
+          <div>
+            <h2 class="category mb-3" style="color:#71AFB4; font-size: 27px; font-weight: 700;">{% trans 'Expectation of o/ad' %}</h2>
+            <ul style="list-style: none; padding: 0; margin-top: 20px;">
+              <li style="color: #555; font-size: 25px; margin-bottom: 15px; font-weight: 500;">
+                {% trans 'Better understanding of customers' %}
+              </li>
+              <li style="color: #555; font-size: 25px; margin-bottom: 15px; font-weight: 500;">
+                {% trans 'Great promotion ideas' %}
+              </li>
+              <li style="color: #555; font-size: 25px; font-weight: 500;">
+                {% trans 'One place for analysis & promotion' %}
+              </li>
+            </ul>
           </div>
+        </div>
+        
+        
    
 
         <div class="card scroll-fade" style="background-color: #E3E2F6;">
-          <h2 class="category mb-3" >{% trans 'Best day to sign up?'%}</h2>
+          <h2 class="category mb-3" style="font-size: 30px; font-weight: 700;">{% trans 'Best day to sign up?'%}</h2>
           <br> <br>
-          <p>{% trans 'NOW 🫵🏼'%}</p>
+          <p style="font-size: 45px; font-weight: 600; color: #444;"> {% trans 'NOW !' %}</p>
         </div>
         <div class="card scroll-fade" style="min-height: 150px; background-color: #E3E7CF;">
-          <h2>{%trans 'sales growth'%}</h2>
-          <p>{%trans 'sales has <br>Increase⬆︎'%}</p>
-          <small>{%trans 'café perfomance is good '%}</small>
+          <h2 style=" font-size: 30px; font-weight: 700;" >{%trans 'sales growth'%}</h2>
+          <p style=" font-size: 27px; font-weight: 500;">{%trans 'sales has <br>Increase⬆︎'%}</p>
+          <small style=" font-size: 15px; font-weight: 400;">{%trans 'café perfomance is good '%}</small>
         </div>
         <div class="card scroll-fade">
           <div class="content d-flex flex-column justify-content-between h-100">
-                <h2 class="category mb-3" style="color:#71AFB4;">{%trans 'Upcoming Event'%}<br></h2>
-                <div class="d-flex flex-column align-items-center text-center justify-content-center flex-grow-1">
-                  <h3 class="title mb-0"><br>{%trans 'XYZ'%}</h3>
-                  <p class="description" style="font-size: 1rem; line-height: 1.6; text-align: center;">
-                    {%trans 'Days Remaining:'%}<br>
-                    <strong style="font-size: 3rem;text-align: center;">5</strong><br>
-                   {%trans 'Date: <strong>April 27, 2025'%}</strong><br> 
-                  </p>
-                </div>
-              </div>
+            <h2 class="category mb-3" style="color:#71AFB4; font-weight: 700; ">{% trans "Upcoming Event" %}</h2>
+            <br>
+            <div class="d-flex flex-column align-items-center text-center justify-content-center flex-grow-1">
+              <h3 class="title mb-0" style="font-size: 22px; font-weight: 700;">
+                {% trans "Event Impacting Sales" %}
+              </h3>              
+              <p class="description" style="font-size: 1rem; line-height: 1.6; text-align: center; font-weight: 500;">
+                {% trans "Days Remaining:" %}<br>
+                <strong style="font-size: 3rem; text-align: center;"> 15</strong><br>
+                {% trans "Date: MM/DD/YYYY" %}
+              </p>
+              <p style="font-size: 14px; color: #888; padding: 0 10px; font-weight: 400;">
+                {% trans " Integrated into your insights — we’ve already considered it" %}
+              </p>
+            </div>
+          </div>
         </div>
         <div class="card tall scroll-fade" style="background-color: #E3E2F6;">
-          <p><strong>abcdefg</strong></p>
+          <h2 class="category mb-3" style="color:#71AFB4; font-weight: 700;">{%trans 'Ask o/ad Chatbot' %}</h2>
+          
+          <div style="font-size: 40px; margin: 10px 0;"></div>
+        
+          <p style="color: #444; font-size: 16px; padding: 0 15px;">
+            <p style="color: #444; font-size: 25px; padding: 0 15px; font-weight: 500;">
+              {%trans "Our assistant doesn’t just reply — it understands your cafe's data to give you the right advice, when you need it" %}
+              </p>
+              
+              <p style="font-size: 15px; color: #888; font-weight: 400;"> {%trans 'Start chatting — made for you' %}</p>
+              
         </div>
+                
+                
       </div>
     </section>
+
+
+      
+  
+  
   
     <!-- Services Section -->
     <section class="services">
