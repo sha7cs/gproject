@@ -186,43 +186,73 @@ def analysis_view(request):
         return JsonResponse({"error": "Something went wrong. Check Django logs."}, status=500)
 
 # عشان نرسل الداتا ذي للشات 
+from datetime import timedelta
+
 def user_data(request):
-    profile = UserProfile.objects.get(user=request.user)  # Get the current user's profile
+    profile = UserProfile.objects.get(user=request.user)
     last_updated = profile.last_updated
     df = get_sales_data(profile)
+
+    df['business_date'] = pd.to_datetime(df['business_date'])
+
     total_sales = df['total_price'].sum()
     total_transactions = len(df)
 
     detailed_orders = df['detailed_orders'].dropna()
     all_items = [item['item'] for order in detailed_orders for item in order]
     best_seller = pd.Series(all_items).value_counts().idxmax() if all_items else None
+    worst_seller = pd.Series(all_items).value_counts().idxmin() if all_items else None
+    unique_products_count = len(set(all_items))
 
+    # أداء شهري
     monthly_sales = df.groupby(df['business_date'].dt.month)['total_price'].sum().to_dict()
-
+    sales_growth_rate = 0
+    sales_growth_value = 0
     if len(monthly_sales) >= 2:
         months = sorted(monthly_sales.keys())
-        sales_growth_rate = ((monthly_sales[months[-1]] - monthly_sales[months[-2]]) / monthly_sales[months[-2]]) * 100
-    else:
-        sales_growth_rate = 0
+        current = monthly_sales[months[-1]]
+        previous = monthly_sales[months[-2]]
+        sales_growth_rate = ((current - previous) / previous) * 100 if previous else 0
+        sales_growth_value = current - previous
 
+    # أداء أسبوعي (آخر 7 أيام)
+    last_week = df[df['business_date'] >= df['business_date'].max() - timedelta(days=7)]
+    last_week_sales = last_week['total_price'].sum()
+    last_week_transactions = len(last_week)
+
+    # متوسط المبيعات اليومية
+    daily_avg_sales = df.groupby(df['business_date'].dt.date)['total_price'].sum().mean()
+
+    # أفضل يوم مبيعات
+    top_day = df.groupby(df['business_date'].dt.date)['total_price'].sum().idxmax()
+
+    # حسب التصنيفات
     category_sales = {}
     for order in detailed_orders:
         for item in order:
             category_sales[item['category']] = category_sales.get(item['category'], 0) + item['quantity']
+
+    # توقعات مستقبلية
     predicted_january_sales, accuracy = get_prediction(df, profile.user.id, last_updated)
-    context = {
+
+    return {
         'total_sales': total_sales,
         'total_transactions': total_transactions,
         'best_seller': best_seller,
+        'worst_seller': worst_seller,
+        'unique_products': unique_products_count,
         'sales_growth_rate': round(sales_growth_rate, 2),
+        'sales_growth_value': round(sales_growth_value, 2),
         'monthly_sales': monthly_sales,
         'category_labels': list(category_sales.keys()),
         'category_data': list(category_sales.values()),
         'predicted_sales': predicted_january_sales,
         'prediction_accuracy': accuracy,
+        'last_week_sales': last_week_sales,
+        'last_week_transactions': last_week_transactions,
+        'daily_avg_sales': round(daily_avg_sales, 2),
+        'top_sales_day': str(top_day),
     }
-
-    return context
 
 def filter_data(request):
     try:
