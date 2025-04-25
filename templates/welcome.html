@@ -1,344 +1,13 @@
-{% comment %} <!DOCTYPE html>
-{% load static %}
-{% load i18n %}>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Road</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: white;
-            color: #333;
-        }
 
-        /* Navigation */
-        .nav {
-            opacity: 0;
-            transform: translateY(-50px);
-            animation: slideDown 0.6s ease-out forwards;
-            animation-delay: 0.8s;
-        }
-          
-        @keyframes slideDown {
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 200px 20px;
-        }
-
-        .hero h1 {
-            font-size: 64px;
-            margin: 0;
-            color: #5c3f71;
-            animation: fade-in 2s ease-in-out;
-        }
-
-        .hero p {
-            font-size: 24px;
-            margin: 30px 0 60px;
-            color: #566172;
-            animation: fade-in 2.5s ease-in-out;
-        }
-
-        .hero-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            animation: fade-in 3s ease-in-out;
-        }
-
-        .hero-buttons a {
-            padding: 20px 40px;
-            border-radius: 30px;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 18px;
-        }
-
-        .hero-buttons .sign-up {
-            border: 2px solid #c25091;
-            color: #c25091;
-        }
-
-        .hero-buttons .sign-up:hover {
-            background-color: #c25091;
-            color: white;
-        }
-
-        .hero-buttons .log-in {
-            background-color: #c25091;
-            color: white;
-        }
-
-        .hero-buttons .log-in:hover {
-            background-color: #e377b3;  /* Lighter color on hover */
-        }
-
-        /* Animations */
-        @keyframes fade-in {
-            0% {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Circular Animation Section */
-        .slider-container {
-            overflow: hidden;
-            padding: 60px 0;
-            max-width: 100%;
-            position: relative;
-            height: 500px;
-            display: flex;
-            text-align: center;
-            flex-direction: column;
-            justify-content: space-around;
-        }
-
-        .squares-row {
-            width: 200%;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-
-        .square {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            width: 280px;
-            height: 280px;
-            border-radius: 60px;
-            animation: rotate 6s infinite ease-in-out;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-
-        }
-        .square:hover {
-            transform: scale(1.05) rotate(1deg);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
-        }
-        
-        
-        .square h1 {
-            color: white;
-            font-size: 30px;
-            margin: 0 0 10px 0; /* Add margin to create space between h1 and p */
-        }
-        
-        .square p {
-            color: white;
-            font-size: 26px;
-            margin: 0;
-        }
-
-        /* Color Classes */
-        .square.pink { background-color: #c25091; }
-        .square.purple { background-color: #5c3f71; animation: glow 3s infinite ease-in-out;}
-        .square.blue { background-color: #566172; }
-        .square.brown { background-color: #a08e8e; }
-        .square.green { background-color: #88a39b; }
-
-        /* Row Animations */
-        .row-1 {
-            animation: slide-left 18s ease-in-out infinite;
-        }
-
-        .row-2 {
-            animation: slide-right 20s ease-in-out infinite;
-        }
-
-        @keyframes slide-left {
-            0% {
-                transform: translateX(0);
-            }
-            50% {
-                transform: translateX(-30%);
-            }
-            100% {
-                transform: translateX(-60%);
-            }
-        }
-        
-        @keyframes slide-right {
-            0% {
-                transform: translateX(-60%);
-            }
-            50% {
-                transform: translateX(-30%);
-            }
-            100% {
-                transform: translateX(0);
-            }
-        }
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 10px #fff5, 0 0 20px #fff4; }
-            50% { box-shadow: 0 0 20px #fff7, 0 0 40px #fff6; }
-          }
-          
-        
-
-        @keyframes rotate {
-            0%, 100% {
-                transform: rotate(0deg);
-            }
-            50% {
-                transform: rotate(10deg);
-            }
-        }
-
-        /* About and Contact Sections */
-        .section-container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .section#about {
-            background-color: #a08e8e;
-            color: white;
-        }
-
-        .section#contact {
-            background-color: #c25091;
-            color: white;
-        }
-
-        .section#services {
-            background-color: #88a39b;
-            color: white;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #566172;
-            color: white;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Navigation -->
-    <nav class="nav">
-        <a href="#services">Our Services</a>
-        <a href="#about">About Us</a>
-        <a href="#contact">Contact </a>
-        <li class="nav-item dropdown mt-2 mx-2">
-            {% get_current_language as CURRENT_LANGUAGE %}
-            {% get_available_languages as AVAILABLE_LANGUAGES %}
-            {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
-            <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {%trans 'languages'%}
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            {% for language in languages%}
-                <a class="dropdown-item" href="{% url 'set_language' urlname=request.resolver_match.view_name %}?language={{ language.code }}">
-                {{ language.name_local }}
-                </a>              
-            {% endfor %}
-            </div>
-        </li>
-    </nav>
-
-    <!-- Hero Section -->
-    <div class="hero">
-        <h1>Welcome to Road,</h1>
-        <p>Your way to dive deep in the data</p>
-        <div class="hero-buttons">
-            <a href="{% url 'signup' %}" class="sign-up">Sign Up</a>
-            <a href="{% url 'login' %}" class="log-in">Log In</a>
-        </div>
-    </div>
-
-    <!-- Circular Animation Section -->
-    <div class="slider-container">
-        <!-- First Row -->
-        <div class="squares-row row-1">
-            <div class="square pink">
-                <h1>Host a Workshpo</h1><p> to make customer learn something new</p>
-            </div>
-            <div class="square green">
-                <h1>Host a Workshpo</h1><p> to make customer learn something new</p>
-            </div>
-            <div class="square purple"></div>
-            <div class="square blue">
-                <h1>Host a Workshpo</h1><p> to make customer learn something new</p>
-            </div>
-            <div class="square brown"></div>
-        </div>
-
-        <!-- Second Row -->
-        <div class="squares-row row-2">
-            <div class="square blue">
-                <h1>Host a Workshpo</h1><p> to make customer learn something new</p>
-            </div>
-            <div class="square pink"></div>
-            <div class="square brown">
-                <h1>Host a Workshpo</h1><p> to make customer learn something new</p>
-            </div>
-            <div class="square green">
-                <h1>Host a Workshpo</h1><p> to make customer learn something new</p>
-            </div>
-            <div class="square purple"></div>
-        </div>
-    </div>
-
-    <!-- our services Section -->
-    <div class="section-container section" id="services">
-        <h2>Our Services</h2>
-        <p>we will provide you with best ...... </p>
-    </div>
-
-    <!-- About Us Section -->
-    <div class="section-container section" id="about">
-        <h2>About Us</h2>
-        <p>Here is some information about us.</p>
-    </div>
-
-    <!-- Contact Section -->
-    <div class="section-container section" id="contact">
-        <h2>Contact</h2>
-        <p>Get in touch with us through this section.</p>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <p>Team Yummy</p>
-    </footer>
-
-</body> {% endcomment %}
-
-<!DOCTYPE html>
 <!DOCTYPE html>
 {% load static %}
 {% load i18n %}
-{% comment %} <html lang="en"> {% endcomment %}
+<html lang="{{ LANGUAGE_CODE }}" dir="{% trans 'dir'%}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Manufacturing Landing Page</title>
+  <title>{% trans 'o/ad' %}</title>
+  <link rel="icon" href="{% static '/images/oad-collapsed.png' %}" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -359,10 +28,12 @@ body {
   background: #F8F8F8;
   color: #111;
   font-family: "beiruti", sans-serif;
+  text-align:center;
 }
 
 h1, h2, h3 {
   margin: 0;
+  text-align:center;
 }
 
 a {
@@ -671,30 +342,35 @@ a {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
   }
-
+ 
   </style>
+  <link rel="stylesheet" href="{% static 'css/feather.css' %}">
+
 </head>
+
 <body>
     <!-- Navbar -->
     <nav class="custom-navbar">
         <ul>
-          <li><a href="#about">about us</a></li>
-          <li><a href="#services">our services</a></li>
-          <li><a href="#contact">contact us</a></li>
+          <li><a href="#about">{%trans 'about us'%}</a></li>
+          <li><a href="#services">{% trans 'our services'%}</a></li>
+          <li><a href="#contact">{% trans 'contact us'%}</a></li>
           
           <!-- Language Dropdown -->
           <li class="nav-item dropdown mt-2 mx-2">
             {% get_current_language as CURRENT_LANGUAGE %}
             {% get_available_languages as AVAILABLE_LANGUAGES %}
             {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+            
             <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {% trans 'language' %}
+              {% trans 'language' %} <span class="fe fe-20 fe-chevron-down"></span>
             </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+          
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               {% for language in languages %}
                 <a class="dropdown-item {% if language.code == CURRENT_LANGUAGE %}active{% endif %}" href="{% url 'set_language' urlname=request.resolver_match.view_name %}?language={{ language.code }}">
                   {{ language.name_local }}
-                </a>              
+                </a>
               {% endfor %}
             </div>
           </li>
@@ -706,11 +382,11 @@ a {
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-content">
-        <h1>Welcome to <img src="/static/images/oad.png" alt="Latest Technology" class="tech-image"></h1>
-        <p>Turn great experiences into loyal customers — and smart insights into café growth.</p>
+        <h1>{% trans 'Welcome to'%} <img src="/static/images/oad.png" alt="Latest Technology" class="tech-image"></h1>
+        <p style='text-align: center;'>{% trans "Turn great experiences into loyal customers — and smart insights into café growth."%}</p>
         <div class="hero-buttons">
-          <a href="{% url 'login' %}" class="btn dark">Login</a>
-          <a href="{% url 'signup' %}" class="btn light">Signup</a>
+          <a href="{% url 'login' %}" class="btn dark">{% trans 'Login'%}</a>
+          <a href="{% url 'signup' %}" class="btn light">{% trans 'Signup'%}</a>
         </div>
       </div>
       <div class="floating-icons">
@@ -737,31 +413,33 @@ a {
       <div class="stats-cards">
         <div class="card tall scroll-fade d-flex align-items-start justify-content-center" style="background-color: #D5F2FE; padding: 20px;">
             <div>
-              <h2 class="category mb-3" style="color:#71AFB4;">Marketing Advice</h2>
-              <h3 class="mb-0"><br><br>Offer discounts for students</h3>
+              <h2 class="category mb-3" style="color:#71AFB4;">{% trans 'Expectation of o/ad'%}</h2>
+              <h3 class="mb-0" style="color:gray; text-align: center;"><br><br>{% trans 'better understaning of costumers'%}</h3>
+              <h3 class="mb-0" style="color:gray; text-align: center;"><br>{% trans 'great promotion ideas'%}</h3>
+              <h3 class="mb-0" style="color:gray; text-align: center;"><br>{% trans 'one place for analysis & promotion'%}</h3>
             </div>
           </div>
-          
-          
-          
-          
+   
 
         <div class="card scroll-fade" style="background-color: #E3E2F6;">
+          <h2 class="category mb-3" >{% trans 'Best day to sign up?'%}</h2>
+          <br> <br>
+          <p>{% trans 'NOW 🫵🏼'%}</p>
         </div>
         <div class="card scroll-fade" style="min-height: 150px; background-color: #E3E7CF;">
-          <h2>sales growth</h2>
-          <p>slase has <br>Increase⬆︎</p>
-          <small>café perfomance is good </small>
+          <h2>{%trans 'sales growth'%}</h2>
+          <p>{%trans 'sales has <br>Increase⬆︎'%}</p>
+          <small>{%trans 'café perfomance is good '%}</small>
         </div>
         <div class="card scroll-fade">
           <div class="content d-flex flex-column justify-content-between h-100">
-                <h2 class="category mb-3" style="color:#71AFB4;">Upcoming Event<br></h2>
+                <h2 class="category mb-3" style="color:#71AFB4;">{%trans 'Upcoming Event'%}<br></h2>
                 <div class="d-flex flex-column align-items-center text-center justify-content-center flex-grow-1">
-                  <h3 class="title mb-0"><br>XYZ</h3>
-                  <p class="description" style="font-size: 1rem; line-height: 1.6;">
-                    Days Remaining:<br>
-                    <strong style="font-size: 3rem;">5</strong><br>
-                    Date: <strong>April 27, 2025</strong><br> 
+                  <h3 class="title mb-0"><br>{%trans 'XYZ'%}</h3>
+                  <p class="description" style="font-size: 1rem; line-height: 1.6; text-align: center;">
+                    {%trans 'Days Remaining:'%}<br>
+                    <strong style="font-size: 3rem;text-align: center;">5</strong><br>
+                   {%trans 'Date: <strong>April 27, 2025'%}</strong><br> 
                   </p>
                 </div>
               </div>
@@ -774,20 +452,26 @@ a {
   
     <!-- Services Section -->
     <section class="services">
-      <h2>More Than Just a Name</h2>
-      <p>Discover who we are, what we do, and how we can help you succeed.</p>
+      <h2>{%trans 'More Than Just a Name'%}</h2>
+      <p>{%trans 'Discover who we are, what we do, and how we can help you succeed.'%}</p>
       <div id="services" class="service-cards">
         <div class="service-card scroll-fade">
-          <h3>our services</h3>
-          <p>Details...</p>
+          <h3>{% trans 'our services'%}</h3>
+          <p style="font-size:20px; text-align: center;">{% trans 'This platform targets cafe managers, it aim to give them a way to grow their business using ours, it provides an analysis and promotion services.'%}</p>
         </div>
         <div id='about' class="service-card scroll-fade">
-          <h3>about the developers</h3>
-          <p>We are....</p>
+          <h3>{% trans 'About the Developers'%}</h3>
+          <ul style="list-style: none; padding: 0; display: flex; gap: 1rem; font-weight: bold; color:#71AFB4; justify-content: center; ">
+            <li>{% trans "Talah Almuhawwis"%}</li>
+            <li>{% trans 'Shatha Alharbi'%}</li>
+            <li >{%trans "Jumanah Almatrood"%}</li>
+          </ul>
+          <p style="font-size:18px;text-align: center;">{%trans 'We are a very ambutious developers, and a great team, this platform has seen many phases and opinions that we have been through and they all brought us to this moment. We have more to go and we are very excited for our future.'%}</p>
         </div>
+        
         <div id='contact' class="service-card scroll-fade">
-          <h3>for contact</h3>
-          <p>Reach us via email: <strong>heresoad@gmail.com</strong> <br> happy to chat!</p>
+          <h3>{% trans 'for contact'%}</h3>
+          <p style="text-align:center;">{%trans 'Reach us via email: <strong>heresoad@gmail.com</strong> <br> happy to chat!'%}</p>
         </div>
       </div>
     </section>
