@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-23 19:43+0000\n"
-"PO-Revision-Date: 2025-04-23 19:47+0000\n"
+"POT-Creation-Date: 2025-04-25 19:13+0000\n"
+"PO-Revision-Date: 2025-04-25 19:13+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ar\n"
@@ -82,15 +82,15 @@ msgstr "كان هناك مشكلة في إنشاء التصنيف فرعي"
 msgid "Subcategory deleted successfully!"
 msgstr "تم حذف التصنيف الفرعي بنجاح!"
 
-#: analysis/views.py:318
+#: analysis/views.py:348
 msgid "Not enough monthly data for prediction"
 msgstr "البيانات غير كافية لتوقع المبيعات "
 
-#: analysis/views.py:339
+#: analysis/views.py:369
 msgid "Insufficient data after merging"
 msgstr "البيانات غير كافية بعد الدمج."
 
-#: analysis/views.py:348
+#: analysis/views.py:378
 msgid "Not enough data for training/testing split"
 msgstr "لا توجد بيانات كافية  للتدريب والاختبار."
 
@@ -109,7 +109,6 @@ msgid "Enter your cafe name"
 msgstr "ادخل اسم مقهاك"
 
 #: authentication/forms.py:32
-#| msgid "Enter your cafe name"
 msgid "Enter your cafe name in Arabic"
 msgstr "ادخل اسم مقهاك بالعربية"
 
@@ -256,13 +255,14 @@ msgstr "يوم {} من الشهر"
 msgid "No data available"
 msgstr "البيانات غير متوفرة"
 
-#: promotions/views.py:265
+#: promotions/views.py:255
 msgid "No advice available"
 msgstr "النصيحة غير متوفرة"
 
 #: templates/admins/base.html:51 templates/base.html:4 templates/base.html:72
 #: templates/profile/signup-settings.html:5
 #: templates/profile/signup-settings.html:50 templates/profile/waiting.html:37
+#: templates/welcome.html:5
 msgid "dir"
 msgstr "rtl"
 
@@ -802,12 +802,10 @@ msgid "No cafe description available."
 msgstr "لا يوجد وصف للمقهى"
 
 #: templates/profile/settings_view.html:123
-#| msgid "Your cafe name"
 msgid "Your cafe name in English"
 msgstr "اسم مقهاك بالإنجليزي"
 
 #: templates/profile/settings_view.html:127
-#| msgid "Your cafe name"
 msgid "Your cafe name in Arabic"
 msgstr "اسم مقهاك بالعربي"
 
@@ -884,12 +882,10 @@ msgid "profile"
 msgstr "بيانات المستخدم"
 
 #: templates/profile/signup-settings.html:109
-#| msgid "Event Name (English)"
 msgid "Cafe Name in English"
 msgstr "اسم الامقهى بالإنجليزية"
 
 #: templates/profile/signup-settings.html:113
-#| msgid "Event Name (Arabic)"
 msgid "Cafe Name in Arabic"
 msgstr "اسم المقهى بالعربي"
 
@@ -978,11 +974,11 @@ msgstr " أفضل الأيام للعروض الترويجية"
 msgid "The best days for promotions based on sales trends."
 msgstr " أفضل الأيام للعروض الترويجية بناءً على اتجاهات المبيعات."
 
-#: templates/promotions/promotions.html:142
+#: templates/promotions/promotions.html:142 templates/welcome.html:437
 msgid "Upcoming Event"
 msgstr "الحدث القادم"
 
-#: templates/promotions/promotions.html:147
+#: templates/promotions/promotions.html:147 templates/welcome.html:441
 msgid "Days Remaining:"
 msgstr "الأيام المتبقية:"
 
@@ -1072,10 +1068,141 @@ msgstr "التسويق"
 msgid "User"
 msgstr "المستخدم"
 
-#: templates/welcome.html:694
-#| msgid "languages"
+#: templates/welcome.html:9
+msgid "o/ad"
+msgstr "عَُد"
+
+#: templates/welcome.html:356
+msgid "about us"
+msgstr "من نحن"
+
+#: templates/welcome.html:357 templates/welcome.html:460
+msgid "our services"
+msgstr "خدماتنا"
+
+#: templates/welcome.html:358
+msgid "contact us"
+msgstr "تواصل معنا"
+
+#: templates/welcome.html:367
 msgid "language"
 msgstr "اللغة"
+
+#: templates/welcome.html:386
+msgid "Welcome to"
+msgstr "مرحبا بك في "
+
+#: templates/welcome.html:387
+msgid ""
+"Turn great experiences into loyal customers — and smart insights into café "
+"growth."
+msgstr "هي التجربة اللي تخليه يرجع، والتحليل اللي يخليك تتقّدم!!"
+
+#: templates/welcome.html:389
+msgid "Login"
+msgstr "تسجيل دخول"
+
+#: templates/welcome.html:390
+msgid "Signup"
+msgstr "إنشاء حساب"
+
+#: templates/welcome.html:417
+msgid "Expectation of o/ad"
+msgstr "التوقعات من عَُد"
+
+#: templates/welcome.html:418
+msgid "better understaning of costumers"
+msgstr "فهم أكبر لزباينك"
+
+#: templates/welcome.html:419
+msgid "great promotion ideas"
+msgstr "أفكار ترويجية رائعة"
+
+#: templates/welcome.html:420
+msgid "one place for analysis & promotion"
+msgstr "مكان واحد للتحليل & التسويق!"
+
+#: templates/welcome.html:426
+msgid "Best day to sign up?"
+msgstr "ما هو أفضل يوم لتبدأ رحلتك معنا؟"
+
+#: templates/welcome.html:428
+msgid "NOW 🫵🏼"
+msgstr "الآن 🫵🏼"
+
+#: templates/welcome.html:431
+msgid "sales growth"
+msgstr "معدل نمو المبيعات"
+
+#: templates/welcome.html:432
+msgid "sales has <br>Increase⬆︎"
+msgstr "الزيادة في <br> إرتفاع⬆︎"
+
+#: templates/welcome.html:433
+msgid "café perfomance is good "
+msgstr "أداء مقاهك ممتاز"
+
+#: templates/welcome.html:439
+msgid "XYZ"
+msgstr ""
+
+#: templates/welcome.html:443
+msgid "Date: <strong>April 27, 2025"
+msgstr "التاريخ: <strong>27 أبريل 2025</strong>"
+
+#: templates/welcome.html:456
+msgid "More Than Just a Name"
+msgstr "أكثر من مجرد اسم"
+
+#: templates/welcome.html:457
+msgid "Discover who we are, what we do, and how we can help you succeed."
+msgstr "اكتشف من نحن، وما نقدمه، وكيف يمكننا مساعدتك على النجاح."
+
+#: templates/welcome.html:461
+msgid ""
+"This platform targets cafe managers, it aim to give them a way to grow their"
+" business using ours, it provides an analysis and promotion services."
+msgstr ""
+"تهدف هذه المنصة إلى مديري المقاهي، حيث تسعى لتوفير وسيلة لهم لنمو أعمالهم من"
+" خلال منصتنا. تقدم خدمات التحليل والترويج لمساعدتهم في تعزيز أعمالهم."
+
+#: templates/welcome.html:464
+msgid "About the Developers"
+msgstr "عن المطورين"
+
+#: templates/welcome.html:466
+msgid "Talah Almuhawwis"
+msgstr "تالة المهوس"
+
+#: templates/welcome.html:467
+msgid "Shatha Alharbi"
+msgstr "شذا الحربي"
+
+#: templates/welcome.html:468
+msgid "Jumanah Almatrood"
+msgstr "جمانة المطرود"
+
+#: templates/welcome.html:470
+msgid ""
+"We are a very ambutious developers, and a great team, this platform has seen"
+" many phases and opinions that we have been through and they all brought us "
+"to this moment. We have more to go and we are very excited for our future."
+msgstr ""
+"نحن مطوّرون طموحون وفريق نؤمن بالشغف والعمل الجاد. مرّت هذه المنصّة بمراحل "
+"وأفكار وتجارب كثيرة شكّلتها وجعلتها ما هي عليه اليوم. ورغم كل ما أنجزناه، لا"
+" زال أمامنا طريق ممتع ومليء بالتحديات، ونحن متحمّسون جدًّا لما يحمله "
+"المستقبل لنا."
+
+#: templates/welcome.html:474
+msgid "for contact"
+msgstr "للتواصل"
+
+#: templates/welcome.html:475
+msgid ""
+"Reach us via email: <strong>heresoad@gmail.com</strong> <br> happy to chat!"
+msgstr ""
+"تواصل معنا عبر البريد الإلكتروني: <strong>heresoad@gmail.com</strong> <br> "
+"سعداء بالتواصل معك!"
 
 #~ msgid "Analysis"
 #~ msgstr "التحليل"
