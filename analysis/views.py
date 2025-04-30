@@ -65,7 +65,7 @@ def set_last_update_time():
     conn.close()
 
 def fetch_and_store_data():
-    sales_ref = db.collection('Sales_ARS')
+    sales_ref = db.collection('Sales_ARS')# name of collection in firebase
     docs = sales_ref.stream()
 
     data = []
