@@ -48,6 +48,11 @@
         font-weight: <weight>;
         font-style: normal;
       }
+      #leftSidebar.collapsed #sidebar-logo {
+        content: url("/static/images/oad-collapsed.png");
+        width: 30px !important;
+        height: auto !important;
+      }
     </style>
   </head>
   <body class="vertical  light {% trans 'dir' %}">
@@ -384,7 +389,12 @@
       gtag('config', 'UA-56159088-1');
     </script>
 
-
+    <script>
+      document.querySelector('.collapseSidebar').addEventListener('click', function() {
+        const sidebar = document.getElementById('leftSidebar');
+        sidebar.classList.toggle('collapsed'); // Toggle the collapsed state
+      });
+    </script>
         <!--flash messages script-->
         <script>
           toastr.options = {
