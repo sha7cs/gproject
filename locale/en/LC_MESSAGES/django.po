@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 21:41+0000\n"
+"POT-Creation-Date: 2025-05-05 19:18+0000\n"
 "PO-Revision-Date: 2025-04-14 18:44+0000\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,6 +80,10 @@ msgstr ""
 
 #: administrators/views.py:313
 msgid "Subcategory deleted successfully!"
+msgstr ""
+
+#: analysis/views.py:340
+msgid "Data too small to generate accurate prediction"
 msgstr ""
 
 #: analysis/views.py:348
@@ -183,7 +187,7 @@ msgstr ""
 msgid "Event"
 msgstr ""
 
-#: promotions/models.py:23 templates/admins/base.html:131
+#: promotions/models.py:23 templates/admins/base.html:138
 #: templates/profile/settings_view.html:54
 msgid "Events"
 msgstr ""
@@ -264,19 +268,19 @@ msgstr ""
 msgid "No advice available"
 msgstr ""
 
-#: templates/admins/base.html:51 templates/base.html:4 templates/base.html:72
+#: templates/admins/base.html:58 templates/base.html:4 templates/base.html:72
 #: templates/profile/signup-settings.html:5
 #: templates/profile/signup-settings.html:50 templates/profile/waiting.html:37
 #: templates/welcome.html:5
 msgid "dir"
 msgstr ""
 
-#: templates/admins/base.html:70 templates/navbar.html:17
+#: templates/admins/base.html:77 templates/navbar.html:17
 #: templates/profile/signup-settings.html:59 templates/profile/waiting.html:48
 msgid "languages"
 msgstr ""
 
-#: templates/admins/base.html:86 templates/navbar.html:47
+#: templates/admins/base.html:93 templates/navbar.html:47
 #: templates/profile/settings_view.html:6
 #: templates/profile/settings_view.html:43
 #: templates/profile/signup-settings.html:12
@@ -286,16 +290,16 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: templates/admins/base.html:90 templates/navbar.html:51
+#: templates/admins/base.html:97 templates/navbar.html:51
 #: templates/profile/signup-settings.html:78 templates/profile/waiting.html:67
 msgid "Logout"
 msgstr ""
 
-#: templates/admins/base.html:113 templates/admins/users.html:18
+#: templates/admins/base.html:120 templates/admins/users.html:18
 msgid "Users"
 msgstr "Users"
 
-#: templates/admins/base.html:122
+#: templates/admins/base.html:129
 msgid "Chatbot"
 msgstr "Chatbot"
 
