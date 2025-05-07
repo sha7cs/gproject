@@ -337,7 +337,7 @@ def get_prediction(df, user_id, last_updated):  # you’ll need to pass request.
         return cached_data['result'], cached_data['accuracy']  # Return (prediction, accuracy) from cache
 
     if len(df) < 60:  # Safety check: minimum ~2 months of data
-        return ("Data too small to generate accurate prediction", 0)
+        return (_("Data too small to generate accurate prediction"), 0)
 
     try:
         event_dates = get_events()
