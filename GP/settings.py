@@ -41,7 +41,9 @@ SECRET_KEY = 'django-insecure-vdsje+^j4wxua^*%r$snr!zr0%m+$(akyj_fj)4m^3b^n8fs8b
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+if os.getenv('RENDER'):
+    DEBUG = False
+    
 # Email
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'heresoad@gmail.com'
@@ -49,7 +51,7 @@ EMAIL_HOST_PASSWORD = 'cqwyhenzcnbgudxr'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # settings.py
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Default for database-backed sessions
@@ -179,9 +181,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 LOCALE_PATHS = [BASE_DIR / 'locale']
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static') ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
