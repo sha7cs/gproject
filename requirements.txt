@@ -97,3 +97,5 @@ weasyprint==64.1
 webencodings==0.5.1
 zopfli==0.2.3.post1
 gunicorn
+psycopg2-binary
+dj-database-url
