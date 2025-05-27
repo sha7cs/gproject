@@ -114,11 +114,12 @@ WSGI_APPLICATION = 'GP.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        'OPTIONS': {
-            'timeout': 20, 
-        },
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'oad',        
+        'USER': 'root',               
+        'PASSWORD': 'Root123123',   
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
