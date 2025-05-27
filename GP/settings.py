@@ -181,11 +181,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
 LOCALE_PATHS = [BASE_DIR / 'locale']
 
-STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static') ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # مهم جداً في حال static خارجي
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # اللي راح يتجمع فيه كل شيء بعد collectstatic
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
