@@ -101,3 +101,4 @@ psycopg2-binary
 dj-database-url
 pymysql
 dj-database-url
+whitenoise
