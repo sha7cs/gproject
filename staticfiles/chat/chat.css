@@ -1,0 +1,297 @@
+/* ===== Global Styles ===== */
+h4, .h4 {
+  font-size: 2.0em;
+  font-weight: 600;
+  line-height: 1.2em;
+}
+
+h6, .h6 {
+  font-size: 26px;
+  font-weight: bold;
+
+}
+
+a:hover, a:focus {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+/* ===== Card Styles ===== */
+.card {
+  border-radius: 20px;
+  /* box-shadow: 0 4px 8px rgba(160, 142, 142, 1); */
+  background-color: #ffffff;
+  color: #252422;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+  height: 280px;
+}
+
+.card[data-radius="none"] {
+  border-radius: 20;
+}
+
+.card-big-shadow {
+  max-width: 320px;
+  position: relative;
+}
+
+.card-big-shadow:before {
+  background-image: url("http://static.tumblr.com/i21wc39/coTmrkw40/shadow.png");
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  content: "";
+  position: absolute;
+  bottom: -12%;
+  left: -12%;
+  top: 0;
+  right: 0;
+  z-index: 0;
+}
+
+.card[data-background="image"] .title,
+.card[data-background="image"] .stats,
+.card[data-background="image"] .category,
+.card[data-background="image"] .description,
+.card[data-background="image"] .content,
+.card[data-background="image"] .card-footer,
+.card[data-background="color"] .title,
+.card[data-background="color"] .stats,
+.card[data-background="color"] .category,
+.card[data-background="color"] .description,
+.card[data-background="color"] .content,
+.card[data-background="color"] .card-footer {
+  color: #000000;
+}
+
+.card.card-just-text .content {
+  padding: 40px 30px;
+  text-align: center;
+}
+
+.card .content {
+  padding: 20px;
+}
+
+.card .category,
+.card .label {
+  /* font-size: 14px; */
+  margin-bottom: 0;
+}
+
+.card[data-color="pink"] {
+  background: #c25091;
+}
+
+.card[data-color="purple"] {
+  background: #E3E2F6;
+}
+
+.card[data-color="bluesh"] {
+  background: #D5F2FE;
+}
+
+.card[data-color="gray-brown"] {
+  background: #F8F8F8;
+}
+
+.card[data-color="green"] {
+  background: #E3E7CF;
+}
+
+/* ===== Custom Button Styles ===== */
+.custom-card-button {
+  margin-top: 20px;
+  padding: 12px 30px;
+  background-color: #602E9E;
+  color: #ffffff;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+}
+
+.custom-card-button.cover {
+  background-color: #BFBDF6;
+  color :#000000;
+}
+
+.custom-card-button:hover {
+  background-color: #602E9E;
+  color: #ffffff ;
+}
+
+.custom-card-button:active {
+  transform: translateY(2px);
+}
+
+/* ===== Cover Container ===== */
+.cover-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%; /* Take full size of the parent */
+  background-color: #E3E2F6;
+  border-radius: 20px; /* Match parent container's border radius */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.custom-cover {
+  text-align: center;
+  color: #ffffff;
+  padding: 20px;
+}
+
+.custom-cover h2 {
+  font-size: 26px;
+  color: #000000;
+}
+
+.custom-cover p {
+  color: #ccbce1;
+  margin-top: 10px;
+}
+
+.custom-cover button:hover {
+  background-color: #BFBDF6;
+}
+.robot-image {
+  width: 100%; /* Adjust as needed */
+  height: auto; /* Keep aspect ratio intact */
+  max-width: 300px; /* Make it a reasonable size */
+  display: block;
+  margin: 0 auto; /* Center the image */
+}
+
+/* ===== Chat Container ===== */
+.chat-container {
+  max-width: 400px;
+  height: 600px;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  justify-content: center;  /* Centers items vertically */
+  align-items: center;
+}
+
+.chat-container .message {
+  max-width: 70%;
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.chat-container .message.user {
+  align-self: flex-end;
+  background-color: #5c3f71;
+  color: white;
+}
+
+.chat-container .message.bot {
+  align-self: flex-start;
+  background-color: #eeebf3;
+  color: #333;
+}
+
+.chat-container .messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-container .messages::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.chat-container .messages::-webkit-scrollbar-thumb:hover {
+  background-color: #aaa;
+}
+
+.chat-container .chat-section {
+  flex: 1;
+  display: none;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat-container .chat-section.active {
+  display: flex;
+  opacity: 0;
+  height: 593px;
+  animation: fadeIn 0.5s forwards;
+}
+
+.chat-container .messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #f8f9fa;
+  border-radius: 20px;
+}
+
+.chat-container .input-bar {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
+.chat-container .input-bar form {
+  display: flex;
+  width: 100%; /* Ensures the form takes the full width */
+  gap: 10px;    /* Adds space between input and button */
+}
+
+.chat-container .input-bar input {
+  flex: 1; /* Makes input field take all available space */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  margin-right: 10px; /* Adds space between input and button */
+}
+.chat-container .input-bar button {
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+.della-respira-regular {
+  font-family: "Della Respira", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+/* Fix for category buttons container */
+.category-buttons,
+.subcategory-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 0;
+}
