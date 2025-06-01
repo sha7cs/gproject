@@ -77,6 +77,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'authentication.middleware.GlobalExceptionMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -206,3 +207,8 @@ X_FRAME_OPTIONS = 'ALLOW-FROM http://127.0.0.1:8000'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
+# for handleing errors 
+handler400 = 'authentication.views.custom_400_view'
+handler403 = 'authentication.views.custom_403_view'
+handler404 = 'authentication.views.custom_404_view'
+handler500 = 'authentication.views.custom_500_view'

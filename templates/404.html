@@ -1,0 +1,10 @@
+{% extends 'base.html'%}
+{% block content%}
+<h1>404 - Page Not Found</h1>
+
+<p>The page you're looking for doesn't exist or may have been moved.</p>
+<div class="mt-4">
+  <a href="{% url 'settings_view' %}" class="btn btn-primary">Go to Settings</a> <br>
+  <a href="{% url 'logout' %}" class="btn btn-outline-danger ml-2">Logout</a>
+</div>
+{% endblock %}
