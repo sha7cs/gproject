@@ -99,3 +99,6 @@ zopfli==0.2.3.post1
 gunicorn
 psycopg2-binary
 dj-database-url
+pymysql
+dj-database-url
+whitenoise
