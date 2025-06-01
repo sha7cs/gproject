@@ -10,9 +10,8 @@ services:
         generateValue: true
       - key: DJANGO_SETTINGS_MODULE
         value: GP.settings
-
-    staticPublishPath: staticfiles
-
-    static:
+    staticPublishPaths:
       - source: staticfiles
         path: /static
+      - source: media
+        path: /media
