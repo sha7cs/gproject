@@ -9,4 +9,9 @@ services:
       - key: DJANGO_SECRET_KEY
         generateValue: true
       - key: DJANGO_SETTINGS_MODULE
-        value: yourprojectname.settings
+        value: GP.settings
+    staticPublishPaths:
+      - source: staticfiles
+        path: /static
+      - source: media
+        path: /media
