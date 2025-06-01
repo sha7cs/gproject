@@ -1,0 +1,14 @@
+{% extends "navbar.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %} {% trans 'error'%}{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+  <div class="mt-4">
+    <a href="{% url 'profile_settings' %}" class="btn btn-primary">{% trans 'Go to Settings' %}</a>
+    <a href="{% url 'logout' %}" class="btn btn-outline-danger ml-2">{% trans 'Logout' %}</a>
+  </div>
+</div>
+{% endblock %}

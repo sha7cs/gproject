@@ -22,6 +22,7 @@ from sklearn.metrics import mean_absolute_error
 
 from django.utils.translation import gettext as _
 from django.conf import settings
+from django.contrib import messages
 
 db = firestore.client()
 
@@ -90,6 +91,7 @@ import pandas as pd
 import json
 import time
 import ast
+import os
 
 def get_sales_data(profile):
     """
@@ -118,17 +120,24 @@ def get_sales_data(profile):
             return df
         elif profile.data_file:
             # Fetch data from CSV file (No need to store in SQLite)
-            df = pd.read_csv(profile.data_file.path)
-            # Process CSV data directly into DataFrame
-            df['business_date'] = pd.to_datetime(df['business_date'], dayfirst=True, errors='coerce')
-            df = df.dropna(subset=['business_date', 'total_price'])
-            df = df.dropna(subset=['business_date', 'total_price'])
-            df['detailed_orders'] = df['detailed_orders'].apply(lambda x: ast.literal_eval(x) if isinstance(x, str) and x else [])
-            return df
+            file_path = profile.data_file.path
+            if not os.path.exists(file_path):
+              return redirect("file_not_found")
+            else:
+                df = pd.read_csv(profile.data_file.path)
+                # Process CSV data directly into DataFrame
+                df['business_date'] = pd.to_datetime(df['business_date'], dayfirst=True, errors='coerce')
+                df = df.dropna(subset=['business_date', 'total_price'])
+                df = df.dropna(subset=['business_date', 'total_price'])
+                df['detailed_orders'] = df['detailed_orders'].apply(lambda x: ast.literal_eval(x) if isinstance(x, str) and x else [])
+                return df
         else:
             # Handle case where neither Firebase nor CSV is available
             raise ValueError("No data source available for this user")
-
+        
+def file_not_found(request):
+    messages.error(request, _("No data source is available for this user. Please upload a CSV or check your connection."))
+    return render(request, 'errors/file_missing.html', status=404)
 
 def set_language(request):
     language = request.GET.get('language')

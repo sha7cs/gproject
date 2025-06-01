@@ -7,5 +7,6 @@ urlpatterns = [
     path('', views.analysis_view, name='analysis'),
     path("sales-report/pdf/", views.sales_report_pdf, name="sales_report_pdf"),
     #path('/analysis/', views.analysis_view, name='analysis'),
+    path('error/',views.file_not_found , name='file_not_found')
 ]
 

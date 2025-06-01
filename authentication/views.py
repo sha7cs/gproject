@@ -22,6 +22,23 @@ from django.core.mail import send_mail
 from django.conf import settings as django_settings
 from django.shortcuts import get_object_or_404
 
+# for handleing error and displaying a costum error template 
+from django.http import HttpResponseServerError
+from django.template import loader
+
+
+def custom_500_view(request):
+    return render(request, '500.html', status=500)
+
+def custom_400_view(request, exception):
+    return render(request, '400.html', status=400)
+
+def custom_403_view(request, exception):
+    return render(request, '403.html', status=403)
+
+def custom_404_view(request, exception):
+    return render(request, '404.html', status=404)
+
 @login_required
 def user_events_view(request):
     user_profile = request.user.userprofile
@@ -133,7 +150,7 @@ class CustomLoginView(LoginView):
             elif user_profile.status == 2:
                 messages.error(self.request, _("Your account has been denied. Contact support."))
                 return reverse_lazy('login')  # Redirect back to login
-            return reverse_lazy('home')  # Approved users go to home
+            return reverse_lazy('settings_view')  # Approved users go to home
         
         # If for some reason the user has no UserProfile, log them out
         messages.error(self.request, _("No profile associated with this account."))

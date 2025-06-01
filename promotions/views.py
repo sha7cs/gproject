@@ -25,7 +25,7 @@ from django.db.models import Q
 from analysis.views import user_data
 
 DB_PATH = "sales_data.db"
-
+import os
 
 def analyze_sales_data(request):
     try:
@@ -33,9 +33,9 @@ def analyze_sales_data(request):
         user_profile = UserProfile.objects.get(user=request.user)
         user_file = user_profile.data_file
         
-        if not user_file:
-            return {"error": "User has not uploaded a CSV file."}
-
+        file_path = user_profile.data_file.path
+        if not os.path.exists(file_path):
+            return redirect("file_not_found")
         # Read the CSV into a pandas DataFrame
         df = pd.read_csv(user_file.path)
         df['business_date'] = pd.to_datetime(df['business_date'], errors='coerce', dayfirst=True)
